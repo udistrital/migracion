@@ -1,5 +1,7 @@
 # el repositorio ingora los archivos jpg del directorio est_fotos
 appserv/est_fotos/*.jpg
+# el repositorio ingora los archivos jpg del directorio fun_fotos
+appserv/fun_fotos/*.jpg
 # el repositorio ingora los archivos pdf del directorio recibos
 weboffice/recibos/*.pdf
 # el repositorio ingora los archivos png del directorio documento
@@ -33,14 +35,17 @@ appserv/CASOS DE USO/
 *.docx
 /academicopro/nbproject/private/
 /appserv/nbproject/private/
-/weboffice/nbproject/private/
-/saraacademica/nbproject/private/
-/docenciaSara/nbproject/private/
-/reportes_udistrital/nbproject/private/
 /docencia/nbproject/private/
+/docenciaSara/nbproject/private/
+/FeXPRO/nbproject/private/
 /gefad/nbproject/private/
-/serviciosacademicos/nbproject/private/
 /lamasu/nbproject/private/
+/recursosHumanos/nbproject/private/
+/reportePagoUD/nbproject/private/
+/reportes_udistrital/nbproject/private/
+/rfisicos/nbproject/private/
+/saraacademica/nbproject/private/
 /saraadministrativa/nbproject/private/
-/saraadmisiones/nbproject/private/
+/serviciosacademicos/nbproject/private/
+/weboffice/nbproject/private/
 /nbproject/private/
