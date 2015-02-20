@@ -1,0 +1,46 @@
+# el repositorio ingora los archivos jpg del directorio est_fotos
+appserv/est_fotos/*.jpg
+# el repositorio ingora los archivos pdf del directorio recibos
+weboffice/recibos/*.pdf
+# el repositorio ingora los archivos png del directorio documento
+weboffice/documento/*.png
+# el repositorio ingora los archivos xls del directorio solicitudes
+weboffice/documento/solicitudes/*.xls
+#Ingora los archivos pdf del directorio funcionarios/certingret
+appserv/funcionario/certingret/*.pdf
+#Ingora los archivos PDF del directorio funcionarios/certingret
+appserv/funcionario/certingret/*.PDF
+#Ingora los archivos PDF del directorio funcionarios/certingret
+appserv/informes/
+#Ingora los archivos PDF
+*.PDF
+#Ingora los archivos PDF
+*.pdf
+#Ingora los archivos zip
+*.zip
+#Ingora directorio CASOS DE USO
+appserv/CASOS DE USO/
+#Ingora los archivos .log
+*.log
+#Ingora archivos teminados en ~
+*~
+#Ingora archivos con extensión .swp
+*.swp
+#Ingora archivos con extensión excell office
+*.xlsx
+*.xls
+*.doc
+*.docx
+/academicopro/nbproject/private/
+/appserv/nbproject/private/
+/weboffice/nbproject/private/
+/saraacademica/nbproject/private/
+/docenciaSara/nbproject/private/
+/reportes_udistrital/nbproject/private/
+/docencia/nbproject/private/
+/gefad/nbproject/private/
+/serviciosacademicos/nbproject/private/
+/lamasu/nbproject/private/
+/saraadministrativa/nbproject/private/
+/saraadmisiones/nbproject/private/
+/nbproject/private/
