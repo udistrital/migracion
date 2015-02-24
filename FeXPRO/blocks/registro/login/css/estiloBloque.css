@@ -1,0 +1,52 @@
+.errorLogin {
+	width: 100%;
+	float: left;
+	margin: 0px auto;
+	border-collapse: collapse;
+	border-width: 0px;
+	border-style: solid;
+	border-color: #000000;
+	border-spacing: 0px;
+	padding: 10px 5px 10px 5px;
+        color: #d00;
+        background-color: #FFF;
+        display:block;
+        alignment-adjust: central;
+}
+
+#fondo
+{
+    float: left;
+    width: 1280px;
+    height: 568px;
+    background-image: url('images/kyron.png');
+    background-repeat: no-repeat;
+    margin: 0 auto 0 auto;
+}
+
+#datos
+{
+    position: absolute;
+    top:  150px; 
+    left: 550px;
+    margin:0 auto;
+    text-align:center;
+}
+
+#divpie
+{
+    position: absolute;
+    bottom: 50px; 
+    left: 550px;
+}
+
+#pie{ 
+    font-family:Arial;
+    font-size:11px;
+    margin:0 auto;
+    text-align:center; 
+    
+ }
+
+ 
+ 
