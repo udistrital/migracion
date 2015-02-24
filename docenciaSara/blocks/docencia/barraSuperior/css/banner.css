@@ -1,0 +1,17 @@
+
+.textoNombre { 
+  font: 200% sans-serif; 
+  line-height: 140px;
+  text-align: right;
+  font-weight: 900;
+}
+
+.banner {
+    
+    background-image:url('../imagen/banner.png');
+    background-repeat:no-repeat;
+    background-color: #000000;
+    height:100px;
+    color:#FFFFFF;
+    padding: 5px;
+}

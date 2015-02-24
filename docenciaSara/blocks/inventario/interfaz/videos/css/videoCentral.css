@@ -1,0 +1,7 @@
+
+.videoCentrado{
+	float: right;
+        padding-right: 80px;
+        padding-top: 50px;
+        z-index:-10;
+}
