@@ -1,0 +1,240 @@
+/* The main calendar widget.  DIV containing a table. */
+div.calendar {
+position:relative;
+}
+.calendar, .calendar table {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:white none repeat scroll 0 0;
+border:1px solid #556655;
+color:#000000;
+cursor:default;
+font-family:tahoma,verdana,sans-serif;
+font-size:11px;
+}
+.calendar .button {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:black none repeat scroll 0 0;
+color:#FFFFFF;
+font-size:90%;
+padding:2px;
+text-align:center;
+}
+.calendar .nav {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:black url(menuarrow.gif) no-repeat scroll 100% 100%;
+}
+.calendar thead .title {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:black none repeat scroll 0 0;
+color:#EEFFAA;
+font-weight:bold;
+padding:2px;
+text-align:center;
+}
+.calendar thead .headrow {
+}
+.calendar thead .name {
+border-bottom:1px solid black;
+color:#000000;
+padding:2px;
+text-align:center;
+}
+.calendar thead .weekend {
+color:#AA6666;
+}
+.calendar thead .hilite {
+border:1px solid red;
+color:#000000;
+padding:1px;
+}
+.calendar thead .active {
+background-color:#77CC77;
+padding:2px 0 0 2px;
+}
+.calendar thead .daynames {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#cccccc none repeat scroll 0 0;
+}
+.calendar tbody .day {
+color:black;
+padding:2px 4px 2px 2px;
+text-align:right;
+width:2em;
+}
+.calendar tbody .day.othermonth {
+color:#BBBBBB;
+font-size:80%;
+}
+.calendar tbody .day.othermonth.oweekend {
+color:#FFBBBB;
+}
+.calendar table .wn {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#bbbbbb none repeat scroll 0 0;
+border-right:1px solid #88AA88;
+padding:2px 3px 2px 2px;
+}
+.calendar tbody .rowhilite td {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#DDFFDD none repeat scroll 0 0;
+}
+.calendar tbody .rowhilite td.wn {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#EEFFEE none repeat scroll 0 0;
+}
+.calendar tbody td.hilite {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#EEFFDD none repeat scroll 0 0;
+border:1px solid #BBBBBB;
+padding:1px 3px 1px 1px;
+}
+.calendar tbody td.active {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#DDEECC none repeat scroll 0 0;
+padding:2px 2px 0;
+}
+.calendar tbody td.selected {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#F8FFF8 none repeat scroll 0 0;
+border:1px solid #000000;
+color:#000000;
+font-weight:bold;
+padding:1px 3px 1px 1px;
+}
+.calendar tbody td.weekend {
+color:#AA6666;
+}
+.calendar tbody td.today {
+color:#00AA00;
+font-weight:bold;
+}
+.calendar tbody .disabled {
+color:#999999;
+}
+.calendar tbody .emptycell {
+visibility:hidden;
+}
+.calendar tbody .emptyrow {
+display:none;
+}
+.calendar tfoot .footrow {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:black none repeat scroll 0 0;
+color:#FFFFFF;
+text-align:center;
+}
+.calendar tfoot .ttip {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:black none repeat scroll 0 0;
+color:#EEFFAA;
+padding:2px;
+}
+.calendar tfoot .hilite {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#AAFFAA none repeat scroll 0 0;
+border:1px solid #008844;
+color:#000000;
+padding:1px;
+}
+.calendar tfoot .active {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#77CC77 none repeat scroll 0 0;
+padding:2px 0 0 2px;
+}
+.calendar .combo {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#EEFFDD none repeat scroll 0 0;
+border:1px solid #556655;
+color:#000000;
+cursor:default;
+display:none;
+font-size:90%;
+left:0;
+position:absolute;
+top:0;
+width:4em;
+z-index:100;
+}
+.calendar .combo .label, .calendar .combo .label-IEfix {
+padding:1px;
+text-align:center;
+}
+.calendar .combo .label-IEfix {
+width:4em;
+}
+.calendar .combo .hilite {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#AAFF88 none repeat scroll 0 0;
+}
+.calendar .combo .active {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#EEFFEE none repeat scroll 0 0;
+border-bottom:1px solid #66AA44;
+border-top:1px solid #66AA44;
+font-weight:bold;
+}
+.calendar td.time {
+background-color:#DDFFBB;
+border-top:1px solid #88AA88;
+padding:1px 0;
+text-align:center;
+}
+.calendar td.time .hour, .calendar td.time .minute, .calendar td.time .ampm {
+background-color:#FFFFFF;
+border:1px solid #889988;
+font-weight:bold;
+padding:0 3px 0 4px;
+}
+.calendar td.time .ampm {
+text-align:center;
+}
+.calendar td.time .colon {
+font-weight:bold;
+padding:0 2px 0 3px;
+}
+.calendar td.time span.hilite {
+background-color:black;
+border-color:#000000;
+color:#FFFFFF;
+}
+.calendar td.time span.active {
+background-color:#000000;
+border-color:#FF0000;
+color:#00FF00;
+}

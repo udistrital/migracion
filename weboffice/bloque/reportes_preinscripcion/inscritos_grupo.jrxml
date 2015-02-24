@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inscritos_grupo" language="groovy" pageWidth="572" pageHeight="752" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFE0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="codProyecto" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+INS_ANO,
+INS_PER,
+INS_ASI_COD,
+INS_GR,
+COUNT(INS_EST_COD)
+FROM ACINSPRE, ACASPERI
+WHERE APE_ESTADO ='A'
+AND INS_CRA_COD =  $P{codProyecto}
+AND INS_ANO = APE_ANO
+AND INS_PER = APE_PER
+GROUP BY INS_ANO, INS_PER, INS_ASI_COD, INS_GR
+ORDER BY 1,2]]>
+	</queryString>
+	<field name="INS_ANO" class="java.math.BigDecimal"/>
+	<field name="INS_PER" class="java.math.BigDecimal"/>
+	<field name="INS_ASI_COD" class="java.math.BigDecimal"/>
+	<field name="INS_GR" class="java.math.BigDecimal"/>
+	<field name="COUNT(INS_EST_COD)" class="java.math.BigDecimal"/>
+	<variable name="INS_EST_COD_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="asignatura">
+		<groupExpression><![CDATA[$F{COUNT(INS_EST_COD)}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement style="table_TD" x="328" y="0" width="100" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{COUNT(INS_EST_COD)}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="table_TD" x="128" y="0" width="100" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{INS_ASI_COD}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="table_TD" x="228" y="0" width="100" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{INS_GR}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="31">
+			<staticText>
+				<reportElement style="table_TH" x="128" y="0" width="100" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ASIGNATURA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="228" y="0" width="100" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRUPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="328" y="0" width="100" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO ESTUDIANTES]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+</jasperReport>

@@ -1,0 +1,145 @@
+{% extends "simple.twig.html" %}
+
+
+{% block titulo_bloque1 %}
+	Novedades de Notas
+{% endblock %}
+{% block contenido_bloque1 %}
+	<fieldset>
+		<legend>Consultar Estudiante</legend>
+		<form action='index.php' id='form_consulta' name='form_consulta'>
+		<table border='0' style='font-size:10pt; margin: auto;'>
+				<tr>
+					<td COLSPAN='2'>Código</td>			
+					<td>Apellidos y Nombres</td>
+					<td>Pen</td>
+					<td>Promedio</td>	
+					<td>Sem</td>	
+					<td>Identificación</td>	
+					<td></td>
+				</tr>
+				<tr>
+					<td COLSPAN='2'><input type='text' name='filtroEstudiante' class='required' /></td>			
+					<td><input type='text' name='filtroNombre'/></td>
+					<td><input type='text' name='filtroPlan'  size='3' /></td>	
+					<td><input type='text' name='filtroPromedio'  size='3' /></td>	
+					<td><input type='text' name='filtroSemestre'  size='2' /></td>	
+					<td><input type='text' name='filtroIdentificacion'/></td>				
+					<td ROWSPAN='3'><input type='submit'  class='submit'  name='log' style="height='100px' background:url('estilo/templates/template_1/images/search.png')" value='Consultar'/></td>
+					<td></td>
+
+				</tr>
+				<tr>
+					<td>Carrera</td>	
+					<td><input size='3' type='text' name='codcarrera'/></td>
+					<td><input type='text' name='carrera'/></td>
+					<td></td>
+					<td>Estado</td>
+					<td><input type='text' name='estado'  size='2' 	/></td>
+					<td>{{textoestado}}</td>
+					<td><input type='button' name='log' value='Log'/></td>
+
+				</tr>			
+		</table>
+		<input type='hidden' name='action' value='admin_novedadesNotas'>
+		<input type='hidden' name='opcion' value='consultarRegistros'>
+		</form>
+	</fieldset>
+{% endblock %}
+
+{% block mensaje %}
+	<b style='color:red'>{{ mensaje }}</b>
+	<b style='color:blue'>
+		{% if registroAnterior %}
+			<a href="{{registroAnterior}}">< Anterior</a> 
+		{% endif %}
+		
+			Registro {{ registroActual }} de {{ totalRegistros }} 
+		{% if registroSiguiente %}	
+			<a href="{{registroSiguiente}}"> Siguiente ></a>
+		{% endif %}
+		
+	</b>
+{% endblock %}
+
+{% block contenido_bloque2 %}
+	
+	<fieldset>
+		<legend>REGISTRO ACTUAL:<b style='color:blue'> CÓDIGO: {{ notas.0.0.11 }} NOMBRE: {{ notas.0.0.12 }}</b></legend>
+		<table class="content_box" style="margin: auto;" >
+			<tr><td>Código</td><td>Gr</td><td>Sem</td><td>Nombre de la Asignatura</td><td>Año</td><td>Per</td><td>Nota</td><td>Observación</td><td>Est</td><td></td></tr>
+			
+			{% for registro in notas %}
+			
+				<form action='index.php'>
+			
+					<tr id='reg_{{registro.9}}' style='background:#FFFFFF'>
+						
+						<input type='hidden' size='2' id="carrera" name="carrera" value='{{ registro.10 }}'> <!--carrera-->
+						<input type='hidden' size='2' id="estudiante" name="estudiante" value='{{ registro.11 }}'> <!--estudiante-->
+						<input type='hidden' size='2' id="asig" name="asig" value='{{ registro.0 }}'> <!--asignatura-->
+						<input type='hidden' size='2' id="anio" name="anio" value='{{ registro.4 }}'> <!--año-->
+						<input type='hidden' size='2' id="per" name="per" value='{{ registro.5 }}'> <!--periodo-->
+						
+						<input type='hidden' size='2' id="nota_org" name="nota_org" value='{{ registro.6 }}'> <!--nota original-->
+						<input type='hidden' size='2' id="obs_org" name="obs_org" value='{{ registro.7 }}'> <!--observacion original-->
+						<input type='hidden' size='2' id="estado_org" name="estado_org" value='{{ registro.8 }}'> <!--estado original-->
+						
+						
+						<input type='hidden' size='2' id="action" name='action' value='admin_novedadesNotas'> <!--action-->
+						<input type='hidden' size='2' id="opcion" name='opcion' value='actualizarNota'> <!--action-->
+						
+						
+						<td>{{ registro.0 }}</td>
+						<td>{{ registro.1 }}</td>
+						<td>{{ registro.2 }}</td>
+						<td>{{ registro.3 }}</td>
+						<td>{{ registro.4 }}</td>
+						<td>{{ registro.5 }}</td>
+						<td>
+							<input type='text' size='2' id="nota" name="nota" value='{{ registro.6 }}'>
+						</td>
+						<td>
+							<select style="width:35px" id="obs" name="obs">
+								{% for observacion in observaciones %}
+									{% if registro.7 == observacion.0 %}
+										<option type='text' size='2' value='{{observacion.0}}' selected >{{observacion.0}} - {{observacion.1}} </option>
+									{% else %}
+										<option type='text' size='2' value='{{observacion.0}}' >{{observacion.0}} - {{observacion.1}} </option>
+									{% endif %}
+								{% endfor %}
+							</select>	
+						</td>
+						
+						<td>
+							<select style="width:35px" id="estado" name="estado" value='{{ registro.8 }}'> 
+									{% if registro.8 == 'A' %}
+										<option type='text' size='2' value='A' selected >A</option>
+									{% else %}
+										<option type='text' size='2' value='A' >A</option>
+									{% endif %}
+									{% if registro.8 == 'I' %}
+										<option type='text' size='2' value='I' selected >I</option>
+									{% else %}
+										<option type='text' size='2' value='I' >I</option>
+									{% endif %}
+							</select>		
+						</td>
+						<td>
+							<button onclick='$(this).submit()' value='Modificar' style="width:45px; height:45px">
+								<img src='estilo/templates/template_1/images/save.png'>
+							</button>
+						</td>
+					</tr>
+				</form>
+			{% endfor %}
+		</table>
+	</fieldset>
+	
+	<ul class="tmo_list">
+		<li>Si tiene más de un tipo de usuario como: (Decano, Coordinador ó Docente), haga clic en el usuario deseado, en la lista "Cambiar a Usuario".</li>
+		<li>La manera segura de salir de esta página, es haciendo clic en el vínculo "Salir". De esta forma nos aseguramos que otras personas no puedan manipular sus datos.</li>
+	</ul>
+{% endblock %}
+
+

@@ -1,0 +1,1759 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="nombre_reporte" language="groovy" pageWidth="572" pageHeight="752" whenNoDataType="NoDataSection" columnWidth="572" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFE0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/usr/local/apache/htdocs/weboffice/bloque/reportes_preinscripcion/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="usuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="anio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT unique CIR_EMP_NRO_IDEN,
+   CIR_ANO,
+   CIR_DESDE,
+   to_char(CIR_DESDE,'yyyy') DESDEA,
+   to_char(CIR_DESDE,'mm') DESDEM,
+   to_char(CIR_DESDE,'dd') DESDED,
+   CIR_HASTA,
+   to_char(CIR_HASTA,'yyyy') HASTAA,
+   to_char(CIR_HASTA,'mm') HASTAM,
+   to_char(CIR_HASTA,'dd') HASTAD,
+   CIR_SALARIO,
+   CIR_CESANTIA,
+   CIR_GASTOS_REPRESENTACION,
+   CIR_PENSION,
+   CIR_OTROS,
+   CIR_TOTAL_INGRESOS,
+   CIR_APORTES_SALUD,
+   CIR_APORTE_VOLUNTARIO,
+   nvl(CIR_APORTES_PENSION,0),
+   CIR_EXENTAS,
+   CIR_RETENCION,
+   CIR_ESTADO,
+   EMP_NOMBRE,
+   SYSDATE,
+   to_char(sysdate,'yyyy') FECHAA,
+   to_char(sysdate,'mm') FECHAM,
+   to_char(sysdate,'dd') FECHAD,
+------------------------------------------------------------------------------
+   (select EMP_NOMBRE
+    from MNTPE.PEEMP, MNTGE.GELUGAR
+    where EMP_CAR_COD = 5
+       and EMP_ESTADO_E = 'A'
+       and EMP_LUG_COD_IDEN = LUG_COD) NOMBRETESORERO,
+   (select EMP_NRO_IDEN
+    from MNTPE.PEEMP, MNTGE.GELUGAR
+    where EMP_CAR_COD = 5
+       and EMP_ESTADO_E = 'A'
+       and EMP_LUG_COD_IDEN = LUG_COD) CEDULATESORERO,
+   (select LUG_NOMBRE
+    from MNTPE.PEEMP, MNTGE.GELUGAR
+    where EMP_CAR_COD = 5
+       and EMP_ESTADO_E = 'A'
+       and EMP_LUG_COD_IDEN = LUG_COD) LUGARTESORERO,
+------------------------------------------------------------------------------
+  (SELECT FUA_REDONDEO_MIL(4500 * UVT_VALOR)
+   FROM PEVALORUVT
+   WHERE UVT_ANO = $P{anio}) UVT45,
+  (SELECT FUA_REDONDEO_MIL(4073 * UVT_VALOR)
+   FROM PEVALORUVT
+   WHERE UVT_ANO = $P{anio}) UVT33,
+  (SELECT FUA_REDONDEO_MIL(2800 * UVT_VALOR)
+   FROM PEVALORUVT
+   WHERE UVT_ANO = $P{anio}) UVT28
+------------------------------------------------------------------------------
+FROM PRCERINGRET2004, PEEMP, DUAL
+WHERE CIR_EMP_NRO_IDEN = EMP_NRO_IDEN
+   and CIR_ANO = $P{anio}
+   and EMP_NRO_IDEN = $P{usuario}
+   and EMP_ESTADO = 'A'
+   and CIR_ESTADO = 'A'
+ORDER BY EMP_NOMBRE ASC]]>
+	</queryString>
+	<field name="CIR_EMP_NRO_IDEN" class="java.math.BigDecimal"/>
+	<field name="CIR_ANO" class="java.math.BigDecimal"/>
+	<field name="CIR_DESDE" class="java.sql.Timestamp"/>
+	<field name="DESDEA" class="java.lang.String"/>
+	<field name="DESDEM" class="java.lang.String"/>
+	<field name="DESDED" class="java.lang.String"/>
+	<field name="CIR_HASTA" class="java.sql.Timestamp"/>
+	<field name="HASTAA" class="java.lang.String"/>
+	<field name="HASTAM" class="java.lang.String"/>
+	<field name="HASTAD" class="java.lang.String"/>
+	<field name="CIR_SALARIO" class="java.math.BigDecimal"/>
+	<field name="CIR_CESANTIA" class="java.math.BigDecimal"/>
+	<field name="CIR_GASTOS_REPRESENTACION" class="java.math.BigDecimal"/>
+	<field name="CIR_PENSION" class="java.math.BigDecimal"/>
+	<field name="CIR_OTROS" class="java.math.BigDecimal"/>
+	<field name="CIR_TOTAL_INGRESOS" class="java.math.BigDecimal"/>
+	<field name="CIR_APORTES_SALUD" class="java.math.BigDecimal"/>
+	<field name="CIR_APORTE_VOLUNTARIO" class="java.math.BigDecimal"/>
+	<field name="NVL(CIR_APORTES_PENSION,0)" class="java.math.BigDecimal"/>
+	<field name="CIR_EXENTAS" class="java.math.BigDecimal"/>
+	<field name="CIR_RETENCION" class="java.math.BigDecimal"/>
+	<field name="CIR_ESTADO" class="java.lang.String"/>
+	<field name="EMP_NOMBRE" class="java.lang.String"/>
+	<field name="SYSDATE" class="java.sql.Timestamp"/>
+	<field name="FECHAA" class="java.lang.String"/>
+	<field name="FECHAM" class="java.lang.String"/>
+	<field name="FECHAD" class="java.lang.String"/>
+	<field name="NOMBRETESORERO" class="java.lang.String"/>
+	<field name="CEDULATESORERO" class="java.math.BigDecimal"/>
+	<field name="LUGARTESORERO" class="java.lang.String"/>
+	<field name="UVT45" class="java.math.BigDecimal"/>
+	<field name="UVT33" class="java.math.BigDecimal"/>
+	<field name="UVT28" class="java.math.BigDecimal"/>
+	<group name="grupo">
+		<groupExpression><![CDATA[]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="61" splitType="Stretch">
+			<frame>
+				<reportElement x="10" y="0" width="560" height="61"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<staticText>
+					<reportElement x="72" y="1" width="418" height="25"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="13" isBold="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[Certificado de Ingresos y Retenciones]]></text>
+				</staticText>
+				<image>
+					<reportElement x="11" y="4" width="52" height="56"/>
+					<imageExpression class="java.lang.String"><![CDATA["/usr/local/apache/htdocs/weboffice/bloque/CertificadoIngresosRetencion/universidad.jpg"]]></imageExpression>
+				</image>
+			</frame>
+			<staticText>
+				<reportElement x="82" y="23" width="419" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Año Gravable]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="241" y="41" width="100" height="16"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="13"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CIR_ANO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="690" splitType="Stretch">
+			<rectangle>
+				<reportElement x="289" y="100" width="27" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="237" y="100" width="27" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="264" y="100" width="27" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="-1" y="2" width="13" height="560"/>
+				<textElement rotation="Left" markup="none">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[NOTA: Este cartificado sustituye para todos los efectos legales la declaración de renta y complementarios para los asalariados que lo firmen.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="29" width="545" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Razón Social]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="224" y="69" width="344" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EMP_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="222" y="53" width="85" height="16"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Apellidos y Nombres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="39" width="522" height="14"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDAD DISTRITAL FRANCISCO JOSE DE CALDAS]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="10" y="88" width="212" height="29"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<staticText>
+					<reportElement x="46" y="11" width="13" height="14"/>
+					<textElement/>
+					<text><![CDATA[-]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="70" y="11" width="13" height="14"/>
+					<textElement/>
+					<text><![CDATA[-]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="154" y="11" width="13" height="14"/>
+					<textElement/>
+					<text><![CDATA[-]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="174" y="11" width="13" height="14"/>
+					<textElement/>
+					<text><![CDATA[-]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement x="69" y="51" width="153" height="37"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="103" y="13" width="465" height="13"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[899999230   -     7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="2" width="10" height="47"/>
+				<textElement textAlignment="Center" rotation="Left" markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Retenedor]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="10" y="51" width="12" height="37"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<textField pattern="#,##0">
+				<reportElement x="78" y="69" width="139" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$F{CIR_EMP_NRO_IDEN}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="222" y="51" width="348" height="37"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="22" y="26" width="548" height="25"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="23" y="2" width="545" height="11"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Número de Identificación Tributaria (NIT)       DV.]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="22" y="51" width="47" height="37"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<staticText>
+					<reportElement x="14" y="22" width="14" height="15"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="10"/>
+					</textElement>
+					<text><![CDATA[13]]></text>
+				</staticText>
+			</frame>
+			<staticText>
+				<reportElement x="70" y="53" width="147" height="16"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Número de documento de Identificación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="50" width="10" height="38"/>
+				<textElement textAlignment="Center" rotation="Left" markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Asalariado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="88" width="209" height="10"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Período de la Certificación]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="166" y="98" width="20" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HASTAM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="98" width="26" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HASTAA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="98" width="20" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HASTAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="31" y="99" width="27" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESDEA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="98" width="21" height="16"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[De:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="62" y="99" width="20" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESDEM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="99" width="20" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESDED}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="118" y="98" width="21" height="16"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[A:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="293" y="100" width="24" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FECHAD}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="53" width="46" height="20"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Cod. Tipo Documento]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="269" y="100" width="21" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FECHAM}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="224" y="89" width="100" height="10"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Fecha de Expedición]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="222" y="88" width="104" height="29"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<textField>
+				<reportElement x="238" y="100" width="27" height="14"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FECHAA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="326" y="89" width="151" height="10"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Lugar donde se practicó la retención]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="479" y="89" width="42" height="11"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Cod. Dpto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="523" y="89" width="45" height="11"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Cod. Ciudad]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="326" y="88" width="153" height="29"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="479" y="88" width="44" height="29"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="326" y="100" width="151" height="13"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[BOGOTA (CUNDINAMARCA)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="480" y="101" width="42" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[11]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="523" y="101" width="45" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[001]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="523" y="88" width="47" height="29"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="10" y="117" width="560" height="19" forecolor="#C0C0C0" backcolor="#C0C0C0"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="73" y="119" width="261" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Concepto de los Ingresos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="501" y="119" width="36" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="136" width="465" height="12"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Salarios]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="10" y="136" width="470" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<textField pattern="$#,##0" isBlankWhenNull="false">
+				<reportElement x="480" y="136" width="90" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CIR_SALARIO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="148" width="468" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Cesantías e intereses de cesantías efectivamente pagadas en el período]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="160" width="466" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Gastos de representación]]></text>
+			</staticText>
+			<textField pattern="$#,##0">
+				<reportElement x="480" y="149" width="88" height="11"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CIR_CESANTIA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0">
+				<reportElement x="480" y="160" width="88" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CIR_GASTOS_REPRESENTACION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="172" width="466" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Pensiones de jubilación, vejez o invalidez]]></text>
+			</staticText>
+			<textField pattern="$#,##0">
+				<reportElement x="480" y="172" width="88" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CIR_PENSION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="184" width="466" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Otros ingresos originados en la relación laboral]]></text>
+			</staticText>
+			<textField pattern="$#,##0">
+				<reportElement x="480" y="184" width="88" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CIR_OTROS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="196" width="470" height="12" backcolor="#E6E7E8"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Total de ingresos brutos]]></text>
+			</staticText>
+			<textField pattern="$#,##0">
+				<reportElement mode="Opaque" x="480" y="196" width="90" height="12" backcolor="#E6E7E8"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CIR_TOTAL_INGRESOS}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="10" y="148" width="470" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="10" y="172" width="470" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="10" y="160" width="470" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="10" y="184" width="470" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Transparent" x="10" y="260" width="470" height="12" backcolor="#DFDFDF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="148" width="90" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="160" width="90" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="184" width="90" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="172" width="90" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="196" width="90" height="12" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="136" width="90" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="10" y="208" width="560" height="19" backcolor="#C0C0C0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="73" y="212" width="261" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Concepto de los Aportes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="211" width="36" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="227" width="468" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Aportes obligatorios por salud]]></text>
+			</staticText>
+			<textField pattern="$#,##0">
+				<reportElement x="480" y="227" width="89" height="11"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CIR_APORTES_SALUD}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="238" width="466" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Aportes obligatorios a fondos de pensiones y solidaridad pensional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="249" width="468" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Aportes voluntarios a fondos de pensiones y cuentas AFC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="11" y="260" width="468" height="11" backcolor="#E6E7E8"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Valor de la retención en la fuente por salarios y demas pagos laborales]]></text>
+			</staticText>
+			<textField pattern="$#,##0">
+				<reportElement x="480" y="238" width="90" height="11"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{NVL(CIR_APORTES_PENSION,0)}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0">
+				<reportElement x="480" y="249" width="90" height="11"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CIR_APORTE_VOLUNTARIO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0">
+				<reportElement mode="Opaque" x="480" y="260" width="90" height="12" backcolor="#E6E7E8"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CIR_RETENCION}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="10" y="227" width="470" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="10" y="238" width="470" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="10" y="249" width="470" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="227" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="238" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="249" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="260" width="90" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="12" y="274" width="236" height="9"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Firma del retenedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="276" width="144" height="20"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[SIN FIRMA AUTOGRAFA, ARTICULO 10 DECRETO 836 DE 1991]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="274" width="134" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[C.C.]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="10" y="272" width="560" height="29"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textField>
+					<reportElement x="49" y="14" width="178" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{NOMBRETESORERO}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0">
+					<reportElement x="247" y="14" width="125" height="12"/>
+					<textElement/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CEDULATESORERO}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="10" y="301" width="560" height="17" backcolor="#C0C0C0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="8" y="304" width="560" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Datos a cargo del asalariado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="318" width="376" height="12" backcolor="#E6E7E8"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Concepto de otros ingresos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="386" y="318" width="94" height="12" backcolor="#E6E7E8"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Valor Recibido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="480" y="318" width="90" height="12" backcolor="#E6E7E8"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Valor Retenido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="330" width="376" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Arrendamientos]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="386" y="330" width="94" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="330" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="10" y="341" width="376" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Honorarios, comisiones y servicios]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="386" y="341" width="94" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="341" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="10" y="352" width="376" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Intereses y rendimientos financieros]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="386" y="352" width="94" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="352" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="10" y="363" width="376" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Enajenación de activos fijos]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="386" y="363" width="94" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="363" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="10" y="374" width="376" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Loterías, rifas, apuestas y similares]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="386" y="374" width="94" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="374" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="10" y="385" width="376" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Otros]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="386" y="385" width="94" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="385" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="10" y="396" width="376" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Totales]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="386" y="396" width="94" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="396" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="10" y="407" width="376" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Total retenciones año gravable]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="386" y="407" width="94" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="407" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="418" width="470" height="12" backcolor="#C0C0C0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Identificación de los bienes poseidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="480" y="418" width="90" height="12" backcolor="#C0C0C0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Valor Patrimonial]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="10" y="430" width="470" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="10" y="441" width="470" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="10" y="452" width="470" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="10" y="463" width="470" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="430" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="441" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="452" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="463" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="474" width="90" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="10" y="474" width="180" height="12"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Deudas vigentes a 31 de Diciembre de]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="10" y="474" width="470" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<textField>
+				<reportElement x="191" y="474" width="100" height="12"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HASTAA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="486" width="560" height="12" backcolor="#C0C0C0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Identificación de las personas legalmente a cargo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="498" width="110" height="12" backcolor="#C0C0C0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[C.C. o NIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="120" y="498" width="360" height="12" backcolor="#C0C0C0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Apellidos y Nombres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="480" y="498" width="90" height="12" backcolor="#C0C0C0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Parentesco]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="10" y="510" width="470" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="10" y="523" width="470" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="10" y="536" width="470" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="10" y="549" width="470" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="510" width="90" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="523" width="90" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="536" width="90" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="480" y="549" width="90" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="411" y="562" width="159" height="128"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<text><![CDATA[  Firma del asalariado]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="10" y="0" width="12" height="51"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<textField>
+				<reportElement x="157" y="407" width="100" height="12"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HASTAA}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="22" y="0" width="548" height="26"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="14" y="565" width="141" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Certifico que durante el año gravable]]></text>
+			</staticText>
+			<textField pattern="">
+				<reportElement x="155" y="565" width="100" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HASTAA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="577" width="392" height="9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<text><![CDATA[1. Por lo menos el 80% de mis ingresos brutos provinieron de una relación laboral o legal reglamentaria.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="588" width="251" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<text><![CDATA[2. Mi patrimonio bruto era igual o inferior a cuatro mil quineintos (4.500) UVT]]></text>
+			</staticText>
+			<textField pattern="$#,##0">
+				<reportElement x="265" y="588" width="51" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{UVT45}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="600" width="368" height="9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<text><![CDATA[3. No fui responsable del impuesto sobre las ventas.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="611" width="275" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<text><![CDATA[4. Mis ingresos totales fueron iguales o inferiores a cuatro mil setenta y tres (4.073) UVT]]></text>
+			</staticText>
+			<textField pattern="$#,##0">
+				<reportElement x="289" y="611" width="45" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{UVT33}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0">
+				<reportElement x="343" y="637" width="43" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{UVT28}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="623" width="338" height="12"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<text><![CDATA[5. Mis consumos mediante tarjeta de crédito no excedieron la suma de dos mil ochocientos (2.800) UVT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="651" width="373" height="17"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<text><![CDATA[7. Que el valor total de mis consignaciones bancarias, depósitos o inversiones financieras no excedieron los cuatro mil quinientos (4.500) UVT]]></text>
+			</staticText>
+			<textField pattern="$#,##0">
+				<reportElement x="91" y="657" width="46" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{UVT45}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="637" width="329" height="12"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<text><![CDATA[6. Que el total de mis compras y consumos no superaron la suma de dos mil ochocientos (2.800) UVT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="670" width="351" height="18"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<text><![CDATA[Por lo tanto, manifiesto que no estoy obligado a presentar declaración de renta y complementarios por el año gravable]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="677" width="102" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESDEA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0">
+				<reportElement x="352" y="623" width="44" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{UVT28}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="10" y="562" width="401" height="128"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+		</band>
+	</pageHeader>
+	<noData>
+		<band height="288">
+			<staticText>
+				<reportElement x="99" y="135" width="418" height="38"/>
+				<textElement textAlignment="Justified" markup="none">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Estimado funcionario, usted no tiene registros de ingresos y retenciones para el año seleccionado, comuníquese con la División de Recursos Humanos, Ext. 2600.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="32" y="23" width="52" height="56"/>
+				<imageExpression class="java.lang.String"><![CDATA["/usr/local/apache/htdocs/weboffice/bloque/CertificadoIngresosRetencion/universidad.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="99" y="45" width="418" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="13" isBold="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Certificado de Ingresos y Retenciones]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

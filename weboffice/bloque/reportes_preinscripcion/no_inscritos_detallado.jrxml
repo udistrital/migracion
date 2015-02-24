@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="no_inscritos_detallado" language="groovy" pageWidth="572" pageHeight="752" columnWidth="572" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFE0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="codProyecto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT ape_ano rep_ano,
+ape_per rep_per,
+cra_cod rep_cra,
+cra_nombre,
+rep_nro_pen,
+REP_TIPO,
+DECODE(TRIM(REP_TIPO),'N','ESTUDIANTES NIVELADOS','P','ASIGNATURAS PERDIDAS','O','OTRAS ASIGNATURAS') TIPO,
+rep_obs,
+rep_est_cod,
+asi_cod,
+asi_nombre
+FROM acasperi, accra, acasi, tmp_resulpreins
+WHERE ape_estado = 'A'
+AND ape_ano = rep_ano
+AND ape_per = rep_per
+AND cra_cod = rep_cra
+AND asi_cod = rep_pen_asi_cod
+AND rep_cra = $P{codProyecto}
+AND rep_ins = 'N'
+ORDER BY  ape_ano,
+ape_per,
+cra_cod,
+rep_nro_pen,
+rep_tipo,
+rep_obs,
+DECODE(1,1,asi_cod,2,rep_est_cod),
+DECODE(2,1,rep_est_cod,2,asi_cod) ASC]]>
+	</queryString>
+	<field name="REP_ANO" class="java.math.BigDecimal"/>
+	<field name="REP_PER" class="java.math.BigDecimal"/>
+	<field name="REP_CRA" class="java.math.BigDecimal"/>
+	<field name="CRA_NOMBRE" class="java.lang.String"/>
+	<field name="REP_NRO_PEN" class="java.math.BigDecimal"/>
+	<field name="REP_TIPO" class="java.lang.String"/>
+	<field name="TIPO" class="java.lang.String"/>
+	<field name="REP_OBS" class="java.lang.String"/>
+	<field name="REP_EST_COD" class="java.math.BigDecimal"/>
+	<field name="ASI_COD" class="java.math.BigDecimal"/>
+	<field name="ASI_NOMBRE" class="java.lang.String"/>
+	<group name="tipo_estud">
+		<groupExpression><![CDATA[$F{TIPO}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<staticText>
+					<reportElement x="0" y="0" width="115" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[ PROCEDIMIENTO:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="115" y="0" width="277" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{TIPO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="pensum_estud">
+		<groupExpression><![CDATA[$F{REP_NRO_PEN}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<staticText>
+					<reportElement x="0" y="0" width="66" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[ PENSUM: ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="66" y="0" width="100" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{REP_NRO_PEN}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="observacion_estud">
+		<groupExpression><![CDATA[$F{REP_OBS}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[ OBSERVACIÓN: ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="100" y="0" width="339" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{REP_OBS}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="titulos_estud">
+		<groupExpression><![CDATA[$F{REP_OBS}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<staticText>
+					<reportElement style="table_TH" x="85" y="5" width="100" height="25"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[CÓDIGO ASIGNATURA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" x="185" y="5" width="235" height="25"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[NOMBRE ASIGNATURA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" x="420" y="5" width="100" height="25"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[COD ESTUDIANTE]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="asignatura_estud">
+		<groupExpression><![CDATA[$F{REP_EST_COD}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement style="table_TD" x="85" y="0" width="100" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ASI_COD}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="table_TD" x="185" y="0" width="235" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ASI_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="table_TD" x="420" y="0" width="100" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{REP_EST_COD}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="48" y="0" width="477" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESULTADO PREINSCRIPCIÓN - DETALLE POR ESTUDIANTE]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

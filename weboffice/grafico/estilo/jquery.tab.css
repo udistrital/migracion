@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* CSS Document */
+
+	body{
+		font-family: "Lucida Sans Unicode";
+		font-size: 11px;
+	}
+
+	.tab{
+		margin: auto;
+	}
+	.tab ul{
+		list-style: none;
+		margin: 0px;
+		padding: 0px;
+	}
+	.tab ul li{
+		float: left;
+		padding: 7px 0px;
+		border-right: 1px solid #fff;
+	}
+	.tab ul li a{
+		padding: 7px 14px;
+		background-color: #CCC;
+		text-decoration: none;
+		color: #369;
+	}
+	.tab ul li a:hover{
+		background-color: #ddd;
+	}
+
+	.tab .selected{
+		background-color: #eee;
+	}
+
+	.tab div{
+		clear: both;
+		padding: 20px;
+		*padding-top:10px;
+		border: 1px solid #CCC;
+	}
+	p{
+		margin: 0px 0px 20px 0px;
+	}
+	.ultimo{
+		margin: 0px 0px 0px 0px;
+	}
+	.tab div.pie{
+		text-align: right;
+		border: 0px;
+		padding: 0px;
+		margin: 0px;
+	}

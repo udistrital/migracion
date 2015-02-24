@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Press Blog Theme - Free CSS Template</title>
+	<link href="estilo/templates/template_1/css/template_style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<div id="contenedor_principal">
+	<div id="template_middle">
+    	
+        <div id="template_content">
+        
+            <div class="content_box_wrapper">
+                <div class="content_box">
+					 <h2>
+					 {% block titulo_bloque1 %}
+					 {% endblock %}
+					 </h2>
+ 					 {% block contenido_bloque1 %}
+					 {% endblock %}               
+                </div>
+            </div>
+            
+            <div class="content_box_wrapper">
+            	<div class="content_box">
+                
+                	<div class="post_section">
+            
+                        <h2>{% block titulo_bloque2 %}{% endblock %}</h2>
+        
+                      <div class="post_meta"><strong>Author:</strong> Oficina Asesora de Sistemas</div>
+					  
+					  {% block contenido_bloque2 %}{% endblock %}
+                      
+                      <div class="cleaner_h20"></div>
+                  
+                    </div>
+                
+                </div> 
+            </div> 
+            
+            <div class="content_box_wrapper">
+            	<div class="content_box">
+					<h2>{% block titulo_bloque3 %}{% endblock %}</h2>
+					{% block contenido_bloque3 %}{% endblock %}
+					
+					Oficina Asesora de Sistemas 2008. Todos los derechos reservados.
+					Teléfonos 3238400 Ext. 1112 / 3239300 Ext. 1112.
+					computo@udistrital.edu.co               
+                </div>
+            </div>
+        
+        </div> 
+            
+		<div id="templatmeo_sidebar">
+        
+        	<div class="content_box_wrapper">
+                <div class="content_box">
+					<h2>{% block titulo_bloque4 %}{% endblock %}</h2>
+					{% block contenido_bloque4 %}{% endblock %}
+					
+				</div>
+            </div>
+            
+            <div class="content_box_wrapper">
+                <div class="content_box">
+					<h4>{% block titulo_bloque5 %}{% endblock %}</h4>
+					{% block contenido_bloque5 %}{% endblock %}
+                    
+				</div>
+			</div>
+            
+            <div class="content_box_wrapper">
+				<h4>{% block titulo_bloque6 %}{% endblock %}</h4>
+					{% block contenido_bloque6 %}{% endblock %}
+			</div>
+            
+        </div>
+        
+        <div class="cleaner"></div>    
+    </div> 
+    
+ 
+ 
+    
+</div>
+
+</body>
+</html>

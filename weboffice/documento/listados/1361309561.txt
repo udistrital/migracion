@@ -1,0 +1,2 @@
+carrera,codigo,nombre,recibo,pago,
+,,,,,
