@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:tns="https://oas.udistrital.edu.co/reportePagoUD/ws/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
+
+	<xs:element name="actualizarTransaccion" type="tns:actualizarTransaccion" />
+
+	<xs:element name="actualizarTransaccionResponse" type="tns:actualizarTransaccionResponse" />
+
+	<xs:element name="creaTransaccion" type="tns:creaTransaccion" />
+
+	<xs:element name="creaTransaccionResponse" type="tns:creaTransaccionResponse" />
+
+	<xs:complexType name="creaTransaccion">
+		<xs:sequence>
+			<xs:element name="objTransaccion" type="tns:transaccion" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="transaccion">
+		<xs:sequence>
+			<xs:element name="banco" type="xs:string" minOccurs="0" />
+			<xs:element name="cus" type="xs:string" minOccurs="0" />
+			<xs:element name="descripcion" type="xs:string" minOccurs="0" />
+			<xs:element name="estado" type="xs:string" minOccurs="0" />
+			<xs:element name="fechaFin" type="xs:string" minOccurs="0" />
+			<xs:element name="fechaInicio" type="xs:string" minOccurs="0" />
+			<xs:element name="identificacionUsuario" type="xs:string" minOccurs="0" default="0" />
+			<xs:element name="referencia" type="xs:string" minOccurs="0" />
+			<xs:element name="tipoUsuario" type="xs:string" minOccurs="0"  default="0" />
+			<xs:element name="valor" type="xs:string" minOccurs="0" />
+			<xs:element name="sucursal" type="xs:string" minOccurs="0" default="0" />
+			<xs:element name="codigoUsuario" type="xs:string" minOccurs="0" default="0" /> 
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="creaTransaccionResponse">
+		<xs:sequence>
+			<xs:element name="return" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="actualizarTransaccion">
+		<xs:sequence>
+			<xs:element name="objTransaccion" type="tns:transaccion" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="actualizarTransaccionResponse">
+		<xs:sequence>
+			<xs:element name="return" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

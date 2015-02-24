@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="https://oas.udistrital.edu.co/reportePagoUD/ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="https://oas.udistrital.edu.co/reportePagoUD/ws/"
+	name="TransaccionWSService">
+	<types>
+		<xsd:schema targetNamespace="https://oas.udistrital.edu.co/reportePagoUD/ws/"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
+
+			<xs:element name="actualizarTransaccion" type="tns:actualizarTransaccion" />
+
+			<xs:element name="actualizarTransaccionResponse" type="tns:actualizarTransaccionResponse" />
+
+			<xs:element name="creaTransaccion" type="tns:creaTransaccion" />
+
+			<xs:element name="creaTransaccionResponse" type="tns:creaTransaccionResponse" />
+
+			<xs:complexType name="creaTransaccion">
+				<xs:sequence>
+					<xs:element name="objTransaccion" type="tns:transaccion"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="transaccion">
+				<xs:sequence>
+					<xs:element name="banco" type="xs:string" minOccurs="0" />
+					<xs:element name="cus" type="xs:string" minOccurs="0" />
+					<xs:element name="descripcion" type="xs:string" minOccurs="0" />
+					<xs:element name="estado" type="xs:string" minOccurs="0" />
+					<xs:element name="fechaFin" type="xs:string" minOccurs="0" />
+					<xs:element name="fechaInicio" type="xs:string" minOccurs="0" />
+					<xs:element name="identificacionUsuario" type="xs:string" minOccurs="0" default="0" />
+					<xs:element name="referencia" type="xs:string" minOccurs="0" />
+					<xs:element name="tipoUsuario" type="xs:string" minOccurs="0" default="0" />
+					<xs:element name="valor" type="xs:string" minOccurs="0" />
+					<xs:element name="sucursal" type="xs:string" minOccurs="0" default="0" />
+					<xs:element name="codigoUsuario" type="xs:string" minOccurs="0" default="0" /> 
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="creaTransaccionResponse">
+				<xs:sequence>
+					<xs:element name="return" type="xs:string" minOccurs="0" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="actualizarTransaccion">
+				<xs:sequence>
+					<xs:element name="objTransaccion" type="tns:transaccion"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="actualizarTransaccionResponse">
+				<xs:sequence>
+					<xs:element name="return" type="xs:string" minOccurs="0" />
+				</xs:sequence>
+			</xs:complexType>
+		</xsd:schema>
+	</types>
+	<message name="actualizarTransaccion">
+		<part name="parameters" element="tns:actualizarTransaccion" />
+	</message>
+	<message name="actualizarTransaccionResponse">
+		<part name="parameters" element="tns:actualizarTransaccionResponse" />
+	</message>
+	<message name="creaTransaccion">
+		<part name="parameters" element="tns:creaTransaccion" />
+	</message>
+	<message name="creaTransaccionResponse">
+		<part name="parameters" element="tns:creaTransaccionResponse" />
+	</message>
+	<portType name="TransaccionWS">
+		<operation name="actualizarTransaccion">
+			<input message="tns:actualizarTransaccion" />
+			<output message="tns:actualizarTransaccionResponse" />
+		</operation>
+		<operation name="creaTransaccion">
+			<input message="tns:creaTransaccion" />
+			<output message="tns:creaTransaccionResponse" />
+		</operation>
+	</portType>
+	<binding name="TransaccionWSPortBinding" type="tns:TransaccionWS">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<operation name="actualizarTransaccion">
+			<soap:operation soapAction="" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<operation name="creaTransaccion">
+			<soap:operation soapAction="" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<service name="TransaccionWSService">
+		<port name="TransaccionWSPort" binding="tns:TransaccionWSPortBinding">
+			<soap:address location="https://oas.udistrital.edu.co/reportePagoUD/ws/TransaccionWS.php" />
+		</port>
+	</service>
+</definitions>
