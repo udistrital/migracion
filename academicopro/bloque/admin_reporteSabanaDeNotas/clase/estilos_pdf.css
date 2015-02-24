@@ -1,0 +1,157 @@
+.notas
+{
+    
+}
+.pie
+{
+    width: 100%;
+    font-size: 12px;
+
+}
+.datosEstudiante
+{
+    width: 100%;
+
+}
+/*estilos notas*/
+.niveles
+{
+    font-size: 14px;
+    padding-left:60px;
+}
+.columnaCodigo
+{
+    font-size: 12px;
+    text-align:center;
+    width: 88px;
+    padding-left:30px;
+}
+.columnaNombreEspacioCreditos
+{
+    font-size: 12px;
+    text-align:left;
+    width: 398px;
+    padding-left:30px;
+}
+.columnaNombreEspacio
+{
+    font-size: 12px;
+    text-align:left;
+    width: 438px;
+    padding-left:30px;
+}
+.columnaCreditos
+{
+    font-size: 12px;
+    text-align:center;
+    width: 40px;
+}
+.columnaTD
+{
+    font-size: 12px;
+    text-align:center;
+    width: 20px;
+}
+.columnaTC
+{
+    font-size: 12px;
+    text-align:center;
+    width: 20px;
+}
+.columnaTA
+{
+    font-size: 12px;
+    text-align:center;
+    width: 20px;
+}
+.columnaNota
+{
+    font-size: 12px;
+    text-align:center;
+    width: 34px;
+}
+.columnaNotaLetras
+{
+    font-size: 13px;
+    text-align:center;
+    
+   
+}
+.columnaMensaje
+{
+    font-size: 14px;
+    text-align:left;
+    width: 580px;
+    padding-left:18px;
+}
+/*estilos encabezado*/
+.tablaEncabezado
+{
+ 
+}
+
+.columna1
+{
+    height: 15px;
+    width: 52px;
+}
+.columnaNombre
+{
+    
+    text-align:left;
+    font-size: 16px;
+    width: 508px;
+    height: 15px;
+    padding-left:10px;
+}
+.columnaIdentificacion
+{
+    
+    text-align:left;
+    font-size: 16px;
+    width: 187px;
+}
+.columnaPromedio
+{
+    
+    text-align:left;
+    font-size: 15px;
+    width: 70px;
+    padding-left:5px;
+}
+/*estilos pie de pagina*/
+.columnaDiseno
+{
+    text-align:center;
+    width: 210px;
+}
+.columnaMarca
+{
+    text-align:left;
+    font-size: 14px;
+    width: 340px;
+}
+.columnaSecretario
+{
+    text-align:center;
+    font-size: 12px;
+    width: 230px;
+}
+
+
+.datos
+{
+   
+    height:15px;
+    display:inline-block;
+    text-align:left;
+    font-size: 15px;
+}
+.datosPequeno
+{
+   
+    height:15px;
+    display:inline-block;
+    text-align:left;
+    font-size: 14px;
+}

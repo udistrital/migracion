@@ -1,0 +1,155 @@
+.notas
+{
+    width: 100%;
+    
+}
+.pie
+{
+    width: 100%;
+    font-size: 12px;
+
+}
+.datosEstudiante
+{
+    width: 100%;
+
+}
+/*estilos notas*/
+.niveles
+{
+    font-size: 18px;
+    padding-left:60px;
+}
+.columnaCodigo
+{
+    font-size: 16px;
+    text-align:center;
+    width: 85px;
+}
+.columnaNombreEspacioCreditos
+{
+    font-size: 16px;
+    text-align:left;
+    width: 560px;
+    padding-left:48px;
+}
+.columnaNombreEspacio
+{
+    font-size: 16px;
+    text-align:left;
+    width: 615px;
+    padding-left:48px;
+}
+.columnaCreditos
+{
+    font-size: 16px;
+    text-align:center;
+    width: 50px;
+}
+.columnaTD
+{
+    font-size: 16px;
+    text-align:center;
+    width: 27px;
+}
+.columnaTC
+{
+    font-size: 16px;
+    text-align:center;
+    width: 27px;
+}
+.columnaTA
+{
+    font-size: 16px;
+    text-align:center;
+    width: 27px;
+}
+.columnaNota
+{
+    font-size: 16px;
+    text-align:center;
+    width: 55px;
+}
+.columnaNotaLetras
+{
+    font-size: 16px;
+    text-align:center;
+    width: 220px;
+   
+}
+.columnaMensaje
+{
+    font-size: 14px;
+    text-align:left;
+    width: 580px;
+    padding-left:18px;
+}
+/*estilos encabezado*/
+.tablaEncabezado
+{
+ 
+}
+
+.columna1
+{
+    height: 15px;
+    width: 50px;
+}
+.columnaNombre
+{
+    
+    text-align:left;
+    font-size: 18px;
+    width: 600px;
+    height: 15px;
+}
+.columnaIdentificacion
+{
+    
+    text-align:left;
+    font-size: 18px;
+    width: 238px;
+}
+.columnaPromedio
+{
+    
+    text-align:left;
+    font-size: 18px;
+    width: 110px;
+}
+/*estilos pie de pagina*/
+.columnaDiseno
+{
+    text-align:center;
+    width: 210px;
+}
+.columnaMarca
+{
+    text-align:left;
+    font-size: 14px;
+    width: 340px;
+}
+.columnaSecretario
+{
+    text-align:center;
+    font-size: 12px;
+    width: 230px;
+}
+
+
+.datos
+{
+   
+    height:15px;
+    display:inline-block;
+    text-align:left;
+    font-size: 18px;
+}
+.datosPequeno
+{
+   
+    height:15px;
+    display:inline-block;
+    text-align:left;
+    font-size: 16px;
+}

@@ -1,0 +1,22 @@
+/bloque/mensaje/admin_iniciopreinscripciondemandaestudiante.php
+/bloque/mensaje_lateral/admin_iniciopreinscripciondemandaestudiante.php
+/clase/validacion/validaciones.class.php
+/clase/validar_fechas.class.php
+/grafico/home2.png
+/grafico/clean.png
+/grafico/x.png
+/grafico/x-grey.png
+ingresar el campo insde_sem en la tabla acinsdemanda
+Permisos de lectura, escritura, actualizacion y borrado para westudiante, westudiantecred, wcoordinador, wcoordinadorcred, sistemassga.
+Permisos de lectura sobre accaleventos para westudiante, westudiantecred, wcoordinador, wcoordinadorcred, sistemassga.
+
+
+/bloque/demanda/admin_buscarEspacioPreinscripcionDemandaEstudiante
+/bloque/demanda/admin_consultarPreinscripcionDemandaEstudiante
+/bloque/demanda/admin_consultarPreinscripciones
+/bloque/demanda/admin_consultarPreinscritosDemandaPorEspacio
+/bloque/demanda/admin_consultarPreinscritosDemandaPorProyecto
+/bloque/demanda/admin_menuFlotantePreinscripciones
+/bloque/demanda/menu_preinscripcionDemandaEstudiante
+/bloque/demanda/registro_preinscribirEspacioDemandaEstudiante
+/bloque/demanda/registro_preinscripcionDemandaPorEstudiante
