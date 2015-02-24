@@ -1,0 +1,2 @@
+[03-Feb-2008 12:30:00] PHP Fatal error:  Call to undefined function:  define() in ./dir_relativo.cfg on line 3
+[03-Feb-2008 12:30:00] PHP Fatal error:  Class '(null)' does not support overloaded method calls in ./dir_relativo.cfg on line 3

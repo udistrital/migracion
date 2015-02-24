@@ -1,0 +1,2 @@
+[06-Feb-2008 19:15:03] PHP Warning:  Unknown list entry type in request shutdown (2) in /u01/app/oracle/product/OAS10.1.2/bi/Apache/Apache/htdocs/appserv/estudiantes/est_inscripcion.php on line 2
+[06-Feb-2008 19:15:03] PHP Fatal error:  Call to undefined function:  define() in ./dir_relativo.cfg on line 3

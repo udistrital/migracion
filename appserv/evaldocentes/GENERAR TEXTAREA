@@ -1,0 +1,3 @@
+Respetado (a) estudiante: Por favor enuncie las observaciones  que tiene sobre el desempeño del  (la ) docente: <br>
+						<textarea id=r14 name=r14 cols=80 rows=4 onKeyDown='javascript:ctatxt(this.form.r14.value)'
+						onKeyUp='javascript:ctatxt(this.form.r14.value)'></textarea><br>

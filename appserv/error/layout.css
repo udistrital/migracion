@@ -1,0 +1,120 @@
+body {
+	font: 14px/1.75 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, Sans-Serif;
+	background: #e5e5e3;
+}
+
+strong, em {
+	font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", Helvetica, Arial, Sans-Serif;
+}
+
+ul li {
+	list-style-type: disc;
+}
+
+ol li {
+	list-style-type: decimal;
+}
+
+ul, ol {
+	margin: 20px 30px;
+}
+
+p {
+	padding-bottom: 20px;
+}
+
+a {
+	text-decoration: none;
+	color: #3366BB;
+}
+
+a:hover {
+	color: #000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Lobster, Georgia, "Times New Roman", Times, Serif;
+	margin-bottom: 10px;
+	line-height: 1.1;
+	letter-spacing: 1px;
+}
+
+h1 { font-size: 350%; border-bottom: 1px solid #ececec; }
+h2 { font-size: 175%; }
+h3 { font-size: 150%; }
+h4 { font-size: 125%; }
+h5 { font-size: 115%; }
+h6 { font-size: 110%; }
+
+#wrapper {
+	width: 700px;
+	margin: 0 auto;
+	padding: 10px 40px 0 40px;
+	
+	background: #fff url( ../images/shadow.png ) no-repeat 5px 35px;
+	border-left: 1px solid #d8d8d5;
+	border-right: 1px solid #d8d8d5;
+	
+	overflow: hidden;
+}
+
+.left {
+	width: 340px;
+	float: left;
+}
+
+.right {
+	width: 340px;
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+.button-right {
+	float: right;
+	margin-top: 20px;
+}
+
+a.button {
+    background: transparent url( ../images/bg_button_a.gif ) no-repeat scroll top right;
+    color: #444;
+    display: block;
+    float: left;
+    font: normal 12px Arial, Helvetica, Sans-Serif;
+    height: 24px;
+    margin-right: 6px;
+    padding-right: 18px; /* sliding doors padding */
+    text-decoration: none;
+	border: 0;
+}
+
+a.button span {
+    background: transparent url( ../images/bg_button_span.gif ) no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 5px 0 5px 18px;
+}
+
+a.button:active {
+    background-position: bottom right;
+    color: #000;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+a.button:active span {
+    background-position: bottom left;
+    padding: 6px 0 4px 18px; /* push text down 1px */
+}
+
+#footer {
+	padding-top: 10px;
+	border-top: 1px dotted #ececec;
+	color: #999;
+	text-align: center;
+}
+
+#footer p {
+	padding-bottom: 10px;
+}

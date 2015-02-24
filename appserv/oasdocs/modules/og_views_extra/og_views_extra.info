@@ -1,0 +1,14 @@
+; $Id ;
+name = "OG Views - Extra"
+description = "Additional integration between Views and OG."
+package = "Organic groups"
+core = "6.x"
+version = "6.x-1.0"
+dependencies[] = views
+dependencies[] = og
+; Information added by drupal.org packaging script on 2009-10-09
+version = "6.x-1.0"
+core = "6.x"
+project = "og_views_extra"
+datestamp = "1255132552"
+

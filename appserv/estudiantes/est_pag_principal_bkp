@@ -1,0 +1,84 @@
+<?PHP
+require_once('dir_relativo.cfg');
+require_once(dir_conect.'valida_pag.php');
+require_once(dir_conect.'conexion.php');
+require_once(dir_conect.'cierra_bd.php');
+require_once(dir_script.'fu_pie_pag.php');
+require_once(dir_conect.'fu_tipo_user.php');
+fu_tipo_user(51);
+?>
+<html>
+<head>
+<META http-equiv="Page-Enter" content="revealTrans(Duration=0.6,Transition=24)">
+<META http-equiv="Page-Exit" content="revealTrans(Duration=0.6,Transition=2)">
+<link href="../script/estilo.css" rel="stylesheet" type="text/css">
+<link href="../script/estinx.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="../script/BorraLink.js"></script>
+<script language="JavaScript" src="../script/ventana.js"></script>
+</head>
+<body>
+
+<?php
+ob_start();
+$usuario = $_SESSION['usuario_login'];
+$carrera = $_SESSION['carrera'];
+
+require_once(dir_script.'msql_est_estado.php');
+//require_once(dir_script.'NumeroVisitas.php');
+require_once('msql_est_consulta_msg.php');
+
+echo'<br><div align="center">
+<a href="#" onClick="javascript:popUpWindow(\'add_can.php\', \'no\', 100, 100, 350, 133)">Fechas de Adici&oacute;n y Cancelaci&oacute;n</a>
+<p></p>
+  <table border="0" width="500" cellpadding="0" cellspacing="2">
+  <tr><td width="200" align="left" height="9" colspan="2" class="'.$Estilo.'">'.$Estado.'</td>
+  <td width="300" align="right" height="9" colspan="2"><span class="Estilo7">Oficina asesora de Sistemas</span></td></tr></table>
+<caption>&nbsp;</caption>
+  <table border="0" width="500" cellpadding="0">
+    <tr>
+      <td width="100%" align="center" height="9" colspan="2">
+	  <hr noshade class="hr">
+      </td>
+    </tr>';
+if(OCIResult($qry_msg, 6) == ""){    
+	echo'<tr><td width="67%" height="258" background="../img/escudo_fondo.png" style="background-attachment:fixed; background-repeat:no-repeat; background-position:top">
+        <p align="justify" style="line-height: 100%">Si cambia su correo electr&oacute;nico, direcci&oacute;n o tel&eacute;fono; no olvide actualizarlos en el men&uacute; &quot;<a href="est_actualiza_dat.php" target="principal" onMouseOver="link();return true;" onClick="link();return true;">Datos Personales</a>&quot;. Recuerde que de la veracidad de sus datos, depende un efectivo ingreso al aplicativo.</p>
+        
+        <p align="justify" style="line-height: 100%">En esta p&aacute;gina usted podr&aacute;: Actualizar su datos, ver su registro de asignaturas, cambiar la clave, revisar su hist&oacute;rico de notas, ver las notas parciales que va obteniendo durante el semestre y ver su plan de estudio. Cuantas asignaturas ha visto y las notas que ha obtenido en cada una de ellas y cuantas asignaturas le quedan por ver de su plan de estudio.</p>
+		
+        <p align="justify" style="line-height: 100%">Con un efectivo control por parte de los usuarios, la informaci&oacute;n podr&aacute; ser completa y real, por lo que se sugiere que revise con especial cuidado y reporte a su Coordinador del Proyecto Curricular, cualquier inquietud o correcci&oacute;n que considere necesaria.</p>
+
+        <p align="justify" style="line-height: 100%">La manera segura de salir de esta p&aacute;gina, es haciendo clic en el v&iacute;nculo &quot;<strong><a href="../conexion/salir.php" target="_top" onMouseOver="link();return true;" onClick="link();return true;">Salir</a></strong>&quot;. De esta forma nos aseguramos que otras personas no puedan manipular sus datos.</p>
+		
+		</td></tr>';
+}
+else{
+	 echo'<tr><td width="500" bgcolor="#E9E9D1" colspan="2" align="center"><span class="Estilo11">MENSAJES DE LA COORDINACI&Oacute;N</span></td></tr>
+	 <tr><td width="67%" height="258">';
+	 do{
+		 echo'<table width="500" border=".5" cellpadding="0" cellspacing="0" align="center">
+		 <tr><td width="234" bgcolor="#E9E9D1"><span class="Estilo12">'.OCIResult($qry_msg, 2).'</span></td>
+		 <td width="316" align="right" bgcolor="#E9E9D1"><span class="Estilo13">|&nbsp;'.OCIResult($qry_msg, 3).'&nbsp;|
+		 '.OCIResult($qry_msg, 4).'|&nbsp;</span><span class="Estilo10">'.OCIResult($qry_msg, 1).'</span></td></tr><tr> 
+		 <td colspan="2" width="500">'.OCIResult($qry_msg, 6).'</td></tr></table><br>';
+	 }while(OCIFetch($qry_msg));
+	 echo'</td></tr>';
+	 cierra_bd($qry_msg, $oci_conecta);	
+}
+echo'<tr>
+      <td width="100%" align="center" height="1">
+        <hr noshade class="hr">
+      </td>
+    </tr>
+	<tr>
+	  <td width="100%" align="center" height="40">
+	  <p align="center">Con el fin de evitar suplantaciones, la Oficina Asesora de Sistemas recomienda cambiar la clave periodicamente.</p>
+	  </td>
+	</tr>
+  </table>
+</div><p></p>';
+fu_pie();
+ob_end_flush();
+?>
+</body>
+</html>

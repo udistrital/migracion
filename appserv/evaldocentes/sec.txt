@@ -1,0 +1,4 @@
+1.- User $_REQUEST["nomVariableDeForm"] Previene conversión automática en variable global.
+2.- register_globals: si set a 1 Convierte automáticamente variables form a globales. Verificar con phpinfo.php.  
+3.- expose_php = OFF: ocultar código php. ---> Débil, pero deseable. reduce la cantidad de información disponible a un atacante.
+4.- Conexión por telnet al puerto http: >telnet DN puerto(80, 8089..) luego digitar página requerida con ruta completa..

@@ -1,0 +1,30 @@
+<?PHP
+//LLAMADO DE doc_observaciones.php
+$consulta = "SELECT EPE_CUR_ASI_COD,
+	ASI_NOMBRE,
+	EPE_OBSERVA,
+	EPE_APE_ANO,
+	EPE_APE_PER,
+	EPE_CUR_NRO
+	FROM acevaproest,acasi
+	WHERE EPE_APE_ANO = $anio
+	AND EPE_APE_PER = $peri
+	AND ASI_COD = EPE_CUR_ASI_COD
+	AND EPE_DOC_NRO_IDEN = ".$_SESSION['usuario_login']."
+	AND EPE_ESTADO = 'A'
+	AND EPE_OBSERVA IS NOT NULL";
+
+$consultaCatedra = "SELECT EPE_CUR_ASI_COD,
+	ASI_NOMBRE,
+	EPE_OBSERVA,
+	EPE_APE_ANO,
+	EPE_APE_PER,
+	EPE_CUR_NRO
+	FROM autoevaluadoc.acevaproest_15,acasi
+	WHERE EPE_APE_ANO = $anio
+	AND EPE_APE_PER = $peri
+	AND ASI_COD = EPE_CUR_ASI_COD
+	AND EPE_DOC_NRO_IDEN = ".$_SESSION['usuario_login']."
+	AND EPE_ESTADO = 'A'
+	AND EPE_OBSERVA IS NOT NULL";
+?>

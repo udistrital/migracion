@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></meta>
+    <title>menu</title>
+    <style type="text/css">body {  background-color: #c6c384;} </style>
+    <script language="javascript" type="text/javascript">
+
+function resetmenu(nodo){
+    var browser=navigator.appName
+    var b_version=navigator.appVersion
+    var version=parseFloat(b_version)
+//document.write(browser + " - version: " + b_version + "Num: " + version);
+var agt=navigator.userAgent.toLowerCase();
+var brw=null;
+if (agt.indexOf("opera") != -1) brw= 'Opera';
+if (agt.indexOf("firefox") != -1) brw= 'Firefox'; //1.5.0.6
+if (agt.indexOf("msie") != -1) brw= 'Internet Explorer';//Mozilla/4 mise 6.0
+if (agt.indexOf("netscape") != -1) brw= 'Netscape';//Mozilla/5 6/6.2.3
+("El browser es: " + agt + " browser: " + brw);// Browser Detection Javascript
+// copyright 1 February 2003, by Stephen Chapman, Felgall Pty Ltd
+    if (brw == "Netscape"){
+        var elm11=document.getElementById("ly11");
+        var elm12=document.getElementById("ly12");           
+        var elm13=document.getElementById("ly13");           
+        var elm14=document.getElementById("ly14");   
+        var elm15=document.getElementById("ly15");   
+        var elm16=document.getElementById("ly16"); 
+       // document.getElementById('ly11').style.visibility="hidden";
+                elm11.style.visibility='hidden';
+                elm11.style.overflow='hidden';
+                elm11.style.height=0;
+                elm12.style.visibility='hidden';
+                elm12.style.overflow='hidden';
+                elm12.style.height=0;
+                
+                elm13.style.visibility='hidden';
+                elm13.style.overflow='hidden';
+                elm13.style.height=0;
+                elm14.style.visibility='hidden';
+                elm14.style.overflow='hidden';
+                elm14.style.height=0;
+                
+                elm15.style.visibility='hidden';
+                elm15.style.overflow='hidden';
+                elm15.style.height=0;
+                elm16.style.visibility='hidden';
+                elm16.style.overflow='hidden';
+                elm16.style.height=0;
+                
+        var elm21=document.getElementById("ly21");           
+        var elm22=document.getElementById("ly22");           
+        var elm23=document.getElementById("ly23");           
+                elm21.style.visibility ='hidden';
+                elm21.style.overflow='hidden';
+                elm21.style.height=0;
+                elm22.style.visibility='hidden';
+                elm22.style.overflow='hidden';
+                elm22.style.height=0;  
+                elm23.style.visibility='hidden';
+                elm23.style.overflow='hidden';
+                elm23.style.height=0;
+
+        var elm31=document.getElementById("ly31");           
+        var elm32=document.getElementById("ly32");           
+        var elm33=document.getElementById("ly33");                           
+                elm31.style.visibility='hidden';
+                elm31.style.overflow='hidden';
+                elm31.style.height='0';
+                elm32.style.visibility='hidden';
+                elm32.style.overflow='hidden';
+                elm32.style.height='0';                
+                elm33.style.visibility='hidden';
+                elm33.style.overflow='hidden';
+                elm33.style.height='0';  
+        if (nodo == 2) {
+                    elm21.style.overflow='visible';
+                    elm21.style.height='8';
+                    elm22.style.overflow='visible';
+                    elm22.style.height='8';
+                    elm21.style.visibility='visible';
+                    elm22.style.visibility='visible';
+                    elm23.style.height='8';
+                    elm23.style.overflow='visible';
+                    elm23.style.visibility='visible';
+        }else if (nodo == 3) {
+                    elm31.style.overflow='visible';
+                    elm31.style.height='8';  
+                    elm32.style.overflow='visible';
+                    elm32.style.height='8';
+                    elm33.style.overflow='visible';
+                    elm33.style.height='8';
+                    elm31.style.visibility='visible';                    
+                    elm32.style.visibility='visible';
+                    elm33.style.visibility='visible';
+        }else if (nodo == 1){
+                    elm11.style.overflow='visible';
+                    elm11.style.height='8';
+                    elm12.style.overflow='visible';
+                    elm12.style.height='8';
+                    elm11.style.visibility='visible';
+                    elm12.style.visibility='visible';
+                    elm13.style.overflow='visible';
+                    elm13.style.height='8';
+                    elm14.style.overflow='visible';
+                    elm14.style.height='8';
+                    elm13.style.visibility='visible';
+                    elm14.style.visibility='visible';
+                    elm15.style.overflow='visible';
+                    elm15.style.height='8';
+                    elm16.style.overflow='visible';
+                    elm16.style.height='8';
+                    elm15.style.visibility='visible';
+                    elm16.style.visibility='visible';
+        }//else = 99: no mostrar subitems al iniciar página..
+    }else if (brw == "Firefoxxxx") {
+        //    
+    }else    
+        {// browser = "Microsoft Internet Explorer" u otro..
+                document.all['ly11'].style.visibility='hidden';
+                document.all['ly11'].style.overflow ='hidden';
+                document.all['ly11'].style.height ='0';
+                document.all['ly12'].style.visibility ='hidden';
+                document.all['ly12'].style.overflow ='hidden';
+                document.all['ly12'].style.height ='0';
+                
+                document.all['ly13'].style.visibility ='hidden';
+                document.all['ly13'].style.overflow ='hidden';
+                document.all['ly13'].style.height ='0';
+                document.all['ly14'].style.visibility ='hidden';
+                document.all['ly14'].style.overflow ='hidden';
+                document.all['ly14'].style.height ='0';
+                
+                document.all.ly15.style.visibility ='hidden';
+                document.all.ly15.style.overflow ='hidden';
+                document.all.ly15.style.height ='0';
+                document.all.ly16.style.visibility ='hidden';
+                document.all.ly16.style.overflow ='hidden';
+                document.all.ly16.style.height ='0';
+                
+                document.all.ly21.style.visibility ='hidden';
+                document.all.ly21.style.overflow ='hidden';
+                document.all.ly21.style.height ='0';
+                document.all.ly22.style.visibility ='hidden';
+                document.all.ly22.style.overflow ='hidden';
+                document.all.ly22.style.height ='0';  
+                document.all.ly23.style.visibility ='hidden';
+                document.all.ly23.style.overflow ='hidden';
+                document.all.ly23.style.height ='0';
+                
+                document.all.ly31.style.visibility ='hidden';
+                document.all.ly31.style.overflow ='hidden';
+                document.all.ly31.style.height ='0';
+                document.all.ly32.style.visibility ='hidden';
+                document.all.ly32.style.overflow ='hidden';
+                document.all.ly32.style.height ='0';                
+                document.all.ly33.style.visibility ='hidden';
+                document.all.ly33.style.overflow ='hidden';
+                document.all.ly33.style.height ='0';                
+        if (nodo == 2) {
+                    document.all.ly21.style.overflow ='visible';
+                    document.all.ly21.style.height ='8';
+                    document.all.ly22.style.overflow ='visible';
+                    document.all.ly22.style.height ='8';
+                    document.all.ly21.style.visibility ='visible';
+                    document.all.ly22.style.visibility ='visible';
+                    document.all.ly23.style.height ='8';
+                    document.all.ly23.style.overflow ='visible';
+                    document.all.ly23.style.visibility ='visible';
+        }else if (nodo == 3) {
+                    document.all.ly31.style.overflow ='visible';
+                    document.all.ly31.style.height ='8';  
+                    document.all.ly32.style.overflow ='visible';
+                    document.all.ly32.style.height ='8';
+                    document.all.ly33.style.overflow ='visible';
+                    document.all.ly33.style.height ='8';
+                    document.all.ly31.style.visibility ='visible';                    
+                    document.all.ly32.style.visibility ='visible';
+                    document.all.ly33.style.visibility ='visible';
+        }else if (nodo == 1){
+                    document.all.ly11.style.overflow ='visible';
+                    document.all.ly11.style.height ='8';
+                    document.all.ly12.style.overflow ='visible';
+                    document.all.ly12.style.height ='8';
+                    document.all.ly11.style.visibility ='visible';
+                    document.all.ly12.style.visibility ='visible';
+                    document.all.ly13.style.overflow ='visible';
+                    document.all.ly13.style.height ='8';
+                    document.all.ly14.style.overflow ='visible';
+                    document.all.ly14.style.height ='8';
+                    document.all.ly13.style.visibility ='visible';
+                    document.all.ly14.style.visibility ='visible';
+                    document.all.ly15.style.overflow ='visible';
+                    document.all.ly15.style.height ='8';
+                    document.all.ly16.style.overflow ='visible';
+                    document.all.ly16.style.height ='8';
+                    document.all.ly15.style.visibility ='visible';
+                    document.all.ly16.style.visibility ='visible';
+        }
+    }
+}
+    </script>
+  </head>
+  <body onload="javascript:resetmenu(99)"><strong><font color="#940094" size="3"
+                                                      face="Arial">
+        ADMISIONES 2007-1
+      </font></strong>
+  
+        <form name="inicio" method="POST" action="admiud?cod=1" target="fra_formato"> 
+      <input type="hidden" name="sf"/> 
+    <table bgcolor="#c6c384" border="0">
+      <tr><td> <img name="ins2" src="Images/instit2.PNG" alt="Tipos de Inscripción" 
+                    onclick="javascript:resetmenu(2);"/></td></tr>           
+      <tr><td> <div id="ly21"  align="right">
+                <input name = ins21 type="image" src="Images/ins21.PNG" alt="Instrucciones para solicitar inscripción" onclick="javascript:document.forms.item('inicio').sf.value = '21';"/></div></td></tr>
+      <tr><td> <div id="ly22"  align="right">
+                <input name = ins22 type="image" src="Images/ins22.PNG" alt="Solicitud de aspirante normal" onclick="javascript:document.forms.item('inicio').sf.value = '22';"/></div></td></tr>  
+      <tr><td> <div id="ly23" align="right">
+                <input name = ins23 type="image" src="Images/ins23.PNG" alt="Solicitar cupo especial" onclick="javascript:document.forms.item('inicio').sf.value = '23';"/></div></td></tr>
+      
+      <tr><td> <img name="ins3" src="Images/instit3.PNG" alt="" 
+                    onclick="javascript:resetmenu(3);"/></td></tr>
+      <tr><td> <div id="ly31" align="right">
+                <input name = ins31 type="image" src="Images/ins31.PNG" alt="Consultar estado de inscripción" onclick="javascript:document.forms.item('inicio').sf.value = '31';"/></div></td></tr>   
+      <tr><td> <div id="ly32" align="right">
+                <input name = ins32 type="image" src="Images/ins32.PNG" alt="" onclick="javascript:document.forms.item('inicio').sf.value = '32';"/></div></td></tr>                           
+      <tr><td> <div id="ly33" align="right">
+                <input name = ins33 type="image" src="Images/ins33.PNG" alt="" onclick="javascript:document.forms.item('inicio').sf.value = '33';"/></div></td></tr>                           
+      <tr><td> <img name="ins1" src="Images/instit1.PNG" alt="Generalidades de Admisiones" 
+                    onclick="javascript:resetmenu(1);"/></td></tr>           
+      <tr><td> <div id="ly11" align="right">
+                <input name = ins11 type="image" src="Images/ins11.PNG" alt="" onclick="javascript:document.forms.item('inicio').sf.value = '11';"/></div></td></tr>   
+      <tr><td> <div id="ly12" align="right">
+                <input name = ins12 type="image" src="Images/ins12.PNG" alt="" onclick="javascript:document.forms.item('inicio').sf.value = '12';"/></div></td></tr>       
+      <tr><td> <div id="ly13" align="right">
+                <input name = ins13 type="image" src="Images/ins13.PNG" alt="" onclick="javascript:document.forms.item('inicio').sf.value = '13';"/></div></td></tr>   
+      <tr><td> <div id="ly14" align="right">
+                <input name = ins14 type="image" src="Images/ins14.PNG" alt="" onclick="javascript:document.forms.item('inicio').sf.value = '14';"/></div></td></tr>       
+      <tr><td> <div id="ly15" align="right">
+                <input name = ins15 type="image" src="Images/ins15.PNG" alt="" onclick="javascript:document.forms.item('inicio').sf.value = '15';"/></div></td></tr>   
+      <tr><td> <div id="ly16" align="right">
+                <input name = ins16 type="image" src="Images/ins16.PNG" alt="" onclick="javascript:document.forms.item('inicio').sf.value = '16';"/></div></td></tr>
+      
+    </table>  
+    </form>
+
+  </body>
+</html>

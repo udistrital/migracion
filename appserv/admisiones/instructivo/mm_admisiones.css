@@ -1,0 +1,124 @@
+/* Global Styles */
+A:link{TEXT-DECORATION: none; COLOR:#0000FF}
+A:visited{TEXT-DECORATION:none; COLOR:#0066FF}
+A:hover{TEXT-DECORATION:none;cursor:pointer; color:#C10000} 
+A:active{TEXT-DECORATION: none; background: #F2F2E3; COLOR: red}
+.marquillo{font-family:Verdana, Arial, Helvetica, sans-serif; font-weight:bold; font-size:12px}
+.menu{ font-family:Tahoma; font-size:12px; color:#0000FF }
+body {
+font-family:Tahoma;
+font-size:11;
+	margin:0px;
+	}
+
+td {
+	color:#333333;
+	font-family:Tahoma;
+	font-size: 18px;
+	font-weight: normal;
+	}
+	
+a {
+	color: #cc0000;
+	text-decoration:none;
+	font-weight:bold;
+	}
+	
+/* ID Styles */
+
+#navigation a {
+	font:11px arial;
+	color: #ffffff;
+	text-decoration:none;
+	letter-spacing:.1em;
+	}
+	
+#navigation a:hover {
+	color: #CCCCCC;
+	}
+
+#padding {
+	padding:20px 5px 20px 5px;
+	}
+	
+#calendar td {
+	border: 1px solid rgb(0,51,153);
+	}
+	
+#noborder td {
+	border: 0px;
+	}
+	
+#weekdays th {
+	font:11px arial;
+	color: #ffffff;
+	font-weight:bold;
+	border: 0px;
+	padding:2px;
+	}
+
+#calheader td {
+	font-weight:bold;
+	}
+
+/* Class Styles */
+
+.logo {
+	color: #0E177C;
+	letter-spacing:normal;
+	font-weight:bold;
+	line-height:normal;
+	font-family: Times New Roman, Times, serif;
+	font-size: 20pt;
+	font-style: normal;
+	}
+
+.tagline {
+	font:11px times new roman;
+	color: #CC3300;
+	letter-spacing:.2em;
+	}
+
+.smallText {
+	font:12px times new roman;
+	color: #CC3300;
+	line-height:18px;
+	}
+
+.pageHeader {
+	font:30px times new roman;
+	color: #CC3300;
+	letter-spacing:.1em;
+	line-height:38px;
+	}
+	
+.bodyText {
+	color:#000000;
+	line-height:normal;
+	font-family:Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	font-weight: normal;
+	}
+	
+.pageName {
+	font:20px georgia;
+	color: #CC3300;
+	letter-spacing:.1em;
+	line-height:26px;
+	}
+	
+.subHeader {
+	font:14px times new roman;
+	color: #003399;
+	font-weight:bold;
+	line-height:20px;
+	letter-spacing:.1em;
+	}
+	
+.navText {
+	font:12px arial;
+	font-weight:bold;
+	color:#FFFFFF;
+	letter-spacing:0.1em;
+	}
