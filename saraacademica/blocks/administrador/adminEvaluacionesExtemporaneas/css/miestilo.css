@@ -1,0 +1,81 @@
+/* 
+    Document   : miestilo
+    Created on : 29/08/2013, 12:11:16 PM
+    Author     : esanchez
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+.contenedor-tabla{
+
+display: table;
+
+}
+
+.contenedor-fila{
+
+display: table-row;
+
+}
+
+.contenedor-columna{
+
+display: table-cell;
+
+}
+
+#tablaCandidatos{	border: solid 1px #333;	width: 100%; }
+#tablaCandidatos tbody tr{ background: #E0F0FA; }
+.fila-base{ display: none; } /* fila base oculta */
+.eliminar{ cursor: pointer; color: #000; }
+
+.tabla_general {
+	/*padding:15px;*/
+	background-color: <?PHP echo $tema->cuerpotabla ?>;
+	width:<?PHP echo $configuracion["tamanno_gui"]?>;
+	border-width: 1px;
+	border-color: <?PHP echo $tema->bordes?>;
+	border-style: solid;
+	margin-left:auto; 
+	margin-right:auto;
+}
+
+.contenidotabla 
+{
+	border-width: 1px 1px 1px 1px;
+        font-size: 12;
+	font-family: "Arial", Verdana, Trebuchet MS, Helvetica, sans-serif;
+	text-align: justify;
+        border-collapse: collapse;
+	width:100%;
+	
+	border-spacing: 0px;
+        padding:10px;
+    }
+    
+.formulario {
+	border-width: 1px 1px 1px 1px;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: #DEDEDE #DEDEDE #DEDEDE #DEDEDE;
+	border-collapse: collapse;
+	background-color:#D7EBF9;
+	border:1px solid #DEDEDE;
+	font-size:12px;
+	padding:10px;
+	width:100%;
+}  
+
+tablaImportante
+{
+	border-width: 0px 0px 1px 15px;
+	border-style:solid;
+	border-color:#b30012;
+	width:100%;
+	padding:10px;
+	border-collapse: collapse;
+	border-spacing: 0px;	
+	
+}
+        
