@@ -1,0 +1,46 @@
+Diferencias con respecto al bloque base...
+
+1. Existen las carpetas funcion y formulario.
+
+2. Existe dentro de formulario el archivo mostrar.php que 
+  contiene un formulario ejemplo con los elementos basico
+  para enviar una peticion usando ajax. el formulario tiene
+  creadas sus rescpectivas cadenas en el archivo de idiomas
+  
+  notese en el boton que se le asigna 
+  $atributos["onclick"]="enviarFormularioAjax();";
+  donde enviarFormularioAjax() es la funcion javascript que 
+  va a ejecutar la peticion.
+  
+3. En la carpeta script se incluyen el archivos  ajax.php, 
+  ficheros validation engine  y ready.js
+  los ultimos tres para validar el formulario 
+  y se incluyen sus respectivos css en la carpeta de estilos  
+
+4. Se incluye en el archivo Script.php ajax.php.
+
+5. Al final del archivo bloque.php se incluyen unas lineas para 
+   procesar el elemento procesarAjax=true 
+  
+6. En Funcion.class.php se incluyen lineas para validar la entrada de 
+  procesesamiento con el elemento procesarAjax=true y funcion.
+  se quita redireccionar.
+  
+7. Se agrega en la carpeta funcion funcionEjemplo.php para procesar la peticion
+  que llego a traves de ajax.
+  
+8. En el archivo Sql.class.php se agrega la opcion consultaejemplo que llego por
+  el elemento"funcion". 
+ 
+ 
+ Notas de uso.....
+ 
+ 1. se deben reemplazar en los archivos bloque.php, Frontera.class.php, 
+   Lenguaje.class.php, Funcion.class.php y Sql.class.php la cadena
+   BloqueBaseAjax por el nombre del bloque.
+   
+ 2. desde el archivo ajax.php se serializan los datos de formulario,
+  se hace el post o get y se procesa el json que retorna.
+ 
+   
+ 
