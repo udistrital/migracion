@@ -46,7 +46,6 @@ class funcionGeneral
 	
 	public function totalAfectados($configuracion, $conexion) //cuenta los registros de una busqueda
 	{
-		//var_dump($conexion);
 		return $conexion->obtener_afectadas();
 	}
 	
@@ -82,12 +81,10 @@ class funcionGeneral
 	
 	public function conectarDB($configuracion,$nombre="")
 	{
-		//echo "<br>nombre: ".$nombre."<br>";
 		include_once("dbConexion.class.php");
 
 		$this->conexion=new dbConexion($configuracion);			
 		$recurso=$this->conexion->recursodb($configuracion,$nombre);
-		
                 $recurso->conectar_db();
 
 		return $recurso;

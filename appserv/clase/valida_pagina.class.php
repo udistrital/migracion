@@ -47,14 +47,17 @@ class valida_pag extends funcionGeneral
                     //var_dump($this->configuracion);exit;
                     
                     $this->cripto=new encriptar();
-                    $this->cripto->decodificar_url($_REQUEST['index'], $this->configuracion);
+                    $this->cripto->decodificar_url((isset($_REQUEST['index'])?$_REQUEST['index']:''), $this->configuracion);
                     //$this->nueva_sesion=new sesiones($this->configuracion);
                     
                     
                     $this->acceso_MY = $this->conectarDB($this->configuracion,"logueo");  
                     //$this->acceso_OCI = $this->conectarDB($this->configuracion,"default");  
                     session_name($this->configuracion["usuarios_sesion"]);
-                    session_start();
+                    $status = session_status();
+                    if($status == PHP_SESSION_NONE){
+                        session_start();
+                    }
                     $this->usser=$_SESSION["usuario_login"];
                     
                     /*variables para envio al index*/
@@ -71,13 +74,11 @@ class valida_pag extends funcionGeneral
                     /*verifica si existe sesion para el usuario*/
                     $consulta_ses = $this->cadena_sql('rescatar_id_sesion',$variable);
                     $registroSesion= $this->ejecutarSQL($this->configuracion, $this->acceso_MY, $consulta_ses,"busqueda");
-
                     if($registroSesion)
                         {
                         /*revisa que tipo de sesion tiene registrada en usuario*/
                         $cod_consul = $this->cadena_sql('rescatar_tipo_sesion',$registroSesion[0][0]);
                         $reg_ses= $this->ejecutarSQL($this->configuracion,  $this->acceso_MY, $cod_consul,"busqueda");
-                        //var_dump($reg_ses);//exit;
                         
                         $variable['ses']=$registroSesion[0][0];                 
                     

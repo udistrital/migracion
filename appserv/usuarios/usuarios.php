@@ -1,14 +1,11 @@
 <?php
-include_once('conexion.php');
+//include_once('conexion.php');
 require_once("../clase/funcionGeneral.class.php");
 require_once('qry_usu.php');
-   
-   
 	$conexion=new funcionGeneral();
 	$registro=$conexion->ejecutarSQL($configuracion,$oci_conecta,$QryOtr,"busqueda");
 
-	
-	$html.="<table style='width:100%; background-color:transparent;'>";
+	$html="<table style='width:100%; background-color:transparent;'>";
 	$html.="<trheight='22px' ><td>";
 	$html.="	<link href='../script/estilo.css' rel='stylesheet' type='text/css'>";
 	$html.="	<div style='background-color:grey;

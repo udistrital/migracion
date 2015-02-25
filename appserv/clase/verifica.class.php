@@ -138,6 +138,7 @@ class verifica extends funcionGeneral
                         {$url = explode("?",$_SERVER['HTTP_REFERER']);}
                    //$redirLogueo = $url[0]; //variable para redireccion
                   /*revisa si viene direccionado de servidor de logueo*/
+                 
                   if(isset($this->verificador))
                     {  
                        if($this->verificador==$this->configuracion['verificador']) 
@@ -219,6 +220,7 @@ class verifica extends funcionGeneral
                             }
                         elseif(isset($this->usser) && isset($this->pwd)) 
                                     {/*ejecuta la restriccion de acceso adicional que se quiera presentar */
+                             
                                      if(strtoupper($this->configuracion['activar_otras_restricciones_estudiante'])=='S' && strlen(trim($this->usser))==11)
                                           {$this->restriccion_acceso();}   
                                      if(strlen(trim($this->usser))==11)
@@ -235,7 +237,7 @@ class verifica extends funcionGeneral
                                            }
                                     /*genera las conexiones a BD mysql*/
                                     $this->acceso_MY = $this->conectarDB($this->configuracion,"logueo");  
-                                    
+
                                     if(strtoupper($this->configuracion['activar_redireccion_estudiante'])=='S' )
                                                    {  /*realiza la conexion a la bd del servidor de Estudiantes*/
                                                         $this->acceso_Est = $this->conectarDB($this->configuracion,"sesiones_estudiante");  
@@ -256,6 +258,7 @@ class verifica extends funcionGeneral
                                     $cod_consul = $this->cadena_sql('busca_usMY',$this->usser);
                                     //$registro=  $this->ejecutarSQL($this->configuracion,  $this->acceso_OCI, $cod_consul,"busqueda");
                                     $registro= $this->ejecutarSQL($this->configuracion,  $this->acceso_MY, $cod_consul,"busqueda");
+                                
                                                                                   
                                     if(is_array($registro))
                                         {      if(strtolower($this->numero.$registro[0]['PWD'])!=strtolower($this->pwd))/*redirecciona si la contraseña no coincide*/

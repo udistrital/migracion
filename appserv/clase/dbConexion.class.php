@@ -111,7 +111,7 @@ class dbConexion
 	
 	public function recursodb($configuracion,$nombre="")
 	{
-		include_once("dbms.class.php");
+                include_once("dbms.class.php");
 		include_once("mysql.class.php");
 		include_once("oci8.class.php");
 		include_once("pgsql.class.php");
@@ -120,8 +120,8 @@ class dbConexion
 			
 		$acceso_db=new dbms($configuracion);
 		$enlace=$acceso_db->conectar_db();
-		
-		if (is_resource($enlace))
+
+		if ($enlace)
 		{
 			if($nombre!="")
 			{

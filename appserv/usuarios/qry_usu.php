@@ -1,6 +1,12 @@
 <?PHP
-session_name($usuarios_sesion);
-session_start();
+
+if((isset($usuarios_sesion)?$usuarios_sesion:'')){
+    session_name($usuarios_sesion);
+}
+$status = session_status();
+if($status == PHP_SESSION_NONE){
+    session_start();
+}
 /*$QryOtr = "SELECT cla_codigo,cla_clave,cla_tipo_usu,cla_estado,cla_estado
   				  FROM geclaves
  				  WHERE cla_codigo = ".$_SESSION['usuario_login']."
@@ -9,9 +15,9 @@ session_start();
 */
 
 
-	$QryOtr= "SELECT orden, ";
-	$QryOtr.="codigo, ";
-	$QryOtr.="perfil ";
+	$QryOtr= "SELECT p.orden, ";
+	$QryOtr.="p.codigo, ";
+	$QryOtr.="p.perfil ";
 	$QryOtr.="FROM ";
 	$QryOtr.="(   ";
 	$QryOtr.="SELECT -1 orden, ";
@@ -23,7 +29,7 @@ session_start();
 	$QryOtr.="AND cla_estado = 'A' ";
 	$QryOtr.="AND cla_tipo_usu = ".$_SESSION['usuario_nivel']." ";
 	$QryOtr.="UNION ";
-	$QryOtr.="SELECT ROWNUM orden, ";
+	$QryOtr.="SELECT row_number() over() orden, ";
 	$QryOtr.="usutipo_cod codigo, ";
 	$QryOtr.="usutipo_tipo perfil ";
 	$QryOtr.="FROM geusutipo, geclaves ";
@@ -31,6 +37,6 @@ session_start();
 	$QryOtr.="AND cla_codigo = ".$_SESSION['usuario_login']." ";
 	$QryOtr.="AND cla_estado = 'A' ";
 	$QryOtr.="AND cla_tipo_usu <>  ".$_SESSION['usuario_nivel']." ";
-	$QryOtr.=") ";
+	$QryOtr.=") AS p ";
 	$QryOtr.="ORDER BY orden ASC "; 
 ?>

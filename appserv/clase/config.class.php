@@ -23,14 +23,13 @@ class config
 
 	function config()
 	{
-	
 	}
 
 	function variable($ruta="")
-	{
+	{ 
 		include_once("encriptar.class.php");
 		include_once("dbms.class.php");
-		
+			
 		
 		$this->cripto=new encriptar();
 		
@@ -75,11 +74,8 @@ class config
 		$this->base=new dbms($this->configuracion);
 		$this->enlace=$this->base->conectar_db();
 		
-		
-		
-		
 		//exit;
-		if (is_resource($this->enlace))
+		if ($this->enlace)
 		{		
 			
 			$cadena_sql="SELECT ";
@@ -87,7 +83,6 @@ class config
 			$cadena_sql.=" `valor`  ";
 			$cadena_sql.="FROM ";
 			$cadena_sql.=$this->configuracion["prefijo"]."configuracion ";
-			//echo $cadena_sql;
 			
 			$this->total=$this->base->registro_db($cadena_sql,0);			
 			if($this->total>0)
@@ -106,7 +101,7 @@ class config
 				exit;
 			
 			}
-		}
+                }else{echo "noexiste";}
 		
 		
 		return $this->configuracion;

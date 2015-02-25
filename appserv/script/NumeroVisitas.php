@@ -5,7 +5,7 @@ include_once("../clase/multiConexion.class.php");
 	$configuracion=$esta_configuracion->variable("../"); 
 
 	$usuario = $_SESSION['usuario_login'];
-	$carrera = $_SESSION['carrera'];
+	$carrera = (isset($_SESSION['carrera'])?$_SESSION['carrera']:'');
 
 
 /*

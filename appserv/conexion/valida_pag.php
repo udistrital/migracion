@@ -24,9 +24,13 @@ if($validar=="S")
 
 foreach($variables as $cod=>$value)
 	{$_REQUEST[$cod]=$variables[$cod];}
-
-session_name($usuarios_sesion);
-session_start();
+if((isset($usuarios_sesion)?$usuarios_sesion:'')){
+    session_name($usuarios_sesion);
+}
+$status = session_status();
+if($status == PHP_SESSION_NONE){
+    session_start();
+}
 if(!isset($_SESSION['usuario_login']) && !isset($_SESSION['usuario_password'])){
    session_destroy();
    die('<p align="center"><b><font color="#FF0000"><u>Sesion Cerrada!</u></font></b></p>');
