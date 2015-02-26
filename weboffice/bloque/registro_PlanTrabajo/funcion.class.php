@@ -24,10 +24,9 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 		$this->cripto=new encriptar();
 		$this->tema=$tema;
 		$this->sql=$sql;
-		
+               
 		//Conexion ORACLE
 		$this->accesoOracle=$this->conectarDB($configuracion,"docente");
-		
 		//Conexion General
 		$this->acceso_db=$this->conectarDB($configuracion,"");
 		
@@ -64,7 +63,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 		
 		$estado=$_REQUEST['nivel'];
 		$valor[10]=$estado;
-		
+
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"anioper",$valor);
 		$resultAnioPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		$ano=$resultAnioPer[0][0];
@@ -617,11 +616,13 @@ document.<? echo $this->formulario?>.reset();
                                                                                                             $busqueda.=" WHERE tvi_estado = 'A'";
                                                                                                             $resultado1=$this->ejecutarSQL($configuracion, $this->accesoOracle, $busqueda, "busqueda");
                                                                                                         }
-                                                                                                        foreach ($resultado1 as $key => $value) 
+                                                                                                        if(is_array($resultado1)){
+                                                                                                            foreach ($resultado1 as $key => $value) 
                                                                                                             { $registro1[$key][0]=$resultado1[$key][0];
 													      $registro1[$key][1]=$resultado1[$key][1];
-                                                                                                            }												
-													$mi_cuadro=$html->cuadro_lista($registro1,'vinculacion',$configuracion,1,3,FALSE,$tab++,"vinculacion",100);
+                                                                                                            }
+                                                                                                        }
+													$mi_cuadro=$html->cuadro_lista((isset($registro1)?$registro1:''),'vinculacion',$configuracion,1,3,FALSE,$tab++,"vinculacion",100);
 																
 													echo $mi_cuadro;
 													?>
@@ -884,7 +885,7 @@ document.<? echo $this->formulario?>.reset();
 		else
 		{
 			//Fecha actual
-			$busqueda = "SELECT sysdate FROM dual";
+			$busqueda = "SELECT CURRENT_DATE ";
 			$resultfecha=$this->ejecutarSQL($configuracion, $this->accesoOracle, $busqueda, "busqueda");
 			unset($valor);
 			

@@ -30,9 +30,7 @@ class sql_registro_PlanTrabajo extends sql
 			
 			case "fechaactual":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="dual";
+				$cadena_sql.="TO_CHAR(CURRENT_DATE,'YYYYMMDD') ";
 				break;
 				
 			case "datosUsuario":
@@ -86,7 +84,10 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.="sed_id||' - '||edi_nombre, ";
 				$cadena_sql.="sal_id_espacio||' - '||sal_nombre , ";
 				$cadena_sql.="tvi_nombre, ";
-				$cadena_sql.="decode(tvi_cod,1,'PL',6,'PL',0,'SD','VE')";
+				$cadena_sql.="(CASE WHEN tvi_cod=1 THEN 'PL' ";
+				$cadena_sql.=" WHEN tvi_cod=6 THEN 'PL' ";
+				$cadena_sql.=" WHEN tvi_cod=0 THEN 'SD' ";
+				$cadena_sql.=" ELSE 'VE' END) ";
                                 $cadena_sql.=" FROM accargas";
                                 $cadena_sql.=" INNER JOIN achorarios ON car_hor_id=hor_id";
                                 $cadena_sql.=" INNER JOIN accursos ON cur_id=hor_id_curso";
@@ -120,7 +121,7 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.="DIA_ABREV, ";
 				$cadena_sql.="HOR_LARGA, ";
 				$cadena_sql.="SED_ID||' - '||edi_nombre  , ";
-				$cadena_sql.="TO_CHAR(sed_nombre||' - '||edi_nombre), ";
+				$cadena_sql.="sed_nombre||' - '||edi_nombre, ";
 				$cadena_sql.="sal_id_espacio||' - '||sal_nombre , ";
 				$cadena_sql.="sal_id_espacio||' - '||sal_nombre , ";
 				$cadena_sql.="DPT_FECHA, ";
@@ -130,8 +131,11 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.="DPT_DAC_COD, ";
 				$cadena_sql.="DAC_INTENSIDAD, ";
 				$cadena_sql.="tvi_nombre, ";
-				$cadena_sql.="decode(tvi_cod,1,'PL',6,'PL',0,'SD','VE') ";
-				$cadena_sql.="FROM acdocplantrabajo, acdocactividad,gedia,gehora,gesede,gesalones,actipvin,geedificio ";
+                                $cadena_sql.="(CASE WHEN tvi_cod=1 THEN 'PL' ";
+				$cadena_sql.=" WHEN tvi_cod=6 THEN 'PL' ";
+				$cadena_sql.=" WHEN tvi_cod=0 THEN 'SD' ";
+				$cadena_sql.=" ELSE 'VE' END) ";
+                                $cadena_sql.="FROM acdocplantrabajo, acdocactividad,gedia,gehora,gesede,gesalones,actipvin,geedificio ";
 				$cadena_sql.="WHERE ";
 				$cadena_sql.="DPT_APE_ANO = ".$variable[1]." ";
 				$cadena_sql.="AND ";
@@ -210,7 +214,10 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.="tvi_nombre, ";
 				$cadena_sql.="actividades, ";
 				$cadena_sql.="carga, ";
-				$cadena_sql.="DECODE(tvi_cod,1,'PL',6,'PL',8,'PL',0,'SD','VE'), ";
+				$cadena_sql.="(CASE WHEN tvi_cod=1 THEN 'PL' ";
+				$cadena_sql.=" WHEN tvi_cod=6 THEN 'PL' ";
+				$cadena_sql.=" WHEN tvi_cod=0 THEN 'SD' ";
+				$cadena_sql.=" ELSE 'VE' END), ";
 				$cadena_sql.="tvi_cod ";
 				$cadena_sql.="FROM ( ";
 				$cadena_sql.="SELECT tvi_cod, ";
@@ -234,7 +241,7 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.="AND dpt_estado='A' ";//Esta linea estaba comentareada.... verificar.
 				$cadena_sql.="AND DPT_DOC_NRO_IDEN = ".$variable[0].") actividades ";
 				$cadena_sql.="FROM actipvin ";
-				$cadena_sql.=") ";
+				$cadena_sql.=") act ";
 				$cadena_sql.="WHERE (carga+actividades) <> 0 ";
 				$cadena_sql.="ORDER BY tvi_cod ASC";
 				break;
@@ -344,7 +351,7 @@ class sql_registro_PlanTrabajo extends sql
 				break;
 				
 			case "borraActividad":
-				$cadena_sql="DELETE ";
+				$cadena_sql="DELETE FROM ";
 				$cadena_sql.="acdocplantrabajo ";
 				$cadena_sql.="WHERE ";
 				$cadena_sql.="dpt_doc_nro_iden = ".$variable[0]." ";
