@@ -113,7 +113,7 @@ class pgsql
 	var $conteo;
 	var $registro;
 	var $campo;
-
+	var $charset='utf8';//codificacion php
 
 	/*** Fin de sección Atributos: ***/
 
@@ -217,36 +217,21 @@ class pgsql
 	 */
 	function conectar_db()
 	{
-		switch($this->dbsys)
+            $this->enlace=pg_connect("host=".$this->servidor." port=".$this->puerto." dbname=".$this->db." user=".$this->usuario." password=".$this->clave);
+            pg_set_client_encoding($this->enlace,$this->charset);//linea de codificacion de caracteres.
+		if($this->enlace)
 		{
-			
-			case 'pgsql':
-					
-				//$db es el nombre de la instancia de la base de datos ORACLE especificada en el tnsnames.ora
-				
-				$this->enlace=pg_connect($this->servidor, $this->puerto , $this->usuario, $this->clave);
-				
-				if($this->enlace)
-				{
 
-					$base=pgsql_select_db($this->db);	
-					if($base)
-					{
-						return $this->enlace;
-					}
-					else
-					{
-						$this->error=mysql_errno();
-					}
-					
-								
-				}
-				else
-				{
-					$this->error = mysql_errno();	
-				}
-					
+			return $this->enlace;
+						
 		}
+		else
+		{
+			$this->error = pg_last_error($this->enlace);	
+		}
+              /*  include_once ("conectarPostgresInvnetarios.php");
+                $con = new BaseDeDato("","localhost", "5432", "inventarios", "postgres", "postgres");*/
+                
 	} // Fin del método conectar_db
 
 	/**
@@ -314,17 +299,32 @@ class pgsql
 	* @access public
 	 */
 	
-	function ejecutar_acceso_db($cadena_sql) 
-	{
-		if(!mysql_query($cadena_sql,$this->enlace)) 
+	function ejecutarAcceso($cadena_sql,$tipo) 
+	{       
+                
+		if(!is_resource($this->enlace))
 		{
-			$this->error= mysql_errno();
 			return FALSE;
-		} 
-		else 
-		{
-			return TRUE;
 		}
+                
+                if($tipo=="busqueda")
+		{
+                        $esteRegistro=$this->ejecutar_busqueda($cadena_sql);	
+                        return $esteRegistro;
+		}
+		else
+		{
+                        $result = pg_query($this->enlace,$cadena_sql);
+                        if(!$result) 
+                        {
+                                $this->error= pg_last_error($this->enlace);
+                                return FALSE;
+                        }else{
+                                $this->afectadas = pg_affected_rows($result);
+                                return $this->afectadas;
+                        }
+                }
+                
 	}
 
 	/**
@@ -349,43 +349,55 @@ class pgsql
 	* @return boolean
 	* @access public
 	 */
-	function registro_db($cadena_sql,$numero) 
+	function registro_db($cadena_sql,$numero) //pg_fetch_assoc
 	{
-		if(!is_resource($this->enlace))
+            unset($this->registro);		
+            if(!is_resource($this->enlace))
 		{
 			return FALSE;
 		}
-		$busqueda=mysql_query($cadena_sql,$this->enlace);
-		
+                
+                $busqueda=pg_query($this->enlace,$cadena_sql);
 		if($busqueda)
 		{
-			unset($this->registro);
-			@$this->campo = mysql_num_fields($busqueda);
-			@$this->conteo = mysql_num_rows($busqueda);
-			if($numero==0)
-			{
-				
-				$numero=$this->conteo;
+			unset($this->registro);			
+                        
+            //carga una a una las filas en $this->registro
+			while($row=@pg_fetch_array($busqueda,null,PGSQL_BOTH)){
+				//array_walk($row, array($this,'trim_value'));
+				$this->registro[]=$row;
 			}
-			
-			for($j=0; $j<$numero; $j++)
-			{
-				$salida = mysql_fetch_row($busqueda);
-				for($un_campo=0; $un_campo<$this->campo; $un_campo++)
-				{
-					$this->registro[$j][$un_campo] = $salida[$un_campo];
-				}
-			}
-			@mysql_free_result($busqueda);
+
+			//cuenta el numero de registros del arreglo $this->registro
+			$this->conteo=count($this->obtener_registro_db());
+			//@$this->afectadas=mysql_affected_rows($busqueda);
+
+			pg_free_result($busqueda);
 			return $this->conteo;
 		}
 		else
 		{
 			unset($this->registro);
-			$this->error =mysql_error();
+			//echo "<br/>".$cadena_sql;
+			$this->error =pg_last_error($this->enlace);
 			return 0;
-		}
+		}             
+	
+
 	}// Fin del método registro_db
+	
+	/**Elimina espacios en blanco
+    * @name trim_value
+	* @param string $value
+	* @return array
+	* @access public
+	 */	
+	function trim_value(&$value){ 
+		$value = trim($value); 
+	}
+
+
+
 	
 	
 	/**
@@ -458,34 +470,15 @@ class pgsql
      * @name db_admin
 	 *	
 	 */
-	function dbms($configuracion)
+	function __construct($registro)
 	{
-		if(isset($configuracion['db_dns']))
-		{
-			$this->servidor = $configuracion['db_dns'];		
-		}
-		
-		if(isset($configuracion['db_nombre']))
-		{
-			$this->db = $configuracion['db_nombre'];
-		}
-		
-		if(isset($configuracion['db_usuario']))
-		{
-			$this->usuario = $configuracion['db_usuario'];		
-		}
-		
-		if(isset($configuracion['db_clave']))
-		{
-			$this->clave = $configuracion['db_clave'];
-		}
-		
-		if(isset($configuracion['dbsys']))
-		{
-			$this->dbsys = $configuracion['dbsys'];
-		}
-		
-		$this->enlace=$this->conectar_db();		
+            $this->servidor = $registro[0][1];
+            $this->db = $registro[0][4];
+            $this->puerto = isset($registro[0][2])?$registro[0][2]:5432;
+            $this->usuario = $registro[0][5];
+            $this->clave = $registro[0][6];
+            $this->dbsys = $registro[0][7];
+            $this->enlace=$this->conectar_db();		
 	}//Fin del método db_admin
 	
 	//F
@@ -498,7 +491,7 @@ class pgsql
 	}
 	
 	
-	function vaciar_temporales($configuracion,$sesion)
+	/*function vaciar_temporales($configuracion,$sesion)
 	{
 		$this->esta_sesion=$sesion;
 		$this->cadena_sql="DELETE ";
@@ -508,49 +501,44 @@ class pgsql
 		$this->cadena_sql.="identificador<".(time()-3600);
 		$this->ejecutar_acceso_db($this->cadena_sql);
 		
-	}
+	}*/
 	
 	//Funcion para preprocesar la creacion de clausulas sql;
 	function verificar_variables($variables)
 	{
 		if(is_array($variables))
 		{
-			foreach ($variables as $key => $value) 
-			{
-				$variables[$key]=mysql_real_escape_string($value);
-			}
+			$dimcount = 1;
+				 if (is_array(reset($variables))) 
+				 {
+				       $dimcount++;
+				       
+				   }			   
+			
+			
+				if($dimcount==1)
+				{
+					
+				
+					foreach ($variables as $key => $value) 
+					{
+						$variables[$key]=pg_escape_string($value);
+					}
+				}
 		}
 		else
 		{
-			$variables=mysql_real_escape_string($variables);
+			$variables=pg_escape_string($variables);
 		}
 		
 		return $variables;
 	}
-	
-	//Funcion para el acceso a las bases de datos
-		
-	function ejecutarAcceso($cadena_sql,$tipo)
-	{
-		
-		if(!is_resource($this->enlace))
-		{
-			return FALSE;
-		}
-		
-		if($tipo=="busqueda")
-		{
-			$this->registro_db($cadena_sql,0);
-			$esteRegistro=$this->obtener_registro_db();
-			return $esteRegistro;
-		}
-		else
-		{
-			$resultado=$this->ejecutar_acceso_db($cadena_sql);
-			return $resultado;
-		}
-	}
 
+	function obtener_afectadas()
+	{
+           	return $this->afectadas ;
+
+	}//Fin del método obtener_conteo_db
 	
 	
 

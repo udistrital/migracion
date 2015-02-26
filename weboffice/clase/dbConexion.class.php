@@ -122,7 +122,7 @@ class dbConexion
 		$acceso_db=new dbms($configuracion);
 		$enlace=$acceso_db->conectar_db();
 
-		if (is_resource($enlace))
+		if ($enlace)
 		{
 			if($nombre!="")
 			{
@@ -140,10 +140,10 @@ class dbConexion
 				$cadena_sql.=$configuracion["prefijo"]."dbms ";
 				$cadena_sql.="WHERE "; 
 				$cadena_sql.="nombre='".$nombre."'";  
-				
 				$acceso_db->registro_db($cadena_sql,0);
 				$registro=$acceso_db->obtener_registro_db();
-				if(is_array($registro))
+
+                                if(is_array($registro))
 				{
 					$dbms=$registro[0][7];
                                          /*lineas actualizadas para la decodificacion de las claves y usuarios */

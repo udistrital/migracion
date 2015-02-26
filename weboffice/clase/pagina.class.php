@@ -176,7 +176,7 @@ class pagina
 	function mostrar_pagina($configuracion)
 	{       
             
-           	
+           	$this->html_pagina='';
 		$this->cadena_sql="SELECT  ";
 		$this->cadena_sql.=$configuracion["prefijo"]."bloque_pagina.*,";
 		$this->cadena_sql.=$configuracion["prefijo"]."bloque.nombre ,";
@@ -191,12 +191,12 @@ class pagina
 		$this->cadena_sql.=$configuracion["prefijo"]."bloque_pagina.id_bloque=".$configuracion["prefijo"]."bloque.id_bloque ";
 		$this->cadena_sql.="AND ";
 		$this->cadena_sql.=$configuracion["prefijo"]."bloque_pagina.id_pagina=".$configuracion["prefijo"]."pagina.id_pagina";
-
+                
 		//echo "1:".$this->cadena_sql;
 		
 		$this->base=new dbms($configuracion);		
 		$this->enlace=$this->base->conectar_db();
-		if (is_resource($this->enlace))
+		if ($this->enlace)
 		{
 			$this->base->registro_db($this->cadena_sql,0);
 			$this->registro=$this->base->obtener_registro_db();

@@ -89,7 +89,7 @@ class config
 		
 		
 		//exit;
-		if (is_resource($this->enlace))
+		if ($this->enlace)
 		{		
 			
 			$cadena_sql="SELECT ";
@@ -97,7 +97,6 @@ class config
 			$cadena_sql.=" `valor`  ";
 			$cadena_sql.="FROM ";
 			$cadena_sql.=$this->configuracion["prefijo"]."configuracion ";
-			//echo $cadena_sql;
 			
 			$this->total=$this->base->registro_db($cadena_sql,0);			
 			if($this->total>0)

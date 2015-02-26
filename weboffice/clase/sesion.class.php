@@ -327,7 +327,7 @@ class sesiones
 	function especificar_enlace($conexion_id)
 	{
 		
-		if(is_resource($conexion_id)){
+		if($conexion_id){
 			$this->conexion_id=$conexion_id;
 		}
 		
@@ -753,7 +753,7 @@ class sesiones
 	function autenticar($id_conexion)
 	{
 		
-		if (is_resource($id_conexion)) 
+		if ($id_conexion) 
 		{
 
 			$this->cadena_sql='SELECT usuario,clave FROM aplicativo_usuario WHERE usuario="'.$this->usuario_aplicativo.'" AND clave="'.$this->clave_aplicativo.'"';

@@ -37,7 +37,7 @@ class autenticacion
 
 		$acceso_db=new dbms($configuracion);
 		$enlace=$acceso_db->conectar_db();
-		if (is_resource($enlace))
+		if ($enlace)
 		{
 			$cadena_sql="SELECT ";
 			$cadena_sql.="nivel ";
@@ -81,7 +81,7 @@ class autenticacion
 		else
 		{
 					
-					include_once($configuracion["raiz_documento"].$configuracion["encabezado"].'/header.php');	
+					//include_once($configuracion["raiz_documento"].$configuracion["encabezado"].'/header.php');	
 					
 					$error["encabezado"]="IMPOSIBLE REALIZAR LA ACCI&Oacute;N SOLICITADA";
 					$error["cuerpo"]="<br>Se ha detectado un ingreso ilegal al sistema.<br>";
@@ -89,8 +89,8 @@ class autenticacion
 					$error["cuerpo"].="por favor regrese a la p&aacute;gina de autenticaci&oacute;n e ingrese su nombre";
 					$error["cuerpo"].="de usuario y contrase&ntilde;a.";
 					
-					include_once($configuracion["raiz_documento"].$configuracion["incluir"]."/error.php");	
-					include_once($configuracion["raiz_documento"].$configuracion["encabezado"].'/footer.php');
+					//include_once($configuracion["raiz_documento"].$configuracion["incluir"]."/error.php");	
+					//include_once($configuracion["raiz_documento"].$configuracion["encabezado"].'/footer.php');
 					exit();
 			
 			

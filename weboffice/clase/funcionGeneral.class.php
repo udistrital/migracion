@@ -81,8 +81,8 @@ class funcionGeneral
 		$this->conexion=new dbConexion($configuracion);	
 		
 		$recurso=$this->conexion->recursodb($configuracion,$nombre);
-	
 		$recurso->conectar_db();
+		
 		return $recurso;
 		
 	}
