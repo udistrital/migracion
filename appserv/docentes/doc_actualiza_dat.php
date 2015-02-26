@@ -40,16 +40,24 @@ fu_cabezote("ACTUALIZACI&Oacute;N DE DATOS");
 
 $cedula = $_SESSION['usuario_login'];
 //Actualiza datos
-if($_REQUEST['actualizar'])
+$consulta='';
+if(isset($_REQUEST['actualizar']))
 {
 	require_once(dir_script.'msql_actualiza_datos_doc.php');
 }
+$alerta='';
+if(isset($qry)||isset($resultado))
+{
+    $alerta="SE ACTUALIZARON LOS DATOS DEL DOCENTE";
+}
+
 //Edita los datos
 require_once(dir_script.'msql_consulta_datos_doc.php');
 
 $registro = $conexion->ejecutarSQL($configuracion,$accesoOracle,$consulta,"busqueda");
 echo'<p>&nbsp;</p><form name="dat" method="post" action="doc_actualiza_dat.php">
 <table border="0" width="510" height="162" align="center" cellspacing="2"cellpadding="1">
+<tr><td width="100%" align="center" colspan="5"><span class="Estilo10"><b>'.$alerta.'</b></span></td></tr>
  <tr>
   <td width="19%" align="left" height="1"><span class="Estilo5">Nombre:</span></td>
   <td width="81%" style="font-weight: bold" colspan="4" height="1">'.$registro[0][0].'</td></tr>

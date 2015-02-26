@@ -14,5 +14,5 @@ $qry.="DOC_EMAIL = '".strtolower($_REQUEST['mail'])."' ";
 $qry.="WHERE ";
 $qry.="doc_nro_iden ='".$_SESSION['usuario_login']."' ";
 //echo $qry;
-$resultado=$conexion->ejecutarSQL($configuracion,$accesoOracle,$qry,"busqueda");
+$resultado=$conexion->ejecutarSQL($configuracion,$accesoOracle,$qry,"");
 ?>
