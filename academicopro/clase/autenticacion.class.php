@@ -52,7 +52,7 @@ class autenticacion
 
 		$acceso_db=new dbms($configuracion);
 		$enlace=$acceso_db->conectar_db();
-		if (is_resource($enlace))
+		if ($enlace)
 		{
 			$cadena_sql="SELECT ";
 			$cadena_sql.="nivel ";

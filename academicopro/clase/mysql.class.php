@@ -187,7 +187,7 @@ class mysql
 	
 	function especificar_enlace($enlace )
 	{
-		if(is_resource($enlace))
+		if($enlace)
 		{
 			$this->enlace = $enlace;
 		}
@@ -229,32 +229,26 @@ class mysql
 			
 			case 'mysql':
 					
-				$this->enlace=mysql_connect($this->servidor, $this->usuario, $this->clave);
-                                mysql_set_charset($this->charset, $this->enlace);
+				$this->enlace=mysqli_connect($this->servidor, $this->usuario, $this->clave,$this->db);
+                                mysqli_set_charset($this->enlace,$this->charset);
 				
 				if($this->enlace)
 				{
 
-					$base=mysql_select_db($this->db);	
-					if($base)
-					{
+//					$base=mysql_select_db($this->db);	
+//					if($base)
+//					{
 						return $this->enlace;
-					}
-					else
-					{
-						$this->error=mysql_errno();
-					}
-					
-								
+//					}
+//					else
+//					{
+//						$this->error=mysqli_errno($this->enlace);
+//					}
 				}
 				else
 				{
-					
-					$this->error = mysql_errno();	
-					
-					
+					$this->error = mysqli_errno($this->enlace);	
 				}
-					
 		}
 	} // Fin del método conectar_db
 
@@ -310,7 +304,7 @@ class mysql
 	 */
 	function desconectar_db()
 	{
-		mysql_close($this->enlace);
+		mysqli_close($this->enlace);
 		
 	} //Fin del método desconectar_db
 
@@ -325,14 +319,14 @@ class mysql
 	
 	function ejecutar_acceso_db($cadena_sql) 
 	{
-		if(!mysql_query($cadena_sql,$this->enlace)) 
+		if(!mysqli_query($this->enlace, $cadena_sql)) 
 		{
-			$this->error= mysql_errno();
+			$this->error= mysqli_errno($this->enlace);
 			return FALSE;
 		} 
 		else 
 		{
-                        $this->afectadas=mysql_affected_rows($this->enlace);
+                        $this->afectadas=mysqli_affected_rows($this->enlace);
 			return TRUE;
 		}
 	}
@@ -361,11 +355,11 @@ class mysql
 	 */
 	function registro_db($cadena_sql,$numero) 
 	{
-		if(!is_resource($this->enlace))
+		if(!$this->enlace)
 		{
 			return FALSE;
 		}
-		$busqueda=mysql_query($cadena_sql,$this->enlace);
+		$busqueda=mysqli_query($this->enlace, $cadena_sql);
 		
 		if($busqueda)
 		{
@@ -373,7 +367,7 @@ class mysql
                         
                         
                         //carga una a una las filas en $this->registro
-			while($row=mysql_fetch_array($busqueda,MYSQL_BOTH))
+			while($row=mysqli_fetch_array($busqueda,MYSQL_BOTH))
                           {
                           $this->registro[]=$row;
                           }
@@ -382,16 +376,16 @@ class mysql
                         //cuenta el numero de registros del arreglo $this->registro
                         $this->conteo=count($this->registro);
                           }
-                        //@$this->afectadas=mysql_affected_rows($busqueda);
+                        //@$this->afectadas=mysqli_affected_rows($busqueda);
 
 
-			@mysql_free_result($busqueda);
+			@mysqli_free_result($busqueda);
 			return $this->conteo;
 		}
 		else
 		{
 			unset($this->registro);
-			$this->error =mysql_error();
+			$this->error =mysqli_error($this->enlace);
 			return 0;
 		}
 	}// Fin del método registro_db
@@ -425,7 +419,7 @@ class mysql
 
 	function ultimo_insertado($enlace)
 	{
-		return mysql_insert_id($enlace);	
+		return mysqli_insert_id($enlace);	
 	}
 
 /**
@@ -506,12 +500,12 @@ class mysql
 		{
 			foreach ($variables as $key => $value) 
 			{
-				$variables[$key]=mysql_real_escape_string($value);
+				$variables[$key]=mysqli_real_escape_string($value);
 			}
 		}
 		else
 		{
-			$variables=mysql_real_escape_string($variables);
+			$variables=mysqli_real_escape_string($variables);
 		}
 		
 		return $variables;
@@ -523,7 +517,7 @@ class mysql
 	function ejecutarAcceso($cadena_sql,$tipo)
 	{
 		
-		if(!is_resource($this->enlace))
+		if(!$this->enlace)
 		{
 			return FALSE;
 		}

@@ -91,7 +91,7 @@ class config
 		
 		
 		//exit;
-		if (is_resource($this->enlace))
+		if ($this->enlace)
 		{		
 			
 			$cadena_sql="SELECT ";

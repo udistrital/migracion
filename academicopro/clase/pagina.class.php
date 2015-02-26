@@ -195,7 +195,7 @@ class pagina
 		
 		$this->base=new dbms($configuracion);		
 		$this->enlace=$this->base->conectar_db();
-		if (is_resource($this->enlace))
+		if ($this->enlace)
 		{
 			$this->base->registro_db($this->cadena_sql,0);
 			$this->registro=$this->base->obtener_registro_db();
@@ -277,7 +277,7 @@ class pagina
 				
 				if(!isset($_REQUEST["no_pagina"]))
 				{
-					$this->html_pagina.='<html>';
+					$this->html_pagina ='<html>';
 					$this->html_pagina.="<head>\n";
 					$this->html_pagina.="<title>".$configuracion['titulo']."</title>\n";
 					$this->html_pagina.="<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />\n";
