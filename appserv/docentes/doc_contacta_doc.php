@@ -49,6 +49,8 @@ while(isset($row_CraCarga[$i][0]))
 $i++;
 }
 echo'</select><input type="submit" value="Consultar" name="B1"></form></div>';
+$_REQUEST['cracod']=(isset($_REQUEST['cracod'])?$_REQUEST['cracod']:'');
+$_POST['cracod']=(isset($_POST['cracod'])?$_POST['cracod']:'');
 if(!$_REQUEST['cracod']) $_REQUEST['cracod']=$carrera;
 
 if($_POST['cracod']){

@@ -3,6 +3,7 @@ require_once('dir_relativo.cfg');
 require_once(dir_script.'mensaje_error.inc.php');
 $Nombre = $_REQUEST['DocNombre'];
 $Correo = $_REQUEST['DocCorreo'];
+$msg=(isset($msg)?$msg:'');
 ?>
 <html> 
 <head> 

@@ -1,6 +1,7 @@
+
 <?PHP
 //LLAMADO DE doc_adm_correos.php
-$Qry_CraCarga = "SELECT UNIQUE(CRA_COD),CRA_NOMBRE
+$Qry_CraCarga = "SELECT DISTINCT(CRA_COD),CRA_NOMBRE
 		FROM ACCRA
                 INNER JOIN accursos ON cur_cra_cod=cra_cod
                 INNER JOIN achorarios ON hor_id_curso=cur_id
