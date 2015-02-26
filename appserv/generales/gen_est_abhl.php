@@ -32,7 +32,7 @@ fu_cabezote("ESTUDIANTES ACTIVOS");
     <td align="center">Total</td>
   </tr>
 <?php
-$QryFac = "SELECT unique(cra_dep_cod), dep_nombre,fua_tot_activos_fac(cra_dep_cod)
+$QryFac = "SELECT DISTINCT(cra_dep_cod), dep_nombre,fua_tot_activos_fac(cra_dep_cod)
 	FROM accra, gedep
 	WHERE dep_cod = cra_dep_cod
 	AND cra_estado = 'A'
@@ -54,8 +54,7 @@ while(isset($RowFac[$i][0]))
 	
 $i++;
 }
-
-if($_REQUEST['depcod'] == "") $_REQUEST['depcod'] = 23;
+$_REQUEST['depcod']=(isset($_REQUEST['depcod'])?$_REQUEST['depcod']:23);
 
 $depcod = $_REQUEST['depcod'];
 require_once(dir_script.'NombreFacultad.php');
@@ -79,7 +78,7 @@ $Facultad = $RowFac[0][1];
 <?php
 $QryCraFac = "SELECT cra_cod, cra_nombre, fua_tot_activos_cra(cra_cod)
 	FROM gedep, accra
-	WHERE dep_cod = ".$_REQUEST['depcod']."
+	WHERE dep_cod = ".(int)$_REQUEST['depcod']."
 	AND dep_cod = cra_dep_cod
 	AND cra_estado = 'A'
 	AND dep_estado = 'A'
