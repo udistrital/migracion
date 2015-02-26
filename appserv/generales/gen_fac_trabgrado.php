@@ -30,11 +30,11 @@ fu_cabezote("MODALIDAD DE TRABAJOS DE GRADO");
     <td align="center">Nombre</td>
   </tr>
 <?php
-$QryFac = "SELECT unique(cra_dep_cod), dep_nombre
+$QryFac = "SELECT DISTINCT(cra_dep_cod), dep_nombre
 	FROM accra, gedep
 	WHERE dep_cod = cra_dep_cod
 	AND cra_estado = 'A'
-	AND cra_dep_cod NOT IN(0, 20,500)
+	AND cra_dep_cod NOT IN(0, 20,500, 18)
 	ORDER BY 1";
 
 $RowFac = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryFac,"busqueda");
@@ -49,8 +49,7 @@ while(isset($RowFac[$i][0]))
 	
 $i++;
 }
-
-if($_REQUEST['depcod'] == "") $_REQUEST['depcod'] = 23;
+$_REQUEST['depcod']=(isset($_REQUEST['depcod'])?$_REQUEST['depcod']:'23');
 
 $depcod = $_REQUEST['depcod'];
 require_once(dir_script.'NombreFacultad.php');
