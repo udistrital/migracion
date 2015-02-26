@@ -2,7 +2,7 @@
 $cod_consul = "SELECT dia_nombre,
 		MIN(hor_hora),
 		(MAX(hor_hora) + 1),
-		NVL(sal_nombre,hor_sal_id_espacio),
+		coalesce(sal_nombre,hor_sal_id_espacio),
 		sed_id,
 		edi_nombre 
 		FROM acasperi,achorarios,gedia,gesalones,gesede,geedificio,accursos
@@ -17,6 +17,6 @@ $cod_consul = "SELECT dia_nombre,
 		AND hor_sal_id_espacio = sal_id_espacio
 		AND sal_edificio=edi_cod
 		AND sal_sed_id = sed_id
-		GROUP BY dia_cod, dia_nombre,NVL(sal_nombre,hor_sal_id_espacio),sed_id,edi_nombre 
+		GROUP BY dia_cod, dia_nombre,coalesce(sal_nombre,hor_sal_id_espacio),sed_id,edi_nombre 
 		ORDER BY dia_cod, MIN(hor_hora) ASC";
 ?>

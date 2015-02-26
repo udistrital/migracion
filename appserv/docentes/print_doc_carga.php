@@ -21,7 +21,7 @@ $_SESSION['carrera'] = $_REQUEST['cra'];
 ?>
 <HTML>
 <HEAD>
-<TITLE>Estudiante</TITLE>
+<TITLE>Carga Lectiva Docente</TITLE>
 <script language="JavaScript" src="../script/clicder.js"></script>
 </HEAD>
 <BODY style="margin:0;">
