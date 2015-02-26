@@ -65,10 +65,10 @@ class sql_adminConsultarHistoricoRecibos extends sql {
                 $cadena_sql.=" trim(est_ind_cred)     MODALIDAD,";
                 $cadena_sql.=" dep_nombre       FACULTAD";
                 $cadena_sql.=" FROM";
-                $cadena_sql.=" ".$this->configuracion['esquema_academico']."acest";
-                $cadena_sql.=" INNER JOIN ".$this->configuracion['esquema_academico']."accra ON cra_cod=est_cra_cod";
-                $cadena_sql.=" INNER JOIN ".$this->configuracion['esquema_general']."gedep ON cra_dep_cod=dep_cod";
-                $cadena_sql.=" INNER JOIN ".$this->configuracion['esquema_academico']."acestado ON est_estado_est=estado_cod";
+                $cadena_sql.=" acest";
+                $cadena_sql.=" INNER JOIN accra ON cra_cod=est_cra_cod";
+                $cadena_sql.=" INNER JOIN gedep ON cra_dep_cod=dep_cod";
+                $cadena_sql.=" INNER JOIN acestado ON est_estado_est=estado_cod";
                 $cadena_sql.=" WHERE";
                 $cadena_sql.=" est_cod=".$variable;
                 
@@ -89,8 +89,8 @@ class sql_adminConsultarHistoricoRecibos extends sql {
                 $cadena_sql.=" rba_valor        VALOR_PAGADO,";
                 $cadena_sql.=" Ema_Estado       ESTADO,";
                 $cadena_sql.=" Ema_obs          OBSERVACIONES";
-                $cadena_sql.=" FROM ".$this->configuracion['esquema_academico']."Acestmat";
-                $cadena_sql.=" LEFT OUTER JOIN ".$this->configuracion['esquema_academico']."acrecban ON ema_secuencia=rba_secuencia AND rba_cod=ema_est_cod";
+                $cadena_sql.=" FROM Acestmat";
+                $cadena_sql.=" LEFT OUTER JOIN acrecban ON ema_secuencia=rba_secuencia AND rba_cod=ema_est_cod";
                 $cadena_sql.=" WHERE Ema_Est_Cod =".$variable;
                 $cadena_sql.=" UNION";
                 $cadena_sql.=" SELECT AMA_ANO,";
@@ -106,9 +106,9 @@ class sql_adminConsultarHistoricoRecibos extends sql {
                 $cadena_sql.=" AMA_VALOR,";
                 $cadena_sql.=" AMA_ESTADO,";
                 $cadena_sql.=" AMA_OBS";
-                $cadena_sql.=" FROM ".$this->configuracion['esquema_academico']."ACADMMAT";
-                $cadena_sql.=" INNER JOIN ".$this->configuracion['esquema_academico']."ACESTADM on AMA_ANO = EAD_ASP_ANO and AMA_PER = EAD_ASP_PER and AMA_ASP_CRED = EAD_ASP_CRED";
-                $cadena_sql.=" LEFT OUTER JOIN ".$this->configuracion['esquema_academico']."ACRECBAN on AMA_ANO = RBA_ANO and AMA_SECUENCIA = RBA_SECUENCIA";
+                $cadena_sql.=" FROM ACADMMAT";
+                $cadena_sql.=" INNER JOIN ACESTADM on AMA_ANO = EAD_ASP_ANO and AMA_PER = EAD_ASP_PER and AMA_ASP_CRED = EAD_ASP_CRED";
+                $cadena_sql.=" LEFT OUTER JOIN ACRECBAN on AMA_ANO = RBA_ANO and AMA_SECUENCIA = RBA_SECUENCIA";
                 $cadena_sql.=" WHERE ";
                 $cadena_sql.=" EAD_COD = ".$variable;
                 $cadena_sql.=" ORDER BY 1 desc, 2 DESC, 7 asc";
@@ -126,8 +126,8 @@ class sql_adminConsultarHistoricoRecibos extends sql {
 //                $cadena_sql.=" rba_valor        VALOR_PAGADO,";
 //                $cadena_sql.=" Ema_Estado       ESTADO,";
 //                $cadena_sql.=" Ema_obs          OBSERVACIONES";
-//                $cadena_sql.=" FROM ".$this->configuracion['esquema_academico']."Acestmat";
-//                $cadena_sql.=" LEFT OUTER JOIN ".$this->configuracion['esquema_academico']."acrecban ON ema_secuencia=rba_secuencia AND rba_cod=ema_est_cod";
+//                $cadena_sql.=" FROM Acestmat";
+//                $cadena_sql.=" LEFT OUTER JOIN acrecban ON ema_secuencia=rba_secuencia AND rba_cod=ema_est_cod";
 //                $cadena_sql.=" WHERE Ema_Est_Cod =".$variable;
 //                $cadena_sql.=" ORDER BY ema_ano DESC,";
 //                $cadena_sql.=" ema_per DESC,";
@@ -140,14 +140,14 @@ class sql_adminConsultarHistoricoRecibos extends sql {
                 $cadena_sql.=" aer_bancod, ";
                 $cadena_sql.=" aer_refcod, ";
                 $cadena_sql.=" aer_valor";
-                $cadena_sql.=" FROM ".$this->configuracion['esquema_academico']."acrefest ";
+                $cadena_sql.=" FROM acrefest ";
                 $cadena_sql.=" WHERE aer_secuencia =".$variable['secuencia'];
                 $cadena_sql.=" AND aer_ano=".$variable['anio'];
                  break;
             
              case 'consultar_valor_seguro':
                 $cadena_sql=" SELECT vlr_seguro ";
-                $cadena_sql.=" FROM ".$this->configuracion['esquema_academico']."acvlrscs ";
+                $cadena_sql.=" FROM acvlrscs ";
                 $cadena_sql.=" WHERE vlr_ano= ".$variable['anio'];
                 $cadena_sql.=" AND vlr_per=".$variable['periodo'];
                 break;
@@ -156,8 +156,8 @@ class sql_adminConsultarHistoricoRecibos extends sql {
                 $cadena_sql=" SELECT est_cod CODIGO, ";
                 $cadena_sql.=" est_cra_cod COD_PROYECTO ,";
                 $cadena_sql.=" cra_nombre PROYECTO";
-                $cadena_sql.=" FROM ".$this->configuracion['esquema_academico']."acest ";
-                $cadena_sql.=" INNER JOIN ".$this->configuracion['esquema_academico']."accra on cra_cod=est_cra_cod";
+                $cadena_sql.=" FROM acest ";
+                $cadena_sql.=" INNER JOIN accra on cra_cod=est_cra_cod";
                 $cadena_sql.=" WHERE est_nro_iden= ".$variable;
                 $cadena_sql.=" ORDER BY CODIGO desc";
 
@@ -168,8 +168,8 @@ class sql_adminConsultarHistoricoRecibos extends sql {
                 $cadena_sql.=" est_cra_cod COD_PROYECTO ,";
                 $cadena_sql.=" cra_nombre PROYECTO,";
                 $cadena_sql.=" est_nombre NOMBRE";
-                $cadena_sql.=" FROM ".$this->configuracion['esquema_academico']."acest ";
-                $cadena_sql.=" INNER JOIN ".$this->configuracion['esquema_academico']."accra on cra_cod=est_cra_cod";
+                $cadena_sql.=" FROM acest ";
+                $cadena_sql.=" INNER JOIN accra on cra_cod=est_cra_cod";
                 $cadena_sql.=" WHERE est_nombre like ".$variable." ";
                 $cadena_sql.=" ORDER BY CODIGO desc";
 

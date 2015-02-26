@@ -64,12 +64,6 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
         
         $this->cripto = new encriptar();
         $this->sql = new sql_adminConsultarHistoricoRecibos($configuracion);
-       /**
-         * Intancia para crear la conexion ORACLE
-         */
-  
-        $_REQUEST['perfil_conn']='asistenteCont';
-        $this->accesoOracle = $this->conectarDB($configuracion, $_REQUEST['perfil_conn']);
         /**
          * Instancia para crear la conexion General
          */
@@ -93,7 +87,34 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
         $this->identificacion = $this->rescatarValorSesion($configuracion, $this->acceso_db, "identificacion");
         $this->nivel = $this->rescatarValorSesion($configuracion, $this->acceso_db, "nivelUsuario");
         $this->validacion=new validarInscripcion();
-        
+  
+        /**
+         * Intancia para crear la conexion ORACLE
+         */
+        if($this->nivel==80){//soporte
+            $this->accesoOracle = $this->conectarDB($configuracion, 'soporteoas');
+        }elseif($this->nivel==4||$this->nivel==28){//coordinador
+            $this->accesoOracle = $this->conectarDB($configuracion, 'coordinador');
+        }elseif($this->nivel==51||$this->nivel==52){//estudiante
+            $this->accesoOracle = $this->conectarDB($configuracion, 'estudianteCred');
+        }elseif($this->nivel==110){//asistente proyecto
+            $this->accesoOracle = $this->conectarDB($configuracion, 'asistente');
+        }elseif($this->nivel==117){//asistente CERI
+            $this->accesoOracle = $this->conectarDB($configuracion, 'asistenteCeri');
+        }elseif($this->nivel==68){//bienestar
+            $this->accesoOracle = $this->conectarDB($configuracion, 'bienestar');
+        }elseif($this->nivel==114||$this->nivel==116){//secretario proyecto y secretario de secretaria
+            $this->accesoOracle = $this->conectarDB($configuracion, 'secretario');
+        }elseif($this->nivel==109){//asistente contabilidad
+            $this->accesoOracle = $this->conectarDB($configuracion, 'asistenteCont');
+        }elseif($this->nivel==83){//secretario academico
+            $this->accesoOracle = $this->conectarDB($configuracion, 'secretarioAcad');
+        }elseif($this->nivel==16){//decano
+            $this->accesoOracle = $this->conectarDB($configuracion, 'decano');
+        }else{
+            echo "NO TIENE PERMISOS PARA ESTE MODULO";
+            exit;
+        }
     }
 
     /**
@@ -185,7 +206,7 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
                                 exit;
                             }
                 }
-          /*      if($this->nivel==16){
+                if($this->nivel==16){
                         $verificacion=$this->validacion->validarFacultadDecano($codEstudiante,$this->usuario);        
                         if($verificacion!='ok')
                             {
@@ -201,8 +222,7 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
                                 exit;
                             }
                     }
-           * 
-           */
+           
                 if($this->nivel==112||$this->nivel==116||$this->nivel==111||$this->nivel==115){
                         $verificacion=$this->validacion->validarFacultadAsistente($codEstudiante,$this->usuario);        
                         if($verificacion!='ok')
