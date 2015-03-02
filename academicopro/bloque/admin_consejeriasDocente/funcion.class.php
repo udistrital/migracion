@@ -72,7 +72,6 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
 
     function verProyectos() {        
       $proyectoConsejeriaDocente=$this->consultarProyectoConsejeriaDocente();
-      
       //presenta listado de proyectos en caso de que el docente esté asignado a más de uno
         if(count($proyectoConsejeriaDocente)>1){
 
@@ -126,7 +125,7 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
     }    
     
     /**
-     *Presenta encabezado de lista de estudaintes por riesgo 
+     *Presenta encabezado de lista de estudiantes por riesgo 
      */
     function consultarEstudiantes() {
      
@@ -184,7 +183,7 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
           //$variablesDocente = array(codDocente => $this->usuario);
 		  $variablesDocente = array('codDocente' => $this->usuario);
 
-          $cadena_sql_proyectos=$this->sql->cadena_sql("buscarProyectosConsejeriaDocente",$variablesDocente);//echo $cadena_sql_proyectos;exit;
+          $cadena_sql_proyectos=$this->sql->cadena_sql("buscarProyectosConsejeriaDocente",$variablesDocente);
           $arreglo_proyectos=$this->ejecutarSQL("", $this->accesoOracle, $cadena_sql_proyectos,"busqueda" );
           return $arreglo_proyectos;
     }            
@@ -373,7 +372,7 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
                                              'codProyecto'=> $this->codProyecto  ,                                             
 			);
 
-          $cadena_sql = $this->sql->cadena_sql("buscarEstudiantesAsociados", $variables); //echo $cadena_sql;exit;
+          $cadena_sql = $this->sql->cadena_sql("buscarEstudiantesAsociados", $variables);
           $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
           return $resultado;
     }        
@@ -398,7 +397,7 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
 
     function buscarPeriodoActual() {
 
-        $cadena_sql = $this->sql->cadena_sql("periodoActual", ''); //echo $cadena_sql;exit;
+        $cadena_sql = $this->sql->cadena_sql("periodoActual", '');
 
         $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle,$cadena_sql, "busqueda");
         
@@ -408,7 +407,7 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
         
     function buscarPeriodoAnterior() {
 
-        $cadena_sql = $this->sql->cadena_sql("periodoAnterior", ''); //echo $cadena_sql;exit;
+        $cadena_sql = $this->sql->cadena_sql("periodoAnterior", '');
 
         $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle,$cadena_sql, "busqueda");
         
@@ -423,7 +422,7 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
             );
           
           //Buscar el ultimo semestre con registro de reglamento
-          $cadena_sql = $this->sql->cadena_sql("buscarSemestresReglamento", $variables);//echo $cadena_sql;exit;
+          $cadena_sql = $this->sql->cadena_sql("buscarSemestresReglamento", $variables);
           $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 
           return $resultado[0]['MOTIVO_PRUEBA'];        
@@ -436,7 +435,7 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
                                 'codigo' => $codigo
             );
 
-          $cadena_sql = $this->sql->cadena_sql("buscarPromedioEstudiante", $variables); //echo $cadena_sql;//exit;
+          $cadena_sql = $this->sql->cadena_sql("buscarPromedioEstudiante", $variables);
           $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");          
           return $resultado[0];
         

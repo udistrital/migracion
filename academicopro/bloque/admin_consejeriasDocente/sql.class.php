@@ -69,7 +69,7 @@ class sql_admin_consejeriasDocente extends sql {	//@ Método que crea las senten
         
             case 'buscarPromedioEstudiante':
 
-                $cadena_sql="SELECT fa_promedio_nota('".$variable['codigo']."') PROMEDIO FROM dual";                
+                $cadena_sql="SELECT fa_promedio_nota('".$variable['codigo']."') PROMEDIO";                
 
                 //echo $cadena_sql;
                 break;
