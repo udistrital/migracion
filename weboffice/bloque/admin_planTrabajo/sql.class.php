@@ -266,6 +266,17 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.=" ORDER BY tvi_cod ASC";
 				break;
 		
+                        case 'asignaturasCargaLectiva':
+                            
+                                $cadena_sql=" SELECT DISTINCT cur_asi_cod, asi_nombre from accargas";
+                                $cadena_sql.=" INNER JOIN achorarios ON hor_id=car_hor_id";
+                                $cadena_sql.=" INNER JOIN accursos ON cur_id=hor_id_curso";
+                                $cadena_sql.=" INNER JOIN acasperi ON ape_ano=cur_ape_ano AND ape_per=cur_ape_per";
+                                $cadena_sql.=" INNER JOIN acasi ON asi_cod=cur_asi_cod";
+                                $cadena_sql.=" WHERE car_doc_nro=".$variable[4]."";
+                                $cadena_sql.=" AND ape_estado='".$variable[10]."'";
+                                break;
+		
 			case "totalPorActividad":
 				$cadena_sql="SELECT COUNT(DPT_HORA) ";
 				$cadena_sql.="FROM acdocplantrabajo,acasperi ";

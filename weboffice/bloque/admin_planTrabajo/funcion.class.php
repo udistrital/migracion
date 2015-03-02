@@ -417,20 +417,25 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 											<?
 												$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "cuentaActividad",$valor);
 												$QryHor=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+												$cadena_sql_carga=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "asignaturasCargaLectiva",$valor);
+												$QryCarga=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql_carga, "busqueda");
 												$cuentaAct=count($QryHor);
 												//echo "mmmm".$cuentaAct;
 												echo '<table class="contenidotabla">';
 												echo '<thead class="cuadro_color">
-													<td class="cuadro_plano_medio centrar">
+													<td class="cuadro_plano_medio centrar" width=25%>
 														TIPO DE VINCULACION
-													</td><td class="cuadro_plano_medio centrar">
+													</td><td class="cuadro_plano_medio centrar" width=15%>
 														ACTIVIDADES
 													</td>
-													<td class="cuadro_plano_medio centrar">
+													<td class="cuadro_plano_medio centrar" width=10%>
 														CARGA
 													</td>
-													<td class="cuadro_plano_medio centrar">
+													<td class="cuadro_plano_medio centrar" width=10%>
 														TOTAL HORAS
+													</td>  
+													<td class="cuadro_plano_medio centrar" width=40%>
+														ESPACIOS ACAD&Eacute;MICOS
 													</td>  
 												</thead>';
 												
@@ -450,6 +455,15 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 														echo '<td class="cuadro_plano_medio centrar">';
 															echo ((int)$QryHor[$j][1] + (int)$QryHor[$j][2]);
 														echo '</td>'; 
+														echo '<td class="cuadro_plano_medio centrar">';
+                                                                                                                if (isset($QryCarga)&&is_array($QryCarga))
+                                                                                                                {
+                                                                                                                    foreach ($QryCarga as $espacios => $espacio)
+                                                                                                                        {
+                                                                                                                            echo $espacio[1]."<br>";
+                                                                                                                        }
+                                                                                                                }
+														echo '</td>';
 													echo '</tr>';
 												$j++;
 												}
@@ -469,7 +483,28 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 						
 			<?
 		}
+                $this->imprimirHorario();
 	}
+        
+        
+    /**
+     * Funcion que permite colocar un boton para imprimir los datos de vinculacion de docentes por Proyecto para pefil de asesor
+     */
+    function imprimirHorario() {
+        ?>
+    <div id="parte2">
+        <table align="center" >
+            <tr>
+                <td align="center" >
+                    <input type="button" name="imprimir" value="Imprimir" onclick="window.print();">
+                </td>
+            </tr>
+        </table>
+    </div>    
+        <?
+        
+    }    
+        
  /*__________________________________________________________________________________________________
 		
 						Metodos especificos 
