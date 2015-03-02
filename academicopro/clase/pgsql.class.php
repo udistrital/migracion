@@ -364,10 +364,10 @@ class pgsql
                         
             //carga una a una las filas en $this->registro
 			while($row=@pg_fetch_array($busqueda,null,PGSQL_BOTH)){
-				//array_walk($row, array($this,'trim_value'));
+                                $row=array_change_key_case($row, CASE_UPPER);
+                                //array_walk($row, array($this,'trim_value'));
 				$this->registro[]=$row;
 			}
-
 			//cuenta el numero de registros del arreglo $this->registro
 			$this->conteo=count($this->obtener_registro_db());
 			//@$this->afectadas=mysql_affected_rows($busqueda);
