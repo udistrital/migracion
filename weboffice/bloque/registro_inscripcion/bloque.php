@@ -41,6 +41,8 @@ class bloque_registroInscripcionGrado extends bloque
 	
 	function html($configuracion)
 	{
+                $tema=$formulario=$verificar=$fila='';
+                $tab=0;
 		if(!isset($_REQUEST['cancelar']))
 		{
 			if(isset($_REQUEST['opcion']))
@@ -53,7 +55,7 @@ class bloque_registroInscripcionGrado extends bloque
 						$this->funcion->mostrarRegistro($configuracion,$tema,$accion,$formulario,$verificar,$fila,$tab,$this->funcion->acceso_db);
 						break;
 					case "nuevo":
-						$this->funcion->nuevoRegistro($configuracion,$conexion);
+						$this->funcion->nuevoRegistro($configuracion,'');
 						break;
 					case "exito":
 						$this->funcion->mostrarRegistro($configuracion,$tema,$accion,$formulario,$verificar,$fila,$tab,$this->funcion->acceso_db);
@@ -65,7 +67,7 @@ class bloque_registroInscripcionGrado extends bloque
 						$this->funcion->editarLibMilitar($configuracion,$tema,$accion,$formulario,$verificar,$fila,$tab,$this->funcion->acceso_db);
 						break;
 					case "exitoEdicion":
-						$this->funcion->nuevoRegistro($configuracion, $accesoOracle,$acceso_db);
+						$this->funcion->nuevoRegistro($configuracion, $this->funcion->accesoOracle,$this->funcion->acceso_db);
 						break;
 				}
 			}
@@ -99,11 +101,11 @@ class bloque_registroInscripcionGrado extends bloque
 			}
 			if(isset($_REQUEST["editar"]))
 			{
-				$this->funcion->guardarEdicion($configuracion, $accesoOracle,$acceso_db);
+				$this->funcion->guardarEdicion($configuracion, $this->funcion->accesoOracle,$this->funcion->acceso_db);
 			}
 			if(isset($_REQUEST["editarLibMilitar"]))
 			{
-				$this->funcion->guardarEdicionLibreta($configuracion, $accesoOracle,$acceso_db);
+				$this->funcion->guardarEdicionLibreta($configuracion, $this->funcion->accesoOracle,$this->funcion->acceso_db);
 			}
 
 		}

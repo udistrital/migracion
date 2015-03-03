@@ -45,7 +45,7 @@ class funciones_registroInscripcionGrado extends funcionGeneral
 	//Rescata los valores del formulario para guardarlos en la base de datos.
 	function guardarRegistro ($configuracion, $accesoOracle,$acceso_db)
 	{		
-		$unUsuario=$this->verificarUsuario();
+		$unUsuario=$this->verificarUsuario($configuracion);
 		if(is_array($unUsuario))
 		{
 			$valor[0]=$_REQUEST['codigo'];
@@ -94,7 +94,7 @@ class funciones_registroInscripcionGrado extends funcionGeneral
 	//Rescata la informacion del estudiante, y al final muestra en pantalla el formulario para inscribir el trabao de grado.
 	function nuevoRegistro($configuracion,$conexion)
 	{
-		$registroUsuario=$this->verificarUsuario();
+		$registroUsuario=$this->verificarUsuario($configuracion);
 			
 		$contador=0;	
 		$tab=0;
@@ -122,7 +122,7 @@ class funciones_registroInscripcionGrado extends funcionGeneral
 		else
 		{
 				
-			$calendario=$this->validaCalendario();
+			$calendario=$this->validaCalendario($configuracion);
 							
 			?><form enctype='multipart/form-data' method='POST' action='index.php' name='<? echo $this->formulario?>'>
 				<table width="100%" align="center" border="0" cellpadding="10" cellspacing="0" >
@@ -343,18 +343,21 @@ class funciones_registroInscripcionGrado extends funcionGeneral
 										include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.class.php");
 										$html=new html();
 																
-										$busqueda="SELECT ";
+										$busqueda="SELECT DISTINCT ";
 										$busqueda.="dir_nro_iden, ";
 										$busqueda.="dir_nombre ||' '|| dir_apellido as nombre ";
 										$busqueda.="FROM ";
 										$busqueda.="acdirectorgrado ";
 										$busqueda.="WHERE ";
 										$busqueda.="dir_estado='A' ";
-										$busqueda.="ORDER BY dir_nombre";
+										$busqueda.="ORDER BY nombre";
 										
 										$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $busqueda, "busqueda");
-																								
-										$mi_cuadro=$html->cuadro_lista($resultado,'director',$configuracion,1,0,FALSE,$tab++,"director",300);
+                                                                                foreach ($resultado as $key => $value) {
+                                                                                    $lista_director[$key][0]=$value[0];
+                                                                                    $lista_director[$key][1]=$value[1];
+                                                                                }
+										$mi_cuadro=$html->cuadro_lista($lista_director,'director',$configuracion,1,0,FALSE,$tab++,"director",300);
 													
 										echo $mi_cuadro;
 										echo "<font color='red'><br>En caso de que no tenga director de grado, seleccione el Coordinador de su Proyecto Curricular.</font>";
@@ -419,7 +422,7 @@ class funciones_registroInscripcionGrado extends funcionGeneral
 	function mostrarRegistro($configuracion,$registro, $total, $opcion="",$valor)
 	{
 		//$calendario=$this->validaCalendario();
-		$registroUsuario=$this->verificarUsuario();
+		$registroUsuario=$this->verificarUsuario($configuracion);
 		
 		$contador=0;	
 		$tab=0;
@@ -667,7 +670,7 @@ class funciones_registroInscripcionGrado extends funcionGeneral
 	//Funcion que permite editar el lugar de expedción del documento de identidad.
 	function editarLugExp($configuracion,$registro, $total, $opcion="",$valor)
 	{
-		$registroUsuario=$this->verificarUsuario();
+		$registroUsuario=$this->verificarUsuario($configuracion);
 		if($this->usuario)
 		{
 			$usuario=$this->usuario;
@@ -753,7 +756,7 @@ class funciones_registroInscripcionGrado extends funcionGeneral
 	//Funcion que permite editar el lugar de expedción del documento de identidad.
 	function editarLibMilitar($configuracion,$registro, $total, $opcion="",$valor)
 	{
-		$registroUsuario=$this->verificarUsuario();
+		$registroUsuario=$this->verificarUsuario($configuracion);
 		if($this->usuario)
 		{
 			$usuario=$this->usuario;
@@ -840,7 +843,7 @@ class funciones_registroInscripcionGrado extends funcionGeneral
 	//Funcion que guarda la edición de lugar de expedición de documento de identidad
 	function guardarEdicion($configuracion, $accesoOracle,$acceso_db)
 	{
-		$unUsuario=$this->verificarUsuario();               
+		$unUsuario=$this->verificarUsuario($configuracion);               
 		if(is_array($unUsuario))
 		{
 			
@@ -884,7 +887,7 @@ class funciones_registroInscripcionGrado extends funcionGeneral
 	//Funcion que guarda la edición de lugar de expedición de documento de identidad
 	function guardarEdicionLibreta($configuracion, $accesoOracle,$acceso_db)
 	{ 
-		$unUsuario=$this->verificarUsuario();       
+		$unUsuario=$this->verificarUsuario($configuracion);       
 		if(is_array($unUsuario))
 		{
 			    
@@ -929,7 +932,7 @@ ________________________________________________________________________________
 	//Rescata los datos registrados del usuario.
 	function datosUsuario()
 	{
-		$registro=$this->verificarUsuario();
+		$registro=$this->verificarUsuario($configuracion);
 		if(is_array($registro))
 		{
 			?><table class="formulario" align="center">
@@ -966,7 +969,7 @@ ________________________________________________________________________________
 	}	
 	
 	//Verifica los datos registrados del usuario.
-	function verificarUsuario()
+	function verificarUsuario($configuracion)
 	{
 		//Verificar existencia del usuario 	
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "datosUsuario",$this->identificacion);
@@ -994,11 +997,11 @@ ________________________________________________________________________________
 	}
 	
 	//Valida que la inscripcion para grados se pueda realizar dentro de las fechas establecidas.
-	function validaCalendario()
+	function validaCalendario($configuracion)
 	{
 		//Valida las fechas del calendario
 		
-		$registroUsuario=$this->verificarUsuario();
+		$registroUsuario=$this->verificarUsuario($configuracion);
 		if($this->usuario)
 		{
 			$usuario=$this->usuario;
@@ -1010,14 +1013,12 @@ ________________________________________________________________________________
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "datosUsuario",$usuario);
 		@$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		$valor[1]=$resultado[0][4];
-		
-		$confec = "SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'yyyymmdd')) FROM dual";
+		$confec = "SELECT TO_CHAR(CURRENT_TIMESTAMP, 'yyyymmdd') ";
 		@$rows=$this->ejecutarSQL($configuracion, $this->accesoOracle, $confec, "busqueda");
 		$fechahoy =$rows[0][0];
 				
 		$qryFechas=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "validaFechas",$valor);
 		@$calendario=$this->ejecutarSQL($configuracion, $this->accesoOracle, $qryFechas, "busqueda");
-		
 		$FormFecIni = $calendario[0][2];
 		$FormFecFin = $calendario[0][3];
 			if( $calendario[0][0] == "" ||  $calendario[0][1] == "")
