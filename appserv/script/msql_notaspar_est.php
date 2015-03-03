@@ -4,7 +4,7 @@ $cod_consul = "SELECT est_cod,
   					  est_nro_iden,
   					  cra_cod,
   					  cra_nombre,
-  					  trunc(fa_promedio_nota(est_cod),2),
+  					  trunc(fa_promedio_nota(est_cod)::numeric,2),
 	   				  ins_asi_cod,
 	   				  asi_nombre,
 	   				  ins_gr,
@@ -31,7 +31,7 @@ $cod_consul = "SELECT est_cod,
 	   				  ins_obs,
                                           ins_ano,
                                           ins_per,
-                                          (lpad(cur_cra_cod,3,0)||'-'||cur_grupo)  GRUPO
+                                          (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)  GRUPO
   				 FROM acest, accra, accursos, acins, acasi, acasperi
 				WHERE ins_est_cod = $estcod
 				  AND ins_asi_cod = cur_asi_cod
@@ -51,7 +51,7 @@ $cod_consul_per_anterior = "SELECT est_cod,
   					  est_nro_iden,
   					  cra_cod,
   					  cra_nombre,
-  					  trunc(fa_promedio_nota(est_cod),2),
+  					  trunc(fa_promedio_nota(est_cod)::numeric,2),
 	   				  ins_asi_cod,
 	   				  asi_nombre,
 	   				  ins_gr,
@@ -78,7 +78,7 @@ $cod_consul_per_anterior = "SELECT est_cod,
 	   				  ins_obs,
                                           ins_ano,
                                           ins_per,
-                                          (lpad(cur_cra_cod,3,0)||'-'||cur_grupo)  GRUPO
+                                          (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)  GRUPO
   				 FROM acest, accra, accursos, acins, acasi, acasperi
 				WHERE ins_est_cod = $estcod
 				  AND ins_asi_cod = cur_asi_cod

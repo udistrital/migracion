@@ -33,7 +33,7 @@ $cod_consul.= "FROM dual";
 
 //Valida si el estudiante ya tiene preinscripcion por parte del PROYECTO CURRICULAR
 
-
+$result = (isset($result)?$result:'');
 if($result=='N'){
 	if($Nro == 1){
 	$pmenu='est_pag_menu_uno.php';
@@ -80,7 +80,7 @@ else{
 			    $tipo=51;
 			    $tokenCondor = $miCodificador->codificar($tokenCondor);
 			    $opcion="temasys="; 	
-			    $variable.="gestionPassword&pagina=validarActualizacion";                                                 
+			    $variable="gestionPassword&pagina=validarActualizacion";                                                 
 			    $variable.="&usuario=".$usuario;
 			    $variable.="&tipo=".$tipo;
 			    $variable.="&token=".$tokenCondor;

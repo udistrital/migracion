@@ -34,7 +34,7 @@ require_once(dir_script.'msql_notas_curvac.php');
 $consulta=$conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"busqueda");
 if(!is_array($consulta))
 { 
-	die('<h3>No tiene asignación académica en cursos de vacaciones.</h3>'); exit;
+	die('<h3>No tiene asignaci&oacute;n acad&eacute;mica en cursos de vacaciones.</h3>'); exit;
 }
 //{ header("Location: ../err/err_sin_asi_curvac.php"); exit; }
 
