@@ -28,7 +28,7 @@ fu_cabezote("OBSERVACIONES DE LA EVALUACION DOCENTE");
 $QryAnio = "SELECT ape_ano,ape_per
 	FROM acasperi
 	WHERE ape_ano >= 2005
-	AND ape_ano||ape_per != 20051
+	AND trim(to_char(ape_ano,'9999'))||trim(to_char(ape_per,'9')) != '20051'
 	AND ape_per != 2
 	AND ape_estado NOT IN('A','X')
 	ORDER BY 1 DESC";
@@ -50,7 +50,7 @@ $i++;
 print'</select>
 <input type="submit" name="Submit" value="Consultar" style="cursor:pointer"></form></center>';
 //cierra_bd($QryAnio,$oci_conecta);
-
+$_REQUEST['Per']=(isset($_REQUEST['Per'])?$_REQUEST['Per']:'');
 if(substr($_REQUEST['Per'],0,4)=="" || substr($_REQUEST['Per'],5,1)==""){
    $anio = $a;
    $peri = $p;
@@ -60,12 +60,8 @@ if(substr($_REQUEST['Per'],0,4)=="" || substr($_REQUEST['Per'],5,1)==""){
 }
 
 require_once('msql_observaciones.php');
-
 $registro=$conexion->ejecutarSQL($configuracion,$accesoOracle,$consulta,"busqueda");
-//echo $consultaCatedra."<br>";
-//echo "mmm".$registro[0][1];
 $registroCatedra=$conexion->ejecutarSQL($configuracion,$accesoOracle,$consultaCatedra,"busqueda");
-//echo "mmm".$registroCatedra[0][1];
 ?>
 <p align="center">Las observaciones aqu&iacute; publicadas, son mostradas tal cual fueron digitadas por los estudiantes.</p>
   <table width="95%" border="0" align="center" cellpadding="2" cellspacing="0">
@@ -79,6 +75,7 @@ $registroCatedra=$conexion->ejecutarSQL($configuracion,$accesoOracle,$consultaCa
     <td width="60%" align="center">Observaciones</td>
   </tr>
 <?php
+$asiCod=(isset($asiCod)?$asiCod:'');
 if(is_array($registro))
 {
 	$i=0;
