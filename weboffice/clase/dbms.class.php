@@ -508,12 +508,12 @@ class dbms
 		{
 			foreach ($variables as $key => $value) 
 			{
-				$variables[$key]=mysqli_real_escape_string($value);
+				$variables[$key]=mysqli_real_escape_string($this->enlace,$value);
 			}
 		}
 		else
 		{
-			$variables=mysqli_real_escape_string($variables);
+			$variables=mysqli_real_escape_string($this->enlace,$variables);
 		}
 		
 		return $variables;
