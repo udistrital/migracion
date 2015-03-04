@@ -99,10 +99,10 @@ class sql_adminConsultarHistoricoRecibos extends sql {
                 $cadena_sql.=" to_char(AMA_FECHA_ORD,'DD/mm/YYYY')    FECHA_ORD,";
                 $cadena_sql.=" AMA_EXT,";
                 $cadena_sql.=" to_char(AMA_FECHA_EXT,'DD/MM/YYYY')    FECHA_EXTRA,";
-                $cadena_sql.=" decode(AMA_CUOTA,null,1,AMA_CUOTA),";
-                $cadena_sql.=" decode(AMA_PAGO,'S','SI','N','NO'),";
+                $cadena_sql.=" (CASE WHEN AMA_CUOTA is null THEN 1 ELSE AMA_CUOTA END),";
+                $cadena_sql.=" (CASE WHEN AMA_PAGO ='S' THEN 'SI' WHEN AMA_PAGO ='N' THEN 'NO' END),";
                 $cadena_sql.=" AMA_SECUENCIA,";
-                $cadena_sql.=" (RBA_DIA||'/'||lpad(RBA_MES,2,0)||'/'||RBA_ANO),";
+                $cadena_sql.=" (RBA_DIA||'/'||lpad( CAST(RBA_MES AS TEXT),2,'0')||'/'||RBA_ANO),";
                 $cadena_sql.=" AMA_VALOR,";
                 $cadena_sql.=" AMA_ESTADO,";
                 $cadena_sql.=" AMA_OBS";
