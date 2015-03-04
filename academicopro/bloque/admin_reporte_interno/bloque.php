@@ -73,7 +73,7 @@ class bloque_reporteInterno extends bloque
 				$pagina=$this->configuracion["host"].$this->configuracion["site"]."/index.php?";
 				$variable="pagina=reporte_interno";
 				$variable.="&opcion=informe";
-				$variable.="&codigo=".$_REQUEST['codigo'];
+				$variable.="&codigo=".(isset($_REQUEST['codigo'])?$_REQUEST['codigo']:'');
                                 $variable.="&no_pagina=true";
                 
 

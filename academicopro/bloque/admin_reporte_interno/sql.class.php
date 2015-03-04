@@ -37,7 +37,6 @@ class sql_reporteInterno extends sql {	//@ Método que crea las sentencias sql p
 
             case "buscar_promedio":
                 $cadena_sql="SELECT FA_PROMEDIO_NOTA(".$variable.") PROMEDIO";
-                $cadena_sql.=" FROM dual";
                 break;
 
             case "buscarEspacioPregrado":
@@ -434,7 +433,7 @@ class sql_reporteInterno extends sql {	//@ Método que crea las sentencias sql p
                 break;
 
             case "promedioAcad":
-                $cadena_sql="SELECT FA_PROMEDIO_NOTA(".$variable.") FROM DUAL";
+                $cadena_sql="SELECT FA_PROMEDIO_NOTA(".$variable.") ";
                 break;
 
         }
