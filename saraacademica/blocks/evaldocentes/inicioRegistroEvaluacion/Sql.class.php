@@ -81,13 +81,13 @@ class SqlinicioRegistroEvaluacion extends sql {
                                 $cadena_sql="SELECT ";
                                 $cadena_sql.="distinct (cra_cod), cra_nombre, cra_emp_nro_iden ";
                                 $cadena_sql.="FROM ";
-                                $cadena_sql.="mntac.acdocente ";
-                                $cadena_sql.=" INNER JOIN mntac.accargas ON car_doc_nro = doc_nro_iden ";
-                                $cadena_sql.=" INNER JOIN mntac.achorarios ON car_hor_id=hor_id";
-                                $cadena_sql.=" INNER JOIN mntac.accursos ON hor_id_curso=cur_id";
-                                $cadena_sql.=" INNER JOIN mntac.acasperi ON ape_ano=cur_ape_ano AND ape_per=cur_ape_per";
-                                $cadena_sql.=" INNER JOIN mntac.actipvin ON tvi_cod = car_tip_vin ";
-                                $cadena_sql.=" INNER JOIN mntac.accra ON cra_cod=cur_cra_cod ";//AND cra_emp_nro_iden=doc_nro_iden";
+                                $cadena_sql.="acdocente ";
+                                $cadena_sql.=" INNER JOIN accargas ON car_doc_nro = doc_nro_iden ";
+                                $cadena_sql.=" INNER JOIN achorarios ON car_hor_id=hor_id";
+                                $cadena_sql.=" INNER JOIN accursos ON hor_id_curso=cur_id";
+                                $cadena_sql.=" INNER JOIN acasperi ON ape_ano=cur_ape_ano AND ape_per=cur_ape_per";
+                                $cadena_sql.=" INNER JOIN actipvin ON tvi_cod = car_tip_vin ";
+                                $cadena_sql.=" INNER JOIN accra ON cra_cod=cur_cra_cod ";//AND cra_emp_nro_iden=doc_nro_iden";
                                 $cadena_sql.=" WHERE ";
                                 $cadena_sql.=" cra_emp_nro_iden =".$variable['usuario'] ." ";
                                 //$cadena_sql.=" AND ape_estado='A'";
@@ -105,14 +105,14 @@ class SqlinicioRegistroEvaluacion extends sql {
                                 $cadena_sql.="(LTRIM(RTRIM(doc_nombre))||' '||LTRIM(RTRIM(doc_apellido))) doc_nombre, ";
                                 $cadena_sql.="cra_nombre,tvi_cod,tvi_nombre,asi_ind_catedra ";
                                 $cadena_sql.="FROM ";
-                                $cadena_sql.="mntac.acdocente ";
-                                $cadena_sql.=" INNER JOIN mntac.accargas ON car_doc_nro = doc_nro_iden ";
-                                $cadena_sql.=" INNER JOIN mntac.achorarios ON car_hor_id=hor_id";
-                                $cadena_sql.=" INNER JOIN mntac.accursos ON hor_id_curso=cur_id";
-                                $cadena_sql.=" INNER JOIN mntac.acasperi ON ape_ano=cur_ape_ano AND ape_per=cur_ape_per";
-                                $cadena_sql.=" INNER JOIN mntac.acasi ON asi_cod = cur_asi_cod";
-                                $cadena_sql.=" INNER JOIN mntac.actipvin ON tvi_cod = car_tip_vin ";
-                                $cadena_sql.=" INNER JOIN mntac.accra ON cra_cod=cur_cra_cod ";
+                                $cadena_sql.="acdocente ";
+                                $cadena_sql.=" INNER JOIN accargas ON car_doc_nro = doc_nro_iden ";
+                                $cadena_sql.=" INNER JOIN achorarios ON car_hor_id=hor_id";
+                                $cadena_sql.=" INNER JOIN accursos ON hor_id_curso=cur_id";
+                                $cadena_sql.=" INNER JOIN acasperi ON ape_ano=cur_ape_ano AND ape_per=cur_ape_per";
+                                $cadena_sql.=" INNER JOIN acasi ON asi_cod = cur_asi_cod";
+                                $cadena_sql.=" INNER JOIN actipvin ON tvi_cod = car_tip_vin ";
+                                $cadena_sql.=" INNER JOIN accra ON cra_cod=cur_cra_cod ";
                                 $cadena_sql.="WHERE ";
                                 //$cadena_sql.="ape_estado='A' ";
                                 $cadena_sql.=" ape_ano=".$variable['anio'] ." ";
@@ -131,21 +131,21 @@ class SqlinicioRegistroEvaluacion extends sql {
                                 $cadena_sql.=" est_cod, ";
                                 $cadena_sql.=" asi_cod, ";
                                 $cadena_sql.=" asi_nombre, ";
-                                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO, ";
+                                $cadena_sql.=" (lpad(cur_cra_cod::TEXT,3,'0')||'-'||cur_grupo::TEXT) GRUPO, ";
                                 $cadena_sql.=" doc_nro_iden, ";
                                 $cadena_sql.=" (LTRIM(RTRIM(doc_apellido))||' '||LTRIM(RTRIM(doc_nombre))) doc_nombre,";
                                 $cadena_sql.=" cra_cod,";
                                 $cadena_sql.=" asi_ind_catedra,";
                                 $cadena_sql.=" cur_id";
-                                $cadena_sql.=" FROM mntac.acest";
-                                $cadena_sql.=" inner join mntac.accra on est_cra_cod = cra_cod";
-                                $cadena_sql.=" inner join mntac.acins ON est_cod = ins_est_cod";
-                                $cadena_sql.=" inner join mntac.acasperi ON ape_ano = ins_ano AND ape_per = ins_per";
-                                $cadena_sql.=" inner join mntac.acasi ON asi_cod = ins_asi_cod";
-                                $cadena_sql.=" inner join mntac.accursos on cur_id=ins_gr and cur_ape_ano=ins_ano and cur_ape_per=ins_per";
-                                $cadena_sql.=" inner join mntac.achorarios on hor_id_curso=cur_id";
-                                $cadena_sql.=" inner join mntac.accargas ON car_hor_id=hor_id";
-                                $cadena_sql.=" inner join mntac.acdocente ON car_doc_nro = doc_nro_iden ";
+                                $cadena_sql.=" FROM acest";
+                                $cadena_sql.=" inner join accra on est_cra_cod = cra_cod";
+                                $cadena_sql.=" inner join acins ON est_cod = ins_est_cod";
+                                $cadena_sql.=" inner join acasperi ON ape_ano = ins_ano AND ape_per = ins_per";
+                                $cadena_sql.=" inner join acasi ON asi_cod = ins_asi_cod";
+                                $cadena_sql.=" inner join accursos on cur_id=ins_gr and cur_ape_ano=ins_ano and cur_ape_per=ins_per";
+                                $cadena_sql.=" inner join achorarios on hor_id_curso=cur_id";
+                                $cadena_sql.=" inner join accargas ON car_hor_id=hor_id";
+                                $cadena_sql.=" inner join acdocente ON car_doc_nro = doc_nro_iden ";
                                 $cadena_sql.=" WHERE est_cod = ".$variable['usuario']." ";
                                 //$cadena_sql.=" AND ape_estado = 'A'";
                                 $cadena_sql.=" AND ape_ano=".$variable['anio'] ." ";
@@ -154,11 +154,12 @@ class SqlinicioRegistroEvaluacion extends sql {
                                 $cadena_sql.=" AND car_estado = 'A' ";
                                 $cadena_sql.=" AND cur_estado = 'A'";
                                 $cadena_sql.=" AND hor_estado = 'A'";
+                                
                                 break;
                             
                         case "consultaCoordinadores":
                                 $cadena_sql="SELECT dep_nombre,cra_cod, cra_nombre, cra_emp_nro_iden,cra_estado,cra_dep_cod,(doc_nombre||' '||doc_apellido) AS doc";
-                                $cadena_sql.=" FROM mntac.accra, mntac.acdocente, mntge.gedep, mntpe.peemp";
+                                $cadena_sql.=" FROM accra, acdocente, mntge.gedep, mntpe.peemp";
                                 $cadena_sql.=" WHERE cra_estado = 'A'";
                                 $cadena_sql.=" AND doc_nro_iden = cra_emp_nro_iden";
                                 $cadena_sql.=" AND cra_dep_cod = (SELECT MAX(dep_cod)";
@@ -182,7 +183,6 @@ class SqlinicioRegistroEvaluacion extends sql {
                                 break;
 				 
                 }
-
 		return $cadena_sql;
 
 	}
