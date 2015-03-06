@@ -43,7 +43,7 @@ class SqlverListaClase extends sql {
 				$cadena_sql.="ape_per, ";
                                 $cadena_sql.="ape_estado ";
                                	$cadena_sql.="FROM ";
-				$cadena_sql.="mntac.acasperi ";
+				$cadena_sql.="acasperi ";
                                 $cadena_sql.="WHERE ";
                                 $cadena_sql.="ape_estado ='A' ";//No olvidar cambiaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                                 break;
@@ -60,13 +60,13 @@ class SqlverListaClase extends sql {
                                 $cadena_sql.="tvi_nombre, ";
                                 $cadena_sql.="cur_asi_cod, ";
                                 $cadena_sql.="asi_nombre, ";
-                                $cadena_sql.="(lpad(cur_cra_cod,3,0)||'-'||cur_grupo), ";
+                                $cadena_sql.="(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo), ";
                                 $cadena_sql.="cur_nro_ins, ";
                                 $cadena_sql.="tra_nivel, ";
                                 $cadena_sql.="cur_id ";
                                 $cadena_sql.="FROM ";
-                                $cadena_sql.="mntac.accargas,mntac.acdocente,mntac.actipvin,mntac.acasi,accra a,";
-                                $cadena_sql.="mntac.gedep,mntac.accursos,mntac.achorarios,mntac.acasperi b,mntac.ACTIPCRA ";
+                                $cadena_sql.="accargas,acdocente,actipvin,acasi,accra a,";
+                                $cadena_sql.="gedep,accursos,achorarios,acasperi b,ACTIPCRA ";
                                 $cadena_sql.="WHERE ";
                                 $cadena_sql.="dep_cod = cra_dep_cod ";
                                 $cadena_sql.="AND car_tip_vin = tvi_cod ";
@@ -96,8 +96,8 @@ class SqlverListaClase extends sql {
                                 $cadena_sql.="ins_est_cod, ";
                                 $cadena_sql.="ins_asi_cod, ";
                                 $cadena_sql.="ins_gr ";
-                                $cadena_sql.="FROM mntac.acasperi,acins,mntac.acest,mntac.acestotr, ";
-                                $cadena_sql.="mntac.accargas,mntac.accursos,mntac.achorarios,mntac.acdocente ";
+                                $cadena_sql.="FROM acasperi,acins,acest,acestotr, ";
+                                $cadena_sql.="accargas,accursos,achorarios,acdocente  ";
                                 $cadena_sql.="WHERE ";
                                 $cadena_sql.="ape_ano = ins_ano ";
                                 $cadena_sql.="AND ape_per = ins_per ";
@@ -130,10 +130,10 @@ class SqlverListaClase extends sql {
                                 $cadena_sql.="fto_numero, ";
                                 $cadena_sql.="form_id ";
                                 $cadena_sql.="FROM ";
-			 	$cadena_sql.="autoevaluadoc.evaldocente_formulario a ";
-                                $cadena_sql.="INNER JOIN autoevaluadoc.evaldocente_encabezado b ON b.enc_id=a.enc_id ";
-                                $cadena_sql.="INNER JOIN autoevaluadoc.evaldocente_pregunta c ON c.preg_id=a.preg_id ";
-                                $cadena_sql.="INNER JOIN autoevaluadoc.evaldocente_formato d ON d.fto_id=a.fto_id ";
+			 	$cadena_sql.="evaldocente_formulario a ";
+                                $cadena_sql.="INNER JOIN evaldocente_encabezado b ON b.enc_id=a.enc_id ";
+                                $cadena_sql.="INNER JOIN evaldocente_pregunta c ON c.preg_id=a.preg_id ";
+                                $cadena_sql.="INNER JOIN evaldocente_formato d ON d.fto_id=a.fto_id ";
                                 $cadena_sql.="WHERE ";
                                 $cadena_sql.="a.fto_id=".$variable['formatoId']." ";
                                 $cadena_sql.="AND ";
@@ -157,10 +157,10 @@ class SqlverListaClase extends sql {
                                 $cadena_sql.="fto_numero, ";
                                 $cadena_sql.="form_id ";
                                 $cadena_sql.="FROM ";
-			 	$cadena_sql.="autoevaluadoc.evaldocente_formulario a ";
-                                $cadena_sql.="INNER JOIN autoevaluadoc.evaldocente_encabezado b ON b.enc_id=a.enc_id ";
-                                $cadena_sql.="INNER JOIN autoevaluadoc.evaldocente_pregunta c ON c.preg_id=a.preg_id ";
-                                $cadena_sql.="INNER JOIN autoevaluadoc.evaldocente_formato d ON d.fto_id=a.fto_id ";
+			 	$cadena_sql.="evaldocente_formulario a ";
+                                $cadena_sql.="INNER JOIN evaldocente_encabezado b ON b.enc_id=a.enc_id ";
+                                $cadena_sql.="INNER JOIN evaldocente_pregunta c ON c.preg_id=a.preg_id ";
+                                $cadena_sql.="INNER JOIN evaldocente_formato d ON d.fto_id=a.fto_id ";
                                 $cadena_sql.="WHERE ";
                                 $cadena_sql.="a.fto_id=".$variable['formatoId']." ";
                                 $cadena_sql.="AND ";
@@ -178,8 +178,8 @@ class SqlverListaClase extends sql {
                                 $cadena_sql.="a.fto_id, ";
                                 $cadena_sql.="ftvd_tvi_cod ";
                                 $cadena_sql.="FROM ";
-                                $cadena_sql.="autoevaluadoc.evaldocente_fortipvindoc a ";
-                                $cadena_sql.="INNER JOIN autoevaluadoc.evaldocente_formato b ON b.fto_id=a.fto_id ";
+                                $cadena_sql.="evaldocente_fortipvindoc a ";
+                                $cadena_sql.="INNER JOIN evaldocente_formato b ON b.fto_id=a.fto_id ";
                                 $cadena_sql.="WHERE ";
                                 $cadena_sql.="ftvd_tvi_cod=".$variable['tipoVinculacion']." ";
                                 $cadena_sql.="AND ";
@@ -207,10 +207,10 @@ class SqlverListaClase extends sql {
                                 $cadena_sql.="preg_pregunta, ";
                                 $cadena_sql.="resp_id ";
                                 $cadena_sql.="FROM ";
-                                $cadena_sql.="autoevaluadoc.evaldocente_respuesta a ";
-                                $cadena_sql.="INNER JOIN autoevaluadoc.evaldocente_formulario b ON a.form_id=b.form_id ";
-                                $cadena_sql.="INNER JOIN autoevaluadoc.evaldocente_pregunta c ON b.preg_id=c.preg_id ";
-                                $cadena_sql.="INNER JOIN autoevaluadoc.evaldocente_formato d ON b.fto_id=d.fto_id ";
+                                $cadena_sql.="evaldocente_respuesta a ";
+                                $cadena_sql.="INNER JOIN evaldocente_formulario b ON a.form_id=b.form_id ";
+                                $cadena_sql.="INNER JOIN evaldocente_pregunta c ON b.preg_id=c.preg_id ";
+                                $cadena_sql.="INNER JOIN evaldocente_formato d ON b.fto_id=d.fto_id ";
                                 $cadena_sql.="WHERE ";
                                 if(isset($variable['formularioId']))
                                 {    
@@ -235,7 +235,7 @@ class SqlverListaClase extends sql {
                                 break;
                             
                          case "actualizarEvaluacion":
-                                $cadena_sql="UPDATE autoevaluadoc.evaldocente_respuesta ";
+                                $cadena_sql="UPDATE evaldocente_respuesta ";
                                 $cadena_sql.="SET ";
                                 $cadena_sql.="resp_respuesta=".$variable['respuestaNueva'].", ";
                                 $cadena_sql.="resp_estado='".$variable['estadoNuevo']."' ";
@@ -245,7 +245,7 @@ class SqlverListaClase extends sql {
                             
                             case "insertaEvaluacion":
                                 $cadena_sql="INSERT INTO ";
-                                $cadena_sql.="autoevaluadoc.evaldocente_respuesta (";
+                                $cadena_sql.="evaldocente_respuesta (";
                                 $cadena_sql.="form_id, ";
                                 $cadena_sql.="resp_preg_num, ";
                                 $cadena_sql.="resp_identificacion_evaluador, ";
@@ -276,7 +276,7 @@ class SqlverListaClase extends sql {
                             
                             case "insertaObservacion":
                                 $cadena_sql="INSERT INTO ";
-                                $cadena_sql.="autoevaluadoc.evaldocente_observaciones (";
+                                $cadena_sql.="evaldocente_observaciones (";
                                 $cadena_sql.="form_id, ";
                                 $cadena_sql.="obs_identificacion_evaluador, ";
                                 $cadena_sql.="obs_identificacion_evaluado, ";
@@ -305,7 +305,7 @@ class SqlverListaClase extends sql {
                             
                             case "insertaLog":
 				$cadena_sql="INSERT INTO ";
-				$cadena_sql.="autoevaluadoc.evaldocente_log ";
+				$cadena_sql.="evaldocente_log ";
 				$cadena_sql.="( ";
 				$cadena_sql.="log_evento, ";
                                 $cadena_sql.="log_fecha_reg ";
@@ -324,7 +324,7 @@ class SqlverListaClase extends sql {
                                 $cadena_sql.="tipo_nombre, ";
                                 $cadena_sql.="UPPER(tipo_descripcion) ";
                                 $cadena_sql.="FROM ";
-                                $cadena_sql.="autoevaluadoc.evaldocente_tipo_evaluacion ";
+                                $cadena_sql.="evaldocente_tipo_evaluacion ";
                                 $cadena_sql.="WHERE ";
                                 $cadena_sql.="tipo_id=".$variable['tipoId']." ";
                                 break;
@@ -335,7 +335,7 @@ class SqlverListaClase extends sql {
                                 $cadena_sql.="tipo_nombre, ";
                                 $cadena_sql.="UPPER(tipo_descripcion) ";
                                 $cadena_sql.="FROM ";
-                                $cadena_sql.="autoevaluadoc.evaldocente_tipo_evaluacion ";
+                                $cadena_sql.="evaldocente_tipo_evaluacion ";
                                 $cadena_sql.="WHERE ";
                                 $cadena_sql.="tipo_id IN (2,3)";
                                 break;
@@ -345,7 +345,7 @@ class SqlverListaClase extends sql {
                                 $cadena_sql.="preg_id, ";
                                 $cadena_sql.="preg_pregunta ";
                                 $cadena_sql.="FROM ";
-                                $cadena_sql.="autoevaluadoc.evaldocente_pregunta ";
+                                $cadena_sql.="evaldocente_pregunta ";
                                 $cadena_sql.="WHERE ";
                                 $cadena_sql.="acasperi_id=".$variable['perAcad']." ";
                                 $cadena_sql.=" ";
