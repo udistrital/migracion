@@ -30,8 +30,8 @@ $cod_consul.= "FROM dual";
 	//$registro=$conexion->ejecutarSQL($configuracion,$accesoOracle, $cod_consul,"busqueda");
     
 
-
-if($result=='N'){
+$variable=(isset($variable)?$variable:'');
+if((isset($result)?$result:'')=='N'){
 	if($Nro == 1){
 	$pmenu='est_pag_menu_uno.php';
 	$pagpal = '../generales/cambiar_mi_clave.php';
