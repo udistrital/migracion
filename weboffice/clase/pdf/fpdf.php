@@ -79,7 +79,7 @@ var $CurrPageGroup;
 *                                                                              *
 *******************************************************************************/
 function FPDF($orientation='P',$unit='mm',$format='A4')
-{       ob_end_clean();
+{       if (ob_get_contents()) ob_end_clean();
 	//Some checks
 	$this->_dochecks();
 	//Initialization of properties
