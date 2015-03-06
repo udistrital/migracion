@@ -23,7 +23,7 @@ include_once("../clase/multiConexion.class.php");
 
 <?php
 
-	fu_cabezote("HISTÓRICO DE NOTAS");	
+	fu_cabezote("HISTÃ“RICO DE NOTAS");	
 
 	$estcod = $_SESSION['usuario_login'];
 
@@ -50,7 +50,7 @@ include_once("../clase/multiConexion.class.php");
     <td align="center">C&oacute;digo</td>
 	<td align="center">Asignatura</td>
     <td align="center">Sem</td>
-	<td align="center">Año</td>
+    <td align="center">A&ntilde;o</td>
     <td align="center">Per</td>
     <td align="center">Nota</td>
     <td align="center">Observaciones</td>
@@ -73,7 +73,7 @@ include_once("../clase/multiConexion.class.php");
 </table>
 <?PHP require_once(dir_script.'msg_doc_no_valido.php');
 	$print = "javascript:popUpWindow('print_est_notas.php?estcod=$estcod', 'yes', 0, 0, 820, 650)";
-	echo'<input type="submit" value="Imprimir Histórico de Notas" onClick="'.$print.'" style="cursor:pointer">';
+	echo'<input type="submit" value="Imprimir HistÃ³rico de Notas" onClick="'.$print.'" style="cursor:pointer">';
  ?>
 </div><br><br>
 
