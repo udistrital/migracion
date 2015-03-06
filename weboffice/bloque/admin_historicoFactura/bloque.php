@@ -49,7 +49,7 @@ $pagina="registro_recibo";
 
 $acceso_db=new dbms($configuracion);
 $enlace=$acceso_db->conectar_db();
-if (is_resource($enlace))
+if ($enlace)
 {
 	if(isset($_REQUEST["opcion"]))
 	{
@@ -198,7 +198,7 @@ function diferir_matricula($configuracion,$valor,$accesoOracle){
 	$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"detalleDiferido");
 	$registro=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");
 
-
+        $html='';
 	//el registr[0][0]  si el estudiante tiene o no su matricula diferida
 	//el registr[0][1]  si el estudiante tiene o no derecho a diferir su matricula
 
@@ -951,12 +951,12 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			break;
 
 		case "validaFechaDiferido":
-			$cadena_sql="SELECT mntac.fua_verifica_fecha(est_cra_cod,10) ";
+			$cadena_sql="SELECT fua_verifica_fecha(est_cra_cod::smallint,10::smallint) ";
 			$cadena_sql.="FROM acest ";
 			$cadena_sql.="WHERE est_cod=".$valor[0];
 			break;
 		case "detalleDiferido":
-			$cadena_sql="SELECT est_diferido,mntac.fua_verifica_diferido(est_cod) ";
+			$cadena_sql="SELECT est_diferido,fua_verifica_diferido(est_cod) ";
 			$cadena_sql.="FROM acest ";
 			$cadena_sql.="WHERE est_cod=".$valor[0];
 			break;
@@ -1382,11 +1382,13 @@ function enlacePagoEnLinea($configuracion,$registro,$contador){
     function validarReciboMatricula($configuracion,$registro,$accesoOracle){
             $band='';
             $conceptos = consultarConceptosRecibo($configuracion,$registro[0],$registro[5],$accesoOracle);
-            foreach ($conceptos as $concepto) {
-                if($concepto[3]==1){
-                    $band='ok';
+            if(is_array($conceptos)){
+                foreach ($conceptos as $concepto) {
+                    if($concepto[3]==1){
+                        $band='ok';
+                    }
+
                 }
-                
             }
             return $band;
     }

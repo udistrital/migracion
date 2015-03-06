@@ -35,7 +35,6 @@ $enlace=$accesoOracle->conectar_db();
 
 $acceso_db=$conexion->recursodb($configuracion,"");
 $enlace=$acceso_db->conectar_db();
-
 //Rescatar los datos generales
 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/datosGenerales.class.php");
 $datoBasico=new datosGenerales();
@@ -43,7 +42,8 @@ $datoBasico=new datosGenerales();
 $anno=$datoBasico->rescatarDatoGeneral($configuracion, "anno", "", $accesoOracle);
 $periodo=$datoBasico->rescatarDatoGeneral($configuracion, "per", "", $accesoOracle);
 
-
+$_REQUEST["anioRecibo"]=(isset($_REQUEST["anioRecibo"])?$_REQUEST["anioRecibo"]:'');
+$_REQUEST["periodoRecibo"]=(isset($_REQUEST["periodoRecibo"])?$_REQUEST["periodoRecibo"]:'');
 
 $valor[0]=$_REQUEST["factura"];
 if($_REQUEST["anioRecibo"]){
@@ -440,8 +440,8 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
                         $cadena_sql.=" EST_NOMBRE,";
                         $cadena_sql.=" cra_abrev, ";
 			$cadena_sql.=" AMA_OBS";
-                        $cadena_sql.=" FROM mntac.ACADMMAT";
-                        $cadena_sql.=" INNER JOIN mntac.ACESTADM on AMA_ANO = EAD_ASP_ANO and AMA_PER = EAD_ASP_PER and AMA_ASP_CRED = EAD_ASP_CRED";
+                        $cadena_sql.=" FROM ACADMMAT";
+                        $cadena_sql.=" INNER JOIN ACESTADM on AMA_ANO = EAD_ASP_ANO and AMA_PER = EAD_ASP_PER and AMA_ASP_CRED = EAD_ASP_CRED";
                         $cadena_sql.=" INNER JOIN ACEST on EAD_COD = EST_COD";
                         $cadena_sql.=" INNER JOIN ACCRA on AMA_CRA_COD = CRA_COD";
                         $cadena_sql.=" WHERE ";
@@ -694,7 +694,7 @@ function prepararPDF($configuracion,$pdf, $valor,$pago="",$tipo="",$conceptos=""
 		{
 		
 			
-			
+			$obs_cuota=(isset($obs_cuota)?$obs_cuota:'');
 			
 			$pdf->SetFont('Arial','B',8);
 			//Referencia No 1
