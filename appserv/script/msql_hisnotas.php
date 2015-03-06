@@ -1,20 +1,33 @@
 <?php
-$cod_consul = "SELECT est_cod,
+$cod_consul = "
+			 SELECT est_cod,
   					  est_nombre,
   					  est_nro_iden,
   					  cra_cod,
   					  cra_nombre,
-  					  trunc(fa_promedio_nota(est_cod),2),
+  					  trunc(fa_promedio_nota(est_cod)::numeric,2),
   					  v_acnot.NOT_ASI_COD,
   					  v_acnot.ASI_NOMBRE,
-  					  NVL(acnot.not_gr,0),  
+  					  coalesce(acnot.not_gr,0),  
   					  v_acnot.not_sem, 
-  					  DECODE(LENGTH(v_acnot.NOT_ASI_COD),2,SUBSTR(ultima,3,4),3,SUBSTR(ultima,4,4),4,SUBSTR(ultima,5,4),5,SUBSTR(ultima,6,4),
-  					  6,SUBSTR(ultima,7,4),7,SUBSTR(ultima,8,4),SUBSTR(ultima,9,4)) ano,
-  					  DECODE(LENGTH(v_acnot.NOT_ASI_COD),2,SUBSTR(ultima,7,1),3,SUBSTR(ultima,8,1),4,SUBSTR(ultima,9,1),5,SUBSTR(ultima,10,1),
-  					  6,SUBSTR(ultima,11,1),7,SUBSTR(ultima,12,1),SUBSTR(ultima,13,1)) per,
+					(CASE WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=2 THEN SUBSTR(ultima::text,3,4) 
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=3 THEN SUBSTR(ultima::text,4,4) 
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=4 THEN SUBSTR(ultima::text,5,4)  					  
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=5 THEN SUBSTR(ultima::text,6,4)  
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=6 THEN SUBSTR(ultima::text,7,4)  
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=7 THEN SUBSTR(ultima::text,8,4)  
+                                            ELSE SUBSTR(ultima::text,9,4) 
+                                            END)  ano,
+  					  (CASE WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=2 THEN SUBSTR(ultima::text,7,1) 
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=3 THEN SUBSTR(ultima::text,8,1) 
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=4 THEN SUBSTR(ultima::text,9,1)  					  
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=5 THEN SUBSTR(ultima::text,10,1)  
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=6 THEN SUBSTR(ultima::text,11,1)  
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=7 THEN SUBSTR(ultima::text,12,1)  
+                                            ELSE SUBSTR(ultima::text,13,1) 
+                                            END) per,
   					  not_nota,
-  					  DECODE(nob_cod,0,' ',nob_nombre) nob_nombre,
+  					  (CASE WHEN nob_cod=0 THEN ' ' else nob_nombre END) nob_nombre,
   					  v_acnot.cursada
 				 FROM acest, mntac.ACMONTO, ACNOT, mntac.v_acnot, mntac.acnotobs,accra
 				WHERE est_cod = v_acnot.not_est_cod
@@ -23,14 +36,26 @@ $cod_consul = "SELECT est_cod,
   				  AND v_acnot.not_asi_cod = acnot.not_asi_cod
   				  AND v_acnot.not_est_cod = acnot.not_est_cod
   				  AND v_acnot.not_cra_cod = acnot.not_cra_cod
-  				  AND acnot.not_ano = TO_NUMBER(DECODE(LENGTH(v_acnot.NOT_ASI_COD),2,SUBSTR(ultima,3,4),3,SUBSTR(ultima,4,4),4,SUBSTR(ultima,5,4),5,SUBSTR(ultima,6,4),
-  					  6,SUBSTR(ultima,7,4),7,SUBSTR(ultima,8,4),SUBSTR(ultima,9,4)))
-  				  AND acnot.not_per  =   TO_NUMBER(DECODE(LENGTH(v_acnot.NOT_ASI_COD),2,SUBSTR(ultima,7,1),3,SUBSTR(ultima,8,1),4,SUBSTR(ultima,9,1),5,SUBSTR(ultima,10,1),
-  					  6,SUBSTR(ultima,11,1),7,SUBSTR(ultima,12,1),SUBSTR(ultima,13,1)))
+  				  AND acnot.not_ano::text = (CASE WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=2 THEN SUBSTR(ultima::text,3,4) 
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=3 THEN SUBSTR(ultima::text,4,4) 
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=4 THEN SUBSTR(ultima::text,5,4)  					  
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=5 THEN SUBSTR(ultima::text,6,4)  
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=6 THEN SUBSTR(ultima::text,7,4)  
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=7 THEN SUBSTR(ultima::text,8,4)  
+                                            ELSE SUBSTR(ultima::text,9,4) 
+                                            END)
+  				  AND acnot.not_per::text  =   (CASE WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=2 THEN SUBSTR(ultima::text,7,1) 
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=3 THEN SUBSTR(ultima::text,8,1) 
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=4 THEN SUBSTR(ultima::text,9,1)  					  
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=5 THEN SUBSTR(ultima::text,10,1)  
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=6 THEN SUBSTR(ultima::text,11,1)  
+                                            WHEN LENGTH(v_acnot.NOT_ASI_COD::text)=7 THEN SUBSTR(ultima::text,12,1)  
+                                            ELSE SUBSTR(ultima::text,13,1) 
+                                            END)
   				  AND acnot.not_obs = acnotobs.nob_cod
   				  AND acnot.not_obs NOT IN(2,16,7,12)
   				  AND not_est_reg != 'I'
   				  AND v_acnot.not_est_cod = $estcod
-			 ORDER BY v_acnot.NOT_SEM, v_acnot.not_asi_cod";
+			 ORDER BY v_acnot.NOT_SEM, v_acnot.not_asi_cod	";
 
 ?>
