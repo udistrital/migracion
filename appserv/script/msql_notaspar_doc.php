@@ -5,7 +5,7 @@ $cod_consulta = "SELECT distinct doc_nro_iden eca_nro_iden,
 		cur_ape_per,
 		cur_asi_cod,
 		asi_nombre,
-		(lpad(cur_cra_cod,3,0)||'-'||cur_grupo), 
+		(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo), 
 		ins_est_cod,
 		est_nombre,
 		est_estado_est,
@@ -31,7 +31,7 @@ $cod_consulta = "SELECT distinct doc_nro_iden eca_nro_iden,
 		ins_nota_acu,
 		cur_nro_ins,
 		cur_cra_cod,
-		(nvl(cur_par1,0)+nvl(cur_par2,0)+nvl(cur_par3,0)+nvl(cur_par4,0)+nvl(cur_par5,0)+nvl(cur_exa,0)+nvl(cur_lab,0)),
+		(coalesce(cur_par1,0)+coalesce(cur_par2,0)+coalesce(cur_par3,0)+coalesce(cur_par4,0)+coalesce(cur_par5,0)+coalesce(cur_exa,0)+coalesce(cur_lab,0)),
                 cur_id
 		FROM acins, accursos, acasperi, acasi, acest, accargas, acdocente, achorarios
 		WHERE doc_nro_iden = $docnroiden

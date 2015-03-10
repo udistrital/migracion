@@ -9,7 +9,7 @@ $cod_consul = "SELECT distinct DOC_NRO_IDEN,
 		tvi_nombre,
 		cur_asi_cod,
 		asi_nombre,
-		(lpad(cur_cra_cod,3,0)||'-'||cur_grupo),
+		(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo),
 		cur_nro_ins,
 		tra_nivel,
                 cur_id

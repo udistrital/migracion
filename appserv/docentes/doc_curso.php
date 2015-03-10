@@ -27,7 +27,10 @@ fu_tipo_user(30);
 fu_cabezote("LISTAS DE CLASE");
     
 $cedula = $_SESSION['usuario_login'];
-$estado = $_REQUEST['estado'];
+if (isset($_REQUEST['estado']))
+{
+    $estado = $_REQUEST['estado'];
+}
 
 require_once(dir_script.'msql_dig_notas.php');
 $consulta=$conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"busqueda");
