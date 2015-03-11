@@ -50,7 +50,14 @@ class sql_registroNotasDocentes extends sql
                                 $cadena_sql.=" AND tra_nivel IN ('".$variable[4]."')  ";
                                 break;
 			case "listaClase":
-                            
+                                if($variable[4]=='PREGRADO')
+                                {
+                                        $nivel="'PREGRADO', 'EXTENSION'";
+                                }
+                                elseif($variable[4]=='POSGRADO')
+                                {
+                                        $nivel="'POSGRADO','MAESTRIA','DOCTORADO'";
+                                }
                                 $cadena_sql=" SELECT DISTINCT ";
                                 $cadena_sql.=" DOC_NRO_IDEN,";
                                 $cadena_sql.=" LTRIM(doc_nombre || ' ' ||doc_apellido) nombre,";
@@ -65,7 +72,7 @@ class sql_registroNotasDocentes extends sql
                                 $cadena_sql.=" cur_id,";
                                 $cadena_sql.=" cur_nro_ins,";
                                 $cadena_sql.=" tra_nivel,";
-                                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO";
+                                $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO";
                                 $cadena_sql.=" FROM accargas";
                                 $cadena_sql.=" INNER JOIN acdocente ON car_doc_nro=doc_nro_iden";
                                 $cadena_sql.=" INNER JOIN actipvin ON car_tip_vin = tvi_cod";
@@ -82,7 +89,7 @@ class sql_registroNotasDocentes extends sql
                                 $cadena_sql.=" AND cra_estado = 'A'";
                                 $cadena_sql.=" AND cur_estado = 'A'";
                                 $cadena_sql.=" AND car_doc_nro =".$variable[0]." ";
-                                $cadena_sql.=" AND tra_nivel IN ('".$variable[4]."') ";
+                                $cadena_sql.=" AND tra_nivel in (".$nivel.")";
                                 $cadena_sql.=" ORDER BY ";
 				$cadena_sql.=" dep_cod, cur_cra_cod, cur_asi_cod, grupo ASC ";
 				break; 
@@ -125,9 +132,9 @@ class sql_registroNotasDocentes extends sql
                                 $cadena_sql.=" ins_nota_acu,";
                                 $cadena_sql.=" cur_nro_ins,";
                                 $cadena_sql.=" cur_cra_cod,";
-                                $cadena_sql.=" (NVL(cur_par1,0)+NVL(cur_par2,0)+NVL(cur_par3,0)+NVL(cur_par4,0)+NVL(cur_par5,0)+NVL(cur_par6,0)+NVL(cur_exa,0)+NVL(cur_lab,0)) PARCIAL,";
+                                $cadena_sql.=" (coalesce(cur_par1,0)+coalesce(cur_par2,0)+coalesce(cur_par3,0)+coalesce(cur_par4,0)+coalesce(cur_par5,0)+coalesce(cur_par6,0)+coalesce(cur_exa,0)+coalesce(cur_lab,0)) PARCIAL,";
                                 $cadena_sql.=" ins_tot_fallas,";
-                                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) grupo";
+                                $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) grupo";
                                 $cadena_sql.=" FROM acins";
                                 $cadena_sql.=" INNER JOIN accursos ON ins_gr =cur_id AND ins_ano=cur_ape_ano AND ins_per=cur_ape_per";
                                 $cadena_sql.=" INNER JOIN acasperi ON cur_ape_ano =ape_ano AND cur_ape_per=ape_per";
@@ -151,25 +158,25 @@ class sql_registroNotasDocentes extends sql
 			case "fechasDigNotas":
 				$cadena_sql="SELECT ";
 				$cadena_sql.="NPF_CRA_COD, ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IPAR1, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FPAR1, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IPAR2, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FPAR2, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IPAR3, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FPAR3, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IPAR4, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FPAR4, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IPAR5, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FPAR5, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IPAR6, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FPAR6, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_ILAB, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FLAB, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IEXA, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FEXA, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IHAB, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FHAB, 'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(ACE_FEC_FIN, 'YYYYMMDD')) ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IPAR1, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FPAR1, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IPAR2, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FPAR2, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IPAR3, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FPAR3, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IPAR4, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FPAR4, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IPAR5, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FPAR5, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IPAR6, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FPAR6, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_ILAB, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FLAB, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IEXA, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FEXA, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_IHAB, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(NPF_FHAB, 'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(ACE_FEC_FIN, 'YYYYMMDD'),'99999999') ";
 				$cadena_sql.="FROM ";
 				$cadena_sql.="acnotparfec, accaleventos ";
 				$cadena_sql.="WHERE ";
@@ -188,40 +195,38 @@ class sql_registroNotasDocentes extends sql
 	 
 			case "fechaactual":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="dual";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD'),'99999999') ";
 				break;
 				 
 					
-			case "insertarRegistro":
-				$cadena_sql="INSERT INTO ";
-				$cadena_sql.="acestecaes ";
-				$cadena_sql.="(";
-				$cadena_sql.="eca_ano, ";
-				$cadena_sql.="eca_per, ";
-				$cadena_sql.="eca_cod, ";
-				$cadena_sql.="eca_genero_recibo, ";
-				$cadena_sql.="eca_pago_recibo, ";
-				$cadena_sql.="eca_estado, ";
-				$cadena_sql.="eca_presento ";
-				$cadena_sql.=") ";
-				$cadena_sql.="VALUES ";
-				$cadena_sql.="( ";
-				$cadena_sql.="$variable[1], ";
-				$cadena_sql.="$variable[2], ";
-				$cadena_sql.="$variable[0], ";
-				$cadena_sql.="'N', ";
-				$cadena_sql.="'N', ";
-				$cadena_sql.="'A', ";
-				$cadena_sql.="'$variable[3]' ";
-				$cadena_sql.=")";
-				break;
-							
+//			case "insertarRegistro":
+//				$cadena_sql="INSERT INTO ";
+//				$cadena_sql.="acestecaes ";
+//				$cadena_sql.="(";
+//				$cadena_sql.="eca_ano, ";
+//				$cadena_sql.="eca_per, ";
+//				$cadena_sql.="eca_cod, ";
+//				$cadena_sql.="eca_genero_recibo, ";
+//				$cadena_sql.="eca_pago_recibo, ";
+//				$cadena_sql.="eca_estado, ";
+//				$cadena_sql.="eca_presento ";
+//				$cadena_sql.=") ";
+//				$cadena_sql.="VALUES ";
+//				$cadena_sql.="( ";
+//				$cadena_sql.="$variable[1], ";
+//				$cadena_sql.="$variable[2], ";
+//				$cadena_sql.="$variable[0], ";
+//				$cadena_sql.="'N', ";
+//				$cadena_sql.="'N', ";
+//				$cadena_sql.="'A', ";
+//				$cadena_sql.="'$variable[3]' ";
+//				$cadena_sql.=")";
+//				break;
+//							
 			case "validaFechas":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(ACE_FEC_INI,'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(ACE_FEC_FIN,'YYYYMMDD')), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(ACE_FEC_INI,'YYYYMMDD'),'99999999'), ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(ACE_FEC_FIN,'YYYYMMDD'),'99999999'), ";
 				$cadena_sql.="TO_CHAR(ACE_FEC_FIN,'dd-Mon-yy') ";
 				$cadena_sql.="FROM ";
 				$cadena_sql.="accaleventos ";

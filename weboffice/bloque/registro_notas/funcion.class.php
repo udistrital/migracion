@@ -58,19 +58,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		unset($valor);
 		$valor[0]=$usuario;
 		$nivel=$_REQUEST['nivel'];
-		
-		if($_REQUEST['nivel']=='PREGRADO')
-		{
-			unset($valor);
-			$valor[0]=$usuario;
-			$valor[4]=$_REQUEST['nivel']."','EXTENSION";
-		}
-		elseif($_REQUEST['nivel']=='POSGRADO')
-		{
-			unset($valor);
-			$valor[0]=$usuario;
-			$valor[4]=$_REQUEST['nivel']."','MAESTRIA','DOCTORADO";
-		}
+		$valor[4]=$_REQUEST['nivel'];
 		
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "carreras",$valor);
 		$resultCarreras=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");    
@@ -366,7 +354,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 									$variable.="&nivel=".$valor[4];
 									$variable.="&periodo=".$valor[10];
 									//$variable.="&no_pagina=true";
-                                                                        //var_dump($variable);exit;
 									$variable=$cripto->codificar_url($variable,$configuracion);
 									echo $indice.$variable."'";
 									//echo "title='Haga Click aqu&iacute; para ver fechas de digitaci&oacute;n de notas'>";
@@ -809,7 +796,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$verifica=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "notasparciales",$valor);
 		$resultverifica=$this->ejecutarSQL($configuracion, $this->accesoOracle, $verifica, "busqueda");
 		$valor[7]=count($resultverifica);
-		//echo "<br>nnn".$cuenta."<br>";
 		
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechaactual",'');
 		$rowfechoy=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -1319,8 +1305,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		//los comparamos con los valores de los porcentajes para hacer realizar las diferentes validaciones. 
                 foreach($_REQUEST as $clave=>$valor)
 		{
-			//echo $clave.'--'.$valor."<br>";
-			//echo $_REQUEST['nivel'];
 			if($clave=='p1'||$clave=='p2'||$clave=='p3'||$clave=='p4'||$clave=='p5'||$clave=='p6'||$clave=='pl'||$clave=='pe')
 			{
 				if((!is_numeric($valor))&&($valor!=NULL))
@@ -1363,7 +1347,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 				$acupor3= $resultverifica[0][11]+$resultverifica[0][13]+$resultverifica[0][15]+$resultverifica[0][17]+$resultverifica[0][19]+$resultverifica[0][21]+$resultverifica[0][25];
 				$acupor4= $acupor1+$acupor2;
 				
-				//echo $acupor5;			
 				if($acupor>100){
 					unset($valor);
 					$valor[0]=2; //Mensaje 2
@@ -1400,46 +1383,46 @@ class funciones_registroNotasDocentes extends funcionGeneral
 					$valor[0]=$usuario;
 					$valor[1]=$_REQUEST['asig'];
 					$valor[2]=$_REQUEST['id_grupo'];
-					
-					$qrypor="UPDATE ";
+
+                                        $qrypor="UPDATE ";
 					$qrypor.="ACCURSOS ";
 					$qrypor.="SET ";
-					if(isset($_REQUEST['p1']))
+					if(isset($_REQUEST['p1'])&&$_REQUEST['p1']!='')
 					{
-						$qrypor.="CUR_PAR1 = '".$_REQUEST['p1']."', ";	
+						$qrypor.="CUR_PAR1 = ".$_REQUEST['p1'].", ";	
 					}
-					if(isset($_REQUEST['p2']))
+					if(isset($_REQUEST['p2'])&&$_REQUEST['p2']!='')
 					{
-						$qrypor.="CUR_PAR2 = '".$_REQUEST['p2']."', ";
+						$qrypor.="CUR_PAR2 = ".$_REQUEST['p2'].", ";
 					}
-					if(isset($_REQUEST['p3']))
+					if(isset($_REQUEST['p3'])&&$_REQUEST['p3']!='')
 					{
-						$qrypor.="CUR_PAR3 = '".$_REQUEST['p3']."', ";
+						$qrypor.="CUR_PAR3 = ".$_REQUEST['p3'].", ";
 					}
-					if(isset($_REQUEST['p4']))
+					if(isset($_REQUEST['p4'])&&$_REQUEST['p4']!='')
 					{
-						$qrypor.="CUR_PAR4 = '".$_REQUEST['p4']."', ";
+						$qrypor.="CUR_PAR4 = ".$_REQUEST['p4'].", ";
 					}
-					if(isset($_REQUEST['p5']))
+					if(isset($_REQUEST['p5'])&&$_REQUEST['p5']!='')
 					{
-						$qrypor.="CUR_PAR5 = '".$_REQUEST['p5']."', ";
+						$qrypor.="CUR_PAR5 = ".$_REQUEST['p5'].", ";
 					}
-					if(isset($_REQUEST['p6']))
+					if(isset($_REQUEST['p6'])&&$_REQUEST['p6']!='')
 					{
-						$qrypor.="CUR_PAR6 = '".$_REQUEST['p6']."', ";
+						$qrypor.="CUR_PAR6 = ".$_REQUEST['p6'].", ";
 					}
-					if(isset($_REQUEST['pl']))
+					if(isset($_REQUEST['pl'])&&$_REQUEST['pl']!='')
 					{
-						$qrypor.="CUR_LAB = '".$_REQUEST['pl']."', ";
+						$qrypor.="CUR_LAB = ".$_REQUEST['pl'].", ";
 					}
-					if(isset($_REQUEST['pe']))
+					if(isset($_REQUEST['pe'])&&$_REQUEST['pe']!='')
 					{
-						$qrypor.="CUR_EXA = '".$_REQUEST['pe']."', ";
+						$qrypor.="CUR_EXA = ".$_REQUEST['pe'].", ";
 					}
 					$varPh=isset($_REQUEST['ph'])?$_REQUEST['ph']:'';
-					
-					$qrypor.="CUR_HAB = '".$varPh."' ";
-					$qrypor.="WHERE ";
+					//$qrypor.=",CUR_HAB = ".$varPh." ";
+                                        $qrypor=  trim($qrypor," ,");
+					$qrypor.=" WHERE ";
 					$qrypor.="CUR_APE_ANO = '".$ano."' ";
 					$qrypor.="AND ";
 					$qrypor.="CUR_APE_PER = '".$per."' ";
@@ -1447,7 +1430,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 					$qrypor.="CUR_ASI_COD = '".$valor[1]."' ";
 					$qrypor.="AND ";
 					$qrypor.="CUR_ID ='".$valor[2]."'";
-				//	echo $qrypor;
 					
 					$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $qrypor, "qrypor");
 				}
@@ -1458,7 +1440,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		for ($i=0; $i<$resultverifica[0][32]; $i++)
 		{
 			$ac = ($resultverifica[$i][31]);
-			//echo "<br>sss--".$ac."<br>";
 			if($ac > 0 && $_REQUEST[sprintf('obs_1%d', $i)]==19){
 				unset($valor);
 				$valor[0]=6; //Mensaje 6
@@ -1471,9 +1452,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 			}
 			
 			//Validamos que lasnotas digitadas sean de tipo numerico, y que esten entre 0 y 50.
-			/*echo "<pre>";
-			var_dump($_REQUEST);
-			echo "</pre>";*/
 			
 			foreach($_REQUEST as $clave=>$valor)
 			{
@@ -1796,13 +1774,11 @@ class funciones_registroNotasDocentes extends funcionGeneral
 				$consulta.="AND ";
 				$consulta.="INS_EST_COD ='".$_REQUEST[sprintf('cod_%d',$i)]."'";
 				
-			//	echo "<br>".$consulta."<br>";
 				$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $consulta, "consulta");
 				//$afectados=$this->totalAfectados($configuracion,$this->accesoOracle); //Esta linea es para verificar si se guardaron los registros en la base de datos;
 				
 				if(isset($resultado))
 				{
-					//echo "Registro exitoso";
 					$cierto=4;
 				}
 			}
@@ -1817,10 +1793,9 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$valor[4]=$_REQUEST['nivel'];
 		$valor[5]=$ano;
 		$valor[6]=$per;
-		$valor[7]=$_REQUEST['carrera'];
+		//$valor[7]=$_REQUEST['carrera'];
 		$valor[10]=$_REQUEST['periodo'];
 		$calc= "BEGIN pck_pr_notaspar.pra_calnotdef_cur(".$valor[5].", ".$valor[6].", ".$valor[1].", ".$valor[2]."); END; ";
-		//echo "mmm".$calc;
 		$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $calc, "calc");
 		
 		if($cierto==4)
@@ -1835,6 +1810,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 	//Contiene las validaciones y las sentencias SQL que guarda las notas en el sistema.
 	function guardarNotasPosgrado($configuracion)
 	{
+            $nonum='';
 		if($this->usuario)
 		{
 			$usuario=$this->usuario;
@@ -1855,8 +1831,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		//los comparamos con los valores de los porcentajes para hacer realizar las diferentes validaciones. 	
 		foreach($_REQUEST as $clave=>$valor)
 		{
-			//echo $clave.'--'.$valor."<br>";
-			//echo $_REQUEST['nivel'];
 			if($clave=='p1'||$clave=='p2'||$clave=='p3'||$clave=='p4'||$clave=='p5'||$clave=='p6'||$clave=='pl'||$clave=='pe')
 			{
 				if((!is_numeric($valor))&&($valor!=NULL))
@@ -1869,13 +1843,30 @@ class funciones_registroNotasDocentes extends funcionGeneral
 				}
 				
 				//Sumamos los valores de los porcentajes posgrado				
-				$acupor = $_REQUEST['p1']+$_REQUEST['p2']+$_REQUEST['p3']+$_REQUEST['p4']+$_REQUEST['p5']+$_REQUEST['p6']+$_REQUEST['pl']+$_REQUEST['pe'];
-				$acupor1 = $_REQUEST['p1']+$_REQUEST['p2']+$_REQUEST['p3']+$_REQUEST['p4']+$_REQUEST['p5']+$_REQUEST['p6']+$_REQUEST['pl']+$_REQUEST['pe'];
-				$acupor2 = $_REQUEST['par1']+$_REQUEST['par2']+$_REQUEST['par3']+$_REQUEST['par4']+$_REQUEST['par5']+$_REQUEST['par6']+$_REQUEST['plab']+$_REQUEST['pexa'];
+				$valorP1=isset($_REQUEST['p1'])?($_REQUEST['p1'])*1:'';
+				$valorP2=isset($_REQUEST['p2'])?($_REQUEST['p2'])*1:'';
+				$valorP3=isset($_REQUEST['p3'])?($_REQUEST['p3'])*1:'';
+				$valorP4=isset($_REQUEST['p4'])?($_REQUEST['p4'])*1:'';
+				$valorP5=isset($_REQUEST['p5'])?($_REQUEST['p5'])*1:'';
+				$valorP6=isset($_REQUEST['p6'])?($_REQUEST['p6'])*1:'';
+				$valorPl=isset($_REQUEST['pl'])?($_REQUEST['pl'])*1:'';
+				$valorPe=isset($_REQUEST['pe'])?($_REQUEST['pe'])*1:'';
+				
+				$valorpar1=isset($_REQUEST['par1'])?($_REQUEST['par1'])*1:'';
+				$valorpar2=isset($_REQUEST['par2'])?($_REQUEST['par2'])*1:'';
+				$valorpar3=isset($_REQUEST['par3'])?($_REQUEST['par3'])*1:'';
+				$valorpar4=isset($_REQUEST['par4'])?($_REQUEST['par4'])*1:'';
+				$valorpar5=isset($_REQUEST['par5'])?($_REQUEST['par5'])*1:'';
+				$valorpar6=isset($_REQUEST['par6'])?($_REQUEST['par6'])*1:'';
+				$valorplab=isset($_REQUEST['plab'])?($_REQUEST['plab'])*1:'';
+				$valorpexa=isset($_REQUEST['pexa'])?($_REQUEST['pexa'])*1:'';
+
+                                $acupor = $valorP1+$valorP2+$valorP3+$valorP4+$valorP5+$valorP6+$valorPl+$valorPe;
+				$acupor1 = $valorP1+$valorP2+$valorP3+$valorP4+$valorP5+$valorP6+$valorPl+$valorPe;
+				$acupor2 = $valorpar1+$valorpar2+$valorpar3+$valorpar4+$valorpar5+$valorpar6+$valorplab+$valorpexa;
 				$acupor3 = $resultverifica[0][11]+$resultverifica[0][13]+$resultverifica[0][15]+$resultverifica[0][17]+$resultverifica[0][19]+$resultverifica[0][21]+$resultverifica[0][25];
 				$acupor4 = $acupor1+$acupor2;
 				
-				//echo $acupor5;			
 				if($acupor>100){
 					unset($valor);
 					$valor[0]=2; //Mensaje 2
@@ -1912,40 +1903,42 @@ class funciones_registroNotasDocentes extends funcionGeneral
 					$qrypor="UPDATE ";
 					$qrypor.="ACCURSOS ";
 					$qrypor.="SET ";
-					if(isset($_REQUEST['p1']))
+					if(isset($_REQUEST['p1'])&&$_REQUEST['p1']!='')
 					{
-						$qrypor.="CUR_PAR1 = '".$_REQUEST['p1']."', ";	
+						$qrypor.="CUR_PAR1 = ".$_REQUEST['p1'].", ";	
 					}
-					if(isset($_REQUEST['p2']))
+					if(isset($_REQUEST['p2'])&&$_REQUEST['p2']!='')
 					{
-						$qrypor.="CUR_PAR2 = '".$_REQUEST['p2']."', ";
+						$qrypor.="CUR_PAR2 = ".$_REQUEST['p2'].", ";
 					}
-					if(isset($_REQUEST['p3']))
+					if(isset($_REQUEST['p3'])&&$_REQUEST['p3']!='')
 					{
-						$qrypor.="CUR_PAR3 = '".$_REQUEST['p3']."', ";
+						$qrypor.="CUR_PAR3 = ".$_REQUEST['p3'].", ";
 					}
-					if(isset($_REQUEST['p4']))
+					if(isset($_REQUEST['p4'])&&$_REQUEST['p4']!='')
 					{
-						$qrypor.="CUR_PAR4 = '".$_REQUEST['p4']."', ";
+						$qrypor.="CUR_PAR4 = ".$_REQUEST['p4'].", ";
 					}
-					if(isset($_REQUEST['p5']))
+					if(isset($_REQUEST['p5'])&&$_REQUEST['p5']!='')
 					{
-						$qrypor.="CUR_PAR5 = '".$_REQUEST['p5']."', ";
+						$qrypor.="CUR_PAR5 = ".$_REQUEST['p5'].", ";
 					}
-					if(isset($_REQUEST['p6']))
+					if(isset($_REQUEST['p6'])&&$_REQUEST['p6']!='')
 					{
-						$qrypor.="CUR_PAR6 = '".$_REQUEST['p6']."', ";
+						$qrypor.="CUR_PAR6 = ".$_REQUEST['p6'].", ";
 					}
-					if(isset($_REQUEST['pl']))
+					if(isset($_REQUEST['pl'])&&$_REQUEST['pl']!='')
 					{
-						$qrypor.="CUR_LAB = '".$_REQUEST['pl']."', ";
+						$qrypor.="CUR_LAB = ".$_REQUEST['pl'].", ";
 					}
-					if(isset($_REQUEST['pe']))
+					if(isset($_REQUEST['pe'])&&$_REQUEST['pe']!='')
 					{
-						$qrypor.="CUR_EXA = '".$_REQUEST['pe']."', ";
+						$qrypor.="CUR_EXA = ".$_REQUEST['pe'].", ";
 					}
-					$qrypor.="CUR_HAB = '".$_REQUEST['ph']."' ";
-					$qrypor.="WHERE ";
+					//$qrypor.="CUR_HAB = '".$_REQUEST['ph']."' ";
+                                        $qrypor=  trim($qrypor," ,");
+
+                                        $qrypor.=" WHERE ";
 					$qrypor.="CUR_APE_ANO = '".$ano."' ";
 					$qrypor.="AND ";
 					$qrypor.="CUR_APE_PER = '".$per."' ";
@@ -1953,18 +1946,15 @@ class funciones_registroNotasDocentes extends funcionGeneral
 					$qrypor.="CUR_ASI_COD = '".$valor[1]."' ";
 					$qrypor.="AND ";
 					$qrypor.="CUR_ID ='".$valor[2]."'";
-					//echo $qrypor;
 					
 					$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $qrypor, "qrypor");
 				}
 				
 			}
 		}
-		//echo "mmm".$resultverifica[0][32];	
-		for ($i=0; $i<=$resultverifica[0][32]; $i++)
+		for ($i=0; $i<$resultverifica[0][32]; $i++)
 		{
 			$ac = ($resultverifica[$i][31]);
-			//echo "<br>sss--".$ac."<br>";
 			if($ac > 0 && $_REQUEST[sprintf('obs_1%d', $i)]==19){
 				unset($valor);
 				$valor[0]=6; //Mensaje 6
@@ -2000,7 +1990,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 				||(($valor==$exa_1))
 				||(($valor==$hab_1)))
 				{
-					//echo "mmm".$clave."->".$valor."<br>";
 					$longitud = strlen($valor); 
 					if((!is_numeric($valor))&&($valor!=NULL)&&(!is_int($valor)))
 					{
@@ -2298,13 +2287,11 @@ class funciones_registroNotasDocentes extends funcionGeneral
 				$consulta.="AND ";
 				$consulta.="INS_EST_COD ='".$_REQUEST[sprintf('cod_%d',$i)]."'";
 				
-				//echo "<br>".$consulta."<br>";
 				$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $consulta, "consulta");
 				//$afectados=$this->totalAfectados($configuracion,$this->accesoOracle); //Esta linea es para verificar si se guardaron los registros en la base de datos;
 				
 				if(isset($resultado))
 				{
-					//echo "Registro exitoso";
 					$cierto=4;
 				}
 			}
@@ -2319,10 +2306,9 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$valor[4]=$_REQUEST['nivel'];
 		$valor[5]=$ano;
 		$valor[6]=$per;
-		$valor[7]=$_REQUEST['carrera'];
+		//$valor[7]=$_REQUEST['carrera'];
 		$valor[10]=$_REQUEST['periodo'];
 		$calc= "BEGIN pck_pr_notaspar.pra_calnotdef_cur(".$valor[5].", ".$valor[6].", ".$valor[1].", ".$valor[2]."); END; ";
-		//echo "mmm".$calc;
 		$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $calc, "calc");
 		
 		if($cierto==4)
@@ -2358,7 +2344,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 						$valor[0]= $_REQUEST['mensaje'];
 						$cadena="El porcentaje digitado, correspondiente a " .$_REQUEST['valor']. ",  NO es un valor num&eacute;rico.";
 						alerta::sin_registro($configuracion,$cadena,$regresar);
-						//echo $regresar;
 					}
 					if($_REQUEST['mensaje']==2)
 					{
@@ -2453,19 +2438,16 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$valor[4]=$_REQUEST['nivel'];
 		$valor[5]=$ano;
 		$valor[6]=$per;
-		$valor[7]=$_REQUEST['carrera'];
+		//$valor[7]=$_REQUEST['carrera'];
 		
 		$calc= "BEGIN pck_pr_notaspar.pra_calnotdef_cur(".$valor[5].", ".$valor[6].", ".$valor[1].", ".$valor[2]."); END; ";
-		//echo "mmm".$calc;
 		$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $calc, "calc");
 		if(isset($resultado) && $_REQUEST['nivel']=='PREGRADO')
 		{
-			//echo "Registro exitoso PREGRADO";
 			$this->redireccionarInscripcion($configuracion,"registroexitosoPregrado",$valor);
 		}
 		if(isset($resultado) && $_REQUEST['nivel']=='POSGRADO')
 		{
-			//echo "Registro exitoso POSGRADO";
 			$this->redireccionarInscripcion($configuracion,"registroexitosoPosgrado",$valor);
 		}
 	}
@@ -2506,7 +2488,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$ano=$resultAnioPer[0][0];
 		$per=$resultAnioPer[0][1];    
 
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "listaClase",$valor); //echo $cadena_sql;exit;
+		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "listaClase",$valor);
 		$resultLista=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		
 		if(!is_array($resultLista))
@@ -2641,15 +2623,12 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		{
 			$usuario=$_REQUEST['usuario'];
 		}
-		//echo "mmm".$_REQUEST['usuario'];
 		
 		$valor[10]=$_REQUEST['periodo'];
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"anioper",$valor);
 		$resultAnioPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		$ano=$resultAnioPer[0][0];
 		$per=$resultAnioPer[0][1];
-		//echo "mmm".$usuario;
-		//echo "mmm".$_REQUEST['docente'];
 		if(isset($_REQUEST['docente']))
 		{
 			$valor[0]=$_REQUEST['docente'];
@@ -2662,7 +2641,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$valor[2]=$_REQUEST['id_grupo'];
 		$valor[3]=$_REQUEST['carrera'];
 		$valor[4]=$_REQUEST['nivel'];
-		//echo "mmm".$_REQUEST['nivel'];
 		$valor[5]=$ano;
 		$valor[6]=$per;
 				
@@ -2832,7 +2810,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechasDigNotas",$valor);
 		$reg2=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		
-//		echo "<br>cadena sql ".$cadena_sql."<br>";
 		
 		if(($fechoy < $reg2[0][1]) || ($fechoy > $reg2[0][2]) || ($reg2[0][1] == " ") || ($reg2[0][2] == " "))
 		{
@@ -3068,7 +3045,7 @@ ________________________________________________________________________________
 		@$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		$totreg=count($resultado);
 						
-		$confec = "SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'yyyymmdd')) FROM dual";
+		$confec = "SELECT TO_NUMBER(TO_CHAR(CURRENT_TIMESTAMP,'YYYYMMDD'),'99999999')";
 		@$rows=$this->ejecutarSQL($configuracion, $this->accesoOracle, $confec, "busqueda");
 		$fechahoy =$rows[0][0];
 						
@@ -3093,8 +3070,6 @@ ________________________________________________________________________________
 
 		$QryCierreSem=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "cierreSemestre",$valor);
 		$RowCierreSem=$this->ejecutarSQL($configuracion, $this->accesoOracle, $QryCierreSem, "busqueda");
-		//echo "nnn".$QryCierreSem."<br>";
-		//echo "mmm".$RowCierreSem[0][0];
                 	if( $calendario[0][0] == "" ||  $calendario[0][1] == "")
 			{
 		

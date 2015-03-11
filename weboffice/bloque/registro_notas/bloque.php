@@ -33,7 +33,6 @@ class bloque_registroNotasDocentes extends bloque
 	{
  		$this->sql=new sql_registroNotasDocentes();
  		$this->funcion=new funciones_registroNotasDocentes($configuracion, $this->sql);
- 		
 	}
 	
 	
@@ -89,7 +88,6 @@ class bloque_registroNotasDocentes extends bloque
 		$this->funcion->revisarFormulario();
 		
 		$tipo="busqueda";
-			
 		//Rescatar datos de sesion
 		$usuario=$this->funcion->rescatarValorSesion($configuracion, $this->funcion->acceso_db, "usuario");
 		$id_usuario=$this->funcion->rescatarValorSesion($configuracion, $this->funcion->acceso_db, "id_usuario");
@@ -99,20 +97,20 @@ class bloque_registroNotasDocentes extends bloque
 			$valor[4]=$_REQUEST['nivel'];
 			if(isset($_REQUEST["opcion"]) && !isset($_REQUEST["notdef"]) && !isset($_REQUEST["opcionpos"]))
 			{
-				$this->funcion->guardarNotasPregrado($configuracion);
+                            $this->funcion->guardarNotasPregrado($configuracion);
 			}
 			if(isset($_REQUEST["opcionpos"]) && !isset($_REQUEST["notdef"]) && !isset($_REQUEST["opcion"]))
 			{
-				$this->funcion->guardarNotasPosgrado($configuracion);
+                            $this->funcion->guardarNotasPosgrado($configuracion);
 			}
 			if(isset($_REQUEST["notdef"]))
 			{
-				$this->funcion->calculoDefinitiva($configuracion);
+                            $this->funcion->calculoDefinitiva($configuracion);
 			}
 		}
 		else
 		{
-			$valor[4]=$_REQUEST['nivel'];
+                    $valor[4]=$_REQUEST['nivel'];
 			$valor[10]=$_REQUEST['periodo'];
 			$this->funcion->redireccionarInscripcion($configuracion, "formgrado",$valor);	
 		}
@@ -124,7 +122,6 @@ class bloque_registroNotasDocentes extends bloque
 // @ Crear un objeto bloque especifico
 
 $esteBloque=new bloque_registroNotasDocentes($configuracion);
-//echo $_REQUEST['action'];
 if(!isset($_REQUEST['action']))
 {
 	$esteBloque->html($configuracion);
