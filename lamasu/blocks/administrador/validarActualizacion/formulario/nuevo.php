@@ -110,7 +110,7 @@ $tab = 1;
         {
             require_once("encriptar.class.php");
             $cripto=new encriptar();
-            echo "Redireccionando....";
+            echo "Redireccionandoooooooo....";
             $indice = $ruta;
             echo "<script>location.replace('".$indice."')</script>";  
         }

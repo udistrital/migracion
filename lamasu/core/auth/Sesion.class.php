@@ -143,23 +143,24 @@ class Sesion {
             return FALSE;
         } else {
             // Verifica la validez del id de sesion
-
+            
             if ($this->caracteresValidos($sesion) != strlen($sesion)) {
                 return false;
             }
-
+            //echo $this->setSesionId($sesion); exit;
             $this->setSesionId($sesion);
 
             // Busca una sesión que coincida con el id del computador y el nivel de acceso de la página
             $this->sesionUsuarioId = trim($this->getValorSesion('idUsuario'));
             $nivelPagina = $this->getSesionNivel();
             $nivelAut = false;
+            
             if ($this->sesionUsuarioId) {
 
                 //Verificar por usuario
                 $cadenaSql = $this->miSql->getCadenaSql("verificarNivelUsuario", $this->sesionUsuarioId);
                 $resultadoNivel = $this->miConexion->ejecutarAcceso($cadenaSql, "busqueda");
-
+                
                 if ($resultadoNivel) {
                     $tipo = explode(",", $resultadoNivel[0]['tipo']);
                     for ($i = 0; $i < count($tipo); $i++) {
@@ -172,9 +173,10 @@ class Sesion {
                     
                     //Verificar por sesión
                     //1. Tiene que existir una variable REQUEST llamada tipo
+                    
                    if (isset($_REQUEST['tipo'])) {
                         $tipo = trim($this->getValorSesion('tipo'));
-                        
+                       
                         if ($tipo == $_REQUEST['tipo']) {
                             $nivelAut = true;
                         } else {
@@ -315,7 +317,7 @@ class Sesion {
                 
             } else {
                 $cadenaSql = $this->miSql->getCadenaSql("insertarValorSesion", $parametro);
-                
+                //echo $cadenaSql."<br>"; exit;
             }
 
             $resultado = $this->miConexion->ejecutarAcceso($cadenaSql, "acceso");

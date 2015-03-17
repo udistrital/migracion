@@ -374,13 +374,13 @@ class sql_registroActualizaDatos extends sql
 				$cadena_sql.="WHERE eot_cod=".$valor;
 			break;
 			case "rescatarCapacidades":
-				$cadena_sql="SELECT ";
-				$cadena_sql.="cap_code, ";
-				$cadena_sql.="cap_descr ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="mntge.gecapacidad ";
-				$cadena_sql.="WHERE cap_code<>0";
-				$cadena_sql.="ORDER BY cap_descr ASC ";
+                                    $cadena_sql="SELECT ";
+                                    $cadena_sql.="cap_code, ";
+                                    $cadena_sql.="cap_descr ";
+                                    $cadena_sql.="FROM ";
+                                    $cadena_sql.="mntge.gecapacidad ";
+                                    $cadena_sql.="WHERE cap_code<>'0'";
+                                    $cadena_sql.="ORDER BY cap_descr ASC ";
 			break;	
 			case "rescatarParientes":
 				$cadena_sql="SELECT ";

@@ -174,7 +174,7 @@ class funciones_registroActualizaDatos  extends funcionGeneral
 
 				$select=new html();	
 				$busqueda="SELECT ";
-				$busqueda.="UNIQUE ins_cod,";
+				$busqueda.="DISTINCT(ins_cod),";
 				$busqueda.="ins_nombre ";
 				$busqueda.="FROM ";
 				$busqueda.="mntge.geinst ";

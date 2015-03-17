@@ -27,7 +27,7 @@ class tabs
 	{
 	
  
-		$this->html_pagina.="<meta http-equiv='Content-Type'content='text/html; charset=iso-8859-1' />\n";
+		$this->html_pagina="<meta http-equiv='Content-Type'content='text/html; charset=iso-8859-1' />\n";
 		$this->html_pagina.="<link type='text/css' href='".$configuracion["host"].$configuracion["site"].$configuracion["javascript"]."/tabs/css/condor/jquery-ui-1.8.custom.css'  rel='stylesheet'  />\n";		
 		$this->html_pagina.="<script type='text/javascript'  src='".$configuracion["host"].$configuracion["site"].$configuracion["javascript"]."/tabs/jquery-1.4.2.min.js' ></script>\n";		
 		$this->html_pagina.="<script type='text/javascript'  src='".$configuracion["host"].$configuracion["site"].$configuracion["javascript"]."/tabs/jquery-ui-1.8.custom.min.js' ></script>\n";
@@ -79,7 +79,7 @@ class tabs
 	function armar_tabs($configuracion,$name="")
 	{
 
-		$this->html_pagina.="<meta http-equiv='Content-Type'content='text/html; charset=iso-8859-1' />\n";
+		$this->html_pagina="<meta http-equiv='Content-Type'content='text/html; charset=iso-8859-1' />\n";
 		$this->html_pagina.="<link type='text/css' href='".$configuracion["host"].$configuracion["site"].$configuracion["javascript"]."/tabs/css/condor/jquery-ui-1.8.20.custom.css'  rel='stylesheet'  />\n";		
 		if($this->addJquery<>false){
 			$this->html_pagina.="<script type='text/javascript'  src='".$configuracion["host"].$configuracion["site"].$configuracion["javascript"]."/tabs/jquery-1.4.2.min.js' ></script>\n";	
@@ -141,7 +141,7 @@ class tabs
 		$indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 	
 			
-		$this->html_pagina.="<script src='".$configuracion["host"].$configuracion["site"].$configuracion["javascript"]."/tabs.js' type='text/javascript' language='javascript'></script>\n";			
+		$this->html_pagina="<script src='".$configuracion["host"].$configuracion["site"].$configuracion["javascript"]."/tabs.js' type='text/javascript' language='javascript'></script>\n";			
 		$this->html_pagina.="<link rel='shortcut icon' href='".$configuracion["host"].$configuracion["site"]."/"."favicon.ico' />\n";
 		$this->html_pagina.="<link rel='stylesheet' type='text/css' href='".$configuracion["host"].$configuracion["site"].$configuracion["estilo"]."/simpletabs.css' />\n";			
 		
@@ -192,7 +192,7 @@ class tabs
 	{
 	
  
-		$this->html_pagina.="<link rel='shortcut icon' href='".$configuracion["host"].$configuracion["site"]."/"."favicon.ico' />\n";
+		$this->html_pagina="<link rel='shortcut icon' href='".$configuracion["host"].$configuracion["site"]."/"."favicon.ico' />\n";
 		$this->html_pagina.="<script src='".$configuracion["host"].$configuracion["site"].$configuracion["javascript"]."/simpletabs_1.1.js' type='text/javascript' language='javascript'></script>\n";		
 		$this->html_pagina.="<link rel='stylesheet' type='text/css' href='".$configuracion["host"].$configuracion["site"].$configuracion["estilo"]."/simpletabs.css' />\n";			
 		
