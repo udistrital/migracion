@@ -84,7 +84,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
                         $this->mostrarListadoProyectos($codEstudiante);
                     }
             }
-                
         }else{
             if($tipoBusqueda=='codigo'){
                 echo "C&oacute;digo de estudiante no valido";
@@ -103,7 +102,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
         $this->datosEstudiante=$this->consultarDatosEstudiante($codEstudiante);
     //$this->datosDocente=  $this->buscarDatosDocente($codDocente);
     }
-
     if (is_array($this->datosEstudiante)) {
         if($this->nivel==110 || $this->nivel==114){
             $verificacion=$this->validacion->validarProyectoAsistente($this->datosEstudiante['CODIGO'],$this->usuario,$this->nivel);
@@ -195,10 +193,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
           }
           $this->mostrarEnacabezadoNotasDefinitivas();
           $this->mostrarNotasDefinitivas($this->espaciosCursados);
-?>
-
-
-<?
     } else {
 ?>
       <table class="contenidotabla centrar">
@@ -282,7 +276,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
                         <td class='cuadro_plano' style="border:0px"><? echo $this->datosEstudiante['NOMBRE'] ?></td>
                         <td class="cuadro_plano" style="border:0px" rowspan="2" colspan="6">
 <?
-
 ?>
                   </td>
                 </tr>
@@ -378,10 +371,8 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
 
                 if($espacio['CODIGO']==$codigoEspacioSinAprobar){
                     $espacioNoAprobado[]=$espacio;
-                    //echo '<B>PERDIDA</B><br>';
                 }else
                     {
-                    //echo 'pasada<br>';                    
                     }
             }
             
@@ -449,9 +440,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
                             ?>            
           </thead>
         </table>
-
-
-
         <?                    
         echo "<P class='cuadro_plano' style='border:0px'>*Los espacios acad&eacute;micos perdidos que el estudiante ya ha aprobado no aparecen en esta lista</P>";      
     }                
@@ -519,7 +507,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
               <th class='sigma cuadro_plano centrar'>Nota Examen</th>
               <th class='sigma cuadro_plano centrar'>Acumulado</th>
 
-
             </tr>
           </thead>
     <?
@@ -550,14 +537,12 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
               }
           }
     ?>
-
           <tr>
             <td class='cuadro_plano centrar'><? echo $resultado_grupo[$i]['CODIGO_ESPACIO'] ?></td>
             <td class='cuadro_plano centrar'><? echo $resultado_grupo[$i]['NOMBRE_ESPACIO'] ?></td>
             <td class='cuadro_plano centrar'><? echo (isset($docentes)?$docentes:''); ?></td>
             <td class='cuadro_plano centrar'><? echo (isset($resultado_grupo[$i]['NRO_GRUPO'])?$resultado_grupo[$i]['NRO_GRUPO']:''); ?></td>
             <td class='cuadro_plano centrar'><? echo $resultado_notas[0]['FALLAS'] ?></td>
-
 
             <?
             //arreglo con los nombres de las claves del arreglo $resultado_porcentaje y $resultado_notas
@@ -626,7 +611,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
     </td>
     </tr>
     </table>
-
     <?
     }
 
@@ -662,7 +646,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
             <td>
                 <table  width="100%" border="0" align="center" cellpadding="5 px" cellspacing="1px" >
                   <caption class="sigma centrar"><? echo "Horario de Clases ".$resultado_grupos[0][3]."-".$resultado_grupos[0][4]; ?></caption>
-
         <? 
         if ($resultado_grupos != NULL) { ?>
 
@@ -683,9 +666,7 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
                 <th class='cuadro_plano sigma centrar' width="60">Vie </th>
                 <th class='cuadro_plano sigma centrar' width="60">S&aacute;b </th>
                 <th class='cuadro_plano sigma centrar' width="60">Dom </th>
-
                 </thead>
-
     <?
         //recorre cada uno del los grupos
         for ($j = 0; $j < count($resultado_grupos); $j++) {
@@ -743,32 +724,28 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
                                         } elseif ($resultado_horarios[$k]['DIA'] != $i) {                        }
 
             }
-    ?></td><?
-          }
-    ?>
-      </tr>
+                            ?></td><?
+                                  }
+                            ?>
+                              </tr>
 
-      <?
-        }
-      } else {
-      ?>
-        <tr>
-          <td class='sigma centrar'>
-            <b>NO EXISTE HORARIO REGISTRADO</b>
-          </td>
-        </tr>
-    <? } ?>
-
-    </td>
-
-    </tr>
-
-    </table>
-    </td>
-    </tr>
-
-    </tbody>
-    </table>
+                              <?
+                                }
+                              } else {
+                              ?>
+                                <tr>
+                                  <td class='sigma centrar'>
+                                    <b>NO EXISTE HORARIO REGISTRADO</b>
+                                  </td>
+                                </tr>
+                            <? } ?>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
     <?
     }
@@ -853,7 +830,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
 
                             }
                         }
-            
         }
         
         ?>
@@ -869,7 +845,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
           }
           if ($resultado_notas[$i - 1]['NIVEL'] != $resultado_notas[$i]['NIVEL']) {
     ?>
-
               <tr>
                 <th colspan='6' align='center'><? echo 'NIVEL ' . $resultado_notas[$i]['NIVEL'] ?></th>
               </tr>
@@ -917,8 +892,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
     ?>
           </td>
         </tr>
-
-
     <?
           }
         }
@@ -1473,20 +1446,15 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
                 if($dif_anios == 1){
                     $mes_inicio = 12 - $mes_inicio;
                     $meses = $mes_fin + $mes_inicio;
-                   
-                   
                 }
                 else{
                         if($dif_anios == 0){
                             $meses=$mes_fin - $mes_inicio;
-                           
-                            
                         }
                         else{
                             if($dif_anios > 1){
                                 $mes_inicio = 12 - $mes_inicio;
                                 $meses = $mes_fin + $mes_inicio + (($dif_anios - 1) * 12);
-                                
                             }
                             else { exit;    }
                         }
@@ -1516,7 +1484,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
             }else{
                 $cantidad=0;
             }
-                
         }else{
             echo "<br>No tiene informaci&oacute;n de fecha de grado";
         }
@@ -1580,12 +1547,9 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
                 'cantidad_espacios_adelantados' => $this->contarEspaciosAdelantados($cantidad_matriculas,$notaAprobatoria,$this->espaciosCursados),
                 'cantidad_espacios_nivelado' => 50
           );
-                  //var_dump($var_modelo1);exit;
 
-          
           $rendimiento_academico = $this->modeloRiesgo->calcularRendimientoAcademico($var_modelo1);
           return $rendimiento_academico;
-          
     }
     
     function calculosProbabilidadR($reglamentoEstudiante,$espaciosVistos,$matriculas,$semestre_ingreso){
@@ -1600,7 +1564,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
                 'cantidad_semestres_despues_grado' => $this->contarSemestresDespuesDeGrado($semestre_ingreso)
               
           );
-                 // var_dump($var_modelo2);exit;
           
           $probabilidad_riesgo = $this->modeloRiesgo->calcularProbabilidadRiesgo($var_modelo2);
           return $probabilidad_riesgo;
@@ -1671,6 +1634,8 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
             }
             return $valores;
     }
+    
+    
     function mostrarModeloRendimiento($valores_rendimiento_academico){
         $rendimiento_academico=(isset($valores_rendimiento_academico['REG_RENDIMIENTO_AC'])?$valores_rendimiento_academico['REG_RENDIMIENTO_AC']:'');
         if($rendimiento_academico){
@@ -1952,8 +1917,6 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
             }else{
                 echo "Perfil no valido";
             }
-
-
   }
 
   function consultarCodigoEgresadoPorIdentificacion($identificacion){
@@ -1965,7 +1928,5 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
             return $resultado[0][0];
         }
     }
-    
-    
 }
 ?>

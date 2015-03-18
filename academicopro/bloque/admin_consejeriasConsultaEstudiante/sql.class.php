@@ -205,7 +205,7 @@ class sql_admin_consejeriasConsultaEstudiante extends sql {	//@ Método que crea
                 $cadena_sql.=" est_pen_nro  PENSUM,";
                 $cadena_sql.=" ins_ano      ANIO,";
                 $cadena_sql.=" ins_per      PERIODO,";
-                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo)   NRO_GRUPO ";
+                $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)   NRO_GRUPO ";
                 $cadena_sql.=" from acins ";
                 $cadena_sql.=" inner join acasi on asi_cod=ins_asi_cod ";
                 $cadena_sql.=" inner join acest on ins_est_cod=est_cod ";
@@ -282,7 +282,7 @@ class sql_admin_consejeriasConsultaEstudiante extends sql {	//@ Método que crea
                     $cadena_sql.=" salon.sal_nombre             SALON,";
                     $cadena_sql.=" salon.sal_edificio           ID_EDIFICIO,";
                     $cadena_sql.=" edi.edi_nombre               EDIFICIO,";
-                    $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo)   NRO_GRUPO, ";
+                    $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)   NRO_GRUPO, ";
                     $cadena_sql.=" curso.cur_nro_cupo           CUPO, ";
                     $cadena_sql.=" hor_alternativa              HOR_ALTERNATIVA ";
                     $cadena_sql.=" FROM achorarios horario";
