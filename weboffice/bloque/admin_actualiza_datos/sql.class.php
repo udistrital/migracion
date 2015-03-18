@@ -155,7 +155,7 @@ class sql_registroActualizaDatos extends sql
 				//$cadena_sql.="EOT_PROV_SEC_PRIV='".$valor[35]."',";
 				//$cadena_sql.="EOT_ESPECIALES='".$valor[36]."',";
 				//$cadena_sql.="EOT_DEU_VIV='".$valor[48]."',";
-				$cadena_sql.="EOT_COD_COLEGIO=TO_NUMBER('".$valor[57]."') ";
+				$cadena_sql.="EOT_COD_COLEGIO='".$valor[57]."' ";
 				$cadena_sql.="WHERE EOT_COD=".$valor[0];				
 
 			break;		
@@ -169,7 +169,7 @@ class sql_registroActualizaDatos extends sql
 			case "actDatosBasicosEOT":
 				$cadena_sql="UPDATE acestotr SET ";
 				$cadena_sql.="EOT_EMAIL='".$valor['email']."',";
-				$cadena_sql.="EOT_ESTADO_CIVIL=TO_NUMBER('".$valor['estadocivil']."'),";
+				$cadena_sql.="EOT_ESTADO_CIVIL='".$valor['estadocivil']."',";
 				$cadena_sql.="EOT_TIPOSANGRE='".$valor['tiposangre']."',";
 				$cadena_sql.="EOT_RH='".$valor['rh']."',";
 				$cadena_sql.="EOT_FECHA_NAC=TO_DATE('".$valor['fechanacimiento']."','DD/MM/YYYY'),";
@@ -186,9 +186,9 @@ class sql_registroActualizaDatos extends sql
 				$cadena_sql.="EOT_TRABAJA_MADRED='".$valor['trabajamadre']."',";
 				$cadena_sql.="EOT_VIVE_CONYUGE='".$valor['viveconyugue']."',";
 				$cadena_sql.="EOT_TRABAJA_CONYUGE='".$valor['trabajaconyugue']."',";
-				$cadena_sql.="EOT_VIVE_CON=TO_NUMBER('".$valor['vivecon']."'),";
+				$cadena_sql.="EOT_VIVE_CON='".$valor['vivecon']."',";
 				$cadena_sql.="EOT_ED_CONYUGE='".$valor['niveleduconyugue']."',";
-				$cadena_sql.="EOT_NUM_GRUP_FAM='".$valor['numgrupfam']."',";
+				$cadena_sql.="EOT_NUM_GRUP_FAM=".$valor['numgrupfam'].",";
 				$cadena_sql.="EOT_ED_PADRE='".$valor['niveledupadre']."',";
 				$cadena_sql.="EOT_ED_MADRE='".$valor['niveledumadre']."',";
 				$cadena_sql.="EOT_OCUP_PADRE='".$valor['ocupadre']."',";
@@ -203,7 +203,7 @@ class sql_registroActualizaDatos extends sql
 				$cadena_sql.="EOT_METOD_BTO='".$valor['metbachillerato']."',";
 				$cadena_sql.="EOT_IDIO_BTO='".$valor['idiomabachillerato']."',";
 				$cadena_sql.="EOT_VALIDA_BTO='".$valor['validobachill']."',";
-				$cadena_sql.="EOT_COD_CRA_DESEA=TO_NUMBER('".$valor['cradeseada']."'),";
+				$cadena_sql.="EOT_COD_CRA_DESEA='".$valor['cradeseada']."',";
 				$cadena_sql.="EOT_RAZON_PRESENTA='".$valor['razoncarrera']."',";
 				$cadena_sql.="EOT_COD_INS_DESEA='".$valor['insdeseada']."',";
 				$cadena_sql.="EOT_RAZON_INS_PRESENTA='".$valor['razoninstitucion']."' ";
@@ -211,21 +211,24 @@ class sql_registroActualizaDatos extends sql
 			break;
 			case "actInfSocio":
 				$cadena_sql="UPDATE acestotr SET ";
-				$cadena_sql.="EOT_COSTEA_ESTUDIOS=TO_NUMBER('".$valor['costeaestudio']."'),";
-				$cadena_sql.="EOT_INGRESOS_COSTEA=TO_NUMBER('".$valor['ingcosteaestudios']."'),";
+				$cadena_sql.="EOT_COSTEA_ESTUDIOS='".$valor['costeaestudio']."',";
+				$cadena_sql.="EOT_INGRESOS_COSTEA='".$valor['ingcosteaestudios']."',";
 				$cadena_sql.="EOT_CATEG_SISBEN='".$valor['sisben']."',";
-				$cadena_sql.="EOT_ESTRATO_SOCIAL=TO_NUMBER('".$valor['estrato']."'),";
-				$cadena_sql.="EOT_VALOR_MATRICULA_COLEGIO=TO_NUMBER('".$valor['matriculacolegio']."'),";
+				$cadena_sql.="EOT_ESTRATO_SOCIAL='".$valor['estrato']."',";
+				$cadena_sql.="EOT_VALOR_MATRICULA_COLEGIO='".$valor['matriculacolegio']."',";
 				$cadena_sql.="EOT_NUM_PER_APOR='".$valor['numeroaportantes']."',";
 				$cadena_sql.="EOT_ING_FAM='".$valor['ingresosfamiliares']."',";
-				$cadena_sql.="EOT_TIPO_VIVIENDA=TO_NUMBER('".$valor['viviendapropia']."') ";
+				$cadena_sql.="EOT_TIPO_VIVIENDA='".$valor['viviendapropia']."' ";
 				$cadena_sql.="WHERE EOT_COD=".$valor['registro'];																									
 			break;	
 			case "actInfAdicional":
 				$cadena_sql="UPDATE acestotr SET ";
 				$cadena_sql.="EOT_GRUPO_ETNICO='".$valor['etnia']."',";
 				$cadena_sql.="EOT_REGUARDO='".$valor['resguardo']."',";
-				$cadena_sql.="EOT_VICTIMA='".$valor['victima']."',";
+                                if(isset($valor['victima']))
+                                {    
+                                    $cadena_sql.="EOT_VICTIMA='".$valor['victima']."',";
+                                }
 				$cadena_sql.="EOT_ARURAL='".$valor['provienearearural']."',";
 				$cadena_sql.="EOT_CAPAC_CODE='".$valor['capacidad']."',";
 				$cadena_sql.="EOT_TIPO_DISCAP='".$valor['discapacidad']."', ";
@@ -243,7 +246,7 @@ class sql_registroActualizaDatos extends sql
 			break;
 			case "rescatarLocalidades":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="unique to_number(loc_nro),";
+				$cadena_sql.="DISTINCT(loc_nro),";
 				$cadena_sql.="loc_nombre ";
 				$cadena_sql.="FROM ";
 				$cadena_sql.="aclocalidad ";	

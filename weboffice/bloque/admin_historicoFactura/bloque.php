@@ -1221,7 +1221,7 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql="";
 			break;
 	}
-	//echo $cadena_sql."<br>";
+	echo $cadena_sql."<br>";
 	return $cadena_sql;
 }
 

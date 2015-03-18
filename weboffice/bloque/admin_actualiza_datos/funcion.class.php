@@ -51,8 +51,7 @@ class funciones_registroActualizaDatos  extends funcionGeneral
 
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"registroCompleto",$this->usuario);
 		$registroEstudiante=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda");
-
-		
+                    
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"Pension",$this->usuario);
 		$pension=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda");
 
@@ -60,7 +59,7 @@ class funciones_registroActualizaDatos  extends funcionGeneral
 		$colegio=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda");
 
 		//echo $cadena_sql;
-		
+		ini_set('display_errors','off');
 		//$registroEstudiante=$this->ejecutarSQL($configuracion, $this->accesoOracle, "select mun_cod,mun_nombre from gemunicipio","busqueda");
 		/*foreach($registroUsuario as $clave=>$valor){
 			echo "<br>VAL['".$clave."']=".$valor.".";
@@ -79,13 +78,12 @@ class funciones_registroActualizaDatos  extends funcionGeneral
 				$busqueda.="mntge.gemunicipio,mntge.gedepartamento ";
 				$busqueda.="WHERE dep_cod=mun_dep_cod ";				
 				$busqueda.="ORDER BY mun_nombre ASC";	
-
+                                
 				$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $busqueda, "busqueda");
-
-				$lugarexp=$select->cuadro_lista($resultado,"lugarexp",$configuracion,$registroEstudiante[0][78],0,100);				
+                                
+                                $lugarExpedicion=isset($registroEstudiante[0][78])?$registroEstudiante[0][78]:'';
+				$lugarexp=$select->cuadro_lista($resultado,"lugarexp",$configuracion,$lugarExpedicion,0,100);				
 				
-								
-
 				
 				$select=new html();
 				$busqueda="SELECT ";
@@ -97,8 +95,7 @@ class funciones_registroActualizaDatos  extends funcionGeneral
 				
 				$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $busqueda, "busqueda");
 				$discapacidad=$select->cuadro_lista($resultado,"discapacidad",$configuracion,$registroEstudiante[0][46],0,100);
-
-				
+                                
 				$select=new html();
 				$busqueda="SELECT ";
 				$busqueda.="casi_id, ";
@@ -109,7 +106,7 @@ class funciones_registroActualizaDatos  extends funcionGeneral
 				
 				$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $busqueda, "busqueda");
 				$sisben=$select->cuadro_lista($resultado,"sisben",$configuracion,$registroEstudiante[0][48],0,100);
-
+                                
 				$select=new html();
 				
 				$busqueda="SELECT ";
@@ -120,19 +117,21 @@ class funciones_registroActualizaDatos  extends funcionGeneral
 
 				$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $busqueda, "busqueda");
 				$colegios=$select->cuadro_lista($resultado,"colegio",$configuracion,1,1,100,0,"",400);	
-
-
+                                
+                                
 				$select=new html();
 				
 				$busqueda="SELECT ";
-				$busqueda.="TEC_CODIGO,";
+				$busqueda.="DISTINCT(TEC_CODIGO),";
 				$busqueda.="TEC_NOMBRE ";
 				$busqueda.="FROM ";
-				$busqueda.="mntge.getipescivil ";
+				$busqueda.="getipescivil ";
+                                
 				
 				$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $busqueda, "busqueda");
-				$estadocivil=$select->cuadro_lista($resultado,"estadocivil",$configuracion,$registroEstudiante[0][4],0,100);		
-
+                                    
+                                $estadocivil=$select->cuadro_lista($resultado,"estadocivil",$configuracion,$registroEstudiante[0][4],0,100);		
+                                
 				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				
 				$select=new html();
@@ -209,7 +208,7 @@ class funciones_registroActualizaDatos  extends funcionGeneral
 				$base=array(array('F','F'),array('M','M'));
 				$sexo=$select->cuadro_lista($base,"sexo",$configuracion,$registroEstudiante[0][3],0,100,0,"",50);	
 				
-
+                                
 				$base=array(array('0','0'),array('1','1'),array('2','2'),array('3','3'),array('4','4'),array('5','5'),array('6','6'),array('7','7'),array('8','8'),array('9','9'),array('10','10'),array('11','11'),array('12','12'),array('13','13'),array('14','14'),array('15','15'),array('16','16'),array('17','17'),array('18','18'),array('19','19'),array('20','20'));
 
 				$select=new html();
