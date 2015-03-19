@@ -52,7 +52,7 @@ echo'<p>&nbsp;</p>
     
   </table>
 <br><br><br><br><br>';
-fu_pie();
+//fu_pie();
 ob_end_flush();
 ?>
 </body>

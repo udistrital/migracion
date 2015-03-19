@@ -25,13 +25,13 @@ function RetornaValor(valor){
 echo <<< HTML
 <table border="0" width="212" align="center">
 <caption>NOTAS</caption>
-<tr class="tr"><td width="104" align="center">Número</td>
+<tr class="tr"><td width="104" align="center">Nï¿½mero</td>
 <td width="209" align="left" align="center">
 <p align="center">Letras</td></tr>
 
 
 <tr><td width="104" align="center"><a href="javascript:RetornaValor(0)">0</a></td>
-<td width="209" align="left"><span class="Estilo2"><a href="javascript:RetornaValor(0)">Para Obs (19 ó 20)</a></span></td></tr>
+<td width="209" align="left"><span class="Estilo2"><a href="javascript:RetornaValor(0)">Para Obs (19 o 20)</a></span></td></tr>
 
 <tr><td width="104" align="center"><a href="javascript:RetornaValor(15)">15</a></td>
 <td width="209" align="left"><span class="Estilo2"><a href="javascript:RetornaValor(15)">Uno con cinco</a></span></td></tr>

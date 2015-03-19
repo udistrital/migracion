@@ -24,7 +24,7 @@ do{
 	$qry.="AND ";
 	$qry.="INS_ASI_COD ='".$_SESSION["A"]."' ";
 	$qry.="AND ";
-	$qry.="INS_GR ='".$_SESSION["G"]."' ";
+	$qry.="INS_GR ='".$_SESSION["cur"]."' ";
 	$qry.="AND ";
 	$qry.="INS_EST_COD ='".$_REQUEST[sprintf('cod_%d',$i)]."' ";
 	

@@ -35,7 +35,7 @@ elseif($per == 3){
 	   $peri = 2;
 }
 
-$estado = 'V';
+$estado = 'A';//cambiar a V
 require_once(dir_script.'msql_cargadoc.php');
 $consulta=$conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"busqueda");
 
@@ -64,8 +64,8 @@ $i=0;
 while(isset($consulta[$i][0]))
 {
 	echo'<tr><td width="8%" align="right" height="10">
-		<a href="doc_lisclase_curvac.php?as='.$consulta[$i][8].'&gr='.$consulta[$i][10].'&C='.$consulta[$i][4].'" onMouseOver="link();return true;" onClick="link();return true;" title="Lista de clase">'.$consulta[$i][8].'</a></td>
-		<td width="25%" height="10"><a href="doc_dig_curvac.php?A='.$consulta[$i][8].'&G='.$consulta[$i][10].'&C='.$consulta[$i][4].'" onMouseOver="link();return true;" title="Digitar notas">
+		<a href="doc_lisclase_curvac.php?as='.$consulta[$i][8].'&gr='.$consulta[$i][10].'&C='.$consulta[$i][4].'&cur='.$consulta[$i][12].'" onMouseOver="link();return true;" onClick="link();return true;" title="Lista de clase">'.$consulta[$i][8].'</a></td>
+		<td width="25%" height="10"><a href="doc_dig_curvac.php?A='.$consulta[$i][8].'&G='.$consulta[$i][10].'&C='.$consulta[$i][4].'&cur='.$consulta[$i][12].'" onMouseOver="link();return true;" title="Digitar notas">
 		'.$consulta[$i][9].'</a></td>
 		<td width="5%" align="center" height="10">'.$consulta[$i][10].'</td>
 		<td width="5%" align="center" height="10">'.$consulta[$i][11].'</td>

@@ -1,7 +1,7 @@
 <?php
 $cod_consul = "SELECT cur_asi_cod,
 	TRIM(asi_nombre),
-        (lpad(cur_cra_cod,3,0)||'-'||cur_grupo),
+        (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo),
         cur_id,
 	cur_cra_cod,
 	cra_nombre,

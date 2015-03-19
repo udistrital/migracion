@@ -24,20 +24,28 @@ fu_tipo_user(30);
 </HEAD>
 <BODY>
 <?php
-$estado = 'V';
+$estado = 'A';//cambiar a V
 $docnroiden = $_SESSION['usuario_login'];
-if($_REQUEST['A'] != "") {
+if(isset($_REQUEST['A'])&&$_REQUEST['A'] != "") {
    $_SESSION["A"] = $_REQUEST['A'];
    $_SESSION["G"] = $_REQUEST['G'];
+   $_SESSION["cur"] = $_REQUEST['cur'];
    $_SESSION["C"] = $_REQUEST['C'];
-   $_SESSION['carrera'] = $_REQUEST['C'];
 }
-
-if($_REQUEST['upd']){
+$notas="";
+if(isset($_REQUEST['upd'])){
    require_once('doc_ValDoc.php');
    require_once('update_notasdef_curvac.php');
 }
+if(isset($_REQUEST['num_regs']))
+{
+	$notas='<div align="center"><table border="0" width="80%" cellspacing="2" cellpadding="3">
+		<tr>
+			<td width="10%" align="center" colspan="6" ><font color="red">Se han registrado '.($_REQUEST['num_regs']-1).' notas.</font></td>
+		</tr>
+	</div><p></p>';
 
+}
 fu_cabezote("NOTAS DEFINITIVAS CURSOS DE VACACIONES");
 
 
@@ -49,7 +57,12 @@ $grup = $consulta[0][2];
 $calc = "javascript:popUpWindow('../generales/calc.php', 'no', 100, 100, 240, 250)";
 
 require_once('doc_valida_fechas_curvac.php');
-
+echo $notas;
+echo'<div align="center"><table border="0" width="80%" cellspacing="2" cellpadding="3">
+	<tr>
+		<td width="10%" align="center" colspan="6" ><font color="red">Recuerde: En las notas digite siempre un número entero. Ejemplo: Para 0.5 digite 5 - Para 5,0 digite 50. Para 3,7 digite 37.</font></td>
+	</tr>
+</div><p></p>';
 echo'<div align="center"><table border="0" width="80%" cellspacing="2" cellpadding="3">
 	<tr>
 		<td width="10%" align="center" colspan="6">'.$msg.'</td>
@@ -119,7 +132,7 @@ else
 		<td width="2%" align="right">'.$nro.'</td>
 		<td width="10%" align="center">'.$consulta[$i][12].'</td>
 		<td width="40%" align="left">'.$consulta[$i][13].'</td>
-		<td width="3%"><input type="text" name="nota'.$i.'" size="3" id="nota" value="'.$consulta[$i][14].'" onClick="ListaValores(\'doc_lov_notas_curvac.php\', \'nota'.$i.'\', 240, 180, 550, 350)" style="text-align: right" title="Haga clic para ver lista de valores" '.$sbgc.' readonly></td>
+		<td width="3%"><input type="text" name="nota'.$i.'" size="3" id="nota" value="'.$consulta[$i][14].'" style="text-align: right" title="Digite valor (0-50)" '.$sbgc.'></td>
 		<td width="3%"><input type="text" name="obs_'.$i.'" size="3" id="obs" value="'.$consulta[$i][15].'" onClick="ListaValores(\'doc_lov_obsnotas.php\', \'obs_'.$i.'\', 240, 180, 550, 350)" maxlength="2" style="text-align: right" title="Haga clic para ver lista de valores" '.$sbgc.' readonly></td>
 	</tr>
 	<input name="cod_'.$i.'" type="hidden" value="'.$consulta[$i][12].'">';
@@ -129,10 +142,10 @@ else
 }
 ?>
 </table>
-<table><td width="16%" align="center"><br><?php echo $btn_grabar; ?></td>
+<table width="69%" align="center" cellspacing="0" cellpadding="0"><tr><td width="50%" align="center"><br><?php echo $btn_grabar; ?></td>
 <?PHP
 $print = "javascript:popUpWindow('print_doc_notas_curvac.php', 'yes', 0, 0, 790, 650)";
-echo'<td width="16%" align="center"><br><input type="submit" value="Imprimir p&aacute;gina" onClick="'.$print.'"></td></table>';
+echo'<td width="50%" align="center"><br><input type="submit" value="Imprimir p&aacute;gina" onClick="'.$print.'"></td></tr></table>';
 ?>
 <p></p>
 <input name="asig" type="hidden" value="<?php echo $asig; ?> ">

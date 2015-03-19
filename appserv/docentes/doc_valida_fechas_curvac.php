@@ -9,22 +9,20 @@ $configuracion=$esta_configuracion->variable("../");
 $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 fu_tipo_user(30);
-$conpervac = "SELECT ape_ano, ape_per FROM acasperi WHERE ape_estado = 'V'";
+$conpervac = "SELECT ape_ano, ape_per FROM acasperi WHERE ape_estado = 'A'";//cambiar a V
 $rowconpervac = $conexion->ejecutarSQL($configuracion,$accesoOracle,$conpervac,"busqueda");
 $ano = $rowconpervac[0][0];
 $per = $rowconpervac[0][1];
-
-$confechoy = "SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) FROM dual";
+$confechoy = "SELECT TO_CHAR(CURRENT_DATE,'YYYYMMDD')";
 $rowconfechoy = $conexion->ejecutarSQL($configuracion,$accesoOracle,$confechoy,"busqueda");
 $fechahoy = $rowconfechoy[0][0];
 
-$confechas = "SELECT TO_NUMBER(TO_CHAR(ACE_FEC_INI, 'YYYYMMDD')), TO_NUMBER(TO_CHAR(ACE_FEC_FIN, 'YYYYMMDD')),TO_CHAR(ACE_FEC_FIN, 'dd-Mon-yyyy')
+$confechas = "SELECT TO_CHAR(ACE_FEC_INI, 'YYYYMMDD'), TO_CHAR(ACE_FEC_FIN, 'YYYYMMDD'),TO_CHAR(ACE_FEC_FIN, 'dd-Mon-yyyy')
 	FROM accaleventos
 	WHERE ace_cra_cod =".$_SESSION["C"]."
 	AND ace_anio = $ano
 	AND ace_periodo = $per
 	AND ace_cod_evento = 52";
-//echo $confechas;
 $rowconfechas = $conexion->ejecutarSQL($configuracion,$accesoOracle,$confechas,"busqueda");
 $fecini = $rowconfechas[0][0];
 $fecfin = $rowconfechas[0][1];
