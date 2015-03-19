@@ -43,6 +43,7 @@ include_once("../clase/multiConexion.class.php");
 	
 	$Nro=0;
 	$Dia=0;
+        $Tot=0;
 	$Mod="fecha";
 
 
