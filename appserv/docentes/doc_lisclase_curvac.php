@@ -29,7 +29,7 @@ if($_REQUEST['as'] != ""){
    $_SESSION['carrera'] = $_REQUEST['C'];
 }
 
-$estado = 'A';//cambiar a V
+$estado = 'V';
 require_once(dir_script.'msql_lisclase.php');
 $consulta = $conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"busqueda");
 

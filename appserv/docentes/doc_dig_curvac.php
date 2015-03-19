@@ -24,7 +24,7 @@ fu_tipo_user(30);
 </HEAD>
 <BODY>
 <?php
-$estado = 'A';//cambiar a V
+$estado = 'V';
 $docnroiden = $_SESSION['usuario_login'];
 if(isset($_REQUEST['A'])&&$_REQUEST['A'] != "") {
    $_SESSION["A"] = $_REQUEST['A'];

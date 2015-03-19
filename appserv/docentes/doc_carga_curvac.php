@@ -35,7 +35,7 @@ elseif($per == 3){
 	   $peri = 2;
 }
 
-$estado = 'A';//cambiar a V
+$estado = 'V';
 require_once(dir_script.'msql_cargadoc.php');
 $consulta=$conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"busqueda");
 

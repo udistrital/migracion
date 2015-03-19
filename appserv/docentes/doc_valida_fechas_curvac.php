@@ -9,7 +9,7 @@ $configuracion=$esta_configuracion->variable("../");
 $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 fu_tipo_user(30);
-$conpervac = "SELECT ape_ano, ape_per FROM acasperi WHERE ape_estado = 'A'";//cambiar a V
+$conpervac = "SELECT ape_ano, ape_per FROM acasperi WHERE ape_estado = 'V'";
 $rowconpervac = $conexion->ejecutarSQL($configuracion,$accesoOracle,$conpervac,"busqueda");
 $ano = $rowconpervac[0][0];
 $per = $rowconpervac[0][1];
