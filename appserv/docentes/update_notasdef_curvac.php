@@ -27,8 +27,10 @@ do{
 	$qry.="INS_GR ='".$_SESSION["cur"]."' ";
 	$qry.="AND ";
 	$qry.="INS_EST_COD ='".$_REQUEST[sprintf('cod_%d',$i)]."' ";
-	
-	$resulQry=$conexion->ejecutarSQL($configuracion,$accesoOracle,$qry,"busqueda");
+	if($_REQUEST[sprintf('nota%d',$i)]>=0 && $_REQUEST[sprintf('nota%d',$i)]<=50 &&  is_numeric($_REQUEST[sprintf('nota%d',$i)]))
+        {
+            $resulQry=$conexion->ejecutarSQL($configuracion,$accesoOracle,$qry,"busqueda");
+        }
 $i++;
 
 }while($i<=$_REQUEST['num_regs']-1);
