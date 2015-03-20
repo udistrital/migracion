@@ -119,7 +119,7 @@ class sql_adminVinculacion extends sql
                       case "mes":
                             //En ORACLE
                             $cadena_sql=" SELECT DISTINCT";
-                            $cadena_sql.=" LPAD(mes_cod,2,'0') COD_MES,";
+                            $cadena_sql.=" LPAD(mes_cod::text,2,'0') COD_MES,";
                             $cadena_sql.=" mes_nombre MES ";
                             $cadena_sql.=" FROM gemes";
                             $cadena_sql.=" WHERE mes_cod<13";
