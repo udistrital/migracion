@@ -183,7 +183,7 @@ class sql_adminSolicitud extends sql
 				$cadena_sql="";
 				break;
 		}
-		//echo "<br>".$cadena_sql;
+		//    /echo "<br>".$cadena_sql."<br>";
 		return $cadena_sql;
 	}
 	
