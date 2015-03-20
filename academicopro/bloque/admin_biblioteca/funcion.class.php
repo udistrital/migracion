@@ -72,17 +72,14 @@ class funcion_adminBiblioteca extends funcionGeneral
          *
          */
         function CrearTicketEzproxy() {
-            
-          $ezproxy = new EZproxyTicket("http://neo-listas.udistrital.edu.co:2048", 
-                               "ticketcondorezproxy",'usuario');
-         
-          
-            ?>           
-                <script>window.open('<?echo$ezproxy->url("http://neo-listas.udistrital.edu.co:2048")?>','_tab')</script>
-            <?
+         /*   
+          $ezproxy = new EZproxyTicket("http://bdigital.udistrital.edu.co", 
+                               "ticketcondorezproxy",'usuario');*/
+         ?>
+               <div style='width:100%; height: 700px'>
+                <iframe src="http://bdigital.udistrital.edu.co/index.php/recursos-electronicos-suscritos" style="width: 100%; height: 100%"></iframe>
+               </div> <?exit;
+
         }
-        
-
-
 }
 ?>
