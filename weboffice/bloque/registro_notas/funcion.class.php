@@ -1795,7 +1795,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$valor[6]=$per;
 		//$valor[7]=$_REQUEST['carrera'];
 		$valor[10]=$_REQUEST['periodo'];
-		$calc= "BEGIN pck_pr_notaspar.pra_calnotdef_cur(".$valor[5].", ".$valor[6].", ".$valor[1].", ".$valor[2]."); END; ";
+		$calc= "BEGIN pra_calnotdef_cur(".$valor[5].", ".$valor[6].", ".$valor[1].", ".$valor[2]."); END; ";
 		$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $calc, "calc");
 		
 		if($cierto==4)
@@ -2468,10 +2468,10 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		
 		if($_REQUEST['nivel']=='ANTERIOR')
 		{
-			$todos="PREGRADO','POSGRADO','EXTENSION','MAESTRIA','DOCTORADO";
+			//$todos="PREGRADO','POSGRADO','EXTENSION','MAESTRIA','DOCTORADO";
 			//unset($valor);
 			$valor[0]=$usuario;
-			$valor[4]=$todos;
+			$valor[4]=$_REQUEST['nivel'];
 		}
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "carreras",$valor);
 		$resultCarreras=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");    
@@ -2519,7 +2519,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 						<table class="formulario" align="center">
 							<tr  class="bloquecentralencabezado">
 								<td colspan="5" align="center">
-									<p><span class="texto_negrita">REPORTE DE NOTAS <? echo $nivel.' PERIODO '.$ano.'-'.$per; ?></span></p>
+									<p><span class="texto_negrita">REPORTE DE NOTAS <? echo' PERIODO '.$ano.'-'.$per; ?></span></p>
 								</td>
 							</tr>
 							<tr>
@@ -2571,7 +2571,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 											echo $indice.$variable."'";
 											echo "title='Digitar notas'>".$resultLista[$i][9]."</a>
 										</td>";
-										echo '<td align="center">'.$resultLista[$i][10].'</td>
+										echo '<td align="center">'.$resultLista[$i][13].'</td>
 										<td align="center">'.$resultLista[$i][11].'</td>
 										<td align="left"><span class="Estilo3">'.$resultLista[$i][5].'</span></td></tr>';
 									}
@@ -2596,7 +2596,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 											echo $indice.$variable."'";
 											echo "title='Digitar notas'>".$resultLista[$i][9]."</a>
 										</td>";
-										echo '<td align="center">'.$resultLista[$i][10].'</td>
+										echo '<td align="center">'.$resultLista[$i][13].'</td>
 										<td align="center">'.$resultLista[$i][11].'</td>
 										<td align="left"><span class="Estilo3">'.$resultLista[$i][5].'</span></td></tr>';
 									}

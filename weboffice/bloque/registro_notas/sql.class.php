@@ -28,6 +28,7 @@ class sql_registroNotasDocentes extends sql
 				//$cadena_sql.="ape_estado='P'";	
 				$cadena_sql.="ape_estado='".$variable[10]."'";	
 				break;
+                            
 			case "acasperieventos":
 				$cadena_sql="SELECT ";
 				$cadena_sql.="acn_cra_cod, ";
@@ -35,8 +36,11 @@ class sql_registroNotasDocentes extends sql
 				$cadena_sql.="FROM ";
 				$cadena_sql.="acasperieventos";
 				break;
+                            
 			case "carreras":
-                                
+                                if($variable[4]=='ANTERIOR'){
+                                    $nivel="PREGRADO','EXTENSION','POSGRADO','MAESTRIA','DOCTORADO";
+                                }else{$nivel=$variable[4];}
                                 $cadena_sql=" SELECT DISTINCT cur_cra_cod";
                                 $cadena_sql.=" FROM accargas ";
                                 $cadena_sql.=" INNER JOIN achorarios ON car_hor_id=hor_id";
@@ -47,8 +51,9 @@ class sql_registroNotasDocentes extends sql
                                 $cadena_sql.=" WHERE ape_estado='A'";
                                 $cadena_sql.=" AND car_estado = 'A'";
                                 $cadena_sql.=" AND car_doc_nro=".$variable[0]." ";
-                                $cadena_sql.=" AND tra_nivel IN ('".$variable[4]."')  ";
+                                $cadena_sql.=" AND tra_nivel IN ('".$nivel."')  ";
                                 break;
+                                
 			case "listaClase":
                                 if($variable[4]=='PREGRADO')
                                 {
@@ -57,6 +62,8 @@ class sql_registroNotasDocentes extends sql
                                 elseif($variable[4]=='POSGRADO')
                                 {
                                         $nivel="'POSGRADO','MAESTRIA','DOCTORADO'";
+                                }elseif($variable[4]=='ANTERIOR'){
+                                    $nivel="'PREGRADO','EXTENSION','POSGRADO','MAESTRIA','DOCTORADO'";
                                 }
                                 $cadena_sql=" SELECT DISTINCT ";
                                 $cadena_sql.=" DOC_NRO_IDEN,";
@@ -83,7 +90,7 @@ class sql_registroNotasDocentes extends sql
                                 $cadena_sql.=" INNER JOIN actipcra ON cra_tip_cra =tra_cod";
                                 $cadena_sql.=" INNER JOIN gedep ON dep_cod = cra_dep_cod";
                                 $cadena_sql.=" INNER JOIN acasi ON cur_asi_cod=asi_cod";
-                                $cadena_sql.=" WHERE ape_estado ='A'";
+                                $cadena_sql.=" WHERE ape_estado ='".$variable[10]."'";
                                 $cadena_sql.=" AND car_estado = 'A'";
                                 $cadena_sql.=" AND doc_estado = 'A'";
                                 $cadena_sql.=" AND cra_estado = 'A'";
@@ -285,7 +292,6 @@ class sql_registroNotasDocentes extends sql
 				$cadena_sql="";
 				break;
 		}
-	//	echo "<br>".$cadena_sql."<br>";
 		return $cadena_sql;
 	}
 	
