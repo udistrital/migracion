@@ -1795,7 +1795,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$valor[6]=$per;
 		//$valor[7]=$_REQUEST['carrera'];
 		$valor[10]=$_REQUEST['periodo'];
-		$calc= "BEGIN pra_calnotdef_cur(".$valor[5].", ".$valor[6].", ".$valor[1].", ".$valor[2]."); END; ";
+		$calc= "select pra_calnotdef_cur(".$valor[5].", ".$valor[6].", ".$valor[1].", ".$valor[2].")";
 		$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $calc, "calc");
 		
 		if($cierto==4)
@@ -2308,7 +2308,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$valor[6]=$per;
 		//$valor[7]=$_REQUEST['carrera'];
 		$valor[10]=$_REQUEST['periodo'];
-		$calc= "BEGIN pck_pr_notaspar.pra_calnotdef_cur(".$valor[5].", ".$valor[6].", ".$valor[1].", ".$valor[2]."); END; ";
+		$calc= "select pra_calnotdef_cur(".$valor[5].", ".$valor[6].", ".$valor[1].", ".$valor[2].")";
 		$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $calc, "calc");
 		
 		if($cierto==4)
@@ -2440,7 +2440,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$valor[6]=$per;
 		//$valor[7]=$_REQUEST['carrera'];
 		
-		$calc= "BEGIN pck_pr_notaspar.pra_calnotdef_cur(".$valor[5].", ".$valor[6].", ".$valor[1].", ".$valor[2]."); END; ";
+		$calc= "select pra_calnotdef_cur(".$valor[5].", ".$valor[6].", ".$valor[1].", ".$valor[2].")";
 		$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $calc, "calc");
 		if(isset($resultado) && $_REQUEST['nivel']=='PREGRADO')
 		{
