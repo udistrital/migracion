@@ -1,8 +1,13 @@
 <?PHP
 require_once('dir_relativo.cfg');
 require_once(dir_script.'mensaje_error.inc.php');
-$Nombre = $_REQUEST['DocNombre'];
-$Correo = $_REQUEST['DocCorreo'];
+
+//$Nombre = isset($_REQUEST['DocNombre']);
+
+$Nombre = isset($_REQUEST['DocNombre']) ? $_REQUEST['DocNombre']:NULL;
+$Correo = isset($_REQUEST['DocCorreo']) ? $_REQUEST['DocCorreo']:NULL;
+
+
 $msg=(isset($msg)?$msg:'');
 ?>
 <html> 
@@ -26,7 +31,7 @@ $msg=(isset($msg)?$msg:'');
 </tr>
 <tr>
   <td align="right">Para:</td>
-  <td align="left"><textarea name="pemail" cols="68"><? print $_REQUEST['ctas']; ?></textarea></td>
+  <td align="left"><textarea name="pemail" cols="68"><?  if(isset($_REQUEST['ctas'])) print $_REQUEST['ctas']; ?></textarea></td>
 </tr>
 <tr>
   <td align="right"><font color="#FF0000">*</font>Nombre:</td>

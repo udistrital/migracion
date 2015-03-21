@@ -1,14 +1,14 @@
 <?PHP
 if($nivel == 51){
-   $QryNombre = "SELECT fua_invierte_nombre(est_nombre), NVL(eot_email, 'Actualize sus datos, agregue un email.'),est_cra_cod
+   $QryNombre = "SELECT fua_invierte_nombre(est_nombre), coalesce(eot_email, 'Actualize sus datos, agregue un email.'),est_cra_cod
    		FROM acest,acestotr
 		WHERE est_cod = $usuario
 		AND est_cod = eot_cod";
-		
+  
 	$registro1 =$conexion->ejecutarSQL($configuracion,$accesoOracle,$QryNombre,"busqueda");
 	$Nombre =  $registro1[0][0];
-	$Email  = $registro1[0][1];
-	$_SESSION['carrera'] = $RowNombre[0][2];
+	$Email  = $registro1[0][1];		
+	$_SESSION['carrera'] = isset($RowNombre[0][2]) ? ($RowNombre[0][2]):NULL;
 }
 elseif($nivel == 4 || $nivel == 16 || $nivel == 30){
        $QryNombre ="SELECT TRIM(doc_nombre||'  '||doc_apellido),doc_email

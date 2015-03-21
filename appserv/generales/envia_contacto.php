@@ -33,22 +33,37 @@ elseif(empty($_REQUEST['asunto']))
 else
 {
 	$fecha = date("d-M-Y g:i:s A");
-	$to_mail1 = $_REQUEST['pemail'];			//to=para
-	$to_mail2 = $_REQUEST['email_ins'];
-	$from.= "From:" . $_REQUEST["email"] ."\r\n"; //from=de
+	$to_mail = $_REQUEST['pemail'];			//to=para
+		
+	$emails = explode(",",$to_mail);
+		
+	if (isset ($from))
+		$from.= "From:" . $_REQUEST["email"] ."\r\n"; //from=de
+	else
+		$from= "From:" . $_REQUEST["email"] ."\r\n"; //from=de
+		
 	$sujeto= $_REQUEST["asunto"];
 	$cuerpo= "Fecha de envio: " . $fecha . "\n";
+		
 	$cuerpo.= "Nombre: " . $_REQUEST["nombre"] . "\n";
 	$cuerpo.= "" . "\n";
-	$cuerpo.= $_REQUEST["mensaje"] . "\n";
-	header("Location: $redir?error_login=18");
+	$cuerpo.= $_REQUEST["mensaje"] . "\n";	
+
+	$rutadoc = stripslashes($_REQUEST["archivo"]);		
+	$mail->AddAttachment($rutadoc);
 	
-	$mail->Body    = $cuerpo;
+	header("Location: $redir?error_login=18");
+		
+	
+	$mail->Body    = $cuerpo;	
 	$mail->Subject = $sujeto;
-	$mail->AddAddress($to_mail1);
-	$mail->AddAddress($to_mail2);
-	$rutadoc = stripslashes($_REQUEST["archivo"]);
-    	$mail->AddAttachment($rutadoc);
+	
+	// Bucle para enviar correos a varias direcciones
+	foreach ($emails as $correos => $correo){
+		$mail->AddAddress($correo);
+	} 
+				
+	
 	 
    	if(!$mail->Send())
    	{

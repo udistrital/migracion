@@ -13,6 +13,8 @@ $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 
 fu_tipo_user(51); 
 fu_cabezote("ENVIO DE CORREOS A DOCENTES");
+
+
 ?>
 <html>
 <head>
@@ -28,7 +30,9 @@ fu_cabezote("ENVIO DE CORREOS A DOCENTES");
 <FORM name="EmaiForm">
 <table width="482" border="1" align="center" cellpadding="0" cellspacing="0">
  <caption>docentes con carga acad&eacute;mica en su proyecto curricular</caption>
+ 
 <?php
+
 $usuario = $_SESSION['usuario_login'];
 $nivel = $_SESSION["usuario_nivel"];
 
@@ -37,6 +41,7 @@ $carrera = $registroCarrera[0][0];
 
 require_once(dir_script.'NombreUsuario.php');
 require_once(dir_script.'msql_correos_doc.php');
+
 $registro=$conexion->ejecutarSQL($configuracion,$accesoOracle,$Qry_EmDoc,"busqueda");
 
 //if($row_EmDoc != 1) { header("Location: ../err/err_sin_registros.php"); exit; }
