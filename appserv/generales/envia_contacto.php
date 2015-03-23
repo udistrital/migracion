@@ -49,22 +49,51 @@ else
 	$cuerpo.= "" . "\n";
 	$cuerpo.= $_REQUEST["mensaje"] . "\n";	
 
-	$rutadoc = stripslashes($_REQUEST["archivo"]);		
-	$mail->AddAttachment($rutadoc);
-	
-	header("Location: $redir?error_login=18");
+			
+	/*$rutadoc = stripslashes($_REQUEST["archivo"]);	
+	;*/
 		
 	
+	if( !isset($_FILES['archivo']) ){
+		echo 'Ha habido un error, tienes que elegir un archivo<br/>';
+		//echo '<a href="index.html">Subir archivo</a>';
+	}else{
+		$nombre = $_FILES['archivo']['name'];
+		$nombre_tmp = $_FILES['archivo']['tmp_name'];
+		$tipo = $_FILES['archivo']['type'];
+		$tamano = $_FILES['archivo']['size'];
+	
+		if( $_FILES['archivo']['error'] > 0 ){
+			echo 'Error: ' . $_FILES['archivo']['error'] . '<br/>';
+		}else{
+			/*echo 'Nombre: ' . $nombre . '<br/>';
+			echo 'Tipo: ' . $tipo . '<br/>';
+			echo 'Tamaño: ' . ($tamano / 1024) . ' Kb<br/>';
+			echo 'Guardado en: ' . $nombre_tmp;*/
+	
+			if( file_exists( '/usr/local/apache/htdocs/appserv/admisiones/images/'.$nombre) ){
+				echo '<br/>El archivo ya existe: ' . $nombre;
+			}else{
+				move_uploaded_file($nombre_tmp, "/usr/local/apache/htdocs/appserv/admisiones/images/" . $nombre);
+				//echo "<br/>Guardado en: " . "/usr/local/apache/htdocs/appserv/admisiones/images/" . $nombre;
+			}
+		}	
+	}
+	
+	header("Location: $redir?error_login=18");
+	$rutadoc = "/usr/local/apache/htdocs/appserv/admisiones/images/" . $nombre;
+	$mail->AddAttachment($rutadoc);	
 	$mail->Body    = $cuerpo;	
 	$mail->Subject = $sujeto;
+	
 	
 	// Bucle para enviar correos a varias direcciones
 	foreach ($emails as $correos => $correo){
 		$mail->AddAddress($correo);
+		
 	} 
 				
-	
-	 
+		 
    	if(!$mail->Send())
    	{
    		header("Location: $redir?error_login=16");

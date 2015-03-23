@@ -19,7 +19,7 @@ $msg=(isset($msg)?$msg:'');
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body>
-<form action="envia_contacto.php" method="post">
+<form action="envia_contacto.php" method="post" enctype="multipart/form-data" >
 <table width="453" border="0" align="center" cellpadding="0" cellspacing="0">
 <tr>
   <td height="18" colspan="2" align="center">
@@ -35,7 +35,7 @@ $msg=(isset($msg)?$msg:'');
 </tr>
 <tr>
   <td align="right"><font color="#FF0000">*</font>Nombre:</td>
-  <td width="383" align="left"><input name="nombre" type=text value="<? echo $Nombre; ?>" size="57" readonly="true"></td>
+  <td width="383" align="left"><input name="nombre" type="text" value="<? echo $Nombre; ?>" size="57" readonly="true"></td>
 </tr>
 <tr> 
   <td align="right"><font color="#FF0000">*</font>E-mail:</td>
@@ -47,8 +47,7 @@ $msg=(isset($msg)?$msg:'');
 </tr>
 <tr>
   <td height="24" align="right">Adjuntar:</td>
-  <td>
-  <INPUT type=hidden value=507200 name=MAX_FILE_SIZE><input type=file size=44 maxlength=100000 name="archivo" accept="text/*"></td>
+  <td><input type="file" size=44 maxlength=100000 name="archivo" accept="text/*"></td>
 </tr>
 <tr>
   <td colspan="2" align="center">
@@ -63,6 +62,7 @@ $msg=(isset($msg)?$msg:'');
       <td colspan="2" align="center">
 <?php
 if(isset($_REQUEST['error_login'])){
+	//<INPUT TYPE=HIDDEN VALUE=507200 NAME=MAX_FILE_SIZE>
    $error=$_REQUEST['error_login'];
    echo"<font face='Verdana, Arial, Helvetica, sans-serif' size='2' color='#FF0000'>
    <a OnMouseOver='history.go(-1)'><img src='../img/asterisco.gif'>$error_login_ms[$error]</a></font>";
