@@ -87,11 +87,8 @@ class sql_mensajeEstudiante extends sql
               //Oracle
               case 'buscarCodigoMensaje':
 
-                $cadena_sql="SELECT";
-               // $cadena_sql.=" mensajesequence.NEXTVAL ";
-                $cadena_sql.=" NEXTVAL('mensajesequence')";                
-                $cadena_sql.=" FROM DUAL";
-
+                $cadena_sql="SELECT";       
+                $cadena_sql.=" nextval('mensajesequence')"; 
                 break;
               
               //Oracle

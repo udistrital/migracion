@@ -131,19 +131,19 @@ class bloque_mensajeEstudiante extends bloque
                           //se arma un solo arreglo de destinatarios, los dos arreglos deben existir para realizar el merge (combinar arreglos)
 
                         	$coordinador1= isset($_REQUEST['coordinador']) ? $_REQUEST['coordinador']:"";
+                        	$docenteConsejero1= isset($_REQUEST['docenteConsejero']) ? $_REQUEST['docenteConsejero']:"";
                         	                        
-                        	if(is_array($_REQUEST['docenteConsejero']) and is_array($coordinador1))
+                        	if(is_array($docenteConsejero1) and is_array($coordinador1))
                                 {                                       
                                     $destinatario=array_merge($_REQUEST['docenteConsejero'],$_REQUEST['coordinador']);                                                                                                            
-                                }
+                                }                     
                                 
-                                
-                            if(is_array($_REQUEST['docenteConsejero']) and !is_array($coordinador1))
+                            if(is_array($docenteConsejero1) and !is_array($coordinador1))
                                 {                                       
                                     $destinatario=$_REQUEST['docenteConsejero'];                                                                                                            
                                 }
                                 
-                            if(!is_array($_REQUEST['docenteConsejero']) and is_array($_REQUEST['coordinador']))
+                            if(!is_array($docenteConsejero1) and is_array($coordinador1))
                                 {                                       
                                     $destinatario=$_REQUEST['coordinador'];                                                                                                            
                                 }
@@ -153,7 +153,8 @@ class bloque_mensajeEstudiante extends bloque
 				$variable="pagina=registro_mensajeEstudiante";
 				$variable.="&opcion=enviarDestinatarios";
                                 //ajustar los codigos de los destinatarios aqui
-                                if(is_array($destinatario)){
+				$destinatario1 = isset($destinatario) ? $destinatario:"";
+                                if(is_array($destinatario1)){
                                 foreach ($destinatario as $key => $value) {
 				$variable.="&destinatario[".$key."]=".$destinatario[$key];
                                 }
