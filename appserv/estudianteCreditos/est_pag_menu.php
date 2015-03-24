@@ -290,7 +290,7 @@ $cripto=new encriptar();
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="est_adm_correos_doc.php">Contactar Docentes</a></li>
 <li class="subitem1"><a target="principal" href="<?PHP echo $enlaceEvaldocentes?>">Evaluaci&oacute;n docentes</a></li>
-<li class="subitem1"><a target="principal" href="https://portalws.udistrital.edu.co/soporte/archivos/manual_evaluacion_docente .pdf">Manual evaluación docente</a></li>
+<li class="subitem1"><a target="principal" href="https://portalws.udistrital.edu.co/soporte/archivos/manual_evaluacion_docente.pdf">Manual evaluación docentes</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceAcademicoConsejerias?>">Consejerias</a></li>
 </ul>
 </li>
