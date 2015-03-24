@@ -196,8 +196,7 @@ class funcion_mensajesEstudiante extends funcionGeneral
               <?echo 'Docente Consejero: '.$docenteConsejero[0]['APELLIDO'].' '.$docenteConsejero[0]['NOMBRE']?>
           </div>
           <?                   
-            
-            
+                        
         }
         
         /**
@@ -205,12 +204,13 @@ class funcion_mensajesEstudiante extends funcionGeneral
          */
         function buscarMensajesRecibidos() {
           
-              $variablesMensaje = array(codUsuario => $this->usuario);
-
+			  $variablesMensaje = array('codUsuario' => $this->usuario);
+              
               $cadena_sql = $this->sql->cadena_sql("buscarMensajesRecibidos", $variablesMensaje);
               $arreglo_mensaje = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
               return $arreglo_mensaje;
-
+              
+              
         }
         
         /**
@@ -219,7 +219,7 @@ class funcion_mensajesEstudiante extends funcionGeneral
          */
         function buscarMensajesEnviados() {
 
-              $variablesMensaje = array(codUsuario => $this->usuario);
+              $variablesMensaje = array('codUsuario' => $this->usuario);
 
               $cadena_sql = $this->sql->cadena_sql("buscarMensajesEnviados", $variablesMensaje);//echo $cadena_sql;exit;
               $arreglo_mensaje = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -339,7 +339,7 @@ class funcion_mensajesEstudiante extends funcionGeneral
         function buscarNombreEstudiante($codigo) {
 
 
-                  $variablesEstudiante = array(codigo => $codigo);
+                  $variablesEstudiante = array('codigo' => $codigo);
 
                   $cadena_sql = $this->sql->cadena_sql("buscarNombreEstudiante", $variablesEstudiante);
                   $nombre_Estudiante = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -355,7 +355,7 @@ class funcion_mensajesEstudiante extends funcionGeneral
          */
         function buscarNombreDocente($documento) {
 
-              $variablesDocente = array(documento => $documento);
+              $variablesDocente = array('documento' => $documento);
 
               $cadena_sql = $this->sql->cadena_sql("buscarNombreDocente", $variablesDocente);
               $arreglo_Docente = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -374,14 +374,11 @@ class funcion_mensajesEstudiante extends funcionGeneral
          */
         function buscarDocenteConsejero() {
           
-              $variablesEstudiante = array(  
-                                            codEstudiante => $this->usuario
-                                        );
-              
+              $variablesEstudiante = array( 'codEstudiante' => $this->usuario );             
                                         
               
               $cadena_sql = $this->sql->cadena_sql("buscarDocenteConsejero", $variablesEstudiante);//echo $cadena_sql;exit;
-              $arreglo_docente = $this->ejecutarSQL($this->condiguracion,$this->accesoOracle, $cadena_sql, "busqueda");
+              $arreglo_docente = $this->ejecutarSQL($this->configuracion,$this->accesoOracle, $cadena_sql, "busqueda");
               return $arreglo_docente;
 
         }        
@@ -391,13 +388,15 @@ class funcion_mensajesEstudiante extends funcionGeneral
          * @param <type> $nombreEmisor
          * @param <type> $datosMensaje
          */
+        
+        
         function mostrarMensajesRecibidos($nombreEmisor, $datosMensaje) {
-
+        	$codProyecto = isset($this->codProyecto) ? $this->codProyecto:"";
             //Enlace contenido mensaje recibido
             $pagina = $this->configuracion["host"] . $this->configuracion["site"] . "/index.php?";
             $variable = "pagina=admin_mensajeContenidoEstudiante";
             $variable.="&opcion=verContenidoMensajeRecibido";
-            $variable.="&codProyecto=".$this->codProyecto;            
+            $variable.="&codProyecto=".$codProyecto;            
             $variable.="&codigoMensaje=".$datosMensaje['CODIGO'];            
             $variable.="&asunto=".$datosMensaje['ASUNTO'];            
             $variable.="&contenido=".$datosMensaje['CONTENIDO'];                  
@@ -420,7 +419,7 @@ class funcion_mensajesEstudiante extends funcionGeneral
                          ?>
                        </td>
                        <td colspan="4"><?echo $datosMensaje['ASUNTO']?></td>
-                       <td colspan="1"><?echo $datosMensaje['FECHA']?></td>
+                       <td colspan="1"><?echo isset($datosMensaje['FECHA']) ?$datosMensaje['FECHA']:"" ?></td>
                        
               </tr>
 

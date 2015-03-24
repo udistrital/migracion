@@ -88,7 +88,8 @@ class sql_mensajeEstudiante extends sql
               case 'buscarCodigoMensaje':
 
                 $cadena_sql="SELECT";
-                $cadena_sql.=" mensajesequence.NEXTVAL ";
+               // $cadena_sql.=" mensajesequence.NEXTVAL ";
+                $cadena_sql.=" NEXTVAL('mensajesequence')";                
                 $cadena_sql.=" FROM DUAL";
 
                 break;

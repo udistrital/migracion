@@ -349,14 +349,12 @@ class funcion_mensajeEstudiante extends funcionGeneral
          */
         function buscarDocenteDestinatario() {
           
-              $variablesEstudiante = array(  
-                                            codEstudiante => $this->usuario
-                                        );
+              $variablesEstudiante = array( 'codEstudiante' => $this->usuario );
               
                                         
               
               $cadena_sql = $this->sql->cadena_sql("buscarDocenteDestinatario", $variablesEstudiante);//echo $cadena_sql;exit;
-              $arreglo_docente = $this->ejecutarSQL($this->condiguracion,$this->accesoOracle, $cadena_sql, "busqueda");
+              $arreglo_docente = $this->ejecutarSQL($this->configuracion,$this->accesoOracle, $cadena_sql, "busqueda");
               return $arreglo_docente;
 
         }
@@ -537,11 +535,11 @@ class funcion_mensajeEstudiante extends funcionGeneral
          */
         function insertarMensaje($codigoMensaje) {
 
-              $variablesMensaje = array(  codigoMensaje => $codigoMensaje,
-                                          asunto => $_REQUEST['asunto'],
-                                          contenido => $_REQUEST['contenido'],
-                                          tipoEmisor => $this->Nivelusuario,
-                                          codigoEmisor => $this->usuario,
+              $variablesMensaje = array(  'codigoMensaje' => $codigoMensaje,
+                                          'asunto' => $_REQUEST['asunto'],
+                                          'contenido' => $_REQUEST['contenido'],
+                                          'tipoEmisor' => $this->Nivelusuario,
+                                          'codigoEmisor' => $this->usuario,
                                         );
 
               //verficar que se realice la insercion
@@ -567,10 +565,10 @@ class funcion_mensajeEstudiante extends funcionGeneral
          */
         function insertarMensajeReceptor($datosReceptor,$codigoMensaje) {
 
-              $variablesMensajeReceptor = array(  codigoMensaje => $codigoMensaje,
-                                                  tipoReceptor => $datosReceptor['TIPO'],
-                                                  codigoReceptor => $datosReceptor['CODIGO'],
-                                                  estadoMensajeReceptor => 1
+              $variablesMensajeReceptor = array(  'codigoMensaje' => $codigoMensaje,
+                                                  'tipoReceptor' => $datosReceptor['TIPO'],
+                                                  'codigoReceptor' => $datosReceptor['CODIGO'],
+                                                  'estadoMensajeReceptor' => 1
                                         );
               
               //verficar que se realice la insercion

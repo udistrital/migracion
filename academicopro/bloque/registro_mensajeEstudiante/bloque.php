@@ -129,12 +129,16 @@ class bloque_mensajeEstudiante extends bloque
                         case "pasarDestinatario":
 
                           //se arma un solo arreglo de destinatarios, los dos arreglos deben existir para realizar el merge (combinar arreglos)
-                            if(is_array($_REQUEST['docenteConsejero']) and is_array($_REQUEST['coordinador']))
+
+                        	$coordinador1= isset($_REQUEST['coordinador']) ? $_REQUEST['coordinador']:"";
+                        	                        
+                        	if(is_array($_REQUEST['docenteConsejero']) and is_array($coordinador1))
                                 {                                       
                                     $destinatario=array_merge($_REQUEST['docenteConsejero'],$_REQUEST['coordinador']);                                                                                                            
                                 }
                                 
-                            if(is_array($_REQUEST['docenteConsejero']) and !is_array($_REQUEST['coordinador']))
+                                
+                            if(is_array($_REQUEST['docenteConsejero']) and !is_array($coordinador1))
                                 {                                       
                                     $destinatario=$_REQUEST['docenteConsejero'];                                                                                                            
                                 }
@@ -143,7 +147,7 @@ class bloque_mensajeEstudiante extends bloque
                                 {                                       
                                     $destinatario=$_REQUEST['coordinador'];                                                                                                            
                                 }
-
+                                                        	                       	
                                                                 
                                 $pagina=  $this->configuracion["host"].  $this->configuracion["site"]."/index.php?";
 				$variable="pagina=registro_mensajeEstudiante";
@@ -177,7 +181,6 @@ class bloque_mensajeEstudiante extends bloque
                                 $variable=$this->cripto->codificar_url($variable,  $this->configuracion);
 
                                 echo "<script>location.replace('".$pagina.$variable."')</script>";
-
 
 
                           break;
