@@ -429,7 +429,7 @@ class procedimientos {
 //se actualiza para la nueva estructura de tablas 31/05/2013
                       $cadena_sql = "SELECT ins_asi_cod CODIGO,";
                       $cadena_sql.=" asi_nombre NOMBRE,";
-                      $cadena_sql.=" lpad(cur_cra_cod,3,0)||'-'||cur_grupo GRUPO,";
+                      $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0'))||'-'||cur_grupo GRUPO,";
                       $cadena_sql.=" ins_cred CREDITOS,";
                       $cadena_sql.=" ins_cea_cod CLASIFICACION,";
                       $cadena_sql.=" ins_gr ID_GRUPO,";

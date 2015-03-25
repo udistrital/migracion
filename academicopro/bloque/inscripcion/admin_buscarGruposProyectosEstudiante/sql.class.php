@@ -29,7 +29,7 @@ class sql_adminBuscarGruposProyectosEstudiante extends sql {
 
             case 'grupos_proyecto':
 
-                $cadena_sql=" SELECT DISTINCT lpad(cur_cra_cod,3,0)||'-'||cur_grupo GRUPO,";
+                $cadena_sql=" SELECT DISTINCT (lpad(cur_cra_cod::text,3,'0'))||'-'||cur_grupo GRUPO,";
                 $cadena_sql.=" cur_id ID_GRUPO,";
                 $cadena_sql.=" cur_cra_cod CARRERA,";
                 $cadena_sql.=" cur_nro_cupo CUPO,";

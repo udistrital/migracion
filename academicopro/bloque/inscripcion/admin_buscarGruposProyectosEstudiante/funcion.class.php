@@ -388,10 +388,10 @@ class funcion_adminBuscarGruposProyectosEstudiante extends funcionGeneral {
         }
         if($noHorario==0)
         {
-            $this->crearEnlaceCambioUno($estilo, $disponibles, $cruce, $gruposProyecto, $icono,$horario[0]);
+            $this->crearEnlaceCambioUno($estilo, $disponibles, $cruce, $gruposProyecto, $icono,(isset($horario[0])?$horario[0]:''));
         }else
             {
-                $this->crearEnlaceCambioUno($estilo, 'a', 'ok', $gruposProyecto, $icono,$horario[0]);
+                $this->crearEnlaceCambioUno($estilo, 'a', 'ok', $gruposProyecto, $icono,(isset($horario[0])?$horario[0]:''));
             }
       ?>
     </tr><?

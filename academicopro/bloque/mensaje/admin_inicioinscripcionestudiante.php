@@ -25,12 +25,8 @@
 								<p>Apreciado estudiante por favor tenga en cuenta las siguientes directrices:</p>
 								<p>
 								<ul>						                                                                    						
-									
 									<li>
-                                                                            <font color="red">Tenga en cuenta las franjas de adiciones y cancelaciones que se encuentran en archivo PDF, que puede descargar desde la sección noticondor en la pagina inicial del sistema Cóndor.</font><br><br>
-									</li>
-									<li>
-                                                                            Los horarios del período académico 2013-3 se podrán descargar en formato PDF o Excel, a partir de las 8:00 P.M. el día miércoles 17 de Julio, desde la sección noticondor en la pagina inicial del sistema Cóndor; tenga en cuenta que estos horarios se actualizarán diariamente. 
+                                                                            Los horarios se podrán descargar en formato PDF o Excel, desde la sección noticondor en la pagina inicial del sistema Cóndor; tenga en cuenta que estos horarios se actualizarán diariamente. 
                                                                             Lo invitamos a programar su horario de clases antes de ingresar al Sistema para agilizar su registro de espacios académicos.<br><br>
 									</li>
 									<li>
