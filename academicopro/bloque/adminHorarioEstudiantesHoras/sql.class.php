@@ -44,7 +44,7 @@ class sql_adminHorarioEstudiantesHoras extends sql
                 case 'consultaGrupo':
                     $this->cadena_sql = "SELECT distinct ins_asi_cod                CODIGO,";
                     $this->cadena_sql.= "ins_asi_cod,";
-                    $this->cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo)    GRUPO,";
+                    $this->cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)    GRUPO,";
                     $this->cadena_sql.=" asi_nombre                                 NOMBRE,";
                     $this->cadena_sql.=" CASE WHEN pen_ind_ele='N' THEN 'Obligatoria' ";
                     $this->cadena_sql.="      WHEN pen_ind_ele='S' THEN 'Electiva' END CLASIFICACION,";

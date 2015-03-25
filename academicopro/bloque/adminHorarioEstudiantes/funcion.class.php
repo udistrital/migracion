@@ -60,7 +60,6 @@ class funcion_adminHorarioEstudiantes extends funcionGeneral {
         $this->usuarioSesion = $obj_sesion->rescatar_valor_sesion($configuracion, "id_usuario");
         $this->usuario = $this->rescatarValorSesion($configuracion, $this->acceso_db, "id_usuario");
 
-        //echo $this->usuarioSesion[0][0];
     }
 
     #muestra los datos del estudiante y el horario, utiliza los metodos: mostrarDatosEstudiante, mostrarHorarioEstudiante
@@ -249,7 +248,10 @@ class funcion_adminHorarioEstudiantes extends funcionGeneral {
                             </tr>
                            <tr>
 <?
-                $this->mostrar_convenciones_clasificacion();
+                if(isset($resultado_grupos)||$resultado_grupos!=NULL)
+                {
+                    $this->mostrar_convenciones_clasificacion();
+                }
 ?>                            </tr>
                             <tr>
 <?

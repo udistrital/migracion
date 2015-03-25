@@ -40,7 +40,7 @@ class sql_adminHorarioEstudiantes extends sql
                 case 'consultaGrupo':
 
                     $this->cadena_sql = "SELECT ins_asi_cod                         CODIGO,";
-                    $this->cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo)    GRUPO,";
+                    $this->cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)    GRUPO,";
                     $this->cadena_sql.=" asi_nombre                                 NOMBRE,";
                     $this->cadena_sql.=" ins_cred                                   CREDITOS, ";
                     $this->cadena_sql.=" cea_abr                                    CLASIFICACION, ";
