@@ -113,7 +113,7 @@ class sql_mensajeEstudiante extends sql
                 $cadena_sql.= $variable['tipoEmisor'].',';
                 $cadena_sql.= $variable['codigoEmisor'].',';
                 $cadena_sql.=" 'A',";
-                $cadena_sql.=" SYSDATE";
+                $cadena_sql.=" CURRENT_DATE";
                 $cadena_sql.=" )";
                 break;
               

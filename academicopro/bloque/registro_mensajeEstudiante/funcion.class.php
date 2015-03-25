@@ -217,6 +217,7 @@ class funcion_mensajeEstudiante extends funcionGeneral {
 		$codigoMensaje = $this->reservarCodigoMensaje ();
 		$this->insertarMensaje ( $codigoMensaje );
 		$datosReceptor = $this->explodeDatosReceptor ();
+				
 		foreach ( $datosReceptor as $key => $value ) {
 			$this->insertarMensajeReceptor ( $datosReceptor [$key], $codigoMensaje );
 		}
@@ -529,12 +530,13 @@ class funcion_mensajeEstudiante extends funcionGeneral {
 				'codigoReceptor' => $datosReceptor ['CODIGO'],
 				'estadoMensajeReceptor' => 1 
 		);
-		
+				
 		// verficar que se realice la insercion
-		$cadena_sql = $this->sql->cadena_sql ( "insertarMensajeReceptor", $variablesMensajeReceptor ); // echo $cadena_sql;exit;
+		$cadena_sql = $this->sql->cadena_sql ( "insertarMensajeReceptor", $variablesMensajeReceptor ); //echo $cadena_sql;exit;
 		$arreglo_MensajeReceptor = $this->ejecutarSQL ( $this->configuracion, $this->accesoOracle, $cadena_sql, "" );
-		if ($arreglo_MensajeReceptor == TRUE) {
-			return $arreglo_MensajeReceptor;
+		
+		if ($arreglo_MensajeReceptor === TRUE ||$arreglo_MensajeReceptor ) {
+			return $arreglo_MensajeReceptor;			
 		} else {
 			echo 'No se puede enviar el Mensaje al destinatario: ' . $datosReceptor ['CODIGO'] . ', ' . $datosReceptor ['NOMBRE'];
 			exit ();

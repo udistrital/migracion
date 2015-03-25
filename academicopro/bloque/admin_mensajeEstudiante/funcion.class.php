@@ -467,7 +467,7 @@ class funcion_mensajesEstudiante extends funcionGeneral
                          ?>
                        </td>
                        <td colspan="4"><?echo $datosMensaje['ASUNTO']?></td>
-                       <td colspan="1"><?echo $datosMensaje['FECHA']?></td>
+                       <td colspan="1"><?echo isset($datosMensaje['FECHA']) ?$datosMensaje['FECHA']:""; ?></td>
        
                                  
                     </tr>                       
