@@ -5,17 +5,12 @@
 	$accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 	$estcod=$_SESSION['usuario_login'];
 
-	//Funcion que nos retorna S o N dependiendo si el estudiante ya tiene preinscripcion.
+	//Funcion que nos retorna S o N dependiendo si el proyecto curricular ya ha realizado la preinscripcion automatica
 	$cod_consul= "SELECT ";
 	$cod_consul.= "mntac.fua_realizo_preins($estcod) ";
-	$cod_consul.= "FROM dual";
 		   
 	$registro=$conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"busqueda");
 	
-
-	/*echo "-".$cod_consul;
-	echo "(".$registro[0][0].")";-*/
-
 	if($registro[0][0]!="S"){
 	   die('<link href="../script/estilo.css" rel="stylesheet" type="text/css">
 	    	<br><br><br><center><div class="aviso_mensaje"><br>

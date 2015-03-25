@@ -64,9 +64,8 @@ class acceso extends funcionGeneral
                         
                         case "fecha":
                             $cadena_sql = "SELECT ";
-                            $cadena_sql.= "SYSDATE FEC, ";
-                            $cadena_sql.= "to_char(SYSDATE,'hh24:mi:ss') HORA ";
-                            $cadena_sql.= "FROM dual";
+                            $cadena_sql.= "CURRENT_DATE FEC,";
+                            $cadena_sql.= "SUBSTR(CURRENT_TIME::TEXT,0,9) HORA";
                         break;    
     
                                                     
