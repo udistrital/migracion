@@ -516,6 +516,7 @@ class funcion_registroInscribirEspacioInscripcionesEstudiante extends funcionGen
             $letras=array('OB','OC','EI','EE','CP');
             $numeros=array(1,2,3,4,5);
             $clasificacion=str_replace($letras,$numeros,trim(isset($resultado_espacio['CLASIFICACION'])?$resultado_espacio['CLASIFICACION']:''));
+            if ($clasificacion=='')$clasificacion=0;
             $datos['codEstudiante']=$this->datosEstudiante[0]['CODIGO'];
             $datos['codProyectoEstudiante']=$this->datosEstudiante[0]['COD_CARRERA'];
             $datos['codEspacio']=$this->datosInscripcion['codEspacio'];
@@ -529,6 +530,10 @@ class funcion_registroInscribirEspacioInscripcionesEstudiante extends funcionGen
             $datos['CLASIFICACION']=$clasificacion;
             $datos['nivel']=$this->datosInscripcion['nivel'];
             $datos['hor_alternativo']=$this->datosInscripcion['hor_alternativo'];
+            foreach ($datos as $key => $value) {
+                if($value=='')
+                {$datos[$key]='null';}
+            }
 
             $resultado_adicionar=$this->insertarRegistroInscripcion($datos);
             if($resultado_adicionar>=1)

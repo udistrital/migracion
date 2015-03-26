@@ -53,7 +53,6 @@ class sql_registroInscribirEspacioInscripcionesEstudiante extends sql {
                 break;
 
             case 'inscribir_espacio':
-
                 $cadena_sql="INSERT INTO acins ";
                 $cadena_sql.="(ins_cra_cod, ";
                 $cadena_sql.=" ins_est_cod, ";
@@ -71,22 +70,22 @@ class sql_registroInscribirEspacioInscripcionesEstudiante extends sql {
                 $cadena_sql.=" ins_tot_fallas, ";
                 $cadena_sql.=" ins_sem, ";
                 $cadena_sql.=" ins_hor_alternativo) ";
-                $cadena_sql.="VALUES ('".$variable['codProyectoEstudiante']."',";
-                $cadena_sql.="'".$variable['codEstudiante']."',";
-                $cadena_sql.="'".$variable['codEspacio']."',";
-                $cadena_sql.="'".$variable['id_grupo']."',";
-                $cadena_sql.="'0',";
-                $cadena_sql.="'".$variable['ano']."',";
-                $cadena_sql.="'".$variable['periodo']."',";
+                $cadena_sql.="VALUES (".$variable['codProyectoEstudiante'].",";
+                $cadena_sql.="".$variable['codEstudiante'].",";
+                $cadena_sql.="".$variable['codEspacio'].",";
+                $cadena_sql.="".$variable['id_grupo'].",";
+                $cadena_sql.="0,";
+                $cadena_sql.="".$variable['ano'].",";
+                $cadena_sql.="".$variable['periodo'].",";
                 $cadena_sql.="'A',";
-                $cadena_sql.="'".$variable['creditos']."',";
-                $cadena_sql.="'".$variable['htd']."',";
-                $cadena_sql.="'".$variable['htc']."',";
-                $cadena_sql.="'".$variable['hta']."',";
-                $cadena_sql.="'".$variable['CLASIFICACION']."',";
-                $cadena_sql.="'0',";
-                $cadena_sql.="'".$variable['nivel']."',";
-                $cadena_sql.="'".$variable['hor_alternativo']."')";
+                $cadena_sql.="".$variable['creditos'].",";
+                $cadena_sql.="".$variable['htd'].",";
+                $cadena_sql.="".$variable['htc'].",";
+                $cadena_sql.="".$variable['hta'].",";
+                $cadena_sql.="".$variable['CLASIFICACION'].",";
+                $cadena_sql.="0,";
+                $cadena_sql.="".$variable['nivel'].",";
+                $cadena_sql.="".$variable['hor_alternativo'].")";
                 break;
 
             case 'adicionar_espacio_mysql':

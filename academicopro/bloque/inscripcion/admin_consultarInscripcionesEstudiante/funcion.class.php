@@ -90,14 +90,16 @@ class funcion_adminConsultarInscripcionesEstudiante extends funcionGeneral {
     $this->datosEstudiante=$this->consultarDatosEstudiante($codEstudiante);
     //busca los espacios que han sido reprobados
     $espaciosPorCursar=json_decode($this->datosEstudiante[0]['ESPACIOS_POR_CURSAR'],true);
-    foreach ($espaciosPorCursar as $espacio)
+    if(is_array($espaciosPorCursar))
     {
-        if ($espacio['REPROBADO']==1)
+    foreach ($espaciosPorCursar as $espacio)
         {
-            $this->reprobados[]=$espacio;
+            if ($espacio['REPROBADO']==1)
+            {
+                $this->reprobados[]=$espacio;
+            }
         }
-    }
-        
+    }   
     if (isset($this->datosEstudiante)&&!is_null($this->datosEstudiante[0]['CODIGO']))
     {
         if (trim($this->datosEstudiante[0]['ESTADO'])=='A'||trim($this->datosEstudiante[0]['ESTADO'])=='B')
@@ -1021,6 +1023,8 @@ $columna5=37;
   }
   
   function asignarClasificacion($espacios,$campo1,$inscrito,$campo2) {
+      if (is_array($espacios))
+      {
         foreach ($espacios as $espacio)
         {
             if ($espacio[$campo1]==$inscrito[$campo2])
@@ -1033,6 +1037,10 @@ $columna5=37;
                 $electiva='';
             }
         }
+      }else
+          {
+            $electiva='';
+          }
         if (trim($electiva) == 'S') //CAMBIAR POR 'S'
         {
           $clasificacion = 'Electivo';

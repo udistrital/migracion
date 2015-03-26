@@ -59,10 +59,10 @@ class bloque_registroReporteError extends bloque
 	 public function __construct($configuracion)
 	{	
                 $this->configuracion=$configuracion;                
-		$this->tema=$tema;
+		//$this->tema=$tema;
 		$this->funcion=new funcion_registroReporteError($configuracion);
 		$this->sql=new sql_registroReporteError($configuracion);
-                include ($configuracion["raiz_documento"].$configuracion["estilo"]."/basico/tema.php");
+                //include ($configuracion["raiz_documento"].$configuracion["estilo"]."/basico/tema.php");
 	}
 
         /**

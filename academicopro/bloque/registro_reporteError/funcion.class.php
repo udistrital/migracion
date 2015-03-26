@@ -178,8 +178,8 @@ class funcion_registroReporteError extends funcionGeneral
                                             'codEstudiante' => $this->usuario
                                         );
                                             
-              $cadena_sql = $this->sql->cadena_sql("buscarDatosRemitente", $variablesRemitente);//echo $cadena_sql;exit;
-              $arreglo_emisor = $this->ejecutarSQL($this->condiguracion,$this->accesoOracle, $cadena_sql, "busqueda");
+              $cadena_sql = $this->sql->cadena_sql("buscarDatosRemitente", $variablesRemitente);
+              $arreglo_emisor = $this->ejecutarSQL($this->configuracion,$this->accesoOracle, $cadena_sql, "busqueda");
                 if(is_array($arreglo_emisor))
                     {
                   return $arreglo_emisor[0];
