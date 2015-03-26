@@ -33,36 +33,25 @@ class sql_adminSolicitud extends sql
 				break;		
                             
                         case "registroTotal":
-			
-				$cadena_sql=" SELECT est_nombre,";
-                                $cadena_sql.=" est_cra_cod,";
-                                $cadena_sql.=" est_diferido,";
-                                $cadena_sql.=" cra_nombre,";
-                                $cadena_sql.=" eot_email,";
-                                $cadena_sql.=" eot_email_ins,";
-                                $cadena_sql.=" estado_descripcion,";
-                                $cadena_sql.=" est_nro_iden,";
-                                $cadena_sql.=" est_tipo_iden,";
-                                $cadena_sql.=" est_acuerdo,";
-                                $cadena_sql.=" ((case WHEN reglamento.reg_causal_exclusion like '1%' then 'BAJO PROMEDIO, ' ELSE '' END)||";
-                                $cadena_sql.=" (case WHEN reglamento.reg_causal_exclusion like '%2%' then 'REPROBAR 3 O MÁS ASIGNATURAS, ' ELSE '' END)||";
-                                $cadena_sql.=" (case WHEN reglamento.reg_causal_exclusion like '%3%' then 'REPROBAR 3 VECES O MÁS UNA ASIGNATURA' ELSE '' END)||";
-                                $cadena_sql.=" (case WHEN reglamento.reg_causal_exclusion like '%4%' then 'PRUEBAS ACADÉMICAS ACUMULADAS' ELSE '' END)) causal";
-                                $cadena_sql.=" FROM accra";
-                                $cadena_sql.=" INNER JOIN acest ON cra_cod=est_cra_cod";
-                                $cadena_sql.=" INNER JOIN acestotr ON est_cod=eot_cod";
-                                $cadena_sql.=" INNER JOIN acestado ON estado_cod=(CASE";
-                                $cadena_sql.=" WHEN est_acuerdo='2011004'";
-                                $cadena_sql.=" THEN DECODE(est_estado_est,'J','V','B','A',est_estado_est)";
-                                $cadena_sql.=" ELSE est_estado_est";
-                                $cadena_sql.=" END ) ";
-                                $cadena_sql.=" LEFT OUTER JOIN reglamento ON reg_est_cod=est_cod AND REG_ESTADO='A' AND REG_CAUSAL_EXCLUSION IS NOT NULL ";
-                                $cadena_sql.=" ";
+                            
+                                $cadena_sql="SELECT est_nombre, est_cra_cod, est_diferido, cra_nombre, eot_email, ";
+                                $cadena_sql.="eot_email_ins, estado_descripcion, ";
+                                $cadena_sql.="est_nro_iden, est_tipo_iden, est_acuerdo, ";
+                                $cadena_sql.="((case WHEN reglamento.reg_causal_exclusion::text like '1%' then 'BAJO PROMEDIO, 'ELSE '' END) ";
+                                $cadena_sql.="|| (case WHEN reglamento.reg_causal_exclusion::text like '%2%' then 'REPROBAR 3 O MÁS ASIGNATURAS, ' ELSE '' END) ";
+                                $cadena_sql.="|| (case WHEN reglamento.reg_causal_exclusion::text like '%3%' then 'REPROBAR 3 VECES O MÁS UNA ASIGNATURA' ELSE '' END) ";
+                                $cadena_sql.="|| (case WHEN reglamento.reg_causal_exclusion::text like '%4%' then 'PRUEBAS ACADÉMICAS ACUMULADAS' ELSE '' END)) causal ";
+                                $cadena_sql.="FROM accra INNER JOIN acest ON cra_cod=est_cra_cod ";
+                                $cadena_sql.="INNER JOIN acestotr ON est_cod=eot_cod ";
+                                $cadena_sql.="INNER JOIN acestado ON estado_cod=(CASE WHEN est_acuerdo='2011004' ";
+                                $cadena_sql.="THEN ( case when est_estado_est='J' then 'V' when est_estado_est='B' then 'A' ";
+                                $cadena_sql.="else est_estado_est end) ";
+                                $cadena_sql.="ELSE est_estado_est END ) ";
+                                $cadena_sql.="LEFT OUTER JOIN reglamento ON reg_est_cod=est_cod ";
+                                $cadena_sql.="AND REG_ESTADO='A' ";
+                                $cadena_sql.="AND REG_CAUSAL_EXCLUSION IS NOT NULL ";
                                 $cadena_sql.=" WHERE est_cod= ".$variable;
-                                
-                                
-		
-				break;		    
+                                break;		    
                             
 			case "noticias":
 			
@@ -76,8 +65,8 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="FROM accoormensaje  ";
 				$cadena_sql.="WHERE CME_CRA_COD = (SELECT est_cra_cod FROM acest WHERE est_cod=$variable)";
 				$cadena_sql.="AND CME_TIPO_USU IN(0,51,52)   ";
-				$cadena_sql.="AND TO_NUMBER(TO_CHAR(sysdate,'yyyymmdd')) BETWEEN   ";		
-				$cadena_sql.="TO_NUMBER(TO_CHAR(CME_FECHA_INI,'yyyymmdd')) AND TO_NUMBER(TO_CHAR(CME_FECHA_FIN,'yyyymmdd'))";  
+				$cadena_sql.="AND TO_CHAR(CURRENT_TIMESTAMP,'yyyymmdd') BETWEEN   ";		
+				$cadena_sql.="TO_CHAR(CME_FECHA_INI,'yyyymmdd') AND TO_CHAR(CME_FECHA_FIN,'yyyymmdd')";  
 
 				break;
 
@@ -112,13 +101,13 @@ class sql_adminSolicitud extends sql
 			
 			case "evaluacionDocente":
 				$cadena_sql="SELECT  "; 
-				$cadena_sql.=" *"; 
+				$cadena_sql.=" resp_respuesta"; 
 				$cadena_sql.=" FROM  ";
-				$cadena_sql.=" ACASPERI,ACEVAPROEST ";
-				$cadena_sql.=" WHERE ape_ano=epe_ape_ano";
-				$cadena_sql.=" AND ape_per=epe_ape_per";
-				$cadena_sql.=" AND ape_estado='A'";
-				$cadena_sql.=" AND epe_est_cod=".$variable;
+				$cadena_sql.=" autoevaluadoc.evaldocente_respuesta ";
+				$cadena_sql.=" WHERE resp_identificacion_evaluador='".$variable['estudiante']."' " ;
+				$cadena_sql.=" AND resp_anio=".$variable['anio'] ;
+				$cadena_sql.=" AND resp_periodo=".$variable['per'] ;
+				$cadena_sql.=" AND resp_estado='A'";
 				break;
 				
 			case "evaluacionCalendario":
@@ -146,8 +135,6 @@ class sql_adminSolicitud extends sql
 			case "recibosPendientes":
 				$cadena_sql="SELECT ";
 				$cadena_sql.="mntac.fua_recibos_pendientes(".$variable.") ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="dual";
 				break;
 				
                             case 'encuesta_diligenciada':
@@ -183,7 +170,7 @@ class sql_adminSolicitud extends sql
 				$cadena_sql="";
 				break;
 		}
-		//    /echo "<br>".$cadena_sql."<br>";
+		//echo "<br>".$cadena_sql."<br>";
 		return $cadena_sql;
 	}
 	

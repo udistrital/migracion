@@ -185,10 +185,7 @@ ________________________________________________________________________________
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoPG,"evaluacionDocente",$variable);
 		$evaluacionDocente=$this->ejecutarSQL($configuracion,$this->accesoPG,$cadena_sql,"busqueda");
                 
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"evaluacionCalendario",$registroTotal[0][1]);
-		$evaluacionCalendario=$this->ejecutarSQL($configuracion,$this->accesoOracle,$cadena_sql,"busqueda");	
-                
-		if(is_array($evaluacionCalendario) && !is_array($evaluacionDocente)){
+		if(!is_array($evaluacionDocente)){
 			$html.="<div class='error message'>";
 			$html.="<b>Evaluaci&oacute;n Docente:</b><br>Se&ntilde;or estudiante a la fecha usted no ha evaluado ning&uacute;n docente, lo invitamos a participar en el proceso.";
 			$html.="</div>";
