@@ -16,10 +16,11 @@ class Nombres extends multiConexion{
 		$accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 
 		//echo "id".$identificador;
-
+		
 		if(isset($codigo)){
 
-			switch($opcion){
+			switch($opcion){		
+					
 				case "NombreTipoIns": // 17 TIPO DE INSCRIPCION
 					$cadena_sql="SELECT ti_nombre FROM actipins WHERE ti_cod = $codigo AND ti_estado = 'A' ORDER BY ti_nombre";
 				break;

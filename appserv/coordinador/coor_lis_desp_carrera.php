@@ -4,7 +4,7 @@ require_once('msql_coor_carreras.php');
 include_once('../clase/validacion_usu.class.php');
 
 $obj_validacion=new validarUsu();
-if(!$tipo){
+if(!isset($tipo)){
     $tipo=$_SESSION['usuario_nivel'];
 }
 if($tipo==4){
@@ -33,7 +33,7 @@ $i++;
    
 echo'</select><INPUT TYPE="Submit" VALUE="Consultar" style="cursor:pointer" title="Ejecutar la Consulta">
 </form></div>';
-if(!$_REQUEST['cracod'])
+if(!isset($_REQUEST['cracod']))
 {
 $_REQUEST['cracod']=$cracod;
 }
