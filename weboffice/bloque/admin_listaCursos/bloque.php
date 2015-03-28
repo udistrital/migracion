@@ -50,7 +50,7 @@ class bloque_admin_listaCursos extends bloque
 				switch($accion)
 				{
 					case "listaCursos":
-						$this->funcion->verListaCursos($configuracion, $accesoOracle,$acceso_db);
+						$this->funcion->verListaCursos($configuracion);
 						break;
 					case "registroAcuerdo":
 						$this->funcion->registrarEstudiantes($configuracion, $accesoOracle,$acceso_db);
@@ -60,7 +60,7 @@ class bloque_admin_listaCursos extends bloque
 			else
 			{
 				$accion="nuevo";
-				$this->funcion->verProyectos($configuracion,$conexion);
+				$this->funcion->verProyectos($configuracion);
 			}
 		}
 		else

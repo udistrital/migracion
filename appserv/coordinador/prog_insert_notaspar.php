@@ -107,8 +107,6 @@ else
 }
 $RowInNp = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryInNp,"busqueda");
 
-if (isset($RowInNp))
-{
 header("Location: coor_fec_notaspar.php?c=".$_SESSION['C']);
-}
+
 ?>

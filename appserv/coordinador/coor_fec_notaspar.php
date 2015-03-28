@@ -33,7 +33,6 @@ $qry_cra = "SELECT cra_cod, cra_abrev, tra_nivel
 	AND cra_estado = 'A'
 	AND cra_tip_cra=tra_cod
 	ORDER BY cra_cod ASC";
-//echo $qry_cra;
 $row_cra = $conexion->ejecutarSQL($configuracion,$accesoOracle,$qry_cra,"busqueda");
 //echo $row_cra[0][0];
 
@@ -48,7 +47,7 @@ print '<form action="coor_fec_notaspar.php" method="post" name="LisCra" target="
 $i=0;
 while(isset($row_cra[$i][0]))
 {
-	if($row_cra[$i][2]!='PREGRADO')
+	if($row_cra[$i][2]=='PREGRADO')
 	{
 		//if($i == 1)
 		//{ 
@@ -72,9 +71,10 @@ if(isset($_REQUEST['c']))
 	require_once('coor_capfec_notaspar.php');
 }
 else
-{
+{       
+        
 	$_SESSION['C'] = $c;
-	require_once('coor_capfec_notaspar.php');
+	//require_once('coor_capfec_notaspar.php');
 }
 ?>
 </body>

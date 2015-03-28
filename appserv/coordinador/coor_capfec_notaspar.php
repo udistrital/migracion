@@ -14,12 +14,14 @@ $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 
 fu_tipo_user(4);
-
-include(dir_script.'class_nombres.php');
-$nom = new Nombres;
-$py = $nom->rescataNombre($_SESSION['C']);
 $title = "title='Formato: DD/MM/AAAA' readonly";
 global $raiz;
+
+$cadena_sql="SELECT cra_nombre FROM accra WHERE cra_cod = ".$_SESSION['C']." AND cra_estado = 'A'";
+$nombreCra = $conexion->ejecutarSQL($configuracion,$accesoOracle,$cadena_sql,"busqueda");
+
+$py=$nombreCra[0]['cra_nombre'];
+
 $nombreformulario = "fecpar";
 
 $p1i = "p1i";
@@ -136,6 +138,7 @@ print '<form action="'.$accion.'" method="post" name="fecpar" id="fecpar">
   <td colspan="3" align="center">
   <input type="submit" name="Submit" value="Grabar">
   <input name="cracod" type="hidden" value="'. $_SESSION['C'].'">
+  <input name="fechaFin" type="hidden" value="'. $fechafin.'">    
 </td>
 </tr>
 </table>

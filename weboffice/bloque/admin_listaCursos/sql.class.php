@@ -70,7 +70,7 @@ class sql_admin_listaCursos extends sql
 				$cadena_sql="SELECT cur_asi_cod COD_ESPACIO, ";
 				$cadena_sql.="asi_nombre        ESPACIO, ";
 				$cadena_sql.="cur_id            ID_GRUPO, ";
-				$cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo)  GRUPO,";
+				$cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO,";
 				$cadena_sql.="cur_nro_cupo      CUPO, ";
 				$cadena_sql.="cur_nro_ins       INSCRITOS, ";
 				$cadena_sql.="(cur_nro_cupo - cur_nro_ins) ";

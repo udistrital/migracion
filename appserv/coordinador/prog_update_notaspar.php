@@ -202,8 +202,8 @@ $QryUpNp.="NPF_ESTADO ='A'";
 
 $RowUpNp = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryUpNp,"busqueda");
 
-if (isset($RowUpNp))
-{
+
+        
 header("Location: coor_fec_notaspar.php?c=".$_SESSION['C']);
-}
+    
 ?>

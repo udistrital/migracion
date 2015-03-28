@@ -12,12 +12,12 @@ $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 if(isset($_REQUEST['cracod']))
    $_SESSION['C'] = $_REQUEST['cracod'];
 //echo  "mmm".$_REQUEST['cracod'];;
-$confechoy = "SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) FROM dual";
+$confechoy = "SELECT TO_CHAR(CURRENT_DATE,'YYYYMMDD')";
 $rowfechoy = $conexion->ejecutarSQL($configuracion,$accesoOracle,$confechoy,"busqueda");
 $fechahoy = $rowfechoy[0][0];
 
-$confechas = "SELECT TO_NUMBER(TO_CHAR(ACE_FEC_INI, 'YYYYMMDD')),
-		TO_NUMBER(TO_CHAR(ACE_FEC_FIN, 'YYYYMMDD')),
+$confechas = "SELECT TO_CHAR(ACE_FEC_INI, 'YYYYMMDD'),
+		TO_CHAR(ACE_FEC_FIN, 'YYYYMMDD'),
 		TO_CHAR(ACE_FEC_FIN, 'DD/MM/YYYY')
 		FROM ACCALEVENTOS,ACASPERI
 		WHERE APE_ANO = ACE_ANIO
