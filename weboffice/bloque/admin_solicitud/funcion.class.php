@@ -204,6 +204,7 @@ ________________________________________________________________________________
 	
 	function reciboBloqueado($configuracion,$registro, $total)
 	{
+                error_reporting(0);
 		include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
 		include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
 		
@@ -228,6 +229,7 @@ ________________________________________________________________________________
 							</tr>
 							<tr>
 								<td><? 
+                                                                error_reporting(E_ALL ^ E_NOTICE);
 								if($this->totalPaginas>1)
 								{
 										$menu->menu_navegacion($configuracion,$this->paginaActual, $this->totalPaginas, $variableNavegacion);

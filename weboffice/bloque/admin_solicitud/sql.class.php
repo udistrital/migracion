@@ -73,14 +73,16 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="ema_cra_cod = cra_cod ";
 				$cadena_sql.="AND ";
 				$cadena_sql.="ema_est_cod = est_cod ";
-				$cadena_sql.=") ";
+				$cadena_sql.=") AS bloqueado";
 				$cadena_sql.=" WHERE ";
 				$cadena_sql.="R ";
 				$cadena_sql.="BETWEEN ";
-				$cadena_sql.=($variable[3]-1)*$configuracion['registro']+1; //Limite inferior
+				$cadena_sql.=($variable[3]-1)*$configuracion['registro']+1 ; //Limite inferior
 				$cadena_sql.="AND ";
 				$cadena_sql.=(($variable[3]-1)*$configuracion['registro'])+($configuracion['registro']); //Limite superior				
 				break;
+                            
+                           
 				
 			case "BloqueadoEst":
 				//En ORACLE
@@ -267,7 +269,7 @@ class sql_adminSolicitud extends sql
 				$cadena_sql="";
 				break;
 		}
-		//echo $cadena_sql;
+		//echo $cadena_sql."<br><br>";
 		return $cadena_sql;
 	}
 	

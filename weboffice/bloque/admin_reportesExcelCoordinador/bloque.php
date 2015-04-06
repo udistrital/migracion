@@ -499,7 +499,7 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 				$cadena_sql.="INP_EXA, ";
 				$cadena_sql.="INP_DEF, ";
 				$cadena_sql.="doc_email_ins, ";
-                                $cadena_sql.="(lpad(cur_cra_cod,3,0)||'-'||cur_grupo)";
+                                $cadena_sql.="(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)";
 				$cadena_sql.="FROM v_acinsnotpar,acasi,accargas,accursos,achorarios,acdocente";
                                 $cadena_sql.=" WHERE asi_cod = inp_asi_cod";
                                 $cadena_sql.=" AND inp_asi_cod=cur_asi_cod";
