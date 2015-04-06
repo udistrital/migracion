@@ -58,20 +58,20 @@ class sql_registro_preinscribirEspacioDemandaEstudiante extends sql {
 
                 $cadena_sql="INSERT INTO ACINSDEMANDA ";
                 $cadena_sql.="(INSDE_ANO,INSDE_PER,INSDE_EST_COD,INSDE_ASI_COD,INSDE_CRA_COD,INSDE_CRED,INSDE_HTD,INSDE_HTC,INSDE_HTA,INSDE_CEA_COD,INSDE_SEM,INSDE_PERDIDO,INSDE_ESTADO,INSDE_EQUIVALENTE) ";
-                $cadena_sql.="VALUES ('".$variable['ano']."',";
-                $cadena_sql.="'".$variable['periodo']."',";
-                $cadena_sql.="'".$variable['codEstudiante']."',";
-                $cadena_sql.="'".$variable['codEspacio']."',";
-                $cadena_sql.="'".$variable['codProyectoEstudiante']."',";
-                $cadena_sql.="'".$variable['creditos']."',";
-                $cadena_sql.="'".$variable['htd']."',";
-                $cadena_sql.="'".$variable['htc']."',";
-                $cadena_sql.="'".$variable['hta']."',";
-                $cadena_sql.="'".$variable['cea']."',";
-                $cadena_sql.="'".$variable['sem']."',";
+                $cadena_sql.="VALUES (".$variable['ano'].",";
+                $cadena_sql.="".$variable['periodo'].",";
+                $cadena_sql.="".$variable['codEstudiante'].",";
+                $cadena_sql.="".$variable['codEspacio'].",";
+                $cadena_sql.="".$variable['codProyectoEstudiante'].",";
+                $cadena_sql.="".$variable['creditos'].",";
+                $cadena_sql.="".$variable['htd'].",";
+                $cadena_sql.="".$variable['htc'].",";
+                $cadena_sql.="".$variable['hta'].",";
+                $cadena_sql.="".$variable['cea'].",";
+                $cadena_sql.="".$variable['sem'].",";
                 $cadena_sql.="'".$variable['perdido']."',";
                 $cadena_sql.="'A',";
-                $cadena_sql.="'".$variable['equivalente']."')";
+                $cadena_sql.="".$variable['equivalente'].")";
                 break;
 
             case 'adicionar_espacio_mysql':
@@ -145,7 +145,6 @@ class sql_registro_preinscribirEspacioDemandaEstudiante extends sql {
                 $cadena_sql.=" WHERE ins_est_cod =".$variable['codEstudiante']; 
                 $cadena_sql.=" AND ins_ano =".$variable['ano'];
                 $cadena_sql.=" AND ins_periodo =".$variable['periodo'];
-                //echo $cadena_sql; exit;
                 break;
   ///////////////////////////////
             
@@ -175,7 +174,6 @@ class sql_registro_preinscribirEspacioDemandaEstudiante extends sql {
         break;
 
         }
-        //echo $cadena_sql."<br>";
         return $cadena_sql;
     }
 

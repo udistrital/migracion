@@ -338,7 +338,7 @@ class funcion_registro_preinscribirEspacioDemandaEstudiante extends funcionGener
                                             'perdido'=>$reprobado,
                                             'equivalente'=>'');
     }
-
+    
     /**
      *
      * @param <type> $datosInscripcion 
@@ -388,6 +388,13 @@ class funcion_registro_preinscribirEspacioDemandaEstudiante extends funcionGener
             }
             }
       $variable=$this->cripto->codificar_url($variable,$this->configuracion);
+      foreach ($this->arregloPreinscripcion as $key => $value) {
+          foreach ($value as $key1 => $value1) {
+                if($value1=='')
+                {$this->arregloPreinscripcion[$key][$key1]='null';}
+                
+          }
+      }
       if(is_array($this->arregloPreinscripcion))
       {
       foreach ($this->arregloPreinscripcion as $preinscrito) {
