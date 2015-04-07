@@ -74,7 +74,7 @@ class funciones_adminSolicitud extends funcionGeneral
 		}
 		$valor[4]=$usuario;
 		
-		$confec = "SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'yyyymmdd')) FROM dual";
+		$confec = "SELECT TO_CHAR(current_date, 'yyyymmdd')";
 		@$rows=$this->ejecutarSQL($configuracion, $this->accesoOracle, $confec, "busqueda");
 		$fechahoy =$rows[0][0];
 						

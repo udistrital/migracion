@@ -110,9 +110,7 @@ class sql_adminSolicitud extends sql
 			
 			case "secuencia":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="seq_matricula.NEXTVAL ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="dual ";
+				$cadena_sql.="NEXTVAL('seq_matricula') ";
 				break;
 				
 								
@@ -148,7 +146,7 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.=$variable[4].", ";
 				$cadena_sql.="TO_DATE('".$variable[5]."','dd/mm/yy'), ";
 				$cadena_sql.="TO_DATE('".$variable[6]."','dd/mm/yy'), ";
-				$cadena_sql.="SYSDATE, ";
+				$cadena_sql.="current_date, ";
 				$cadena_sql.="'A', ";
 				$cadena_sql.=$variable[7].", ";
 				$cadena_sql.=$variable[2].", ";
@@ -502,8 +500,8 @@ class sql_adminSolicitud extends sql
 			
 			case "validaFechas":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="NVL(TO_CHAR(ACE_FEC_INI, 'yyyymmdd'), '0'), ";
-				$cadena_sql.="NVL(TO_CHAR(ACE_FEC_FIN, 'yyyymmdd'), '0'), ";
+				$cadena_sql.="coalesce(TO_CHAR(ACE_FEC_INI, 'yyyymmdd'), '0'), ";
+				$cadena_sql.="coalesce(TO_CHAR(ACE_FEC_FIN, 'yyyymmdd'), '0'), ";
 				$cadena_sql.="TO_CHAR(ACE_FEC_INI, 'dd/Mon/YYYY'), ";
 				$cadena_sql.="TO_CHAR(ACE_FEC_FIN, 'dd/Mon/YYYY') ";
 				$cadena_sql.="FROM ";
@@ -526,8 +524,8 @@ class sql_adminSolicitud extends sql
                             
 			case "validaFechasAsistentes":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="NVL(TO_CHAR(ACE_FEC_INI, 'yyyymmdd'), '0'), ";
-				$cadena_sql.="NVL(TO_CHAR(ACE_FEC_FIN, 'yyyymmdd'), '0'), ";
+				$cadena_sql.="coalesce(TO_CHAR(ACE_FEC_INI, 'yyyymmdd'), '0'), ";
+				$cadena_sql.="coalesce(TO_CHAR(ACE_FEC_FIN, 'yyyymmdd'), '0'), ";
 				$cadena_sql.="TO_CHAR(ACE_FEC_INI, 'dd/Mon/YYYY'), ";
 				$cadena_sql.="TO_CHAR(ACE_FEC_FIN, 'dd/Mon/YYYY') ";
 				$cadena_sql.="FROM ";
@@ -540,7 +538,10 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="AND ACE_COD_EVENTO = 79 ";
 				$cadena_sql.="AND CRA_ESTADO = 'A' ";
 				$cadena_sql.="AND cra_cod in (".$variable.")";
-				break;					
+				break;
+                            
+    
+                            
 			default:
 				$cadena_sql="";
 				break;

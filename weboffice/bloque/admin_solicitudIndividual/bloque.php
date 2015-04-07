@@ -92,7 +92,8 @@ class bloqueAdminSolicitud extends bloque
 	
 	function action()
 	{
-		if(!$_REQUEST["periodos"]){
+                $periodos=isset($_REQUEST["periodos"])?$_REQUEST["periodos"]:'';
+		if(!$periodos){
 		
 			$periodosaPagar="";
 			
@@ -113,12 +114,11 @@ class bloqueAdminSolicitud extends bloque
 					$conceptos[3]=1;
 					
 				}								
-					
-					$valor[0]=$_REQUEST["estudiante"];
+					$valor[0]=isset($_REQUEST["estudiante"])?$_REQUEST["estudiante"]:'';
 					$valor[1]=$conceptos[1];
 					$valor[2]=$conceptos[2];
 					$valor[3]=$conceptos[3];
-					$valor[4]=$_REQUEST["ordinaria"];
+					$valor[4]=isset($_REQUEST["ordinaria"])?$_REQUEST["ordinaria"]:'';
 							
 			if(!isset($_REQUEST["generar"])){
 				$this->funcion->redireccionarInscripcion($this->configuracion,'confirmarRecibo',$valor);	

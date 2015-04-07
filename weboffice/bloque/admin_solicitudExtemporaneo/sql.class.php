@@ -59,7 +59,7 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="WHERE ape_per IN (1,3) ";
  				$cadena_sql.="  AND ape_estado <> 'X' ";
 				$cadena_sql.="   AND est_cod = ".$variable." ";
-				$cadena_sql.="   AND ape_ano|| ape_per >= DECODE(LENGTH(est_cod),7,(SUBSTR(est_cod,1,2)+1900),11,SUBSTR(est_cod,1,4))||DECODE(DECODE(LENGTH(est_cod),7,(SUBSTR(est_cod,3,1)),11,SUBSTR(est_cod,5,1)),1,1,2,3) ";
+				$cadena_sql.="   AND (ape_ano::text|| ape_per::text)::numeric >= (case when LENGTH(est_cod::text)=7 then (SUBSTR(est_cod::text,1,2)::numeric+1900)::text when LENGTH(est_cod::text)=11 then SUBSTR(est_cod::text,1,4)end ||case when case when LENGTH(est_cod::text)=7 then SUBSTR(est_cod::text,3,1) when LENGTH(est_cod::text)=11 then SUBSTR(est_cod::text,5,1) end ='1' then '1' when case when LENGTH(est_cod::text)=7 then SUBSTR(est_cod::text,3,1) when LENGTH(est_cod::text)=11 then SUBSTR(est_cod::text,5,1) end ='2' then '3' end)::numeric ";
 				$cadena_sql.="   AND NOT EXISTS (SELECT ema_ano||ema_per ";
 				$cadena_sql.="                   FROM acestmat ";
 				$cadena_sql.="			 WHERE acasperi.ape_ano||acasperi.ape_per = ema_ano||ema_per ";
@@ -102,8 +102,8 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="aap_ape_per, ";
 				$cadena_sql.="aap_cuota ";
 				$cadena_sql.="FROM ";
-				$cadena_sql.="mntac.acestmatapr ";
-				//$cadena_sql.="acestmatapr ";
+				//$cadena_sql.="mntac.acestmatapr ";
+				$cadena_sql.="acestmatapr ";
 				$cadena_sql.="WHERE aap_est_cod= ".$variable[0]." ";
 				$cadena_sql.="AND aap_ape_ano= ".$variable[1]." ";
 				$cadena_sql.="AND aap_ape_per= ".$variable[2]." ";
@@ -114,15 +114,16 @@ class sql_adminSolicitud extends sql
 			case "periodosRecibos":
 				//Oracle
 				$cadena_sql="SELECT ";
-				$cadena_sql.="ape_ano||ape_per, ";
-				$cadena_sql.="ape_ano||'-'||ape_per ";
+				$cadena_sql.="(ape_ano::text||ape_per::text) as per, ";
+				$cadena_sql.="(ape_ano||''||ape_per) as periodo ";
 				$cadena_sql.="FROM ";
 				$cadena_sql.="acasperi ";
 				$cadena_sql.="WHERE ape_per in (1,3) ";
-				$cadena_sql.="and ape_ano||ape_per BETWEEN 20071 AND  ";
-				$cadena_sql.="(select ape_ano||ape_per from acasperi where ape_estado='A' ) ";
-				$cadena_sql.="ORDER BY ape_ano||ape_per DESC ";
-			break;			
+				$cadena_sql.="AND (ape_ano::text||ape_per::text) BETWEEN '20071' ";
+				$cadena_sql.="AND (select (ape_ano::text||ape_per::text) ";
+                                $cadena_sql.=" from acasperi where ape_estado='A' ) ";
+				$cadena_sql.="ORDER BY (ape_ano::text||ape_per::text) DESC  ";
+                        break;			
 			case "recibosGeneradosEstudiante":
 
 				$cadena_sql="SELECT ";
@@ -135,16 +136,16 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="ema_per, ";
 				$cadena_sql.="ema_cuota, ";
 				$cadena_sql.="ema_fecha, ";
-				$cadena_sql.="DECODE(EMA_ESTADO,'A','Activo','Inactivo'), ";
-				$cadena_sql.="DECODE(EMA_IMP_RECIBO,1,'Bloqueado','Desbloq.'), ";	
-				$cadena_sql.="DECODE(EMA_PAGO,'S','SI','NO'), ";							
+				$cadena_sql.="CASE WHEN EMA_ESTADO::text = 'A' THEN 'Activo' ELSE 'Inactivo' END estado, ";
+				$cadena_sql.="CASE WHEN EMA_IMP_RECIBO::text='1' THEN 'Bloqueado' ELSE 'Desbloq.' END impresion, ";	
+				$cadena_sql.="CASE WHEN EMA_PAGO::text='S' THEN 'SI' ELSE 'NO' END pago, ";							
 				$cadena_sql.="TO_CHAR(EMA_FECHA_ORD, 'DD/MM/YYYY'), ";
 				$cadena_sql.="TO_CHAR(EMA_FECHA_EXT, 'DD/MM/YYYY'), ";
 				$cadena_sql.="est_nro_iden, ";
 				$cadena_sql.="est_nombre, ";
 				$cadena_sql.="cra_abrev, ";
 				$cadena_sql.="est_estado_est, ";
-				$cadena_sql.="TO_CHAR(SYSDATE,'DD/MM/YYYY') ";				
+				$cadena_sql.="TO_CHAR(CURRENT_TIMESTAMP,'DD/MM/YYYY') ";				
 				$cadena_sql.="FROM ";
 				$cadena_sql.="ACESTMAT, ";
 				$cadena_sql.="ACEST, ";
@@ -159,8 +160,8 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="ema_cra_cod = cra_cod ";
 				$cadena_sql.="AND ";
 				$cadena_sql.="ema_est_cod = est_cod ";
-				$cadena_sql.="ORDER BY ema_fecha desc";				
-			break;
+				$cadena_sql.="ORDER BY ema_fecha desc";	
+                        break;
 
 			case "verRecibo":
 
@@ -174,9 +175,9 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="ema_per, ";
 				$cadena_sql.="ema_cuota, ";
 				$cadena_sql.="ema_fecha, ";
-				$cadena_sql.="DECODE(EMA_ESTADO,'A','Activo','Inactivo'), ";
-				$cadena_sql.="DECODE(EMA_IMP_RECIBO,1,'Bloqueado','Desbloq.'), ";	
-				$cadena_sql.="DECODE(EMA_PAGO,'S','SI','NO'), ";							
+				$cadena_sql.="CASE WHEN EMA_ESTADO::text = 'A' THEN 'Activo' ELSE 'Inactivo' END estado, ";
+				$cadena_sql.="CASE WHEN EMA_IMP_RECIBO::text='1' THEN 'Bloqueado' ELSE 'Desbloq.' END impresion, ";	
+				$cadena_sql.="CASE WHEN EMA_PAGO::text='S' THEN 'SI' ELSE 'NO' END pago, ";							
 				$cadena_sql.="TO_CHAR(EMA_FECHA_ORD, 'YYYY-MM-DD'), ";
 				$cadena_sql.="TO_CHAR(EMA_FECHA_EXT, 'YYYY-MM-DD'), ";
 				$cadena_sql.="est_nro_iden, ";
@@ -199,8 +200,8 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="ema_est_cod = est_cod ";
 				$cadena_sql.="AND ";
 				$cadena_sql.="est_cod = ".$variable[3]." ";			
-				$cadena_sql.="ORDER BY ema_fecha desc";				
-			break;
+				$cadena_sql.="ORDER BY ema_fecha desc";
+                        break;
 	
 
 			case "inactivaRecibo":
@@ -220,9 +221,9 @@ class sql_adminSolicitud extends sql
 			break;			
 			case "secuencia":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="seq_matricula.NEXTVAL ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="dual ";
+				$cadena_sql.="NEXTVAL('seq_matricula') ";
+				//$cadena_sql.="FROM ";
+				//$cadena_sql.="dual ";
 				break;
 				
 								
@@ -255,9 +256,9 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.=$variable[2].", ";
 				$cadena_sql.=$variable[3].", ";
 				$cadena_sql.=$variable[12].", ";
-				$cadena_sql.="TO_DATE('".$variable[5]."','dd/mm/yy'), ";
-				$cadena_sql.="TO_DATE('".$variable[5]."','dd/mm/yy'), ";
-				$cadena_sql.="SYSDATE, ";
+				$cadena_sql.="TO_DATE('".$variable[5]."','dd-mm-yyyy'), ";
+				$cadena_sql.="TO_DATE('".$variable[5]."','dd-mm-yyyy'), ";
+				$cadena_sql.="current_date, ";
 				$cadena_sql.="'A', ";
 				$cadena_sql.=$variable[6].", ";
 				$cadena_sql.=$variable[7].", ";

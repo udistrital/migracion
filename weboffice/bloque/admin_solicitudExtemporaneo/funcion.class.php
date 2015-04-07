@@ -407,12 +407,22 @@ ________________________________________________________________________________
 
 		}	
 		else{
-			include_once($configuracion["raiz_documento"].$configuracion["clases"]."/alerta.class.php");
-			$cadena="El estudiante ".$registro[0][0]." no pertenece a su Coordinaci&oacute;n.<br>";
+                        if(isset($registro))
+                        {    
+                            include_once($configuracion["raiz_documento"].$configuracion["clases"]."/alerta.class.php");
+                            $cadena="El estudiante ".$registro[0][0]." no pertenece a su Coordinaci&oacute;n.<br>";
 
-			$cadena.="<br><a href='javascript:window.history.back()'>.::Regresar::.</a>";		
-			alerta::sin_registro($configuracion,$cadena);
-			
+                            $cadena.="<br><a href='javascript:window.history.back()'>.::Regresar::.</a>";		
+                            alerta::sin_registro($configuracion,$cadena);
+                        }
+                        else
+                        {
+                            include_once($configuracion["raiz_documento"].$configuracion["clases"]."/alerta.class.php");
+                            $cadena="El estudiante consultado no pertenece a su Coordinaci&oacute;n.<br>";
+
+                            $cadena.="<br><a href='javascript:window.history.back()'>.::Regresar::.</a>";		
+                            alerta::sin_registro($configuracion,$cadena);
+                        }    
 		}
 	}	
 	
@@ -784,13 +794,14 @@ ________________________________________________________________________________
                                         if($resultado){
                                             $totalGenerados++;
                                         }
-                                }	
+                                }
                         }else{
                             $datos=array(0=>$_REQUEST['anno_periodo'],
                                 1=>$_REQUEST['estudiante']);
                             $this->redireccionarInscripcion($configuracion,'noConfirmados',$datos);	
 
                         }
+                        
                 if($totalGenerados>=1){
                     $this->redireccionarInscripcion($configuracion,'exitoGenerados',$totalGenerados);	
                 }else{

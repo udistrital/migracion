@@ -204,7 +204,8 @@ if ($acceso_db->probar_conexion()==TRUE)
                         }
 			if(is_array($registro))
 			{
-				$i=0;
+				error_reporting(0);
+                                $i=0;
 				$carrerasCoordinador="";
 				while($registro[$i][0])
 				{

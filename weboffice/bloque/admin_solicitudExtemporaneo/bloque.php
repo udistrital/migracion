@@ -121,7 +121,8 @@ class bloqueAdminSolicitud extends bloque
 	
 	function action()
 	{
-		if(!$_REQUEST["secuencias"]){
+		$secuencias=isset($_REQUEST["secuencias"])?$_REQUEST["secuencias"]:'';
+                if(!$secuencias){
 		
 			$recibos="";
 			
@@ -133,8 +134,9 @@ class bloqueAdminSolicitud extends bloque
 					$recibos.=$valor;	
 						foreach($_REQUEST as $numclave=>$numvalor) //Rescata la fecha y el numero de mesees de interes para la secuencia
 						{	
-							//echo $numclave;
+							error_reporting(0);
 							$numsecuencia=explode("@",$numclave);
+                                                        
 							if(($numsecuencia[1])==$valor){
 								$recibos.='@'.$numvalor;	
 							}	
