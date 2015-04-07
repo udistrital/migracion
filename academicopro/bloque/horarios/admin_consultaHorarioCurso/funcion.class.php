@@ -73,7 +73,7 @@ function formCrear($configuracion)
                                     exit;
                                 }
                     }
-        $qryfecha="SELECT TO_CHAR(SYSDATE, 'YYYYmmddhh24mmss') FECHA FROM dual";
+        $qryfecha= "SELECT TO_CHAR(CURRENT_TIMESTAMP,'YYYYMMDDHH24MISS') ".'"FECHA"';
         $rsFecha=$this->ejecutarSQL($configuracion, $this->accesoOracle, $qryfecha, "busqueda");
         $variable=array('proyecto'=>$proyecto,'anio'=>$anio,'periodo'=> $periodo,'fecha'=> $rsFecha[0]['FECHA']);
         $cadena_sql=$this->sql->cadena_sql($configuracion, "valida_fecha", $variable);
@@ -434,7 +434,7 @@ function guardarCurso($configuracion)
         $cadena_sql = $this->sql->cadena_sql($configuracion, "infoDocente", $arregloDocente);
         $resDocente = $this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
         
-        $qryfecha="SELECT TO_CHAR(SYSDATE, 'YYYYmmddhh24mmss') FECHA FROM dual";
+        $qryfecha= "SELECT TO_CHAR(CURRENT_TIMESTAMP,'YYYYMMDDHH24MISS') ".'"FECHA"';        
         $rsFecha=$this->ejecutarSQL($configuracion, $this->accesoOracle, $qryfecha, "busqueda");
         $variable=array('proyecto'=>$proyecto,'anio'=>$anio,'periodo'=> $periodo,'fecha'=> $rsFecha[0]['FECHA']);
         $cadena_sql=$this->sql->cadena_sql($configuracion, "valida_fecha", $variable);

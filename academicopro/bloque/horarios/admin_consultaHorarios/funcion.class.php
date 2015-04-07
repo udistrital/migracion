@@ -382,7 +382,7 @@ function confirmarRegistro($configuracion,$accion)
 
                                             echo " <a href='".$indice.$enlace."' target='_blank' title='Generar reporte en Excel'>";
                                             ?>
-                                            <img width="30" height="30" src="<? echo $this->configuracion["host"].$this->configuracion["site"].$this->configuracion["grafico"]?>/excel.jpg" alt="Modificar registro" title="Modificar objetos relacionados" border="0" />
+                                            <img width="30" height="30" src="<? echo $this->configuracion["host"].$this->configuracion["site"].$this->configuracion["grafico"]?>/excel.jpg" alt="Generar Reporte" title="Reporte Hoja de Calculo" border="0" />
                                             <br>
                                             <?
                                             echo "Generar reporte en hoja de c&aacute;lculo";
@@ -392,18 +392,19 @@ function confirmarRegistro($configuracion,$accion)
                             </tr>
                     </table>
                     <table class="contenidotabla  centrar" width="100%">
-                         <th class="sigma centrar" colspan="10">RES&Uacute;MEN HORARIOS </th>
+                         <th class="sigma centrar" colspan="11">RES&Uacute;MEN HORARIOS </th>
                             <tr>
-                                    <td class="cuadro_plano centrar"width="6%">Periodo</td>
+                                    <td class="cuadro_plano centrar"width="4%">Periodo</td>
                                     <td class="cuadro_plano centrar" width="4%">Proyecto</td>
-                                    <td class="cuadro_plano centrar" width="26%">Asignatura</td>
-                                    <td class="cuadro_plano centrar" width="4%">Grupo</td>
+                                    <td class="cuadro_plano centrar" width="16%">Asignatura</td>
+                                    <td class="cuadro_plano centrar" width="6%">Grupo</td>
                                     <td class="cuadro_plano centrar" width="10%">Lunes</td>
                                     <td class="cuadro_plano centrar" width="10%">Martes</td>
                                     <td class="cuadro_plano centrar" width="10%">Mi&eacute;rcoles</td>
                                     <td class="cuadro_plano centrar" width="10%">Jueves</td>
                                     <td class="cuadro_plano centrar" width="10%">Viernes</td>
                                     <td class="cuadro_plano centrar" width="10%">S&aacute;bado</td>
+                                    <td class="cuadro_plano centrar" width="10%">Domingo</td>
                              </tr>
                             <?
 							foreach ($resultado as $cont => $value){
@@ -412,55 +413,44 @@ function confirmarRegistro($configuracion,$accion)
                                             <td class="cuadro_plano centrar"><? echo $resultado[$cont]['ANIO']."-".$resultado[$cont]['PERIODO'];?></td>
                                             <td class="cuadro_plano centrar"><? echo $resultado[$cont]['COD_PROYECTO'];?></td>
                                             <td class="cuadro_plano ">
-                                                <? 
-													$variable['opcion']=isset($variable['opcion'])?$variable['opcion']:"";
-													if($variable['opcion']=='exportarHorario'){ 
-														echo $resultado[$cont]['COD_ESPACIO']." - ".UTF8_DECODE($resultado[$cont]['NOM_ESPACIO']);
-													}
-													else{
-														echo $resultado[$cont]['COD_ESPACIO']." - ".$resultado[$cont]['NOM_ESPACIO'];
-													}      
-                                                  ?>
+                                    <? 
+                                        $variable['opcion']=isset($variable['opcion'])?$variable['opcion']:"";
+					if($variable['opcion']=='exportarHorario'){ 
+                                            echo $resultado[$cont]['COD_ESPACIO']." - ".UTF8_DECODE($resultado[$cont]['NOM_ESPACIO']);
+					}else{
+                                            	echo $resultado[$cont]['COD_ESPACIO']." - ".$resultado[$cont]['NOM_ESPACIO'];
+					}      
+                                    ?>
                                             </td>
                                             <td class="cuadro_plano centrar"><? echo str_pad($variable['proyecto'], 3, "0", STR_PAD_LEFT)."-".$resultado[$cont]['GRUPO'];?></td>
                                             <td class="cuadro_plano centrar">
                                                 <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
-                                                      'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
-                                                       'anio'=>$resultado[$cont]['ANIO'], 
-                                                       'periodo'=>$resultado[$cont]['PERIODO'], 
-                                                       'grupo'=>$resultado[$cont]['GRUPO'], 
-                                                       'dia'=>'1');
+                                                                        'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
+                                                                        'anio'=>$resultado[$cont]['ANIO'], 
+                                                                        'periodo'=>$resultado[$cont]['PERIODO'], 
+                                                                        'grupo'=>$resultado[$cont]['GRUPO'], 
+                                                                        'dia'=>'1');
                                                         $cadena_sql=$this->sql->cadena_sql("resumenHorarioCurso",$varHorario);
                                                         $resultadoHor=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
                                                     
                                                     if($resultadoHor){
 													?>
-                                                            <table class="contenidotabla  centrar" width="100%">
+                                                            <table class="centrar">
                                                             <? foreach ($resultadoHor as $contHor => $value) {?>
                                                                 <tr>
                                                                         <td class="sigma centrar">
                                                                                 <?
                                                                                 echo $resultadoHor[$contHor]['HORA_L']." - ";
                                                                                 echo $resultadoHor[$contHor]['NOM_SEDE']." - ";
-																				
-																				$variable['opcion']=isset($variable['opcion'])?$variable['opcion']:"";
-																				
-                                                                                if($variable['opcion']=='exportarHorario'){ 
-																					echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";
-																				}
-                                                                                else{ 
-																					echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";
-																				}      
-                                                                               
-																				if($variable['opcion']=='exportarHorario'){ 
-																					echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);
-																				}
-                                                                                else{
-																					echo $resultadoHor[$contHor]['NOM_SALON'];
-																				} 
-                                                                                if($variable['opcion']!='exportarHorario'){
-																					echo "<hr> ";
-																				}
+										$variable['opcion']=isset($variable['opcion'])?$variable['opcion']:"";
+                                                                                if($variable['opcion']=='exportarHorario')
+                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";}
+                                                                                else   { echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";}      
+                                                                               	if($variable['opcion']=='exportarHorario')
+                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
+                                                                                else   { echo $resultadoHor[$contHor]['NOM_SALON'];} 
+                                                                                if($variable['opcion']!='exportarHorario')
+                                                                                       {echo "<hr> ";}
                                                                                 ?>
                                                                         </td>
                                                                 </tr>        
@@ -470,11 +460,11 @@ function confirmarRegistro($configuracion,$accion)
                                             </td>
                                             <td class="cuadro_plano centrar">
                                                 <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
-                                                      'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
-                                                       'anio'=>$resultado[$cont]['ANIO'], 
-                                                       'periodo'=>$resultado[$cont]['PERIODO'], 
-                                                       'grupo'=>$resultado[$cont]['GRUPO'], 
-                                                       'dia'=>'2');
+                                                                        'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
+                                                                        'anio'=>$resultado[$cont]['ANIO'], 
+                                                                        'periodo'=>$resultado[$cont]['PERIODO'], 
+                                                                        'grupo'=>$resultado[$cont]['GRUPO'], 
+                                                                        'dia'=>'2');
                                                         $cadena_sql=$this->sql->cadena_sql("resumenHorarioCurso",$varHorario);
                                                         $resultadoHor=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
                                                     
@@ -484,23 +474,17 @@ function confirmarRegistro($configuracion,$accion)
                                                             <? foreach ($resultadoHor as $contHor => $value) {?>
                                                                 <tr>
                                                                         <td class="sigma centrar">
-                                                                               <?
+                                                                                <?
                                                                                 echo $resultadoHor[$contHor]['HORA_L']." - ";
                                                                                 echo $resultadoHor[$contHor]['NOM_SEDE']." - ";
-                                                                                if($variable['opcion']=='exportarHorario'){ 
-																					echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";
-																				}
-                                                                                else{
-																					echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";
-																				}      
-                                                                                if($variable['opcion']=='exportarHorario'){ 
-																					echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);
-																				}
-                                                                                else{ 
-																					echo $resultadoHor[$contHor]['NOM_SALON'];
-																				} 
+                                                                                if($variable['opcion']=='exportarHorario')
+                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";}
+                                                                                else   { echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";}      
+                                                                                if($variable['opcion']=='exportarHorario')
+                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
+                                                                                else   { echo $resultadoHor[$contHor]['NOM_SALON'];} 
                                                                                 if($variable['opcion']!='exportarHorario')
-                                                                                        {echo "<hr> ";}
+                                                                                       {echo "<hr> ";}
                                                                                 ?>
                                                                         </td>
                                                                 </tr>        
@@ -510,13 +494,13 @@ function confirmarRegistro($configuracion,$accion)
                                             </td>
                                             <td class="cuadro_plano centrar">
                                                 <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
-													'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
-													'anio'=>$resultado[$cont]['ANIO'], 
-													'periodo'=>$resultado[$cont]['PERIODO'], 
-													'grupo'=>$resultado[$cont]['GRUPO'], 
-													'dia'=>'3');
-													$cadena_sql=$this->sql->cadena_sql("resumenHorarioCurso",$varHorario);
-													$resultadoHor=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+									'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
+									'anio'=>$resultado[$cont]['ANIO'], 
+									'periodo'=>$resultado[$cont]['PERIODO'], 
+									'grupo'=>$resultado[$cont]['GRUPO'], 
+									'dia'=>'3');
+							$cadena_sql=$this->sql->cadena_sql("resumenHorarioCurso",$varHorario);
+							$resultadoHor=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
                                                     
                                                     if($resultadoHor)
                                                             {    ?>
@@ -533,8 +517,8 @@ function confirmarRegistro($configuracion,$accion)
                                                                                 if($variable['opcion']=='exportarHorario')
                                                                                        { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
                                                                                 else   { echo $resultadoHor[$contHor]['NOM_SALON'];}  
-                                                                               if($variable['opcion']!='exportarHorario')
-                                                                                        {echo "<hr> ";}
+                                                                                if($variable['opcion']!='exportarHorario')
+                                                                                       {echo "<hr> ";}
                                                                                 ?>
                                                                         </td>
                                                                 </tr>        
@@ -544,11 +528,11 @@ function confirmarRegistro($configuracion,$accion)
                                             </td>
                                             <td class="cuadro_plano centrar">
                                                 <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
-                                                      'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
-                                                       'anio'=>$resultado[$cont]['ANIO'], 
-                                                       'periodo'=>$resultado[$cont]['PERIODO'], 
-                                                       'grupo'=>$resultado[$cont]['GRUPO'], 
-                                                       'dia'=>'4');
+                                                                        'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
+                                                                        'anio'=>$resultado[$cont]['ANIO'], 
+                                                                        'periodo'=>$resultado[$cont]['PERIODO'], 
+                                                                        'grupo'=>$resultado[$cont]['GRUPO'], 
+                                                                        'dia'=>'4');
                                                         $cadena_sql=$this->sql->cadena_sql("resumenHorarioCurso",$varHorario);
                                                         $resultadoHor=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
                                                     
@@ -568,7 +552,7 @@ function confirmarRegistro($configuracion,$accion)
                                                                                        { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
                                                                                 else   { echo $resultadoHor[$contHor]['NOM_SALON'];}  
                                                                                 if($variable['opcion']!='exportarHorario')
-                                                                                        {echo "<hr> ";}
+                                                                                       {echo "<hr> ";}
                                                                                 ?>
                                                                         </td>
                                                                 </tr>        
@@ -578,11 +562,11 @@ function confirmarRegistro($configuracion,$accion)
                                             </td>
                                             <td class="cuadro_plano centrar">
                                                 <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
-                                                      'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
-                                                       'anio'=>$resultado[$cont]['ANIO'], 
-                                                       'periodo'=>$resultado[$cont]['PERIODO'], 
-                                                       'grupo'=>$resultado[$cont]['GRUPO'], 
-                                                       'dia'=>'5');
+                                                                        'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
+                                                                        'anio'=>$resultado[$cont]['ANIO'], 
+                                                                        'periodo'=>$resultado[$cont]['PERIODO'], 
+                                                                        'grupo'=>$resultado[$cont]['GRUPO'], 
+                                                                        'dia'=>'5');
                                                         $cadena_sql=$this->sql->cadena_sql("resumenHorarioCurso",$varHorario);
                                                         $resultadoHor=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
                                                     
@@ -602,7 +586,7 @@ function confirmarRegistro($configuracion,$accion)
                                                                                        { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
                                                                                 else   { echo $resultadoHor[$contHor]['NOM_SALON'];}    
                                                                                 if($variable['opcion']!='exportarHorario')
-                                                                                        {echo "<hr> ";}
+                                                                                       {echo "<hr> ";}
                                                                                 ?>
                                                                         </td>
                                                                 </tr>        
@@ -611,38 +595,72 @@ function confirmarRegistro($configuracion,$accion)
                                                            <?}?>
                                             </td>
                                             <td class="cuadro_plano centrar">
-                                                <?  $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
-													'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
-													'anio'=>$resultado[$cont]['ANIO'], 
-													'periodo'=>$resultado[$cont]['PERIODO'], 
-													'grupo'=>$resultado[$cont]['GRUPO'], 
-													'dia'=>'6');
-													$cadena_sql=$this->sql->cadena_sql("resumenHorarioCurso",$varHorario);
-													$resultadoHor=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                                                <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
+                                                                        'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
+                                                                        'anio'=>$resultado[$cont]['ANIO'], 
+									'periodo'=>$resultado[$cont]['PERIODO'], 
+									'grupo'=>$resultado[$cont]['GRUPO'], 
+									'dia'=>'6');
+                                                        $cadena_sql=$this->sql->cadena_sql("resumenHorarioCurso",$varHorario);
+							$resultadoHor=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
                                                     
-                                                    if($resultadoHor){ 
-													?>
-														<table class="centrar">
-														<? foreach ($resultadoHor as $contHor => $value) {?>
-															<tr>
-																	<td class="sigma centrar">
-																			<?
-																			echo $resultadoHor[$contHor]['HORA_L']." - ";
-																			echo $resultadoHor[$contHor]['NOM_SEDE']." - ";
-																			if($variable['opcion']=='exportarHorario')
-																				   { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";}
-																			else   { echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";}      
-																			if($variable['opcion']=='exportarHorario')
-																				   { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
-																			else   { echo $resultadoHor[$contHor]['NOM_SALON'];}      
-																			if($variable['opcion']!='exportarHorario')
-																					{echo "<hr> ";}
-																			?>
-																	</td>
-															</tr>        
-															<?}?>
-														</table>   
-                                                    <?}?>
+                                                    if($resultadoHor)
+                                                            {	?>
+                                                            <table class="centrar">
+                                                            <? foreach ($resultadoHor as $contHor => $value) {?>
+								<tr>
+									<td class="sigma centrar">
+										<?
+                                                                        	echo $resultadoHor[$contHor]['HORA_L']." - ";
+										echo $resultadoHor[$contHor]['NOM_SEDE']." - ";
+										if($variable['opcion']=='exportarHorario')
+                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";}
+										else   { echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";}      
+										if($variable['opcion']=='exportarHorario')
+                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
+										else   { echo $resultadoHor[$contHor]['NOM_SALON'];}      
+										if($variable['opcion']!='exportarHorario')
+                                                                                       {echo "<hr> ";}
+										?>
+									</td>
+								</tr>        
+								<?}?>
+                                                            </table>   
+                                                        <?}?>
+                                            </td>
+                                            <td class="cuadro_plano centrar">
+                                                <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
+                                                                        'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
+                                                                        'anio'=>$resultado[$cont]['ANIO'], 
+									'periodo'=>$resultado[$cont]['PERIODO'], 
+									'grupo'=>$resultado[$cont]['GRUPO'], 
+									'dia'=>'7');
+                                                        $cadena_sql=$this->sql->cadena_sql("resumenHorarioCurso",$varHorario);
+							$resultadoHor=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                                                    
+                                                    if($resultadoHor)
+                                                            {	?>
+                                                            <table class="centrar">
+                                                            <? foreach ($resultadoHor as $contHor => $value) {?>
+								<tr>
+									<td class="sigma centrar">
+										<?
+                                                                        	echo $resultadoHor[$contHor]['HORA_L']." - ";
+										echo $resultadoHor[$contHor]['NOM_SEDE']." - ";
+										if($variable['opcion']=='exportarHorario')
+                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";}
+										else   { echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";}      
+										if($variable['opcion']=='exportarHorario')
+                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
+										else   { echo $resultadoHor[$contHor]['NOM_SALON'];}      
+										if($variable['opcion']!='exportarHorario')
+                                                                                       {echo "<hr> ";}
+										?>
+									</td>
+								</tr>        
+								<?}?>
+                                                            </table>   
+                                                        <?}?>
                                             </td>
                                     </tr>
                         <?  }  ?>

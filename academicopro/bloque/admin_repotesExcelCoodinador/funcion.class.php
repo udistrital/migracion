@@ -48,7 +48,7 @@ ________________________________________________________________________________
 
      //Muestra el reporte de los horarios y cursos.
    function exportarHorario($configuracion,$variable)
-    {      
+    {
 			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"resumenCurso",$variable);
             $resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
             
@@ -63,7 +63,7 @@ ________________________________________________________________________________
                     alerta::sin_registro($configuracion,$cadena);	
             }
             else
-            {    
+            {
                     ?>
 					<br/>
 					<table bgcolor="#EEEEEE"  class="contenidotabla  centrar" width="100%">
@@ -86,6 +86,7 @@ ________________________________________________________________________________
                                     <td bgcolor="#DCDCDC"  class="cuadro_plano centrar" width="10%">Jueves</td>
                                     <td bgcolor="#DCDCDC"  class="cuadro_plano centrar" width="10%">Viernes</td>
                                     <td bgcolor="#DCDCDC"  class="cuadro_plano centrar" width="10%">S&aacute;bado</td>
+                                    <td bgcolor="#DCDCDC"  class="cuadro_plano centrar" width="10%">Domingo</td>
                              </tr>
                             <?
 					$i=0;		
@@ -115,13 +116,13 @@ ________________________________________________________________________________
                                                     
                                                     if($resultadoHor)
                                                             {    ?>
-                                                            <table class="contenidotabla  centrar" width="100%">
+                                                            <table class="centrar">
                                                             <? foreach ($resultadoHor as $contHor => $value) {?>
                                                                 <tr>
                                                                         <td class="sigma centrar">
-                                                                               <?
+                                                                                <?
                                                                                 echo "<b>".$resultadoHor[$contHor]['HORA_L'].":</b> ";
-                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_COMPLETO'].")  ";
+                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_SEDE'].")  ";
                                                                                 echo "(<b>edificio:</b>".UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO']).") ";   
                                                                                 echo "(<b>salon:</b>".$resultadoHor[$contHor]['NOM_SALON'].") ";
                                                                                 ?>
@@ -149,7 +150,7 @@ ________________________________________________________________________________
                                                                         <td class="sigma centrar">
                                                                                <?
                                                                                 echo "<b>".$resultadoHor[$contHor]['HORA_L'].":</b> ";
-                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_COMPLETO'].")  ";
+                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_SEDE'].")  ";
                                                                                 echo "(<b>edificio:</b>".UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO']).") ";   
                                                                                 echo "(<b>salon:</b>".$resultadoHor[$contHor]['NOM_SALON'].") ";
                                                                                 ?>
@@ -177,7 +178,7 @@ ________________________________________________________________________________
                                                                         <td class="sigma centrar">
                                                                                 <?
                                                                                 echo "<b>".$resultadoHor[$contHor]['HORA_L'].":</b> ";
-                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_COMPLETO'].")  ";
+                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_SEDE'].")  ";
                                                                                 echo "(<b>edificio:</b>".UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO']).") ";   
                                                                                 echo "(<b>salon:</b>".$resultadoHor[$contHor]['NOM_SALON'].") ";
                                                                                 ?>
@@ -205,7 +206,7 @@ ________________________________________________________________________________
                                                                         <td class="sigma centrar">
                                                                                 <?
                                                                                 echo "<b>".$resultadoHor[$contHor]['HORA_L'].":</b> ";
-                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_COMPLETO'].")  ";
+                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_SEDE'].")  ";
                                                                                 echo "(<b>edificio:</b>".UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO']).") ";   
                                                                                 echo "(<b>salon:</b>".$resultadoHor[$contHor]['NOM_SALON'].") ";
                                                                                 ?>
@@ -233,7 +234,7 @@ ________________________________________________________________________________
                                                                         <td class="sigma centrar">
                                                                                 <?
                                                                                 echo "<b>".$resultadoHor[$contHor]['HORA_L'].":</b> ";
-                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_COMPLETO'].")  ";
+                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_SEDE'].")  ";
                                                                                 echo "(<b>edificio:</b>".UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO']).") ";   
                                                                                 echo "(<b>salon:</b>".$resultadoHor[$contHor]['NOM_SALON'].") ";
                                                                                 ?>
@@ -261,7 +262,7 @@ ________________________________________________________________________________
                                                                         <td class="sigma centrar">
                                                                                 <?
                                                                                 echo "<b>".$resultadoHor[$contHor]['HORA_L'].":</b> ";
-                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_COMPLETO'].")  ";
+                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_SEDE'].")  ";
                                                                                 echo "(<b>edificio:</b>".UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO']).") ";   
                                                                                 echo "(<b>salon:</b>".$resultadoHor[$contHor]['NOM_SALON'].") ";
                                                                                 ?>
@@ -271,12 +272,40 @@ ________________________________________________________________________________
                                                             </table>   
                                                            <?}?>
                                             </td>
+                                            <td class="cuadro_plano centrar">
+                                                <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
+                                                      'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
+                                                       'anio'=>$resultado[$cont]['ANIO'], 
+                                                       'periodo'=>$resultado[$cont]['PERIODO'], 
+                                                       'grupo'=>$resultado[$cont]['GRUPO'], 
+                                                       'dia'=>'7');
+                                                        $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"resumenHorarioCurso",$varHorario);
+                                                        $resultadoHor=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                                                    
+                                                    if($resultadoHor)
+                                                            {    ?>
+                                                            <table class="centrar">
+                                                            <? foreach ($resultadoHor as $contHor => $value) {?>
+                                                                <tr>
+                                                                        <td class="sigma centrar">
+                                                                                <?
+                                                                                echo "<b>".$resultadoHor[$contHor]['HORA_L'].":</b> ";
+                                                                                echo "(<b>sede:</b>".$resultadoHor[$contHor]['NOM_SEDE'].")  ";
+                                                                                echo "(<b>edificio:</b>".UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO']).") ";   
+                                                                                echo "(<b>salon:</b>".$resultadoHor[$contHor]['NOM_SALON'].") ";
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>        
+                                                                <?}?>
+                                                            </table>   
+                                                           <?}?>
+                                            </td>                                            
                                     </tr>
                         <?  }  ?>
                     </table>
                     <?
             }
-    } 
+    }
     
    function consultarOcupacion($configuracion,$variable)
 	{

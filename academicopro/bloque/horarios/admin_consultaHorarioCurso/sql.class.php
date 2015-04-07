@@ -509,10 +509,6 @@ class sql_adminHorarios extends sql { //@ Método que crea las sentencias sql pa
             
         }
 
-
-
-	//	echo "<br/>$tipo=".$this->cadena_sql."<br>";
-
         return $this->cadena_sql;
     }
 

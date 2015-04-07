@@ -175,7 +175,6 @@ class sql_ReportesExcelCoodinador extends sql
 				$this->cadena_sql="";
 				break;
 		}
-		//echo $this->cadena_sql."<br>";
 		return $this->cadena_sql;
 	}
 	
