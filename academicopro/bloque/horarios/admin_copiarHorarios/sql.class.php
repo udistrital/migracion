@@ -20,6 +20,16 @@ class sql_copiarHorarios extends sql
 		switch($opcion)
 		{
 			case "listaPeriodos":
+                            switch ($variable['estado'])
+                        {
+                        case "anterior":
+                            $variable['estado']="'P','A'";
+                            break;
+                        case "nuevo":
+                            $variable['estado']="'A','X'";
+                            break;
+                        }
+                            
 				$cadena_sql="SELECT ";
 				$cadena_sql.="ape_ano||'-'||ape_per PERIODO ";
 				$cadena_sql.="FROM ";
@@ -39,9 +49,10 @@ class sql_copiarHorarios extends sql
 			
 			case "fechaactual":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="TO_CHAR(SYSDATE, 'YYYYmmddhh24mmss') FECHA  ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="dual";
+				$cadena_sql.="TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS') FECHA  ";
+//				$cadena_sql.="FROM ";
+				//$cadena_sql.="dual";
+                                                             
 				break;
                             
                         case "infoCurso":
@@ -56,8 +67,8 @@ class sql_copiarHorarios extends sql
                                 $cadena_sql.=" CUR_NRO_CUPO CUPOS, ";
                                 $cadena_sql.=" CUR_ESTADO ESTADO, ";
                                 $cadena_sql.=" CUR_CAP_MAX MAX_CAPACIDAD, ";
-                                $cadena_sql.=" NVL(CUR_HOR_ALTERNATIVO,0) HOR_ALTERNATIVO, ";
-                                $cadena_sql.=" NVL(CUR_TIPO,0) TIPO ";
+                                $cadena_sql.=" coalesce(CUR_HOR_ALTERNATIVO,0) HOR_ALTERNATIVO, ";
+                                $cadena_sql.=" coalesce(CUR_TIPO,0) TIPO ";
                                 $cadena_sql.=" FROM accursos ";
                                 $cadena_sql.=" WHERE cur_grupo>0 ";
                                 if(isset($variable['grupo']))
@@ -245,11 +256,11 @@ class sql_copiarHorarios extends sql
                             	break;
 
                         case 'siguienteCurso':
-                                $cadena_sql="select cursos.nextval from dual";
+                                $cadena_sql="select nextval('cursos')";
                                 break; 
 
                         case 'siguienteHorario':
-                                $cadena_sql="select horarios.nextval from dual";
+                                $cadena_sql="select nextval('horarios')";
                                 break; 
                             
 			default:

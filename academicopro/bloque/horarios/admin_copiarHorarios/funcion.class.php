@@ -101,7 +101,7 @@ class funciones_copiarHorarios extends funcionGeneral
                                  Periodo acad&eacute;mico anterior:
                             </td>
                             <td class="sigma">
-                                <?  $varPer=array('estado'=>"'P','A'");
+                                <?  $varPer=array('estado'=>"anterior");
                                     $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"listaPeriodos",$varPer);
                                     $resultadoPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
                                     include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.class.php");
@@ -121,7 +121,7 @@ class funciones_copiarHorarios extends funcionGeneral
                                Periodo acad&eacute;mico nuevo:
                             </td>
                             <td class="sigma">
-                                <?  $varPerNvo=array('estado'=>"'A','X'");
+                                <?  $varPerNvo=array('estado'=>"nuevo");
                                     $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"listaPeriodos",$varPerNvo);
                                     $resultadoPerNuevo=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
                                     foreach ($resultadoPerNuevo as $key1 => $value) 
@@ -281,7 +281,7 @@ class funciones_copiarHorarios extends funcionGeneral
 		}
 		else
 		{
-			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->acceso_db,"insertarAnioPer",$valor);
+			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"insertarAnioPer",$valor);
                         $resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "");
                        
 			if($resultado==TRUE)
