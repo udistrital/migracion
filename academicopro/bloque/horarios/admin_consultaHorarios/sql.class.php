@@ -59,6 +59,7 @@ class sql_adminConsultaHorario extends sql
 					$cadena_sql.=",cur_nro_ins INSCRITOS";
 					$cadena_sql.=",(cur_nro_cupo-cur_nro_ins) DISPONIBLES";
 					$cadena_sql.=",cur_cap_max MAX_CAPACIDAD ";
+					$cadena_sql.=",cur_tipo TIPO ";
 					$cadena_sql.="from ";
 					$cadena_sql.="accursos ";
 					$cadena_sql.=",acpen ";
@@ -86,6 +87,7 @@ class sql_adminConsultaHorario extends sql
 					$cadena_sql.=",(cur_nro_cupo-(CASE WHEN cur_nro_ins IS NULL THEN 0 ELSE cur_nro_ins END)) DISPONIBLES ";
 					$cadena_sql.=",cur_cra_cod PROYECTO ";
 					$cadena_sql.=",cur_cap_max MAX_CAPACIDAD ";
+					$cadena_sql.=",cur_tipo TIPO ";
 					$cadena_sql.="FROM ";
 					$cadena_sql.="accursos ";
 					$cadena_sql.=",acasi ";
@@ -109,6 +111,7 @@ class sql_adminConsultaHorario extends sql
 					$cadena_sql.=",(cur_nro_cupo-(CASE WHEN cur_nro_ins IS NULL THEN 0 ELSE cur_nro_ins END)) DISPONIBLES ";
 					$cadena_sql.=",cur_cra_cod PROYECTO ";   
 					$cadena_sql.=",cur_cap_max MAX_CAPACIDAD ";
+					$cadena_sql.=",cur_tipo TIPO ";
 					$cadena_sql.="from ";
 					$cadena_sql.="accursos ";
 					$cadena_sql.=",acasi ";

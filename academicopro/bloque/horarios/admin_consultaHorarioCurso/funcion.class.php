@@ -399,14 +399,14 @@ function guardarCurso($configuracion)
         
         **/
     function verHorarioGrupo($configuracion)
-    {?>
-<?
+    {
 		$proyecto=$_REQUEST['proyecto'];
 		$plan=isset($_REQUEST['plan'])?$_REQUEST['plan']:"";
 		$espacio=$_REQUEST['espacio'];
 		$grupo=$_REQUEST['grupo'];
 		$cupos=isset($_REQUEST['cupos'])?$_REQUEST['cupos']:"";
 		$curso=isset($_REQUEST['curso'])?$_REQUEST['curso']:"";
+		$tipocurso=isset($_REQUEST['tipocurso'])?$_REQUEST['tipocurso']:"";
 		$anio=substr($_REQUEST['periodo'],-6,4);
 		$periodo=substr($_REQUEST['periodo'],-1);
 		$tipo="consulta";
@@ -524,6 +524,7 @@ function guardarCurso($configuracion)
 			      <input type="hidden" name="periodo" value="<? echo $anio."-".$periodo?>" >
 			      <input type="hidden" name="grupo" value="<? echo $grupo?>" >
 			      <input type="hidden" name="curso" value="<? echo $curso?>" >
+			      <input type="hidden" name="tipocurso" value="<? echo $tipocurso?>" >
 			      
 				CAPACIDAD DEL CURSO:<input type="text" <?echo $soloLectura?> name='max_capacidad' id="max_capacidad" value="<?echo $rsGrupo[0]['MAX_CAPACIDAD'];?>" size="3" align="center" onmouseover="Tip('<center>Capacidad Máxima de cupos del curso</center>', SHADOW, true, TITLE, 'Capacidad Máxima', PADDING, 9)">
 				CUPOS: <input type="text" <?echo $soloLectura?> name='cupos' id="cupos" value="<?echo $rsGrupo[0]['CUPOS'];?>" size="5" align="center" onmouseover="Tip('<center>Cupos para inscripciones de Estudiantes', SHADOW, true, TITLE, 'Cupos inscripción', PADDING, 9)" >

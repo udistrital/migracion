@@ -262,6 +262,7 @@ function confirmarRegistro($configuracion,$accion)
                             $ruta.='&proyecto='.$rsGrupos[$i]['PROYECTO'];
                             $ruta.='&periodo='.$variable['anio'].'-'.$variable['periodo'];
                             $ruta.='&capacidad='.$rsGrupos[$i]['CUPOS'];
+                            $ruta.='&tipocurso='.$rsGrupos[$i]['TIPO'];
                             $ruta=$this->cripto->codificar_url($ruta,$this->configuracion);
                             
                             if($espacio['CODIGO']==(isset($rsGrupos[$i]['COD_ESPACIO'])?$rsGrupos[$i]['COD_ESPACIO']:''))

@@ -489,11 +489,11 @@ class sql_adminHorarios extends sql { //@ Método que crea las sentencias sql pa
                 break;
 
         case 'siguienteCurso':
-                $this->cadena_sql="select cursos.nextval from dual";
+                $this->cadena_sql="select nextval('cursos')";
                 break; 
 
         case 'siguienteHorario':
-                $this->cadena_sql="select horarios.nextval from dual";
+                $this->cadena_sql="select nextval('horarios')";
                 break; 
 
         case 'consultarInscripcionAutomatica':
