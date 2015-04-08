@@ -106,7 +106,9 @@ class sql_AdminOcupacion extends sql
                             $this->cadena_sql.=" ,sal_nombre NOM_SALON";
                             $this->cadena_sql.=" ,sal_ocupantes CAPACIDAD";
                             $this->cadena_sql.=" ,get_nombre TIPO_ESPACIO";
-                            $this->cadena_sql.=" ,DECODE(ges_asigna_clase,0,'NO',1,'SI') ASIGNA_CLASE";
+                            $this->cadena_sql.=" ,case when ges_asigna_clase=0 then 'NO'";
+                            $this->cadena_sql.=" when ges_asigna_clase=1 then 'SI'";
+                            $this->cadena_sql.=" else '' end ASIGNA_CLASE";
                             $this->cadena_sql.=" from gesalones";
                             $this->cadena_sql.=" inner join geedificio on sal_edificio=edi_cod";
                             $this->cadena_sql.=" inner join gesubtipo_espacio on sal_cod_sub=ges_cod_sub";

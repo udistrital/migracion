@@ -80,7 +80,7 @@ function consultarOcupacion($configuracion,$variable)
 
                                             echo " <a href='".$indice.$enlace."' target='_blank' title='Generar reporte en Excel'>";
                                             ?>
-                                            <img width="30" height="30" src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]?>/excel.jpg" alt="Modificar registro" title="Modificar objetos relacionados" border="0" />
+                                            <img width="30" height="30" src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]?>/excel.jpg" alt="Generar Reporte" title="Reporte Ocupacion" border="0" />
                                             <br>
                                             <?
                                             echo "Generar reporte en hoja de c&aacute;lculo";
