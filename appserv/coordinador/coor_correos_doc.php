@@ -29,7 +29,7 @@ $NomCra = new Nombres;
 require_once('coor_lis_desp_carrera.php');
 
 if($_REQUEST['cracod']){
-   print'<div align="center"><span class="Estilo5">PROYECTO CURRICULAR: '.$NomCra->rescataNombre($_REQUEST['cracod']).'</span></div>';
+   print'<div align="center"><span class="Estilo5">PROYECTO CURRICULAR: '.$NomCra->rescataNombre($_REQUEST['cracod'], "NombreCarrera").'</span></div>';
    //require_once('coor_adm_correos_doc.php');
    print'<FORM name="EmaiForm">
 	<table width="482" border="1" align="center" cellpadding="0" cellspacing="0">

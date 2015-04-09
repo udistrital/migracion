@@ -74,14 +74,14 @@ else
 			if( file_exists( '/usr/local/apache/htdocs/appserv/admisiones/images/'.$nombre) ){
 				echo '<br/>El archivo ya existe: ' . $nombre;
 			}else{
-				move_uploaded_file($nombre_tmp, "/usr/local/apache/htdocs/appserv/admisiones/images/" . $nombre);
+				move_uploaded_file($nombre_tmp, "/usr/local/apache/htdocs/appserv/generales/archivoCorreos/" . $nombre);
 				//echo "<br/>Guardado en: " . "/usr/local/apache/htdocs/appserv/admisiones/images/" . $nombre;
 			}
 		}	
 	}
 	
 	header("Location: $redir?error_login=18");
-	$rutadoc = "/usr/local/apache/htdocs/appserv/admisiones/images/" . $nombre;
+	$rutadoc = "/usr/local/apache/htdocs/appserv/generales/archivoCorreos/" . $nombre;
 	$mail->AddAttachment($rutadoc);	
 	$mail->Body    = $cuerpo;	
 	$mail->Subject = $sujeto;
