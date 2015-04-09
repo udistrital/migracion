@@ -37,6 +37,7 @@ else{
 			$variable.="&token=".$tokenCondor;
 			$variable.="&opcionPagina=validaActualizacion";
 			//$variable=$cripto->codificar_url($variable,$configuracion);
+                        
 			$variable=$miCodificador->codificar($variable);
 			$enlaceCambioPassword=$indiceSaraPassword.$opcion.$variable;
 			$pagpal=$indiceSaraPassword.$opcion.$variable;

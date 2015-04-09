@@ -28,9 +28,7 @@ $funcion=new funcionGeneral();
 fu_tipo_user(28);
 
 $cedula = $_SESSION['usuario_login'];
-
 $indice=$configuracion['host'].$configuracion['raiz_sga']."/index.php?";
-
 //Descargar Manuales de usuario
 $variable="pagina=admin_paginaPrincipalCoordinador";
 $variable.="&usuario=".$_SESSION['usuario_login'];
