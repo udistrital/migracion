@@ -12,6 +12,7 @@ $configuracion=$esta_configuracion->variable("../");
 $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 
+if (isset($_REQUEST['tipo'])){
 if($_REQUEST['tipo']==110){
     fu_tipo_user(110);
     $tipo=110; 
@@ -21,7 +22,7 @@ if($_REQUEST['tipo']==110){
 }else{
     fu_tipo_user(4);
     $tipo=4; 
-}
+}}
 ?>
 <HTML>
 <HEAD><TITLE>Estudiantes</TITLE>

@@ -4,6 +4,7 @@ require_once(dir_conect.'valida_pag.php');
 require_once(dir_script.'fu_print_cabezote.php');
 require_once(dir_conect.'fu_tipo_user.php');
 include_once("../clase/multiConexion.class.php");
+include_once("../script/fu_pie_pag.php");
 
 $esta_configuracion=new config();
 $configuracion=$esta_configuracion->variable("../");

@@ -27,7 +27,7 @@ $consulta = $conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"bus
 if($_REQUEST['asicod']) $asicod = $_REQUEST['asicod'];
 include(dir_script.'class_nombres.php');
 $nombre = new Nombres;
-$Asignatura = $nombre->rescataNombre($asicod);
+$Asignatura = $nombre->rescataNombre($asicod,"NombreCarrera");
 ?>
   <table border="0" width="90%" align="center" cellpadding="0" cellspacing="0">
   <caption><?php echo $Asignatura.' - '.$_REQUEST['curso']; ?></caption>

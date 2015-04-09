@@ -16,7 +16,6 @@ class Nombres extends multiConexion{
 		$accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 
 		//echo "id".$identificador;
-		
 		if(isset($codigo)){
 
 			switch($opcion){		

@@ -33,7 +33,7 @@ function seleccion(){
 fu_cabezote("ACTUALIZACI&Oacute;N DE DATOS");
 
 //Actualiza datos
-if($_REQUEST['actualizar']) { 
+if(isset($_REQUEST['actualizar'])) { 
    	require_once('msql_coor_actualiza_datos_doc.php');
 }
 
