@@ -54,7 +54,7 @@ echo'<p>&nbsp;</p>
   <tr>
   <td align="right">'.$regist[0][0].'</td>
   <td align="left"><b>'.$regist[0][1].'</b></td>
-  <td align="center">'.$regist[0][6].' ('.$regist[0][34].')'.'</td>		
+  <td align="center">'.$regist[0][6].'-'.$regist[0][33].'</td>						
   <td align="center">'.$regist[0][32].'</td>
   <td align="center">'.$regist[0][2].'-'.$regist[0][3].'</td>
   </tr></table>

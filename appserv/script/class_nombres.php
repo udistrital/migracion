@@ -14,14 +14,12 @@ class Nombres extends multiConexion{
 
 		$conexion=new multiConexion();
 		$accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
-		
 
-	//	echo "id".$identificador;
-		                
+		//echo "id".$identificador;
 		if(isset($codigo)){
-			                        
-			switch($opcion){
-				
+
+			switch($opcion){		
+					
 				case "NombreTipoIns": // 17 TIPO DE INSCRIPCION
 					$cadena_sql="SELECT ti_nombre FROM actipins WHERE ti_cod = $codigo AND ti_estado = 'A' ORDER BY ti_nombre";
 				break;
@@ -94,8 +92,11 @@ class Nombres extends multiConexion{
 				case "NombreDocente": // 1 NOMBRE DEL DOCENTE
 					$cadena_sql="SELECT LTRIM(doc_nombre||'  '||doc_apellido) FROM acdocente WHERE doc_nro_iden = $codigo AND doc_estado = 'A'";
 				break;
+
+
+
 			}
-			
+
 		$registro=$conexion->ejecutarSQL($configuracion,$accesoOracle,$cadena_sql,"busqueda");
 		
 		return  $registro[0][0];
