@@ -289,7 +289,7 @@ class funciones_admin_panelPrincipal extends funcionGeneral
 			}	
 			if($registros[0][6]<>$valor['nota'] && is_array($fechas)){
                                 if(!$cadenaActualizar ){
-                                    $cadenaActualizar = "NOT_NOTA='".$valor['nota']."'";
+                                    $cadenaActualizar = "NOT_NOTA=".$valor['nota']."";
                                     $logNovedadNota = "NOT_NOTA: ".$registros[0][6]."=>".$valor['nota'];
                                 }else{
                                     $cadenaActualizar .= ", NOT_NOTA='".$valor['nota']."'";
@@ -352,20 +352,20 @@ class funciones_admin_panelPrincipal extends funcionGeneral
 			}
 			if(isset($valor['hautonomo']) AND $registros[0][17]<>$valor['hautonomo']){
                                 if(!$cadenaActualizar ){
-                                    $cadenaActualizar = "NOT_NRO_AUT='".$valor['hautonomo']."'";
+                                    $cadenaActualizar = "NOT_NRO_AUT=".$valor['hautonomo']."";
                                     $logModificaInfoBasica = "NOT_NRO_AUT: ".$registros[0][17]."=>".$valor['hautonomo'];
                                 }else{
-                                    $cadenaActualizar .= ", NOT_NRO_AUT='".$valor['hautonomo']."'";
+                                    $cadenaActualizar .= ", NOT_NRO_AUT=".$valor['hautonomo']."";
                                     $logModificaInfoBasica .= ", NOT_NRO_AUT: ".$registros[0][17]."=>".$valor['hautonomo'];
                                 }
 			}
                         
 			if(isset($valor['ceacod']) AND $registros[0][18]<>$valor['ceacod']){
                                 if(!$cadenaActualizar ){
-                                    $cadenaActualizar = "NOT_CEA_COD='".$valor['ceacod']."'";
+                                    $cadenaActualizar = "NOT_CEA_COD=".$valor['ceacod']."";
                                     $logModificaInfoBasica = "NOT_CEA_COD: ".$registros[0][18]."=>".$valor['ceacod'];
                                 }else{
-                                    $cadenaActualizar .= ", NOT_CEA_COD='".$valor['ceacod']."'";
+                                    $cadenaActualizar .= ", NOT_CEA_COD=".$valor['ceacod']."";
                                     $logModificaInfoBasica .= ", NOT_CEA_COD: ".$registros[0][18]."=>".$valor['ceacod'];
                                 }
 			}
@@ -373,6 +373,7 @@ class funciones_admin_panelPrincipal extends funcionGeneral
                             $valor['cadenaActualizar']=$cadenaActualizar;
                             $sql=$this->sql->cadena_sql($this->configuracion,$this->acceso_oci,"actualizarRegistroNota",$valor);
                             $registro2=$this->ejecutarSQl($this->configuracion,$this->acceso_oci,$sql,"");
+                           
                         }
                     }
                         //verificamos que se halla realizado la actualización

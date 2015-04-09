@@ -38,7 +38,7 @@ class sql_panelPrincipal extends sql
 				
 			case "consultarCarreras":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="TO_CHAR(cra_cod) cra_cod, ";
+				$cadena_sql.="cra_cod, ";
 				$cadena_sql.="cra_nombre ";
 				$cadena_sql.="FROM accra ";
 				$cadena_sql.="WHERE ";
@@ -86,7 +86,7 @@ class sql_panelPrincipal extends sql
 				}
 				$cadena_sql.="AND ";
 				//$cadena_sql.="TO_NUMBER(TO_CHAR(SYSDATE,'YYYYMMDD')) not between TO_NUMBER(TO_CHAR(ACE_FEC_INI,'YYYYMMDD')) and TO_NUMBER(TO_CHAR(ACE_FEC_FIN,'YYYYMMDD')) ";
-                                $cadena_sql.="TO_NUMBER(TO_CHAR(SYSDATE,'YYYYMMDD')) between TO_NUMBER(TO_CHAR(ACE_FEC_INI,'YYYYMMDD')) and TO_NUMBER(TO_CHAR(ACE_FEC_FIN,'YYYYMMDD')) ";
+                                $cadena_sql.="current_date between ACE_FEC_INI and ACE_FEC_FIN ";
 				break;
 				
 			case "consultarRegistros":
@@ -94,7 +94,7 @@ class sql_panelPrincipal extends sql
 				$cadena_sql.="NUMERO, "; //aqui deberia ir el rownum
 				$cadena_sql.="CODIGO ";
 				$cadena_sql.="FROM(";
-				$cadena_sql.="	SELECT rownum NUMERO, ";
+				$cadena_sql.="	SELECT row_NUMBER() OVER (ORDER BY codigo) AS NUMERO, ";
 				$cadena_sql.="		CODIGO ";
 				$cadena_sql.="	FROM( ";
 				$cadena_sql.="		SELECT DISTINCT";//registros del proyecto de las notas del estudiante
@@ -103,7 +103,7 @@ class sql_panelPrincipal extends sql
 				$cadena_sql.="		WHERE cra_cod=not_cra_cod ";
 				$cadena_sql.="		AND not_est_cod=est_cod ";
 				$cadena_sql.="		AND cra_emp_nro_iden=".$variable['usuario']." ";
-				$cadena_sql.=isset($variable['filtroEstudiante'])?" AND not_est_cod like '%".$variable['filtroEstudiante']."%'":"";
+				$cadena_sql.=isset($variable['filtroEstudiante'])?" AND not_est_cod::text like '%".$variable['filtroEstudiante']."%'":"";
 				$cadena_sql.=isset($variable['filtroNombre'])?" AND est_nombre like UPPER('%".$variable['filtroNombre']."%')":"";
 				$cadena_sql.=isset($variable['filtroPlan'])?" AND est_pen_nro like '%".$variable['filtroPlan']."%'":"";
 				$cadena_sql.=isset($variable['filtroIdentificacion'])?" AND est_nro_iden like '%".$variable['filtroIdentificacion']."%'":"";
@@ -118,7 +118,7 @@ class sql_panelPrincipal extends sql
 				$cadena_sql.="		FROM accra,acest ";
 				$cadena_sql.="		WHERE cra_cod=est_cra_cod ";
 				$cadena_sql.="		AND cra_emp_nro_iden=".$variable['usuario']." ";
-				$cadena_sql.=isset($variable['filtroEstudiante'])?" AND est_cod like '%".$variable['filtroEstudiante']."%'":"";
+				$cadena_sql.=isset($variable['filtroEstudiante'])?" AND est_cod::text like '%".$variable['filtroEstudiante']."%'":"";
 				$cadena_sql.=isset($variable['filtroNombre'])?" AND est_nombre like UPPER('%".$variable['filtroNombre']."%')":"";
 				$cadena_sql.=isset($variable['filtroPlan'])?" AND est_pen_nro like '%".$variable['filtroPlan']."%'":"";
 				$cadena_sql.=isset($variable['filtroIdentificacion'])?" AND est_nro_iden like '%".$variable['filtroIdentificacion']."%'":"";
@@ -128,8 +128,9 @@ class sql_panelPrincipal extends sql
                                 $cadena_sql.=isset($variable['filtroCarrera'])?" AND cra_nombre like '%".$variable['filtroCarrera']."%'":"";
 				$cadena_sql.=isset($variable['filtroEstado'])?" AND est_estado_est like '%".$variable['filtroEstado']."%'":"";
 				
-				$cadena_sql.="		ORDER BY CODIGO asc ) ";
-				$cadena_sql.=") ";
+				$cadena_sql.="		ORDER BY CODIGO asc ) as codigo ";
+				$cadena_sql.=") AS registro ";
+                                
 				$cadena_sql.="WHERE 1=1 ";
 				//$cadena_sql.="AND NUMERO=".$variable['registroActual'];
 				break;
@@ -145,7 +146,7 @@ class sql_panelPrincipal extends sql
 				$cadena_sql.="not_nota, "; //6
 				$cadena_sql.="not_obs, ";	//7
 				$cadena_sql.="not_est_reg, ";//8
-				$cadena_sql.="rownum, ";//9
+				$cadena_sql.="row_NUMBER() OVER () AS NUMERO, ";//9
 				$cadena_sql.="est_cra_cod, ";//10
 				$cadena_sql.="not_est_cod, ";//11
 				$cadena_sql.="est_nombre, ";//12
@@ -193,7 +194,7 @@ class sql_panelPrincipal extends sql
 				$cadena_sql.="not_nota, "; //6
 				$cadena_sql.="not_obs, ";	//7
 				$cadena_sql.="not_est_reg, ";//8
-				$cadena_sql.="rownum, ";//9
+				$cadena_sql.="row_NUMBER() OVER () AS NUMERO, ";//9
 				$cadena_sql.="est_cra_cod, ";//10
 				$cadena_sql.="not_est_cod, ";//11
 				$cadena_sql.="est_nombre, ";//12
