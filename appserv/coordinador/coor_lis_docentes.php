@@ -40,7 +40,7 @@ if($_REQUEST['cracod']){
 	$row_doc = $conexion->ejecutarSQL($configuracion,$accesoOracle,$qry_doc,"busqueda");
 	$NombreCarrera = isset($NombreCarrera) ? $NombreCarrera:"";
 	echo'<table align="center" border="1" width="90%" cellpadding="1" cellspacing="0">
-	<caption><span class="Estilo5">PROYECTO CURRICULAR: '.$NomCra->rescataNombre($NombreCarrera).'<br>
+	<caption><span class="Estilo5">PROYECTO CURRICULAR: '.$NomCra->rescataNombre($carrera, $NombreCarrera).'<br>
 	LISTADO DE DOCENTES CON ASIGNACI&Oacute;N ACAD&Eacute;MICA PARA EL PER&Iacute;ODO '.$ano.'-'.$per.'
 	</span></caption>
 	<tr class="tr">
