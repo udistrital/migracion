@@ -22,7 +22,7 @@ else{
 	$pmenu = 'coorcred_pag_menu.php';
 	if($configuracion['activar_caduca_pwd']=='S')
 		{ 
-		     include_once("../clase/crypto/Encriptador.class.php");
+		    include_once("../clase/crypto/Encriptador.class.php");
 			$miCodificador=Encriptador::singleton();
 			$usuario = $_SESSION['usuario_login'];
 			$identificacion = $_SESSION['usuario_login'];
@@ -31,7 +31,7 @@ else{
 			$tipo=28;
 			$tokenCondor = $miCodificador->codificar($tokenCondor);
 			$opcion="temasys=";
-			$variable.="gestionPassword&pagina=validarActualizacion"; 
+			$variable="gestionPassword&pagina=validarActualizacion"; 
                         $variable.="&usuario=".$usuario;
 			$variable.="&tipo=".$tipo;
 			$variable.="&token=".$tokenCondor;
@@ -40,14 +40,12 @@ else{
 			$variable=$miCodificador->codificar($variable);
 			$enlaceCambioPassword=$indiceSaraPassword.$opcion.$variable;
 			$pagpal=$indiceSaraPassword.$opcion.$variable;
+			
 		}  
 	else
 		{
 		 $pagpal = 'coorcred_pag_principal.php';	
-		}
-
-   
-    
+		}   
 }
 ?>
 <html>

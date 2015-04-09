@@ -40,7 +40,7 @@ $variable.="&modulo=Coordinador";
 $variable.="&aplicacion=Condor";
 
 $variable=$cripto->codificar_url($variable,$configuracion);
-$enlacePagina=$indiceAcademico.$variable;
+$enlacePagina=$variable;
 
 echo "<script>location.replace('".$indice.$enlacePagina."')</script>";
 
