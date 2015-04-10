@@ -101,12 +101,12 @@ $notas_estudiantes = $conexion->ejecutarSQL($configuracion,$accesoOracle,$cadena
 
 echo '</div>';
 
-	$cadena_sql="SELECT contenido FROM avisos where sysdate between fecha_publicacion and fecha_desfijacion and aplicacion='CONDOR' order by prioridad,fecha_publicacion";
+	$cadena_sql="SELECT contenido FROM avisos where current_timestamp between fecha_publicacion and fecha_desfijacion and aplicacion='CONDOR' order by prioridad,fecha_publicacion";
 	$mensajes=$conexion->ejecutarSQL($configuracion,$accesoOracle,$cadena_sql,"busqueda");
 
 	if(is_array($mensajes)){
 		echo "<div class='mensaje_title'>";
-		echo NOTICIAS;
+		echo "NOTICIAS";
 		echo "</div>";
 	}
 
