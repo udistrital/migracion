@@ -191,10 +191,13 @@ class funcion_registroCambiarEstados extends funcionGeneral
       
       /**
        * Funcion que crea un arreglo de datos de estudiantes del proyecto
+       * Se ajusta pare tener en cuenta solo el año y periodo actual del cierre 2014/12/30
        */
       function buscarDatosEstudiantes() {
             $variables=array('estados'=>"'A', 'B', 'D', 'F', 'H', 'J', 'K', 'M', 'O', 'V'",
-                            'codProyecto'=>$this->codProyecto);
+                            'codProyecto'=>$this->codProyecto,
+                            'ano'=>$this->periodo[0]['ANO'],
+                            'periodo'=>$this->periodo[0]['PERIODO']);
             $this->datosEstudiantes=$this->consultarDatosEstudiantes($variables);
             $this->inscripciones=$this->consultaInscripcionesEstudiantesProyecto($variables);
             foreach ($this->datosEstudiantes as $numero=>$estudiante)
@@ -555,6 +558,12 @@ class funcion_registroCambiarEstados extends funcionGeneral
        * @return type
        */
       function registrarDatosHistorico($datosEstudiante) {
+            foreach ($datosEstudiante as $key => $value) {
+                if($value=='')
+                {
+                    $datosEstudiante[$key]='null';
+                }
+            }            
             $cadena_sql=$this->sql->cadena_sql('registrarHistoricoDatosEstudiantes',$datosEstudiante);
             $resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "");
             return $this->totalAfectados($this->configuracion, $this->accesoOracle);

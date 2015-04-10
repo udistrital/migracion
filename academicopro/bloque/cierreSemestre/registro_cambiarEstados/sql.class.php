@@ -94,17 +94,20 @@ class sql_registroCambiarEstados extends sql
              case 'consultarPromedioEstudiante':
                 $cadena_sql=" SELECT ";
                 $cadena_sql.="fa_promedio_nota(".$variable.") PROMEDIO";
-                $cadena_sql.=" FROM dual";
             break;
                  
             
+//Se ajusta pare tener en cuenta solo el año y periodo actual del cierre 2014/12/30          
             case 'consultarInscripciones':
                 $cadena_sql=" SELECT DISTINCT ins_est_cod CODIGO";
                 $cadena_sql.=" FROM acins";
                 $cadena_sql.=" INNER JOIN acest ON est_cod=ins_est_cod";
+                $cadena_sql.=" AND est_cra_cod=ins_cra_cod";
+                $cadena_sql.=" WHERE ins_estado ='A'";
+                $cadena_sql.=" AND ins_ano=".$variable['ano'];
+                $cadena_sql.=" AND ins_per=".$variable['periodo'];
                 $cadena_sql.=" AND est_cra_cod=".$variable['codProyecto'];
                 $cadena_sql.=" AND est_estado_est in (".$variable['estados'].")";
-                $cadena_sql.=" WHERE ins_estado ='A'";
             break;
             
             case 'consultarHistoricoEstudiantes':
@@ -146,18 +149,18 @@ class sql_registroCambiarEstados extends sql
                 $cadena_sql.=", EST_ACUERDO";
                 $cadena_sql.=", EST_PEN_NRO";
                 $cadena_sql.=", EST_IND_CRED)";
-                $cadena_sql.=" VALUES ('".$variable['EST_COD']."'";
-                $cadena_sql.=", '".$variable['EST_CRA_COD']."'";
-                $cadena_sql.=", '".$variable['EST_VALOR_MATRICULA']."'";
+                $cadena_sql.=" VALUES (".$variable['EST_COD']."";
+                $cadena_sql.=", ".$variable['EST_CRA_COD']."";
+                $cadena_sql.=", ".$variable['EST_VALOR_MATRICULA']."";
                 $cadena_sql.=", '".$variable['EST_EXENTO']."'";
-                $cadena_sql.=", '".$variable['EST_MOTIVO_EXENTO']."'";
+                $cadena_sql.=", ".$variable['EST_MOTIVO_EXENTO']."";
                 $cadena_sql.=", '".$variable['EST_ESTADO']."'";
-                $cadena_sql.=", '".$variable['EST_ANO']."'";
-                $cadena_sql.=", '".$variable['EST_PER']."'";
+                $cadena_sql.=", ".$variable['EST_ANO']."";
+                $cadena_sql.=", ".$variable['EST_PER']."";
                 $cadena_sql.=", 'A'";
-                $cadena_sql.=", '".$variable['EST_PORCENTAJE']."'";
-                $cadena_sql.=", '".$variable['EST_ACUERDO']."'";
-                $cadena_sql.=", '".$variable['EST_PEN_NRO']."'";
+                $cadena_sql.=", ".$variable['EST_PORCENTAJE']."";
+                $cadena_sql.=", ".$variable['EST_ACUERDO']."";
+                $cadena_sql.=", ".$variable['EST_PEN_NRO']."";
                 $cadena_sql.=", '".$variable['EST_IND_CRED']."')";
             break;
 
@@ -174,16 +177,16 @@ class sql_registroCambiarEstados extends sql
                 $cadena_sql.=", REG_PROMEDIO";
                 $cadena_sql.=", REG_NUMERO_RETIROS";
                 $cadena_sql.=", REG_REGLAMENTO)";
-                $cadena_sql.=" VALUES ('".$variable['EST_CRA_COD']."'";
-                $cadena_sql.=", '".$variable['EST_COD']."'";
+                $cadena_sql.=" VALUES (".$variable['EST_CRA_COD']."";
+                $cadena_sql.=", ".$variable['EST_COD']."";
                 $cadena_sql.=", '0'";
                 $cadena_sql.=", 'A'";
                 $cadena_sql.=", '0'";
                 $cadena_sql.=", '0'";
-                $cadena_sql.=", '".$variable['EST_ANO']."'";
-                $cadena_sql.=", '".$variable['EST_PER']."'";
-                $cadena_sql.=", '".$variable['EST_PROMEDIO']."'";
-                $cadena_sql.=", '".$variable['EST_NUM_RETIROS']."'";
+                $cadena_sql.=", ".$variable['EST_ANO']."";
+                $cadena_sql.=", ".$variable['EST_PER']."";
+                $cadena_sql.=", ".$variable['EST_PROMEDIO']."";
+                $cadena_sql.=", ".$variable['EST_NUM_RETIROS']."";
                 $cadena_sql.=", 'N')";
             break;
 
@@ -205,7 +208,7 @@ class sql_registroCambiarEstados extends sql
                 $cadena_sql.=" (";
                 $cadena_sql.=" 72,";
                 $cadena_sql.=" ".$variable['codProyecto'].",";
-                $cadena_sql.=" sysdate,";
+                $cadena_sql.=" CURRENT_TIMESTAMP,";
                 $cadena_sql.=" ".$variable['tipoProyecto'].",";
                 $cadena_sql.=" ".$variable['codDependencia'].",";
                 $cadena_sql.=" ".$variable['ano'].",";
@@ -218,7 +221,7 @@ class sql_registroCambiarEstados extends sql
         
             case 'actualizarEvento':
                 $cadena_sql=" UPDATE ACCALEVENTOS";
-                $cadena_sql.=" SET ACE_FEC_FIN=sysdate";
+                $cadena_sql.=" SET ACE_FEC_FIN=CURRENT_TIMESTAMP";
                 $cadena_sql.=" WHERE";
                 $cadena_sql.=" ACE_COD_EVENTO=72";
                 $cadena_sql.=" AND ACE_CRA_COD=".$variable['codProyecto'];
@@ -263,11 +266,11 @@ class sql_registroCambiarEstados extends sql
                 $cadena_sql.=" reg_numero_retiros NUM_RETIROS";
                 $cadena_sql.=" FROM reglamento A";
                 $cadena_sql.=" WHERE A.reg_est_cod =".$variable['codigo'];
-                $cadena_sql.=" AND A.reg_ano||a.reg_per =";
-                $cadena_sql.=" (SELECT max(B.reg_ano||B.reg_per)";
+                $cadena_sql.=" AND A.reg_ano::text||a.reg_per::text =";
+                $cadena_sql.=" (SELECT max(B.reg_ano::text||B.reg_per::text)";
                 $cadena_sql.=" FROM reglamento B";
                 $cadena_sql.=" WHERE B.reg_est_cod = A.reg_est_cod";
-                $cadena_sql.=" AND B.reg_ano||B.reg_per!=".$variable['anioper'].")";
+                $cadena_sql.=" AND B.reg_ano::text||B.reg_per::text!='".$variable['anioper']."')";
                 break;
        }
 
