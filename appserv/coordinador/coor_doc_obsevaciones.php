@@ -3,7 +3,6 @@ require_once('dir_relativo.cfg');
 require_once(dir_conect.'valida_pag.php');
 require_once(dir_script.'fu_cabezote.php');
 require_once(dir_conect.'fu_tipo_user.php');
-
 include_once("../clase/multiConexion.class.php");
 
 $esta_configuracion=new config();
@@ -13,7 +12,8 @@ $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 
 fu_tipo_user(4);
-session_name($usuarios_sesion);
+if(isset($_REQUEST['usuarios_sesion'])){
+session_name($usuarios_sesion);}
 ?>
 <HTML>
 <HEAD><TITLE>Observaciones de la evaluaci&oacute;n anterior</TITLE>
@@ -30,7 +30,7 @@ fu_cabezote("OBSERVACIONES DE LA EVALUACI&Oacute;N DOCENTE");
 $QryAnio = "SELECT ape_ano,ape_per
 	FROM acasperi
 	WHERE ape_ano >= 2005
-	AND ape_ano||ape_per != 20051
+	AND ape_ano::text||ape_per::text != '20051'
 	AND ape_per != 2
 	AND ape_estado != 'X'
 	ORDER BY 1 DESC";
@@ -38,7 +38,9 @@ $RowAnio = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryAnio,"busqued
 $a = $RowAnio[0][0];
 $p = $RowAnio[0][1];
 
-print'<center><form name="AnoPer" method="POST" action="'.$_SERVER['PHP_SELF'].'">
+//echo '<center><form name="AnoPer" method="POST" action="/appserv/coordinador/coor_doc_obsevaciones.php">		
+
+print'<center><form name="AnoPer" method="POST" action="'.$_SERVER['PHP_SELF'].'">		
 Seleccione un per&iacute;odo: <select size="1" name="Per">
 <option value="" selected>Per&iacute;odos</option>';
 $i=0;
@@ -49,8 +51,8 @@ $i++;
 }
 print'</select>
 <input type="submit" name="Submit" value="Consultar"></form></center>';
-
-if(substr($_REQUEST['Per'],0,4)=="" || substr($_REQUEST['Per'],5,1)==""){
+$perio=isset($_REQUEST['Per'])?$_REQUEST['Per']:"";
+if(substr($perio,0,4)=="" || substr($perio,5,1)==""){
    $anio = $a;
    $peri = $p;
 }else{
@@ -72,7 +74,7 @@ $registro = $conexion->ejecutarSQL($configuracion,$accesoOracle,$consulta,"busqu
 }*/
 ?>
 <p></p>
-  <p align="center"><h3>DOCENTE: <? print $NomDoc->rescataNombre($_SESSION['ccfun']);?></h3></p>
+  <p align="center"><h3>DOCENTE: <? print $NomDoc->rescataNombre($_SESSION['ccfun'],"NombreCarera");?></h3></p>
   <p align="center" class="Estilo2">Las observaciones aqu&iacute; publicadas, son mostradas tal cual fueron digitadas por los estudiantes.</p>
   <table width="95%"  border="1" align="center" cellpadding="2" cellspacing="0">
   <caption class="Estilo5">Observaciones hechas por los estudiantes en el proceso de evaluaci&oacute;n docente</caption>

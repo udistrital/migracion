@@ -33,7 +33,7 @@ $NomCra = new Nombres;
 require_once('coor_lis_desp_carrera.php');
 
 if($_REQUEST['cracod']){
-   print'<div align="center"><span class="Estilo5">PROYECTO CURRICULAR: '.$NomCra->rescataNombre($_REQUEST['cracod']).'</span></div>';
+   print'<div align="center"><span class="Estilo5">PROYECTO CURRICULAR: '.$NomCra->rescataNombre($_REQUEST['cracod'],"NombreCarrera").'</span></div>';
 
    print'<table width="70%" border="0" align="center" cellpadding="2" cellspacing="0">
 	 <caption>docentes con carga acad&eacute;mica en el proyecto curricular</caption>';
@@ -45,13 +45,15 @@ if($_REQUEST['cracod']){
 	
 	//require_once(dir_script.'msql_correos_doc.php');
 	$Qry_EmDoc = "SELECT DISTINCT(DOC_NOMBRE||' '||DOC_APELLIDO),DOC_EMAIL,DOC_NRO_IDEN
-		FROM ACDOCENTE,ACCARGA,ACASPERI
-		WHERE APE_ANO = CAR_APE_ANO
-		AND APE_PER = CAR_APE_PER
-		AND CAR_CRA_COD = $carrera
+		FROM ACDOCENTE,ACCARGAS,ACCURSOS, ACHORARIOS, ACASPERI
+		WHERE APE_ANO = CUR_APE_ANO
+		AND APE_PER = CUR_APE_PER
+		AND CUR_CRA_COD = $carrera
+		AND CUR_ID = HOR_ID_CURSO 
+		AND HOR_ID = CAR_HOR_ID
 		AND CAR_ESTADO = 'A'
 		AND APE_ESTADO IN ('A','P')
-		AND DOC_NRO_IDEN = CAR_DOC_NRO_IDEN
+		AND DOC_NRO_IDEN = CAR_DOC_NRO
 		AND DOC_EMAIL IS NOT NULL
 		AND DOC_ESTADO = 'A'";
 

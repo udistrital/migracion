@@ -12,4 +12,5 @@ $consulta = "SELECT EPE_CUR_ASI_COD,
 	AND EPE_DOC_NRO_IDEN = ".$_SESSION['ccfun']."
 	AND EPE_ESTADO = 'A'
 	AND EPE_OBSERVA IS NOT NULL";
+
 ?>

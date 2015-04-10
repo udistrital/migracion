@@ -7,7 +7,9 @@ foreach($_REQUEST as $key=>$value)
 	{$variables[$key]=$_REQUEST[$key];}
 //echo "validacion ".$_SESSION['usuario_login'];
 
+if (isset($_SERVER['HTTP_REFERER'])){
 $url = explode("?",$_SERVER['HTTP_REFERER']);
+}
 
 //echo $url."mmm<br>"; exit; 
 //var_dump($url); //exit;
