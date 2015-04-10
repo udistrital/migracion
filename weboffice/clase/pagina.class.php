@@ -234,7 +234,8 @@ class pagina
 				else
 				{
 					$this->id_usuario=0;
-                                        $usser=$_REQUEST['usuario'];
+                                        if (isset($_REQUEST['usuario']))                                        
+                                        {$usser=$_REQUEST['usuario'];}
 				}
                                 
                                 if(isset($usser))
