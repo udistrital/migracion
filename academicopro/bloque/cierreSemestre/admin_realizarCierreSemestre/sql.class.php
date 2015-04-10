@@ -81,7 +81,7 @@ class sql_adminRealizarCierreSemestre extends sql
                     $cadena_sql.=" ins_est_cod COD_ESTUDIANTE,";
                     $cadena_sql.=" ins_asi_cod COD_ESPACIO,";
                     $cadena_sql.=" ins_gr GRUPO,";
-                    $cadena_sql.=" nvl(ins_obs,0) OBSERVACION,";
+                    $cadena_sql.=" coalesce(ins_obs,0) OBSERVACION,";
                     $cadena_sql.=" ins_estado ESTADO,";
                     $cadena_sql.=" ins_ano ANO,";
                     $cadena_sql.=" ins_per PERIODO,";
@@ -207,7 +207,7 @@ class sql_adminRealizarCierreSemestre extends sql
                     $cadena_sql.=" ins_per PERIODO,";
                     $cadena_sql.=" ins_nota_acu NOTA,";
                     $cadena_sql.=" ins_gr GRUPO,";
-                    $cadena_sql.=" NVL(ins_obs,0) OBSERVACION,";
+                    $cadena_sql.=" coalesce(ins_obs,0) OBSERVACION,";
                     $cadena_sql.=" ins_cred CREDITOS,";
                     $cadena_sql.=" ins_nro_ht HTD,";
                     $cadena_sql.=" ins_nro_hp HTC,";
@@ -229,7 +229,7 @@ class sql_adminRealizarCierreSemestre extends sql
                     $cadena_sql.=" ins_per PERIODO,";
                     $cadena_sql.=" ins_nota NOTA,";
                     $cadena_sql.=" cur_grupo GRUPO,";
-                    $cadena_sql.=" NVL(ins_obs,0) OBSERVACION,";
+                    $cadena_sql.=" coalesce(ins_obs,0) OBSERVACION,";
                     $cadena_sql.=" ins_cred CREDITOS,";
                     $cadena_sql.=" ins_nro_ht HTD,";
                     $cadena_sql.=" ins_nro_hp HTC,";
@@ -253,24 +253,24 @@ class sql_adminRealizarCierreSemestre extends sql
                     $cadena_sql="INSERT INTO ACNOT ";
                     $cadena_sql.="(NOT_CRA_COD, NOT_EST_COD, NOT_ASI_COD, NOT_ANO, NOT_PER, NOT_SEM, NOT_NOTA, NOT_GR, NOT_OBS, NOT_FECHA, NOT_EST_REG, NOT_CRED, NOT_NRO_HT, NOT_NRO_HP, NOT_NRO_AUT, NOT_CEA_COD, NOT_ASI_COD_INS, NOT_ASI_HOMOLOGA, NOT_EST_HOMOLOGA) ";
                     $cadena_sql.="VALUES (";
-                    $cadena_sql.="'".$variable['NOT_CRA_COD']."',";
-                    $cadena_sql.="'".$variable['NOT_EST_COD']."',";
-                    $cadena_sql.="'".$variable['NOT_ASI_COD']."',";
-                    $cadena_sql.="'".$variable['NOT_ANO']."',";
-                    $cadena_sql.="'".$variable['NOT_PER']."',";
-                    $cadena_sql.="'".$variable['NOT_SEM']."',";
-                    $cadena_sql.="'".$variable['NOT_NOTA']."',";
-                    $cadena_sql.="'".$variable['NOT_GR']."',";
-                    $cadena_sql.="'".$variable['NOT_OBS']."',";
+                    $cadena_sql.="".$variable['NOT_CRA_COD'].",";
+                    $cadena_sql.="".$variable['NOT_EST_COD'].",";
+                    $cadena_sql.="".$variable['NOT_ASI_COD'].",";
+                    $cadena_sql.="".$variable['NOT_ANO'].",";
+                    $cadena_sql.="".$variable['NOT_PER'].",";
+                    $cadena_sql.="".$variable['NOT_SEM'].",";
+                    $cadena_sql.="".$variable['NOT_NOTA'].",";
+                    $cadena_sql.="".$variable['NOT_GR'].",";
+                    $cadena_sql.="".$variable['NOT_OBS'].",";
                     $cadena_sql.="to_date('".$variable['NOT_FECHA']."','dd/mm/yyyy'),";
                     $cadena_sql.="'".$variable['NOT_EST_REG']."',";
-                    $cadena_sql.="'".$variable['NOT_CRED']."',";
-                    $cadena_sql.="'".$variable['NOT_NRO_HT']."',";
-                    $cadena_sql.="'".$variable['NOT_NRO_HP']."',";
-                    $cadena_sql.="'".$variable['NOT_NRO_AUT']."',";
-                    $cadena_sql.="'".$variable['NOT_CEA_COD']."',";
-                    $cadena_sql.="'".$variable['NOT_ASI_COD_INS']."',";
-                    $cadena_sql.="'".$variable['NOT_ASI_HOMOLOGA']."',";
+                    $cadena_sql.="".$variable['NOT_CRED'].",";
+                    $cadena_sql.="".$variable['NOT_NRO_HT'].",";
+                    $cadena_sql.="".$variable['NOT_NRO_HP'].",";
+                    $cadena_sql.="".$variable['NOT_NRO_AUT'].",";
+                    $cadena_sql.="".$variable['NOT_CEA_COD'].",";
+                    $cadena_sql.="".$variable['NOT_ASI_COD_INS'].",";
+                    $cadena_sql.="".$variable['NOT_ASI_HOMOLOGA'].",";
                     $cadena_sql.="'".$variable['NOT_EST_HOMOLOGA']."')";
                 break;
             
@@ -304,8 +304,8 @@ class sql_adminRealizarCierreSemestre extends sql
                     $cadena_sql.=" (";
                     $cadena_sql.=" 71,";
                     $cadena_sql.=" ".$variable['codProyecto'].",";
-                    $cadena_sql.=" sysdate,";
-                    $cadena_sql.=" '',";
+                    $cadena_sql.=" CURRENT_TIMESTAMP,";
+                    $cadena_sql.=" null,";
                     $cadena_sql.=" ".$variable['tipoProyecto'].",";
                     $cadena_sql.=" ".$variable['codDependencia'].",";
                     $cadena_sql.=" ".$variable['ano'].",";
@@ -317,7 +317,7 @@ class sql_adminRealizarCierreSemestre extends sql
 
                 case 'insertarFinEvento':
                     $cadena_sql=" UPDATE ACCALEVENTOS";
-                    $cadena_sql.=" SET ACE_FEC_FIN=sysdate";
+                    $cadena_sql.=" SET ACE_FEC_FIN=CURRENT_TIMESTAMP";
                     $cadena_sql.=" WHERE";
                     $cadena_sql.=" ACE_COD_EVENTO=71";
                     $cadena_sql.=" AND ACE_CRA_COD=".$variable['codProyecto'];
@@ -338,7 +338,7 @@ class sql_adminRealizarCierreSemestre extends sql
 
                 case 'actualizarInicioEvento':
                     $cadena_sql=" UPDATE ACCALEVENTOS";
-                    $cadena_sql.=" SET ACE_FEC_INI=sysdate";
+                    $cadena_sql.=" SET ACE_FEC_INI=CURRENT_TIMESTAMP";
                     $cadena_sql.=" WHERE";
                     $cadena_sql.=" ACE_COD_EVENTO=71";
                     $cadena_sql.=" AND ACE_CRA_COD=".$variable['codProyecto'];

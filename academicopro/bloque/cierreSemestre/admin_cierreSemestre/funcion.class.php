@@ -164,7 +164,6 @@ function consultarCarrera($variable)
                                     //Verifica si el evento 72 ESTADOS CAMBIADOS se encuentra registrado
                                     $eventos=72;
                                     $consultarEvento=$this->consultarEventos($periodoActual,$eventos);
-                                    //var_dump($consultarEvento);exit;
                                     if(!is_array($consultarEvento))
                                     {
                                         if(!is_array($consultarEvento71)||!isset($consultarEvento71[0]['ACE_FEC_FIN']))
