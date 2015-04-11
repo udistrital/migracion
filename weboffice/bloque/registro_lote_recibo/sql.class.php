@@ -25,9 +25,9 @@ class sql_registroLoteRecibo extends sql
 
 			case "verificaCalendario":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="fua_verifica_evento(".$variable["carrera"].",".$variable["evento"].") ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="DUAL ";
+				$cadena_sql.="fua_verifica_evento('".$variable["carrera"]."','".$variable["evento"]."') ";
+				//$cadena_sql.="FROM ";
+				//$cadena_sql.="DUAL ";
 				break;
 
 			case "insertarSolicitud":
@@ -43,7 +43,9 @@ class sql_registroLoteRecibo extends sql
 				$cadena_sql.="`cuota`, ";
 				$cadena_sql.="`id_carrera`, ";
 				$cadena_sql.="`tipoPlantilla`, ";
-				$cadena_sql.="`unidad` ";
+				$cadena_sql.="`unidad`, ";
+                                $cadena_sql.="`secuencia`, ";
+                                $cadena_sql.="`observacion` ";
 				$cadena_sql.=") ";
 				$cadena_sql.="VALUES ";
 				$cadena_sql.="( ";
@@ -56,7 +58,9 @@ class sql_registroLoteRecibo extends sql
 				$cadena_sql.="'".$variable['cuota']."', ";
 				$cadena_sql.="'".$variable['carrera']."', ";
 				$cadena_sql.="'".$variable['plantilla']."', ";
-				$cadena_sql.="'".$variable['unidad']."' ";
+				$cadena_sql.="'".$variable['unidad']."', ";
+                                $cadena_sql.="0, ";
+                                $cadena_sql.="'' ";
 				$cadena_sql.=")";
 				break;
 			
@@ -281,6 +285,13 @@ class sql_registroLoteRecibo extends sql
 				$cadena_sql.="WHERE ";
 				$cadena_sql.="cra_cod=".$variable;
 				break;
+                            
+                        case "fechaPagoFacultad":
+                            $cadena_sql="SELECT ";
+                            $cadena_sql.=" cuota, ordinaria, extraordinaria ";
+                            $cadena_sql.="FROM ";
+                            $cadena_sql.="`backoffice_fechasPago`";
+                            break;
 				
 			case "insertarCuota":
 				$cadena_sql="INSERT INTO ";
@@ -305,6 +316,7 @@ class sql_registroLoteRecibo extends sql
 		
 		}
 		return $cadena_sql;
+               // echo $cadena_sql."<br><br>";
 	}
 	
 	

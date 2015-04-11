@@ -35,7 +35,8 @@ $acceso_db=new dbms($configuracion);
 $enlace=$acceso_db->conectar_db();
 if (is_resource($enlace))
 {
-	if(isset($_REQUEST["opcion"]))
+    
+        if(isset($_REQUEST["opcion"]))
 	{
 		$nueva_sesion=new sesiones($configuracion);
 		$nueva_sesion->especificar_enlace($enlace);
@@ -550,7 +551,7 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql="";
 			break;
 	}
-	//echo $cadena_sql;
+	//echo $cadena_sql."<br><br>";
 	return $cadena_sql;
 }
 

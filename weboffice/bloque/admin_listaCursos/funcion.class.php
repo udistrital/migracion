@@ -314,7 +314,7 @@ class funciones_admin_listaCursos extends funcionGeneral
 	}
 	
 	//Registrar estudiantes que se acogen al acuerdo 004/2011
-	function registrarEstudiantes($configuracion, $accesoOracle,$acceso_db)
+	function registrarEstudiantes($configuracion)
 	{
 		if($this->usuario)
 		{
@@ -338,7 +338,7 @@ class funciones_admin_listaCursos extends funcionGeneral
 		} 
 
 		include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
-		$total=count($resultado);			
+		//$total=count($resultado);			
 		setlocale(LC_MONETARY, 'en_US');
 		$indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 		$cripto=new encriptar();

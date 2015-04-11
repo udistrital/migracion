@@ -53,7 +53,7 @@ class bloque_admin_listaCursos extends bloque
 						$this->funcion->verListaCursos($configuracion);
 						break;
 					case "registroAcuerdo":
-						$this->funcion->registrarEstudiantes($configuracion, $accesoOracle,$acceso_db);
+						$this->funcion->registrarEstudiantes($configuracion);
 						break;
 				}
 			}

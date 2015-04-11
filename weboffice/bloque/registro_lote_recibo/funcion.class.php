@@ -27,7 +27,7 @@ class funciones_registroLoteRecibo extends funcionGeneral
 		//Crear conexion a MySQL con la cuenta por defecto
 		$this->acceso_db=$this->conectarDB($configuracion,"");
 		
-		
+                
 		$this->usuario=$this->rescatarValorSesion($configuracion, $this->acceso_db, "id_usuario");
 		$this->identificacion=$this->rescatarValorSesion($configuracion, $this->acceso_db, "identificacion");
                 $this->nivel=$this->rescatarValorSesion($configuracion, $this->acceso_db, "nivelUsuario");
@@ -489,6 +489,7 @@ ________________________________________________________________________________
 		}
 		
 		$this->solicitud["solicitud"]=$this->guardarSolicitud($configuracion);
+                //cho $this->solicitud["solicitud"]."<br>mmmm";
 		if(is_numeric($this->solicitud["solicitud"]))
 		{
 			
@@ -682,12 +683,12 @@ ________________________________________________________________________________
 		
 		if($resultado==true)
 		{
-			
+                        
 			return $this->acceso_db->ultimo_insertado();
 		
 		}
 		else
-		{
+		{       echo "NOOOO"; 
 			return false;
 		
 		}
@@ -891,9 +892,14 @@ ________________________________________________________________________________
 
 //cambiar periodo
 //se adiciona para que consulte la facultad del proyecto de acuerdo a la solicitud y pueda consultar las fechas de generacion para esa facultad
+                                //error_reporting(0);
                                 $variable=array(0=>$this->solicitud["cuotaGuardar"],
                                                 1=>$registroCarrera[0][0]);
-				$laFechaPago=$datoSolicitud->rescatarDatoSolicitud($configuracion, "fechaPagoFacultad",$variable , $this->acceso_db);
+				//$laFechaPago=$datoSolicitud->rescatarDatoSolicitud($configuracion, "fechaPagoFacultad",$variable , $this->acceso_db);
+                                $cadena_sql=$this->sql->cadena_sql($configuracion,$this->acceso_db,"fechaPagoFacultad", $this->solicitud);
+				$laFechaPago=$this->ejecutarSQL($configuracion, $this->acceso_db, $cadena_sql, "busqueda");
+                                
+                                
                                 $this->solicitud["cuotaGuardar"]=$cuota;
 				$fecha=explode("/",$laFechaPago[0][1]);				
 				$dia=$fecha[0];
@@ -906,7 +912,8 @@ ________________________________________________________________________________
 				$anno=$fecha[2];
 				$this->solicitud["fechaExtraordinaria"]=strtotime($mes."/".$dia."/".$anno);
 				$cadena_sql=$this->sql->cadena_sql($configuracion,$this->acceso_db,"insertarCuota", $this->solicitud);
-				$resultado=$this->ejecutarSQL($configuracion, $this->acceso_db, $cadena_sql, "");	
+				$resultado=$this->ejecutarSQL($configuracion, $this->acceso_db, $cadena_sql, "");
+                                //echo $cadena_sql."<br>"; exit;
 				break;
 			
 			//Para postgrado se guardan las fechas que vienen en la plantilla
