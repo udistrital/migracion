@@ -594,6 +594,7 @@ class funcion_registroAplicarReglamento extends funcionGeneral
          * @return boolean
          */
         function actualizarReglamento($motivo,$reglamento,$veces){
+            if ($this->espaciosPerdidos=='')$this->espaciosPerdidos='0';
 		$variables=array('proyecto'=>$this->proyecto,
                                     'anio'=>  $this->anio,
                                     'periodo'=>$this->periodo,
@@ -611,7 +612,12 @@ class funcion_registroAplicarReglamento extends funcionGeneral
                                     'matriculas004'=>$this->matriculas004,
                                     'renovaciones004'=>$this->renovaciones004
                         );
-						 
+                foreach ($variables as $key => $value) {
+                    if($value=='')
+                    {
+                        $variables[$key]='null';
+                    }
+                }
 		$cadena_sql=$this->sql->cadena_sql('actualizarReglamento',$variables);
 		$resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"");
 		

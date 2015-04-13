@@ -150,7 +150,7 @@ class sql_adminCierreSemestre extends sql
                                $cadena_sql.=" coalesce(reg_promedio,0) PROMEDIO,";
                                $cadena_sql.=" coalesce(reg_causal_exclusion,0) CAUSAL_EXCLUSION,";
                                $cadena_sql.=" coalesce(reg_porcentaje_plan,0) PORCENTAJE_PLAN,";
-                               $cadena_sql.=" coalesce(reg_espacio_veces,0) ESPACIOS_REPROBADOS";
+                               $cadena_sql.=" coalesce(reg_espacio_veces,'0') ESPACIOS_REPROBADOS";
                                $cadena_sql.=" FROM acest A";
                                $cadena_sql.=" INNER JOIN reglamento ON A.est_cod=reg_est_cod AND reg_cra_cod=A.est_cra_cod";
                                $cadena_sql.=" INNER JOIN acesthis H ON A.est_cod=H.est_cod AND H.est_ano=reg_ano AND H.est_per=reg_per";

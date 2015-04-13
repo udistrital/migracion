@@ -55,7 +55,7 @@ class sql_registro extends sql
              case 'consultarEstudiantesReglamento':
                 $cadena_sql="SELECT";
                 $cadena_sql.=" reg_est_cod COD_ESTUDIANTE,";
-                $cadena_sql.=" nvl(reg_promedio,0) PROMEDIO,";
+                $cadena_sql.=" coalesce(reg_promedio,0) PROMEDIO,";
                 $cadena_sql.=" est_acuerdo ACUERDO,";
                 $cadena_sql.=" reg_asi_3 HISTORICO,";
                 $cadena_sql.=" est_estado_est ESTADO,";
@@ -92,9 +92,9 @@ class sql_registro extends sql
             case 'consultarEstudiantesReglamentoenPrueba':
                 $cadena_sql="SELECT";
                 $cadena_sql.=" reg_est_cod COD_ESTUDIANTE,";
-                $cadena_sql.=" nvl(reg_promedio,0) PROMEDIO,";
+                $cadena_sql.=" coalesce(reg_promedio,0) PROMEDIO,";
                 $cadena_sql.=" reg_motivo MOTIVO,";
-                $cadena_sql.=" reg_ano||reg_per ANIOPERIODO,";
+                $cadena_sql.=" reg_ano::text||reg_per::text ANIOPERIODO,";
                 $cadena_sql.=" reg_asi_3 HISTORICO,";
                 $cadena_sql.=" reg_reglamento REGLAMENTO";                
                 $cadena_sql.=" FROM";
@@ -109,7 +109,7 @@ class sql_registro extends sql
                 $cadena_sql="SELECT";
                 $cadena_sql.=" reg_est_cod COD_ESTUDIANTE,";
                 $cadena_sql.=" reg_motivo MOTIVO,";
-                $cadena_sql.=" reg_ano||reg_per ANIOPERIODO,";
+                $cadena_sql.=" reg_ano::text||reg_per::text ANIOPERIODO,";
                 $cadena_sql.=" reg_asi_3 HISTORICO,";
                 $cadena_sql.=" reg_reglamento REGLAMENTO";                
                 $cadena_sql.=" FROM";
@@ -126,7 +126,7 @@ class sql_registro extends sql
                 $cadena_sql.=" not_est_cod COD_ESTUDIANTE,";
                 $cadena_sql.=" not_asi_cod COD_ASIGNATURA,";
                 $cadena_sql.=" not_nota NOTA,";
-                $cadena_sql.=" not_ano||not_per ANIOPERIODO,";
+                $cadena_sql.=" not_ano::text||not_per::text ANIOPERIODO,";
                 $cadena_sql.=" not_ano NOTA_ANIO,";
                 $cadena_sql.=" not_per NOTA_PERIODO ";
                 $cadena_sql.=" FROM";
@@ -148,7 +148,7 @@ class sql_registro extends sql
                 $cadena_sql.=" not_est_cod COD_ESTUDIANTE,";
                 $cadena_sql.=" not_asi_cod COD_ASIGNATURA,";
                 $cadena_sql.=" not_nota NOTA,";
-                $cadena_sql.=" not_ano||not_per ANIOPERIODO,";
+                $cadena_sql.=" not_ano::text||not_per::text ANIOPERIODO,";
                 $cadena_sql.=" not_ano NOTA_ANIO,";
                 $cadena_sql.=" not_per NOTA_PERIODO ";
                 $cadena_sql.=" FROM";
@@ -163,18 +163,18 @@ class sql_registro extends sql
             case 'actualizarReglamento':
                 $cadena_sql="UPDATE";
                 $cadena_sql.=" reglamento";
-                $cadena_sql.=" SET reg_motivo='".$variable['motivo']."',";
-                $cadena_sql.=" reg_veces='".$variable['numVecesPerdidos']."',";
-                $cadena_sql.=" reg_asi_3='".$variable['espaciosTercerar']."',";
-                $cadena_sql.=" reg_causal_exclusion='".$variable['causal']."',";
+                $cadena_sql.=" SET reg_motivo=".$variable['motivo'].",";
+                $cadena_sql.=" reg_veces=".$variable['numVecesPerdidos'].",";
+                $cadena_sql.=" reg_asi_3=".$variable['espaciosTercerar'].",";
+                $cadena_sql.=" reg_causal_exclusion=".$variable['causal'].",";
                 $cadena_sql.=" reg_reglamento='".$variable['reglamento']."',";
-                $cadena_sql.=" reg_porcentaje_plan='".$variable['porcentaje']."',";
-                $cadena_sql.=" reg_num_matriculas='".$variable['matriculas']."',";
-                $cadena_sql.=" reg_promedio='".$variable['promedio']."',";
+                $cadena_sql.=" reg_porcentaje_plan=".$variable['porcentaje'].",";
+                $cadena_sql.=" reg_num_matriculas=".$variable['matriculas'].",";
+                $cadena_sql.=" reg_promedio=".$variable['promedio'].",";
                 $cadena_sql.=" reg_espacio_veces='".$variable['espacios_perdidos']."',";
-                $cadena_sql.=" reg_renovaciones_004='".$variable['renovaciones004']."',";
-                $cadena_sql.=" reg_porcentaje_004='".$variable['porcentaje004']."',";
-                $cadena_sql.=" reg_matriculas_004='".$variable['matriculas004']."'";
+                $cadena_sql.=" reg_renovaciones_004=".$variable['renovaciones004'].",";
+                $cadena_sql.=" reg_porcentaje_004=".$variable['porcentaje004'].",";
+                $cadena_sql.=" reg_matriculas_004=".$variable['matriculas004']."";
                 $cadena_sql.=" WHERE reg_ano='".$variable['anio']."'";
                 $cadena_sql.=" AND reg_per='".$variable['periodo']."'";
                 $cadena_sql.=" AND reg_est_cod='".$variable['estudiante']."'";
@@ -217,7 +217,7 @@ class sql_registro extends sql
                 $cadena_sql.=" (";
                 $cadena_sql.=" ".$variable['evento'].",";
                 $cadena_sql.=" ".$variable['proyecto'].",";
-                $cadena_sql.=" sysdate,";
+                $cadena_sql.=" CURRENT_TIMESTAMP,";
                 $cadena_sql.=" ".$variable['tipo_proyecto'].",";
                 $cadena_sql.=" (SELECT cra_dep_cod FROM accra WHERE cra_cod=".$variable['proyecto']."),";
                 $cadena_sql.=" ".$variable['anio'].",";
@@ -229,7 +229,7 @@ class sql_registro extends sql
         
             case 'insertarFinEvento':
                 $cadena_sql=" UPDATE ACCALEVENTOS";
-                $cadena_sql.=" SET ACE_FEC_FIN=sysdate";
+                $cadena_sql.=" SET ACE_FEC_FIN=CURRENT_TIMESTAMP";
                 $cadena_sql.=" WHERE";
                 $cadena_sql.=" ACE_COD_EVENTO=".$variable['evento'];
                 $cadena_sql.=" AND ACE_CRA_COD=".$variable['proyecto'];
@@ -249,8 +249,8 @@ class sql_registro extends sql
                 $cadena_sql.=" est_pen_nro PLAN,";
                 $cadena_sql.=" est_ind_cred TIPO_ESTUDIANTE,";
                 $cadena_sql.=" plan_creditos CREDITOS_PLAN,";
-                $cadena_sql.=" nvl(sum(not_cred),0) CREDITOS_ESTUDIANTE,";
-                $cadena_sql.=" nvl(count(not_asi_cod),0) ESPACIOS_ESTUDIANTE";
+                $cadena_sql.=" coalesce(sum(not_cred),0) CREDITOS_ESTUDIANTE,";
+                $cadena_sql.=" coalesce(count(not_asi_cod),0) ESPACIOS_ESTUDIANTE";
                 $cadena_sql.=" FROM acnot";
                 $cadena_sql.=" INNER JOIN acest ON est_cod=not_est_cod";
                 $cadena_sql.=" AND est_cra_cod=not_cra_cod";
@@ -260,7 +260,7 @@ class sql_registro extends sql
                 $cadena_sql.=" AND trim(not_est_reg)='A'";
                 $cadena_sql.=" AND (not_nota>=(SELECT cra_nota_aprob FROM accra WHERE cra_cod=not_cra_cod)";
                 $cadena_sql.=" OR not_obs IN (19,22,24))";
-                $cadena_sql.=" AND not_ano||not_per<20113";
+                $cadena_sql.=" AND not_ano::text||not_per::text<'20113'";
                 $cadena_sql.=" GROUP BY est_cra_cod,est_pen_nro,est_ind_cred,plan_creditos";
                 break;
 
@@ -269,8 +269,8 @@ class sql_registro extends sql
                 $cadena_sql.=" est_pen_nro PLAN,";
                 $cadena_sql.=" est_ind_cred TIPO_ESTUDIANTE,";
                 $cadena_sql.=" plan_creditos CREDITOS_PLAN,";
-                $cadena_sql.=" nvl(sum(not_cred),0) CREDITOS_ESTUDIANTE,";
-                $cadena_sql.=" nvl(count(not_asi_cod),0) ESPACIOS_ESTUDIANTE";
+                $cadena_sql.=" coalesce(sum(not_cred),0) CREDITOS_ESTUDIANTE,";
+                $cadena_sql.=" coalesce(count(not_asi_cod),0) ESPACIOS_ESTUDIANTE";
                 $cadena_sql.=" FROM acnot";
                 $cadena_sql.=" INNER JOIN acest ON est_cod=not_est_cod";
                 $cadena_sql.=" AND est_cra_cod=not_cra_cod";
@@ -337,16 +337,16 @@ class sql_registro extends sql
             case 'consultarDatosReglamento':
                 $cadena_sql=" SELECT A.est_cod CODIGO,";
                 $cadena_sql.=" A.est_nombre NOMBRE_ESTUDIANTE,";
-                $cadena_sql.=" NVL(H.est_estado,'-') ESTADO_ANTERIOR,";
-                $cadena_sql.=" NVL(A.est_estado_est,'-') ESTADO_ACTUAL,";
-                $cadena_sql.=" NVL(A.est_acuerdo,'0') ACUERDO,";
-                $cadena_sql.=" NVL(reg_motivo,0) MOTIVO_PRUEBA,";
-                $cadena_sql.=" NVL(reg_asi_3,0) ESP_ACAD_REPRO,";
-                $cadena_sql.=" NVL(reg_veces,0) MAX_VECES_REPROBADO,";
-                $cadena_sql.=" NVL(reg_promedio,0) PROMEDIO,";
-                $cadena_sql.=" NVL(reg_causal_exclusion,0) CAUSAL_EXCLUSION,";
-                $cadena_sql.=" NVL(reg_porcentaje_plan,0) PORCENTAJE_PLAN,";
-                $cadena_sql.=" NVL(reg_espacio_veces,0) ESPACIOS_REPROBADOS";
+                $cadena_sql.=" coalesce(H.est_estado,'-') ESTADO_ANTERIOR,";
+                $cadena_sql.=" coalesce(A.est_estado_est,'-') ESTADO_ACTUAL,";
+                $cadena_sql.=" coalesce(A.est_acuerdo,'0') ACUERDO,";
+                $cadena_sql.=" coalesce(reg_motivo,0) MOTIVO_PRUEBA,";
+                $cadena_sql.=" coalesce(reg_asi_3,0) ESP_ACAD_REPRO,";
+                $cadena_sql.=" coalesce(reg_veces,0) MAX_VECES_REPROBADO,";
+                $cadena_sql.=" coalesce(reg_promedio,0) PROMEDIO,";
+                $cadena_sql.=" coalesce(reg_causal_exclusion,0) CAUSAL_EXCLUSION,";
+                $cadena_sql.=" coalesce(reg_porcentaje_plan,0) PORCENTAJE_PLAN,";
+                $cadena_sql.=" coalesce(reg_espacio_veces,'0') ESPACIOS_REPROBADOS";
                 $cadena_sql.=" FROM acest A";
                 $cadena_sql.=" INNER JOIN reglamento ON A.est_cod=reg_est_cod AND reg_cra_cod=A.est_cra_cod";
                 $cadena_sql.=" INNER JOIN acesthis H ON A.est_cod=H.est_cod AND H.est_ano=reg_ano AND H.est_per=reg_per";
