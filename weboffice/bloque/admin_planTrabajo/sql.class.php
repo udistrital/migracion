@@ -239,9 +239,16 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql=" SELECT tvi_nombre,";
                                 $cadena_sql.=" actividades,";
                                 $cadena_sql.=" carga,";
-                                $cadena_sql.=" DECODE(tvi_cod,1,'PL',6,'PL',8,'PL',0,'SD','VE'),";
-                                $cadena_sql.=" tvi_cod";
-                                $cadena_sql.=" FROM (SELECT tvi_cod, tvi_nombre,";
+                              //  $cadena_sql.=" DECODE(tvi_cod,1,'PL',6,'PL',8,'PL',0,'SD','VE'),";
+
+                                $cadena_sql.=" CASE WHEN TVI_COD=1 THEN 'PL' ";
+                                $cadena_sql.=" WHEN TVI_COD=6 THEN 'PL' ";
+                                $cadena_sql.=" WHEN TVI_COD=8 THEN 'PL' ";
+                                $cadena_sql.=" WHEN TVI_COD=0 THEN 'SD' ";
+                                $cadena_sql.=" ELSE 'VE' END TIPO";
+                                
+                                
+					            $cadena_sql.=" FROM (SELECT tvi_cod, tvi_nombre,";
                                 $cadena_sql.=" (SELECT COUNT(car_tip_vin)";
                                 $cadena_sql.=" FROM accargas";
                                 $cadena_sql.=" INNER JOIN achorarios ON car_hor_id=hor_id";
@@ -261,10 +268,11 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.=" AND dpt_doc_nro_iden=".$variable[4]."";
                                 $cadena_sql.=" AND dpt_estado='A'";
                                 $cadena_sql.=" AND dpt_tvi_cod=actipvin.tvi_cod) actividades";
-                                $cadena_sql.=" FROM actipvin )";
+                                $cadena_sql.=" FROM actipvin ) A" ;
                                 $cadena_sql.=" WHERE (carga+actividades) <> 0";
                                 $cadena_sql.=" ORDER BY tvi_cod ASC";
-				break;
+						break;
+				
 		
                         case 'asignaturasCargaLectiva':
                             

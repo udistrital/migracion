@@ -188,6 +188,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"listaProyectos",$valor);
 		$registroProyectos=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		$cuentaProyectos=count($registroProyectos);
+		
 		if(!is_array($registroProyectos))
 		{
 			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"listaDecanos",$valor);
@@ -216,6 +217,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 				$cuentaProyectos=count($registroProyectos);
 			}
 		}
+		//echo $configuracion['host']; exit;
 		?>
 		<table width="100%" align="center" border="1" cellpadding="10" cellspacing="0" >
 			<tr>
@@ -231,7 +233,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 						</tr>
 						<tr>
 							<td>
-								<p><a href="https://condor.udistrital.edu.co/appserv/manual/plan_trabajo.pdf">
+								<p><a href="<? $configuracion['site']?>/appserv/manual/plan_trabajo.pdf">
 								<img border="0" alt=" " src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]."/pdfito.png"?>" />
 								Ver Manual de Usuario.</a></p>
 							</td>
@@ -353,7 +355,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 							</tr>
 							<!--tr>
 								<td>
-									<p><a href="https://condor.udistrital.edu.co/appserv/manual/plan_trabajo.pdf">
+									<p><a href="<? $configuracion['site']?>/appserv/manual/plan_trabajo.pdf">
 									<img border="0" alt=" " src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]."/pdfito.png"?>" />
 									Ver Manual de Usuario.</a></p>
 								</td>
