@@ -29,12 +29,11 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.cl
   $acceso_db = new dbms($configuracion);
   $enlace = $acceso_db->conectar_db();
   //$valor = $acceso_db->verificar_variables($valor);
-
   $html = new html();
   $conexion = new multiConexion();
   $accesoOracle = $conexion->estableceConexion(75, $configuracion);
 
-  if (is_resource($enlace)) {
+  if (isset($enlace)) {
     if($nivel==4||$nivel==28){
         $listado_proyectos='';
         $cadena_sql="SELECT cra_cod, ";

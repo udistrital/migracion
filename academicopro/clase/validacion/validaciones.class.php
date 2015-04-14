@@ -1688,7 +1688,7 @@ class validarInscripcion {
         	$cadena_sql.=" cra_abrev NOMBRE,";
         	$cadena_sql.=" ctp_pen_nro PLAN,";
         	$cadena_sql.=" tra_nivel NIVEL,";
-        	$cadena_sql.=" NVL(tra_cod_nivel,0) CODIGONIVEL,";
+        	$cadena_sql.=" coalesce(tra_cod_nivel,0) CODIGONIVEL,";
         	$cadena_sql.=" ctp_ind_cred CREDITOS";
         	$cadena_sql.=" FROM ACCRA";
         	$cadena_sql.=" INNER JOIN V_CRA_TIP_PEN ON CTP_CRA_COD=CRA_COD";
@@ -1706,8 +1706,8 @@ class validarInscripcion {
 
         $cadena_sql="SELECT DISTINCT usuweb_codigo_dep DEPENDENCIA,";
         $cadena_sql.=" usuweb_tipo_vinculacion TIPO,";
-        $cadena_sql.=" NVL(TO_CHAR(usuweb_fecha_inicio,'yyyymmddhh24miss'),0) FECHA_INICIO,";
-        $cadena_sql.=" NVL(TO_CHAR(usuweb_fecha_fin,'yyyymmddhh24miss'),0) FECHA_FIN,";
+        $cadena_sql.=" coalesce(TO_CHAR(usuweb_fecha_inicio,'yyyymmddhh24miss'),'0') FECHA_INICIO,";
+        $cadena_sql.=" coalesce(TO_CHAR(usuweb_fecha_fin,'yyyymmddhh24miss'),'0') FECHA_FIN,";
 	$cadena_sql.=" cra_abrev NOMBRE, ";
 	$cadena_sql.=" tra_nivel NIVEL ";
         $cadena_sql.=" FROM ".$this->configuracion['esquema_general']."geusuweb";
@@ -1723,8 +1723,8 @@ class validarInscripcion {
 
         $cadena_sql="SELECT DISTINCT usuweb_codigo_dep DEPENDENCIA,";
         $cadena_sql.=" usuweb_tipo_vinculacion TIPO,";
-        $cadena_sql.=" NVL(TO_CHAR(usuweb_fecha_inicio,'yyyymmddhh24miss'),0) FECHA_INICIO,";
-        $cadena_sql.=" NVL(TO_CHAR(usuweb_fecha_fin,'yyyymmddhh24miss'),0) FECHA_FIN";
+        $cadena_sql.=" coalesce(TO_CHAR(usuweb_fecha_inicio,'yyyymmddhh24miss'),'0') FECHA_INICIO,";
+        $cadena_sql.=" coalesce(TO_CHAR(usuweb_fecha_fin,'yyyymmddhh24miss'),'0') FECHA_FIN";
         $cadena_sql.=" FROM geusuweb";
         $cadena_sql.=" WHERE usuweb_codigo=".$variable;
         $cadena_sql.=" AND usuweb_estado='A'";
@@ -1735,8 +1735,8 @@ class validarInscripcion {
 
         $cadena_sql=" SELECT";
         $cadena_sql.=" SEC_DEP_COD DEPENDENCIA,";
-        $cadena_sql.=" NVL(TO_CHAR(sec_fecha_desde,'yyyymmddhh24miss'),0) FECHA_INICIO,";
-        $cadena_sql.=" NVL(TO_CHAR(sec_fecha_hasta,'yyyymmddhh24miss'),0) FECHA_HASTA";
+        $cadena_sql.=" coalesce(TO_CHAR(sec_fecha_desde,'yyyymmddhh24miss'),'0') FECHA_INICIO,";
+        $cadena_sql.=" coalesce(TO_CHAR(sec_fecha_hasta,'yyyymmddhh24miss'),'0') FECHA_HASTA";
         $cadena_sql.=" FROM acsecretario ";
         $cadena_sql.=" INNER JOIN peemp ON emp_cod=sec_cod ";
         $cadena_sql.=" WHERE emp_nro_iden= ".$variable;
@@ -1823,7 +1823,7 @@ class validarInscripcion {
 
         $cadena_sql= "SELECT";
         $cadena_sql.=" ins_cra_cod PROYECTO,";
-        $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO";
+        $cadena_sql.=" (lpad(cur_cra_cod::text,3,0)||'-'||cur_grupo) GRUPO";
         $cadena_sql.=" FROM acins";
         $cadena_sql.=" INNER JOIN accursos";
         $cadena_sql.=" ON ins_asi_cod= cur_asi_cod AND ins_gr=cur_id and ins_ano= cur_ape_ano AND ins_per= cur_ape_per";
