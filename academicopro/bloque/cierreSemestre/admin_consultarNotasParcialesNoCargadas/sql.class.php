@@ -90,9 +90,9 @@ class sql_adminConsultarNotasParcialesNoCargadas extends sql
                                 $cadena_sql.=" AND INS_ANO=".$variable['anio'];
                                 $cadena_sql.=" AND INS_PER=".$variable['periodo'];
                                 $cadena_sql.=" and INS_NOTA is not null";
-                                $cadena_sql.=" and ins_est_cod||ins_cra_cod||ins_asi_cod||ins_ano||ins_per";
+                                $cadena_sql.=" and ins_est_cod::text||ins_cra_cod::text||ins_asi_cod::text||ins_ano::text||ins_per::text";
                                 $cadena_sql.=" not in (";
-                                $cadena_sql.=" select not_est_cod||not_cra_cod||not_asi_cod||not_ano||not_per from acnot";
+                                $cadena_sql.=" select not_est_cod::text||not_cra_cod::text||not_asi_cod::text||not_ano::text||not_per::text from acnot";
                                 $cadena_sql.=" where not_ano=ins_ano";
                                 $cadena_sql.=" and not_per=ins_per";
                                 $cadena_sql.=" and not_cra_cod=ins_cra_cod)";
@@ -113,7 +113,7 @@ class sql_adminConsultarNotasParcialesNoCargadas extends sql
                                 $cadena_sql.=" (SELECT CUR_GRUPO FROM ACCURSOS WHERE CUR_ASI_COD=INS_ASI_COD AND CUR_APE_ANO=INS_ANO AND CUR_APE_PER=INS_PER AND CUR_ID=INS_GR),";
                                 $cadena_sql.=" INS_OBS,";
                                 $cadena_sql.=" '',";
-                                $cadena_sql.=" sysdate,";
+                                $cadena_sql.=" current_timestamp,";
                                 $cadena_sql.=" 'A',";
                                 $cadena_sql.=" INS_CRED,";
                                 $cadena_sql.=" INS_NRO_HT,";
@@ -121,8 +121,8 @@ class sql_adminConsultarNotasParcialesNoCargadas extends sql
                                 $cadena_sql.=" INS_NRO_AUT,";
                                 $cadena_sql.=" INS_CEA_COD,";
                                 $cadena_sql.=" INS_ASI_COD,";
-                                $cadena_sql.=" '',";
-                                $cadena_sql.=" ''";
+                                $cadena_sql.=" null,";
+                                $cadena_sql.=" null";
                                 $cadena_sql.=" FROM ACINS";
                                 $cadena_sql.=" WHERE INS_CRA_COD =".$variable['codProyecto'];
                                 $cadena_sql.=" AND INS_ANO=".$variable['anio'];
