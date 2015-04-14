@@ -43,11 +43,11 @@ $nombrecampo = "fecnac";
 require_once('msql_coor_consulta_observaciones_est.php');
 $obs_estudiante = $conexion->ejecutarSQL($configuracion,$accesoOracle,$consulta,"busqueda");
 //Actualiza Observaciones
-if($_REQUEST['actualizarObs']) {
+if(isset($_REQUEST['actualizarObs'])) {
     
    	require_once('msql_coor_actualiza_obs_est.php');
 }
-if($_REQUEST['registrarObs']) {
+if(isset($_REQUEST['registrarObs'])) {
     
    	require_once('msql_coor_registra_obs_est.php');
 }

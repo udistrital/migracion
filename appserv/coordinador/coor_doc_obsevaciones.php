@@ -72,9 +72,10 @@ $registro = $conexion->ejecutarSQL($configuracion,$accesoOracle,$consulta,"busqu
 {
 	echo "No hay registros".$consulta."<br>";
 }*/
+
 ?>
 <p></p>
-  <p align="center"><h3>DOCENTE: <? print $NomDoc->rescataNombre($_SESSION['ccfun'],"NombreCarera");?></h3></p>
+  <p align="center"><h3>DOCENTE: <? print $NomDoc->rescataNombre($_SESSION['ccfun'],"NombreDocente");?></h3></p>
   <p align="center" class="Estilo2">Las observaciones aqu&iacute; publicadas, son mostradas tal cual fueron digitadas por los estudiantes.</p>
   <table width="95%"  border="1" align="center" cellpadding="2" cellspacing="0">
   <caption class="Estilo5">Observaciones hechas por los estudiantes en el proceso de evaluaci&oacute;n docente</caption>

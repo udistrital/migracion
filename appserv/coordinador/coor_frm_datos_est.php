@@ -2,7 +2,8 @@
 require_once('dir_relativo.cfg');
 require_once(dir_conect.'valida_pag.php');
 require_once(dir_conect.'fu_tipo_user.php');
-if (!$_REQUEST['tipo']) {
+
+if (!isset($_REQUEST['tipo'])) {
     $_REQUEST['tipo'] = $_SESSION['usuario_nivel'];
 }
 if($_REQUEST['tipo']==110){

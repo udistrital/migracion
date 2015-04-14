@@ -81,13 +81,13 @@ if($tipo==4){
     $datos_estudiante = $conexion->ejecutarSQL($configuracion,$accesoOracle,$consulta_asistente,"busqueda");
 }
 //Actualiza datos
-if($_REQUEST['actualizar']) {
+if(isset($_REQUEST['actualizar'])) {
     
    	require_once('msql_coor_actualiza_datos_est.php');
 }
 if(isset($row_qry)||isset($row_reg))
-{
-    $alerta="SE ACTUALIZARON LOS DATOS DEL ESTUDIANTE";
+{	
+	$alerta="SE ACTUALIZARON LOS DATOS DEL ESTUDIANTE";
 }
 
 //Edita los datos
@@ -135,6 +135,7 @@ else
 }
 $consultaPlanes="select distinct pen_nro from acpen where pen_cra_cod=".$rowConsulta[0][23]." and pen_estado='A' order by pen_nro";
 $planes = $conexion->ejecutarSQL($configuracion,$accesoOracle,$consultaPlanes,"busqueda");
+$alerta= isset($alerta)?(alerta):"";
 echo'<form name="dat" method=post action="coor_actualiza_datos_est.php">
 <div align="center">
 <table border="0" width="746" cellspacing="3" cellpadding="1">
@@ -150,7 +151,7 @@ echo'<form name="dat" method=post action="coor_actualiza_datos_est.php">
  <tr>
   <td width="91" align="right"><span class="Estilo5">Estado:</span></td>
   <td width="505" style="font-weight: bold" colspan="3">';
-        if(trim($rowConsulta[0][24])=='E')
+	if(trim($rowConsulta[0][24])=='E')
         {
             echo 'E - EGRESADO';
         }else

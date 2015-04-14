@@ -42,7 +42,7 @@ $enlace=enlaceVideoTutorial();
 </table>
 </FORM>
 <?php
-if($_REQUEST['estcod']){
+if(isset($_REQUEST['estcod'])){
     
   print'<div align="center" class="Estilo10">Haga clic en el bot&oacute;n correspondiente a la informaci&oacute;n que desea ver.</div>
   <table width="90%" border="0" align="center">

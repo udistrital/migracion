@@ -11,10 +11,10 @@ $configuracion=$esta_configuracion->variable("../");
 
 $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
-if($_REQUEST['tipo']==110){
+if(isset($_REQUEST['tipo'])==110){
     fu_tipo_user(110);
     $tipo=110; 
-}elseif($_REQUEST['tipo']==114){
+}elseif(isset($_REQUEST['tipo'])==114){
     fu_tipo_user(114);
     $tipo=114; 
 }else{
@@ -32,7 +32,7 @@ if($_REQUEST['tipo']==110){
 <BODY>
 
 <?php
-if($_REQUEST['estcod'])
+if(isset($_REQUEST['estcod']))
 {
 	$_SESSION['ccfun'] = $_REQUEST['estcod'];
 }
@@ -84,7 +84,7 @@ $i++;
 }
 print'</table>';
 
-if($_REQUEST['asicod']){
+if(isset($_REQUEST['asicod'])){
    $asicod = $_REQUEST['asicod'];
    require_once(dir_script.'NombreAsignatura.php');
    $rowAsignatura = $conexion->ejecutarSQL($configuracion,$accesoOracle,$NombreAsignatura,"busqueda");
