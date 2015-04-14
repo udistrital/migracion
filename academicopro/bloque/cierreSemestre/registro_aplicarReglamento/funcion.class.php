@@ -23,6 +23,7 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/funcion
 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/sesion.class.php");
 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/validacion/validaciones.class.php");
+include_once($configuracion["raiz_documento"].$configuracion["clases"]."/procedimientos.class.php");
 
 /**
  * Clase funcion_registro
@@ -68,6 +69,7 @@ class funcion_registroAplicarReglamento extends funcionGeneral
           $this->cripto=new encriptar();
           $this->sql=new sql_registro($configuracion);
           $this->validacion=new validarInscripcion();
+          $this->procedimientos=new procedimientos();
           $this->formulario="bloque_basicoRegistro";//nombre del bloque que procesa el formulario
           $this->formulario2="registro_aplicarReglamento";//nombre del bloque que procesa el formulario
           $this->verificar2="control_vacio(".$this->formulario2.",'codEstudiante','')";              
@@ -344,6 +346,13 @@ class funcion_registroAplicarReglamento extends funcionGeneral
                         $this->actualizarCausal();
                         //actualiza el estado del estudiante despues de aplicar reglamento
                         $this->actualizarEstadoEstudiante();
+                        //registra el evento de recálculo de reglamento
+                        $datosRegistro=array('usuario'=>  $this->usuario,
+                                                'evento'=>48,
+                                                'descripcion'=>'Recalcula estado de estudiante',
+                                                'registro'=>$this->anio.",".$this->periodo.", anterior:".$registroEstudiante['ESTADO'].", actual:".$this->estadoEstudiante,
+                                                'afectado'=>$this->codigoEstudiante);
+                        $this->procedimientos->registrarEvento($datosRegistro);
                     }elseif($reglamento=='N'&&isset($registroEstudiante['recalcular'])&&$registroEstudiante['recalcular']==1)
                     {
                         $this->actualizarCausal();
@@ -356,6 +365,12 @@ class funcion_registroAplicarReglamento extends funcionGeneral
                                 $this->estadoEstudiante='V';
                             }
                         $this->actualizarEstadoEstudiante();
+                        $datosRegistro=array('usuario'=>  $this->usuario,
+                                                'evento'=>48,
+                                                'descripcion'=>'Recalcula estado de estudiante',
+                                                'registro'=>$this->anio.",".$this->periodo.", anterior:".$registroEstudiante['ESTADO'].", actual:".$this->estadoEstudiante,
+                                                'afectado'=>$this->codigoEstudiante);
+                        $this->procedimientos->registrarEvento($datosRegistro);
                     }elseif($this->renovaciones!='ok'&&$this->acuerdoEstudiante==2011004)
                         {
                             $this->causal+=5000;
@@ -363,6 +378,12 @@ class funcion_registroAplicarReglamento extends funcionGeneral
                             $this->actualizarCausal();
                             //actualiza el estado del estudiante despues de aplicar reglamento
                             $this->actualizarEstadoEstudiante();
+                            $datosRegistro=array('usuario'=>  $this->usuario,
+                                                    'evento'=>48,
+                                                    'descripcion'=>'Recalcula estado de estudiante',
+                                                    'registro'=>$this->anio.",".$this->periodo.", anterior:".$registroEstudiante['ESTADO'].", actual:".$this->estadoEstudiante,
+                                                    'afectado'=>$this->codigoEstudiante);
+                            $this->procedimientos->registrarEvento($datosRegistro);                          
                         }
 		$this->contador++;
 		return true;
