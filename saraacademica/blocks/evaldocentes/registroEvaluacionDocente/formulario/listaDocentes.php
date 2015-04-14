@@ -38,6 +38,7 @@ if (!$esteRecursoDB) {
 }
 
 $variable['carrera']=$_REQUEST['carrera'];
+$variable['carreras']=$_REQUEST['carrera'];
 $variable['nombreCarrera']=$_REQUEST['nombreCarrera'];
 $variable['usuario']=$_REQUEST['usuario'];
 $variable['tipoId']=3; //Evaluación por el consejo curricular, ver tabla evaldocente_tipo_evaluacion
@@ -122,7 +123,12 @@ $registroDocentes = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
                 $variable.="&tipoId=3";
                            
                 $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variable, $directorio);
-
+               
+                /*$variables['carreras']=$registroDocentes[$i][2];
+                
+                $cadena_sql = $this->sql->cadena_sql("docentesEvaluadosCarrera", $variables);
+                $registroDcentesEvaluados = $esteRecursoDBPG->ejecutarAcceso($cadena_sql, "busqueda");
+                echo $cadena_sql."<br>";*/
                $resultado=strstr($docentesEvaluados,$registroDocentes[$i][0]);
                if($resultado==true)
                {

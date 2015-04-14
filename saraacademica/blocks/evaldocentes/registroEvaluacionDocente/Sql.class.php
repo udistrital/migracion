@@ -140,8 +140,8 @@ class SqlregistroEvaluacionDocente extends sql {
                 $cadena_sql.="FROM accaleventos ";
                 $cadena_sql.="WHERE ace_cra_cod IN (" . $variable[0] . ") ";
                 $cadena_sql.="AND ace_cod_evento IN " . $variable[1] . " ";
-                $cadena_sql.="AND TO_NUMBER(TO_CHAR(SYSDATE,'yyyymmdd')) >= TO_NUMBER(TO_CHAR(ace_fec_ini,'yyyymmdd')) ";
-                $cadena_sql.="AND TO_NUMBER(TO_CHAR(SYSDATE,'yyyymmdd')) <= TO_NUMBER(TO_CHAR(ace_fec_fin,'yyyymmdd')) ";
+                $cadena_sql.="AND TO_CHAR(CURRENT_TIMESTAMP,'yyyymmdd') >= TO_CHAR(ace_fec_ini,'yyyymmdd') ";
+                $cadena_sql.="AND TO_CHAR(CURRENT_TIMESTAMP,'yyyymmdd') <= TO_CHAR(ace_fec_fin,'yyyymmdd') ";
                 $cadena_sql.="AND ace_anio = " . $variable[2] . " ";
                 $cadena_sql.="AND ace_periodo = " . $variable[3] . " ";
                 break;
@@ -217,7 +217,7 @@ class SqlregistroEvaluacionDocente extends sql {
                 $cadena_sql.=" est_cod, ";
                 $cadena_sql.=" asi_cod, ";
                 $cadena_sql.=" asi_nombre, ";
-                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO, ";
+                $cadena_sql.=" (lpad(cur_cra_cod::TEXT,3,'0')||'-'||cur_grupo::TEXT) GRUPO, ";
                 $cadena_sql.=" doc_nro_iden, ";
                 $cadena_sql.=" (LTRIM(RTRIM(doc_apellido))||' '||LTRIM(RTRIM(doc_nombre))) doc_nombre,";
                 $cadena_sql.=" cra_cod,";
@@ -574,6 +574,7 @@ class SqlregistroEvaluacionDocente extends sql {
                 $cadena_sql.="tipo_id IN (" . $variable['tipoId'] . ") ";
                 $cadena_sql.="AND resp_anio=" . $variable['anio'] . " ";
                 $cadena_sql.="AND resp_periodo=" . $variable['per'] . " ";
+                //$variable['carreras']=isset($variable['carreras'])?$variable['carreras']:'';
                 $cadena_sql.="AND resp_carrera IN (" . $variable['carreras'] . ") ";
                 $cadena_sql.="AND resp_identificacion_evaluador='".$variable['usuario']."' ";
                 $cadena_sql.="AND resp_estado='A' ";
@@ -1221,7 +1222,7 @@ class SqlregistroEvaluacionDocente extends sql {
                 break;
                 
         }
-
+        //echo $cadena_sql."<br><br>";
         return $cadena_sql;
        
     }
