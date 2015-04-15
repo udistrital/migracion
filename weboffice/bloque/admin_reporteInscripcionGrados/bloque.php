@@ -61,6 +61,7 @@ if ($_REQUEST['opcion']=='acuerdo')
 		header("Content-Disposition: attachment; filename=listadoInscripcionGrados.xls");
 		header("Pragma: no-cache");
 		header("Expires: 0");
+                ini_set('display_errors','off');
 		echo "<table class='formulario' align='center'>
 				<tr  class='bloquecentralencabezado'>
 						<td colspan='3'>

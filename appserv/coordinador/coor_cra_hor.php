@@ -11,7 +11,8 @@ $configuracion=$esta_configuracion->variable("../");
 
 $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
-if(!$_REQUEST['tipo']){
+$tipo=isset($_REQUEST['tipo'])?$_REQUEST['tipo']:'';
+if(!$tipo){
     $_REQUEST['tipo']=$_SESSION['usuario_nivel'];
 }
 
@@ -66,8 +67,8 @@ if($_REQUEST['cracod'])
    <input name="url_asi" type="hidden" value="url_asi">
    <input name="cracod" type="hidden" value="'.$_REQUEST['cracod'].'"></form>';
 }
-
-if($_REQUEST['asicod']){
+$asicod=isset($_REQUEST['asicod'])?$_REQUEST['asicod']:'';
+if($asicod){
 
    $cad = $_REQUEST['asicod'];
    $porciones = explode("-", $cad);

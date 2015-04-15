@@ -217,7 +217,7 @@ class SqlhabilitarProcesoEvaldocente extends sql {
                                 break;    
                         
                 }
-
+                //echo $cadena_sql."<br>";
 		return $cadena_sql;
 
 	}

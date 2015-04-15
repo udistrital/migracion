@@ -55,7 +55,7 @@ else
     $registroEvento = $esteRecursoDBORA->ejecutarAcceso($cadena_sql, "acceso");
      if ($registroEvento==true)
      {
-        //$this->funcion->redireccionar ("regresaraAbrirFechas");
+        $this->funcion->redireccionar ("regresaraAbrirFechas");
      }
      else
     {

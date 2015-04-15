@@ -4,7 +4,7 @@ $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/
 $directorio = $this->miConfigurador->getVariableConfiguracion("host");
 $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
 $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
-
+ini_set('display_errors','off');
 
 if (!isset($GLOBALS["autorizado"])) {
     include("../index.php");

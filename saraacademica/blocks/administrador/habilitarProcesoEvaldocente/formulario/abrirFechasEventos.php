@@ -44,6 +44,8 @@ if (!$esteRecursoDB) {
     exit;
 }
 
+ini_set('display_errors','off');
+
 $cadena_sql = $this->sql->cadena_sql("buscarPeriodo", "");
 $registro = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 

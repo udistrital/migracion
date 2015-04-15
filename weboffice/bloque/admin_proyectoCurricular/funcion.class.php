@@ -36,6 +36,7 @@ class funciones_adminProyectoCurricular extends funcionGeneral
 		$this->usuario=$this->rescatarValorSesion($configuracion, $this->acceso_db, "id_usuario");
 		$this->identificacion=$this->rescatarValorSesion($configuracion, $this->acceso_db, "identificacion");
 		
+                ini_set('display_errors','off');
 	
 	
 	
@@ -256,7 +257,7 @@ function form_editar($configuracion,$registro,$tema,$estilo)
 		$html_0.="<form method='POST' action='index.php' name='".$this->formulario."' id='".$this->formulario."'>";
 		$html_0.="<hr>";
                 
-		$html_1.="<div width='80%' id='datosbasicos'>";
+		$html_1="<div width='80%' id='datosbasicos'>";
 		$html_1.="<table width='80%'  class='formulario'  align='center'>";
 		$html_1.="<tr class='bloquecentralcuerpobeige'><td  colspan='3'><hr class='hr_subtitulo'/>DATOS BASICOS DEL PROYECTO CURRICULAR<hr class='hr_subtitulo'/></td></tr>";
 		$html_1.="<tr>";
@@ -425,7 +426,7 @@ function form_editar($configuracion,$registro,$tema,$estilo)
 
                 $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"nbc",$registro[0][0]);
                 $nbc=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		
+                
 		$html_2.="<tr>";
 		$html_2.="   <td width='30%' onmouseover=\"javascript:Tip('".$texto_ayuda."',SHADOW, true, TITLE, 'Verificar Requisito', PADDING, 9)\">";
 
@@ -461,6 +462,8 @@ function form_editar($configuracion,$registro,$tema,$estilo)
 		$html_2.="		<div id='divnbc1'>";
 
                 $busqueda="SELECT nbc_cod, nbc_cod_nombre FROM mntac.nbc WHERE nbc_cod_area=".$nbc[0][1]." ORDER BY nbc_cod_nombre";
+               
+                
 		if($nbc[0][0]!=0)
 		{   $nucleo1=$this->ejecutarSQL($configuracion, $this->accesoOracle, $busqueda, "busqueda");
                     $nbc_cuadro=$html->cuadro_lista($nucleo1,'nbc_cod1',$configuracion,$nbc[0][0],0,FALSE,$tab++,'nbc1',400);
