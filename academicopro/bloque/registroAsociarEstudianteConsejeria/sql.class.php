@@ -78,14 +78,14 @@ class sql_registroAsociarEstudianteConsejeria extends sql {	//@ Método que crea
                 $cadena_sql.="VALUES('".$variable[0]."',";
                 $cadena_sql.="'".$variable[1]."',";
                 $cadena_sql.="'".$variable[2]."',";
-                $cadena_sql.="TO_DATE('".$variable[3]."','YYYY/MM/DD'),";
+                $cadena_sql.="TO_DATE('".$variable[3]."','YYYY-MM-DD'),";
                 $cadena_sql.="'".$variable[4]."')";
 
                 break;
             
             case 'actualizarEstadoRelacion':
 
-                $cadena_sql="delete ACESTUDIANTECONSEJERO ";
+                $cadena_sql="delete from ACESTUDIANTECONSEJERO ";
                 $cadena_sql.=" where ECO_EST_COD='".$variable[0]."'";
                 $cadena_sql.=" and ECO_DOC_NRO_IDENT='".$variable[1]."'";
                 

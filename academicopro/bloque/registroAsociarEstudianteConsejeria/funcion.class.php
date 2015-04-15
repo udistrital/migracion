@@ -341,6 +341,7 @@ class funcion_registroAsociarEstudianteConsejeria extends funcionGeneral {
           <input type="hidden" name="planEstudio" value="<?echo $planEstudio?>">
           <input type="hidden" name="codDocente" value="<?echo $codDocente?>">
           <input type="hidden" name="nombreDocente" value="<?echo $nombreDocente?>">
+          <input type="hidden" name="nombreProyecto" value="<?echo $nombreProyecto?>">
 
 </table>
 </form>
@@ -377,19 +378,17 @@ class funcion_registroAsociarEstudianteConsejeria extends funcionGeneral {
 
          for($i=0;$i<$_REQUEST['totalSeleccionados'];$i++)
         {
-            $variablesRegistro=array($_REQUEST['estudiante'.$i],$_REQUEST['codDocente'],$_REQUEST["codProyecto"],date('Ymd'),'A');
+            $variablesRegistro=array($_REQUEST['estudiante'.$i],$_REQUEST['codDocente'],$_REQUEST["codProyecto"],date('Y-m-d'),'A');
 
             $cadena_sql=$this->sql->cadena_sql($configuracion,"buscarEstudianteAconsejado",$variablesRegistro);
             $resultado_yaExiste=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 
             if(is_array($resultado_yaExiste))
                 {
-                    //echo "<br>".$variablesRegistro[0]." - ".$variablesRegistro[1];
                     $cadena_sql=$this->sql->cadena_sql($configuracion,"actualizarEstadoRelacion",$variablesRegistro);
                     $resultado_relacion=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "");
                 }else
                     {
-                        //echo "<br>".$variablesRegistro[0]." - ".$variablesRegistro[1];
                         $cadena_sql=$this->sql->cadena_sql($configuracion,"registrarRelacion",$variablesRegistro);
                         $resultado_relacion=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "");
                     }
@@ -520,6 +519,7 @@ if($i%2==0)
           <input type="hidden" name="planEstudio" value="<?echo $planEstudio?>">
           <input type="hidden" name="codDocente" value="<?echo $codDocente?>">
           <input type="hidden" name="nombreDocente" value="<?echo $nombreDocente?>">
+          <input type="hidden" name="nombreProyecto" value="<?echo $nombreProyecto?>">
           <tr class="cuadro_plano centrar">
               <td class="centrar" colspan="6">
                   <input type="submit" name="desasociar" value="Desasociar">

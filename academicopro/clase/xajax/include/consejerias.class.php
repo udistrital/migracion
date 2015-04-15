@@ -30,7 +30,7 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.cl
     $accesoOracle=$conexion->estableceConexion(75,$configuracion);
     $accesoGestion=$conexion->estableceConexion(99,$configuracion);
 
-    if (is_resource($enlace))
+    if (isset($enlace))
         {
             $chek="<input type='checkbox' name='SelectedAll' onclick='SelectAllCheckBox(this,\"checBox\")'/>";
             if($annio==2000)
@@ -44,7 +44,6 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.cl
                 $busqueda.=" and est_cod not in (SELECT ECO_EST_COD FROM ACESTUDIANTECONSEJERO WHERE ECO_ESTADO='A')";
                 //$busqueda.=" and est_ind_cred like '%S%' ";
                 $busqueda.=" ORDER BY 1 ";
-                //echo $busqueda;exit;
                 $resultado=$funcion->ejecutarSQL($configuracion, $accesoOracle, $busqueda,"busqueda");
             }
             else
@@ -54,10 +53,9 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.cl
                 $busqueda.=" inner join acestado on est_estado_est= estado_cod ";
                 $busqueda.=" where est_cra_cod=".$codProyecto." and est_estado like '%A%' ";
                 $busqueda.=" and (estado_activo like '%S%' or est_estado_est like '%V%' or est_estado_est like '%J%')";
-                $busqueda.=" and est_cod like '".$annio.$periodo."%' ";
+                $busqueda.=" and cast(est_cod as text) like '".$annio.$periodo."%' ";
                 $busqueda.=" and est_cod not in (SELECT ECO_EST_COD FROM ACESTUDIANTECONSEJERO WHERE ECO_ESTADO='A')";
                 $busqueda.=" ORDER BY 1 ";
-                //echo $busqueda;exit;
                 $resultado=$funcion->ejecutarSQL($configuracion, $accesoOracle, $busqueda,"busqueda");
             }
             if(is_array($resultado))
