@@ -86,8 +86,7 @@ class sql_registroMensajeCoordinador extends sql
               case 'buscarCodigoMensaje':
 
                 $cadena_sql="SELECT";
-                $cadena_sql.=" mensajesequence.NEXTVAL ";
-                $cadena_sql.=" FROM DUAL";
+                $cadena_sql.=" NEXTVAL('mensajesequence') ";
 
                 break;
               
@@ -113,7 +112,7 @@ class sql_registroMensajeCoordinador extends sql
                 $cadena_sql.= $variable['tipoEmisor'].',';
                 $cadena_sql.= $variable['codigoEmisor'].',';
                 $cadena_sql.=" 'A',";
-                $cadena_sql.=" SYSDATE";
+                $cadena_sql.=" current_timestamp";
                 $cadena_sql.=" )";
 
                 break;

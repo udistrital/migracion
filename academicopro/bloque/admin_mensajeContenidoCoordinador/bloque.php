@@ -59,10 +59,10 @@ class bloque_adminMensajeContenidoCoordinador extends bloque
 	 public function __construct($configuracion)
 	{	
                 $this->configuracion=$configuracion;                
-		$this->tema=$tema;
+		//$this->tema=$tema;
 		$this->funcion=new funcion_adminMensajeContenidoCoordinador($configuracion);
 		$this->sql=new sql_adminMensajeContenidoCoordinador($configuracion);
-                include ($configuracion["raiz_documento"].$configuracion["estilo"]."/basico/tema.php");
+                //include ($configuracion["raiz_documento"].$configuracion["estilo"]."/basico/tema.php");
 	}
 
         /**

@@ -58,10 +58,10 @@ class funcion_mensajeCoordinador extends funcionGeneral
 	function __construct($configuracion) {
 
             $this->configuracion=$configuracion;
-            $this->codProyecto=$_REQUEST['codProyecto'];
-            $this->planEstudio=$_REQUEST['planEstudio'];
-            $this->codEspacio=$_REQUEST['codEspacio'];
-            $this->grupo=$_REQUEST['grupo'];
+            $this->codProyecto=(isset($_REQUEST['codProyecto'])?$_REQUEST['codProyecto']:'');
+            $this->planEstudio=(isset($_REQUEST['planEstudio'])?$_REQUEST['planEstudio']:'');
+            $this->codEspacio=(isset($_REQUEST['codEspacio'])?$_REQUEST['codEspacio']:'');
+            $this->grupo=(isset($_REQUEST['grupo'])?$_REQUEST['grupo']:'');
 	    /**
              * Incluye la clase encriptar.class.php
              *
@@ -204,7 +204,7 @@ class funcion_mensajeCoordinador extends funcionGeneral
          */
         function buscarMensajesRecibidos() {
           
-              $variablesMensaje = array(codUsuario => $this->usuario);
+              $variablesMensaje = array('codUsuario' => $this->usuario);
 
               $cadena_sql = $this->sql->cadena_sql("buscarMensajesRecibidos", $variablesMensaje);//echo $cadena_sql;exit;
               $arreglo_mensaje = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -217,7 +217,7 @@ class funcion_mensajeCoordinador extends funcionGeneral
          */
         function buscarMensajesEnviados() {
 
-              $variablesMensaje = array(codUsuario => $this->usuario);
+              $variablesMensaje = array('codUsuario' => $this->usuario);
 
               $cadena_sql = $this->sql->cadena_sql("buscarMensajesEnviados", $variablesMensaje);//echo $cadena_sql;exit;
               $arreglo_mensaje = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -334,7 +334,7 @@ class funcion_mensajeCoordinador extends funcionGeneral
         function buscarNombreEstudiante($codigo) {
 
 
-                  $variablesEstudiante = array(codigo => $codigo);
+                  $variablesEstudiante = array('codigo' => $codigo);
 
                   $cadena_sql = $this->sql->cadena_sql("buscarNombreEstudiante", $variablesEstudiante);
                   $nombre_Estudiante = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -350,7 +350,7 @@ class funcion_mensajeCoordinador extends funcionGeneral
          */
         function buscarNombreDocente($documento) {
 
-              $variablesDocente = array(documento => $documento);
+              $variablesDocente = array('documento' => $documento);
 
               $cadena_sql = $this->sql->cadena_sql("buscarNombreDocente", $variablesDocente);
               $arreglo_Docente = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");

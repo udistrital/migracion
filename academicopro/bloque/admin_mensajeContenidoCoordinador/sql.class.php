@@ -76,7 +76,6 @@ class sql_adminMensajeContenidoCoordinador extends sql
                 $cadena_sql.=" FROM acdocente";
                 $cadena_sql.=" WHERE";
                 $cadena_sql.=" doc_nro_iden=".$variable['codUsuario'];
-                //echo $cadena_sql;exit;
 
                 break;
 
@@ -87,7 +86,6 @@ class sql_adminMensajeContenidoCoordinador extends sql
                 $cadena_sql.=" SET menrecept_estado=2";
                 $cadena_sql.=" WHERE menrecept_cod_mensaje=".$variable['codMensaje'];
                 $cadena_sql.=" AND menrecept_cod_receptor=".$variable['codReceptor'];
-                //echo $cadena_sql;exit;
 
                 break;
 

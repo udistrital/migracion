@@ -2,7 +2,7 @@
         <script language='javascript'>
             function seleccionarDestinatarios(enlace)
             {
-                ventanaDestinatarios = window.open(enlace,'Codigos', 'width=700,height=700');
+                ventanaDestinatarios = window.open(enlace,'Codigos', 'width=700,height=700,scrollbars=yes');
             }
 
             function pasarNombreDestiantarios(cadena, miFormulario)
@@ -114,10 +114,11 @@ class funcion_registroMensajeCoordinador extends funcionGeneral
 	function __construct($configuracion) {
 
             $this->configuracion=$configuracion;
-            $this->codProyecto=$_REQUEST['codProyecto'];
-            $this->planEstudio=$_REQUEST['planEstudio'];
-            $this->codEspacio=$_REQUEST['codEspacio'];
-            $this->grupo=$_REQUEST['grupo'];
+            $this->codProyecto=(isset($_REQUEST['codProyecto'])?$_REQUEST['codProyecto']:'');
+            $this->planEstudio=(isset($_REQUEST['planEstudio'])?$_REQUEST['planEstudio']:'');
+            $this->codEspacio=(isset($_REQUEST['codEspacio'])?$_REQUEST['codEspacio']:'');
+            $this->grupo=(isset($_REQUEST['grupo'])?$_REQUEST['grupo']:'');
+
 	    /**
              * Incluye la clase encriptar.class.php
              *
@@ -342,7 +343,7 @@ class funcion_registroMensajeCoordinador extends funcionGeneral
             $pagina = $this->configuracion["host"] . $this->configuracion["site"] . "/index.php?";
             $variable = "pagina=registro_mensajeCoordinador";
             $variable.="&opcion=destinatarios";
-            $variable.="&codProyecto=".$_REQUEST['codProyecto'];
+//            $variable.="&codProyecto=".$_REQUEST['codProyecto'];
             $variable= $this->cripto->codificar_url($variable, $this->configuracion);
             
             return $pagina.$variable;
@@ -357,11 +358,11 @@ class funcion_registroMensajeCoordinador extends funcionGeneral
         function buscarDocenteConsejeroDestinatario() {
           
               $variablesCoordinador = array(  
-                                            codCoordinador => $this->usuario
+                                            'codCoordinador' => $this->usuario
                                         );
 
               $cadena_sql = $this->sql->cadena_sql("buscarDocenteConsejeroDestinatario", $variablesCoordinador);//echo $cadena_sql;exit;
-              $arreglo_docenteConsejero = $this->ejecutarSQL($this->condiguracion,$this->accesoOracle, $cadena_sql, "busqueda");              
+              $arreglo_docenteConsejero = $this->ejecutarSQL($this->configuracion,$this->accesoOracle, $cadena_sql, "busqueda");              
               return $arreglo_docenteConsejero;
 
         }
@@ -534,11 +535,11 @@ class funcion_registroMensajeCoordinador extends funcionGeneral
          */
         function insertarMensaje($codigoMensaje) {
 
-              $variablesMensaje = array(  codigoMensaje => $codigoMensaje,
-                                          asunto => $_REQUEST['asunto'],
-                                          contenido => $_REQUEST['contenido'],
-                                          tipoEmisor => $this->Nivelusuario,
-                                          codigoEmisor => $this->usuario,
+              $variablesMensaje = array(  'codigoMensaje' => $codigoMensaje,
+                                          'asunto' => $_REQUEST['asunto'],
+                                          'contenido' => $_REQUEST['contenido'],
+                                          'tipoEmisor' => $this->Nivelusuario,
+                                          'codigoEmisor' => $this->usuario,
                                         );
 
               //verficar que se realice la insercion
@@ -564,10 +565,10 @@ class funcion_registroMensajeCoordinador extends funcionGeneral
          */
         function insertarMensajeReceptor($datosReceptor,$codigoMensaje) {
 
-              $variablesMensajeReceptor = array(  codigoMensaje => $codigoMensaje,
-                                                  tipoReceptor => $datosReceptor['TIPO'],
-                                                  codigoReceptor => $datosReceptor['CODIGO'],
-                                                  estadoMensajeReceptor => 1
+              $variablesMensajeReceptor = array(  'codigoMensaje' => $codigoMensaje,
+                                                  'tipoReceptor' => $datosReceptor['TIPO'],
+                                                  'codigoReceptor' => $datosReceptor['CODIGO'],
+                                                  'estadoMensajeReceptor' => 1
                                         );
 
               //verficar que se realice la insercion

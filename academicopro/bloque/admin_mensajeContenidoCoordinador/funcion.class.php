@@ -208,11 +208,11 @@ class funcion_adminMensajeContenidoCoordinador extends funcionGeneral
         function buscarNombreUsuario() {
           
           
-              $variablesUsuario = array(  codUsuario => $this->usuario                                          
+              $variablesUsuario = array(  'codUsuario' => $this->usuario                                          
                                         );
 
               $cadena_sql = $this->sql->cadena_sql("buscar_nombreUsuario", $variablesUsuario);//echo $cadena_sql;exit;
-              $arreglo_usuario = $this->ejecutarSQL($this->condiguracion,$this->accesoOracle, $cadena_sql, "busqueda");                  
+              $arreglo_usuario = $this->ejecutarSQL($this->configuracion,$this->accesoOracle, $cadena_sql, "busqueda");                  
               return $arreglo_usuario[0]['NOMBRE'].' '.$arreglo_usuario[0]['APELLIDO'];          
           
         }
@@ -225,12 +225,12 @@ class funcion_adminMensajeContenidoCoordinador extends funcionGeneral
         function actualizarEstadoMensaje($codMensaje) {
             
               $variablesMensaje = array(  
-                                            codMensaje => $codMensaje,
-                                            codReceptor => $this->usuario
+                                            'codMensaje' => $codMensaje,
+                                            'codReceptor' => $this->usuario
                                         );
 
               $cadena_sql = $this->sql->cadena_sql("actualizarEstadoMensaje", $variablesMensaje);//echo $cadena_sql;exit;
-              $arreglo_mensaje = $this->ejecutarSQL($this->condiguracion,$this->accesoOracle, $cadena_sql, "");              
+              $arreglo_mensaje = $this->ejecutarSQL($this->configuracion,$this->accesoOracle, $cadena_sql, "");              
               return $arreglo_mensaje;            
             
         }
