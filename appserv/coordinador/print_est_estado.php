@@ -60,7 +60,7 @@ else
 </style>
 </head>
 <body>
-<p align="center" class="Estilo6">LISTADO DE ESTUDIANTES EN ESTADO<br><? echo $nombre->rescataNombre($est); print' (';  print $est; print')'; ?><br>
+<p align="center" class="Estilo6">LISTADO DE ESTUDIANTES EN ESTADO<br><? echo $nombre->rescataNombre($est, "NombreEstado"); print' (';  print $est; print')'; ?><br>
   CON ASIGNATURAS INSCRITAS</p>
   <p align="center" class="Estilo5">Los estudiantes en los estados A y B, son los &uacute;nicos que deben tener asignaturas inscritas.</p>
   <p align="center" class="Estilo5">Recuerde que al borrar estos registros ser&aacute;n eliminados de la tabla de inscripci&oacute;n de asignaturas, y las notas no ser&aacute;n procesadas.</p>	

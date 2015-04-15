@@ -9,7 +9,7 @@ class CuentaEst{
 		$conexion=new multiConexion();
 		$accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 		
-		$qry_est = "SELECT NVL(count(est_cod), 0)
+		$qry_est = "SELECT coalesce(count(est_cod), 0)
 			FROM acest x
 			WHERE est_cra_cod = $cracod
 			AND est_estado_est IN('$estado')

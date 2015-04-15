@@ -15,12 +15,13 @@ fu_tipo_user(4);
 require_once('msql_coor_carreras.php');
 if($_REQUEST['estcod'] == "") die('<center><h3><font color="#FF0000">No hay registros para borrar.</font></h3></center>');
 
-$DelEst = "DELETE ACINS 
+$DelEst = "DELETE FROM ACINS 
 	WHERE INS_EST_COD = ".$_REQUEST['estcod']."
 	AND INS_ANO = $ano
 	AND INS_PER = $per
 	AND INS_CRA_COD = ".$_SESSION['carrera'];
-$registro = $conexion->ejecutarSQL($configuracion,$accesoOracle,$DelEst,"busqueda");
+
+$registro = $conexion->ejecutarSQL($configuracion,$accesoOracle,$DelEst,"");
 $afectados=$conexion->totalAfectados($configuracion,$accesoOracle);
 if($afectados >= 1)
 {
