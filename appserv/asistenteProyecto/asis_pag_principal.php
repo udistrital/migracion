@@ -2,6 +2,7 @@
 require_once('dir_relativo.cfg');
 require_once(dir_conect.'valida_pag.php');
 require_once(dir_conect.'fu_tipo_user.php');
+require_once(dir_script.'fu_pie_pag.php');
 fu_tipo_user(110);
 ?>
 <html>

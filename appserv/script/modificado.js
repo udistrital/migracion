@@ -5,7 +5,7 @@ SoloTexto
 *	Uso: <script>modificado();</script>
 *********************************************************************************/
 function modificado(){
-	document.write("Versi&oacute;n 2.2 - &Uacute;ltima Modificaci&oacute;n: 14/Octubre/2008"); 
+	document.write("Versi&oacute;n 2.3 - &Uacute;ltima Modificaci&oacute;n: 16/Abril/2015"); 
 	//var date = new Date(document.lastModified);
 	//document.write("Versi&oacute;n 2.2 - &Uacute;ltima Modificaci&oacute;n: "+date.getDate()+ "/" + (date.getMonth()+1)+ "/" + date.getFullYear() + ""); 
 }
