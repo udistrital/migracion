@@ -26,6 +26,7 @@ if(!isset($GLOBALS["autorizado"]))
 }
 
 $this->nivel=$_REQUEST['nivel'];
+$this->usuario=$_REQUEST['usuario'];
 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
 
 $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
@@ -59,10 +60,10 @@ $cripto=new encriptar();
 						<td>
 
 						<a href="<?		
-							$variable="no_pagina=adminReportes";
+							$variable="pagina=adminReportesExcelCoordinador";
 							$variable.="&tipoUser=4";
-							$variable.="&nivel=A";
-							$variable.="&opcReporte=8";
+							$variable.="&opcion=listaEcaes70";
+							$variable.="&usuario=".$this->usuario;
 							$variable=$cripto->codificar_url($variable,$configuracion);
 							echo $indice.$variable;			
 							?>"> Lista 70%</a>

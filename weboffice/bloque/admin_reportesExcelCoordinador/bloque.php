@@ -48,6 +48,8 @@ $periodoNuevo=explode('-',$valor[1]);
 $valor[2]=isset($periodoNuevo[0])?$periodoNuevo[0]:'';
 $valor[3]=isset($periodoNuevo[1])?$periodoNuevo[1]:'';
 
+//$this->identificacion=$this->rescatarValorSesion($configuracion, $this->acceso_db, "identificacion");
+
 //Reporte de resumen de horarios
 if ($_REQUEST['opcion']=='horarios')
 {
@@ -185,13 +187,13 @@ if ($_REQUEST['opcion']=='horarios')
 
 //Reporte de control de notas
 
-$valor[4]=isset($_REQUEST["carrera"])?$_REQUEST["carrera"]:'';
-$valor[5]=$_REQUEST["ano"];
-$valor[6]=$_REQUEST["periodo"];
-$valor[7]=isset($_REQUEST["nomcra"])?$_REQUEST["nomcra"]:'';
-
 if ($_REQUEST['opcion']=='controlNotas')
 {
+        $valor[4]=isset($_REQUEST["carrera"])?$_REQUEST["carrera"]:'';
+        $valor[5]=$_REQUEST["ano"];
+        $valor[6]=$_REQUEST["periodo"];
+        $valor[7]=isset($_REQUEST["nomcra"])?$_REQUEST["nomcra"]:'';
+        
 	$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"controlnotas");
 
 	$resultado=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");
@@ -332,6 +334,100 @@ if ($_REQUEST['opcion']=='controlNotas')
 					<td>
 						<? echo $resultado[$i][17];?>
 					</td>
+				</tr>
+			<?
+			}
+			?>
+	</table>
+	<?
+	}
+}
+
+if ($_REQUEST['opcion']=='listaEcaes70')
+{
+        $valor[1]=$_REQUEST['usuario'];
+        $cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"listaProyectos");
+        $resultadoProyectos=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");
+        
+        for($i=0; $i<=count($resultadoProyectos)-1; $i++)
+        {
+            $valor[4]=$resultadoProyectos[$i][0];
+        }
+        
+	$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"ecaes70porciento");
+        
+	$resultado=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");
+	$total=count($resultado);
+	//echo $resultado[0][0]; exit;
+	if(!is_array($resultado))
+	{	
+		
+		$cadena="En la actualidad no hay programaci&oacute;n de cursos para el Proyecto Curricular " .$valor[7]. ".";
+		alerta::sin_registro($configuracion,$cadena);	
+	}
+	else
+	{
+		header('Content-type: application/vnd.ms-excel');
+		header("Content-Disposition: attachment; filename=SABER-PRO.xls");
+		header("Pragma: no-cache");
+		header("Expires: 0");
+		?>
+		<table class="sigma_borde centrar" width="100%">
+			<tr class="sigma">
+				<td class="sigma centrar" colspan="7">
+					<center>LISTA SABER-PRO 70% CURSADO</center>
+				</td>
+			</tr>
+			<tr class="sigma">
+				<td>
+					C&oacute;digo
+				</td>
+				<td>
+					Nombre
+				</td>
+				<td>
+					Semestre
+				</td>
+				<td>
+					Porcentaje cursado
+				</td>
+				<td>
+					Recibo generado
+				</td>
+				<td>
+					Email
+				</td>
+				<td>
+					Email institucional
+				</td>
+			</tr>
+			<?
+			for($i=0;$i<=$total;$i++)
+			{
+			?>
+				<tr class="cuadro_color">
+					<td>
+						<? echo $resultado[$i][0];?>
+					</td>
+					<td>
+						<? echo $resultado[$i][1];?>
+					</td>
+					<td>
+						<? echo $resultado[$i][2];?>
+					</td>
+					<td>
+						<? echo $resultado[$i][3];?>
+					</td>
+					<td>
+						<? echo $resultado[$i][6];?>
+					</td>
+					<td>
+						<? echo $resultado[$i][7];?>
+					</td>
+					<td>
+						<? echo $resultado[$i][8];?>
+					</td>
+					
 				</tr>
 			<?
 			}
@@ -512,7 +608,28 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 				$cadena_sql.="AND cur_ape_per=".$valor[6]." ";
 				$cadena_sql.="AND inp_cra_cod = ".$valor[4]." ORDER BY 2,3 ";
 			      break;
-
+                          
+                case "listaProyectos":
+				$cadena_sql="SELECT cra_cod, cra_abrev ";
+				$cadena_sql.="FROM ";
+				$cadena_sql.="accra ";
+				$cadena_sql.="WHERE ";
+				$cadena_sql.="cra_emp_nro_iden = ".$valor[1]." ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="cra_estado = 'A' ";
+				$cadena_sql.="ORDER BY cra_cod ASC ";
+				break;                
+                          
+                case "ecaes70porciento":
+                                $cadena_sql="SELECT ";
+				$cadena_sql.="* ";
+				$cadena_sql.="FROM v_presentar_ecaes ";
+                                $cadena_sql.=" WHERE ";
+                                $cadena_sql.=" pee_cra_cod IN (".$valor[4].") ";
+                                $cadena_sql.=" AND pee_porcentaje_cursado >=70 ";
+                              break;
+                          
+                          
 		case "observacionesEstudiantes":
 				$cadena_sql="SELECT ";
 				$cadena_sql.="dep_cod CodFacultad, ";
