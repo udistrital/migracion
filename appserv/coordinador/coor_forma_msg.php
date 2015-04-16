@@ -14,7 +14,7 @@ $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 
 
-if(!$_REQUEST['tipo']){
+if(!isset($_REQUEST['tipo'])){
     $_REQUEST['tipo']=$_SESSION['usuario_nivel'];
 }
 

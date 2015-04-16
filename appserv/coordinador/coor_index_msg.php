@@ -12,7 +12,7 @@ $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 $tipo=(isset($_SESSION['usuario_nivel'])?$_SESSION['usuario_nivel']:'');
 
-if(!$_REQUEST['tipo']){
+if(!isset($_REQUEST['tipo'])){
     $_REQUEST['tipo']=$_SESSION['usuario_nivel'];
 }
 
@@ -51,7 +51,7 @@ if($_REQUEST['cracod']){
 	require_once('msql_consulta_msg.php');
 	$row_msg = $conexion->ejecutarSQL($configuracion,$accesoOracle,$qry_msg,"busqueda");
         
-	echo'<div align="center"><h3>PROYECTO CURRICULAR: '. $NomCra->rescataNombre($_REQUEST['cracod']) .'</h3>
+	echo'<div align="center"><h3>PROYECTO CURRICULAR: '. $NomCra->rescataNombre($_REQUEST['cracod'], "NombreCarrera") .'</h3>
 	<table width="550" border="1" cellpadding="0" cellspacing="0">
 	<tr class="tr"><td width="550" align="center" colspan="2">Gesti&oacute;n de Noticias</td></tr><tr>
 	<td width="275" align="center"><a href="coor_admin_msg.php">Administraci&oacute;n'.$b_home.'</a></td>

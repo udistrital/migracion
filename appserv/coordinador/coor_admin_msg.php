@@ -13,7 +13,7 @@ $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 
 
-if(!$_REQUEST['tipo']){
+if(!isset($_REQUEST['tipo'])){
     $_REQUEST['tipo']=$_SESSION['usuario_nivel'];
 }
 
@@ -52,7 +52,7 @@ $b_deltbl='<IMG SRC='.dir_img.'b_deltbl.png alt="Borrar Noticia" border="0">';
 $b_home='<IMG SRC='.dir_img.'b_home.png alt="Administraci&oacute;n de Noticias" border="0">';
 
 //Edita la noticia de acuerdo al parametro codigo
-if($_REQUEST['edit']){
+if(isset($_REQUEST['edit'])){
    $qry_msg = "SELECT CME_CODIGO, 
 		CME_CRA_COD, 
 		CME_AUTOR, 
