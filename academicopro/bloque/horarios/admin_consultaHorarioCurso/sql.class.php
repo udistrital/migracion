@@ -235,7 +235,7 @@ class sql_adminHorarios extends sql { //@ Método que crea las sentencias sql pa
                 break;    
 
             case "eliminaCurso":
-                $this->cadena_sql="DELETE ";
+                $this->cadena_sql="DELETE from ";
                 $this->cadena_sql.="accursos ";
                 $this->cadena_sql.="WHERE ";
                 $this->cadena_sql.="cur_cra_cod='".$variable['proyecto']."' ";

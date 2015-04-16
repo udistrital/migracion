@@ -234,7 +234,7 @@ ________________________________________________________________________________
                             <table class="tablaMarco" align="center">
                                 <tr>
                                     <td align="rigth">
-					<p><a href="https://condor.udistrital.edu.co/appserv/manual/gestion_de_horarios.pdf">
+					<p><a href="<? echo $configuracion["host"];?>/appserv/manual/gestion_de_horarios.pdf">
 					<img border="0" alt=" " width="20" src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]."/acroread.png"?>" />
 					Ver Manual de Usuario.</a></p>
                                     </td>
