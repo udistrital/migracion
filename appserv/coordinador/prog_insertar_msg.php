@@ -38,8 +38,8 @@ else
 {
 	$hora = date("g:i:s a");
 
-	$qry_secuencia = "SELECT NVL(MAX(CME_CODIGO),0)+1 FROM accoormensaje WHERE CME_CRA_COD =".$_REQUEST['cracod'];
-	 
+	$qry_secuencia = "SELECT coalesce(MAX(CME_CODIGO),0)+1 FROM accoormensaje WHERE CME_CRA_COD =".$_REQUEST['cracod'];
+		 
 	$row_sec = $conexion->ejecutarSQL($configuracion,$accesoOracle,$qry_secuencia,"busqueda");
 	$secuencia = $row_sec[0][0];
 
@@ -59,7 +59,7 @@ else
 	$ins.="'".$_REQUEST['contenido']."'";
 	$ins.=")";
 	
-	$row_ins = $conexion->ejecutarSQL($configuracion,$accesoOracle,$ins,"busqueda");
+	$row_ins = $conexion->ejecutarSQL($configuracion,$accesoOracle,$ins,"");
 	
 	if(isset($row_ins))
 	{

@@ -39,7 +39,7 @@ $qry.="CME_CODIGO ='".$_REQUEST['cmecod']."' ";
 $qry.="AND ";
 $qry.="CME_CRA_COD='".$_POST['cmecracod']."' ";
 
-$row_qry = $conexion->ejecutarSQL($configuracion,$accesoOracle,$qry,"busqueda");
+$row_qry = $conexion->ejecutarSQL($configuracion,$accesoOracle,$qry,"");
 
 if(isset($row_qry))
 {
