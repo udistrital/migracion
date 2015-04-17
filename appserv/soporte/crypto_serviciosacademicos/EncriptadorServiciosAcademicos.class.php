@@ -1,7 +1,7 @@
 <?php
 
-include  "./aes.class.php";
-include  "./aesctr.class.php";
+//include  "aes.class.php";
+//include  "aesctr.class.php";
 
 class EncriptadorServiciosAcademicos {
 	private static $instance;

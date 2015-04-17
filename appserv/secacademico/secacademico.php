@@ -40,7 +40,7 @@ $cod_consul.= "FROM dual";
 		 $tipo=83;
 		 $tokenCondor = $miCodificador->codificar($tokenCondor);
 		 $opcion="temasys=";
-		 $variable.="gestionPassword&pagina=validarActualizacion";
+		 $variable="gestionPassword&pagina=validarActualizacion";
 		 $variable.="&usuario=".$usuario;
 		 $variable.="&tipo=".$tipo;
 		 $variable.="&token=".$tokenCondor;

@@ -6,7 +6,7 @@ require_once('../generales/gen_link.php');
 require_once("../clase/config.class.php");
 require_once("../clase/encriptar.class.php");
 require_once("../clase/funcionGeneral.class.php");
-include_once('conexion.php');
+include_once('../conexion/conexion.php');
 
 
 	$esta_configuracion=new config();
