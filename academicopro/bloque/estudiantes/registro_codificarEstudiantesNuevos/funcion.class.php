@@ -181,16 +181,33 @@ class funcion_registro_codificarEstudiantesNuevos extends funcionGeneral {
          */
     function insertarDatosBasicos($datos)
         {
+        	foreach ($datos as $key => $value) {
+        		if($value=='')
+        		{
+        			$datos[$key]='null';
+        			 
+        		}
+        	}
             $cadena_sql=$this->sql->cadena_sql("insertarDatosBasicos",$datos);
             $registro=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "");
             return $this->totalAfectados($this->configuracion, $this->accesoOracle);
         }
   
     function insertarOtrosDatos($datos)
-        {
+        {      	
+        	
+        	
         if($datos['rh']=='p')
         {$datos['rh']='+';}
         else{$datos['rh']='-';}
+        
+        foreach ($datos as $key => $value) {
+        	if($value=='')
+        	{
+        		$datos[$key]='null';
+        		 
+        	}
+        }
         $datos['ano']=  $this->periodo[0]['ANO'];
         $datos['periodo']=  $this->periodo[0]['PER'];
             $cadena_sql=$this->sql->cadena_sql("insertarOtrosDatos",$datos);

@@ -192,11 +192,12 @@ class funcion_admin_codificarEstudiantesNuevos extends funcionGeneral {
     function registroNuevoEstudiante()
         {
             $this->nivelProyecto=trim($_REQUEST['nivel']);
-            $this->proyecto=trim($_REQUEST['codProyecto']);
+            $this->proyecto=trim($_REQUEST['codProyecto']);            ;     
             $valores=array('anio'=>  $this->periodo[0]['ANO'],
                             'periodo'=>  $this->periodo[0]['PER'],
                             'proyecto'=>$this->proyecto
                     );
+            
             $permiso=$this->consultarPermisosCodificacion($valores);
             if(!is_array($permiso))
                 {

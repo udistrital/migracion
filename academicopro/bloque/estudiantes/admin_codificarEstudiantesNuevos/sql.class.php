@@ -71,7 +71,7 @@ class sql_admin_codificarEstudiantesNuevos extends sql {	//@ Método que crea la
                 $cadena_sql.=" ead_pbm,";
                 $cadena_sql.=" ead_ingresos_anuales,";
                 $cadena_sql.=" to_char(asp_fecha_nac,'YYYY/MM/DD') asp_fecha_nac,";
-                $cadena_sql.=" TO_NUMBER ('1'|| LTRIM (RTRIM ((lpad(asp_dep_nac,2,0) || '0'||SUBSTR (asp_lug_nac, -3, 3))))) asp_lug_nac,";
+                $cadena_sql.=" ('1'|| LTRIM (RTRIM ((lpad(asp_dep_nac::text,2,'0') || '0'||SUBSTR (asp_lug_nac::text, -3, 3))))) asp_lug_nac,";
                 $cadena_sql.=" asp_estado_civil,";
                 $cadena_sql.=" asp_estrato,";
                 $cadena_sql.=" asp_email,";
@@ -85,7 +85,7 @@ class sql_admin_codificarEstudiantesNuevos extends sql {	//@ Método que crea la
                 $cadena_sql.=" FROM acasp";
 //                $cadena_sql.=" INNER JOIN ACASPERI ON ape_ano=asp_ape_ano AND ape_per=asp_ape_per AND ape_estado='A'";
                 $cadena_sql.=" INNER JOIN acestadm ON ead_asp_ano=asp_ape_ano AND ead_asp_per=asp_ape_per AND ead_asp_cred=asp_cred";
-                $cadena_sql.=" LEFT OUTER JOIN getipdocu ON asp_tip_doc_act = tdo_codigo";
+                $cadena_sql.=" LEFT OUTER JOIN getipdocu ON cast(asp_tip_doc_act as integer) = tdo_codigo";
                 $cadena_sql.=" LEFT OUTER JOIN acexento ON exe_cod=ead_motivo_exento";
                 $cadena_sql.=" LEFT OUTER JOIN accorreo ON ead_cod=acc_est_cod";
                 $cadena_sql.=" WHERE asp_admitido='A'";
