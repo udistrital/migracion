@@ -230,13 +230,13 @@ class sql_registroCambiarGrupoInscripcionEstudCoordinador extends sql
                             $cadena_sql.=" FROM ACCALEVENTOS";
                             $cadena_sql.=" WHERE ACE_ANIO=".$variable[3];
                             $cadena_sql.=" AND ACE_PERIODO=".$variable[4];
-                            $cadena_sql.=" AND (to_char(ACE_FEC_INI, 'yyyymmdd')<=to_char(sysdate, 'yyyymmdd')";
-                            $cadena_sql.=" AND to_char(ACE_FEC_FIN, 'yyyymmdd')>=to_char(sysdate, 'yyyymmdd')";
+                            $cadena_sql.=" AND (to_char(ACE_FEC_INI, 'yyyymmdd')<=to_char(current_timestamp, 'yyyymmdd')";
+                            $cadena_sql.=" AND to_char(ACE_FEC_FIN, 'yyyymmdd')>=to_char(current_timestamp, 'yyyymmdd')";
                             $cadena_sql.=" AND ACE_COD_EVENTO=15";
                             $cadena_sql.=" AND ACE_ESTADO LIKE '%A%'";
                             $cadena_sql.=" AND ACE_CRA_COD !=".$variable[1].")";
-                            $cadena_sql.=" OR (to_char(ACE_FEC_INI, 'yyyymmdd')<=to_char(sysdate, 'yyyymmdd')";
-                            $cadena_sql.=" AND to_char(ACE_FEC_FIN, 'yyyymmdd')>=to_char(sysdate, 'yyyymmdd')";
+                            $cadena_sql.=" OR (to_char(ACE_FEC_INI, 'yyyymmdd')<=to_char(current_timestamp, 'yyyymmdd')";
+                            $cadena_sql.=" AND to_char(ACE_FEC_FIN, 'yyyymmdd')>=to_char(current_timestamp, 'yyyymmdd')";
                             $cadena_sql.=" AND ACE_COD_EVENTO=8";
                             $cadena_sql.=" AND ACE_ESTADO LIKE '%A%'";
                             $cadena_sql.=" AND ACE_CRA_COD=105)";

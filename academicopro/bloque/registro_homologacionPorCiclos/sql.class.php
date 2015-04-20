@@ -60,7 +60,7 @@ class sql_registroHomologacionPorCiclos extends sql {
                             $cadena_sql.="NOT_PER PERIODO_NOTA, ";
                             $cadena_sql.="NOT_SEM NIVEL_NOTA, ";
                             $cadena_sql.="NOT_NOTA NOTA, ";
-                            $cadena_sql.="NVL(NOT_GR,0) GRUPO, ";
+                            $cadena_sql.="coalesce(NOT_GR,0) GRUPO, ";
                             $cadena_sql.="NOT_OBS OBSERVACION, ";
                             $cadena_sql.="NOT_CRED CREDITOS, ";
                             $cadena_sql.="NOT_NRO_HT HTD, ";

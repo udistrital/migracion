@@ -44,7 +44,7 @@ class sql_reporteSabanaDeNotas extends sql {	//@ Método que crea las sentencias
                 $cadena_sql.=" est_nro_iden DOCUMENTO,";
                 $cadena_sql.=" TRIM(est_ind_cred) IND_CRED,";
                 $cadena_sql.=" fa_promedio_nota(est_cod) PROMEDIO,";
-                $cadena_sql.="  ('OAS'||ABS((est_cod+est_nro_iden*est_cra_cod-TO_NUMBER(TO_CHAR(SYSDATE,'yyyymmdd'))+12))||decode(trim(est_ind_cred),'N','H','S','C')) MARCA";
+                $cadena_sql.="  ('OAS'||ABS((est_cod+est_nro_iden*est_cra_cod-TO_NUMBER(TO_CHAR(current_timestamp,'yyyymmdd'))+12))||decode(trim(est_ind_cred),'N','H','S','C')) MARCA";
                 $cadena_sql.=" FROM ".$this->configuracion['esquema_academico']."acest";
                 $cadena_sql.=" WHERE est_cod in (".$variable.")";
                 break;
@@ -61,7 +61,7 @@ class sql_reporteSabanaDeNotas extends sql {	//@ Método que crea las sentencias
                 $cadena_sql.=" decode(not_nota,0,to_number(0.0),(not_nota/10))      NOT_NOTA,";
                 $cadena_sql.=" to_number(decode(nde_nota,0,'0.0',nde_nota))         NOT_NOTA_BASE,";
                 $cadena_sql.=" decode(not_obs,19,nob_nombre,20,nob_nombre,22,nob_nombre,23,nob_nombre,24,nob_nombre,25,nob_nombre,mon_nombre)       LETRAS,";
-                $cadena_sql.=" (nvl(nde_nro_ht,0) + nvl(nde_nro_hp,0) + nvl(nde_nro_aut,0)) INTENSIDAD,";
+                $cadena_sql.=" (coalesce(nde_nro_ht,0) + coalesce(nde_nro_hp,0) + coalesce(nde_nro_aut,0)) INTENSIDAD,";
                 $cadena_sql.=" decode(trim(est_ind_cred),'S',nde_cred,null)                 CREDITOS,";
                 $cadena_sql.=" decode(trim(est_ind_cred),'S',not_cea_cod,null)              CLASIFICACION,";
                 $cadena_sql.=" nde_nro_ht       HT,";
@@ -106,7 +106,7 @@ class sql_reporteSabanaDeNotas extends sql {	//@ Método que crea las sentencias
                 $cadena_sql.=" WHERE dep_cod = cra_dep_cod";
                 $cadena_sql.=" AND cra_cod = ".$variable;
                 $cadena_sql.=" AND dep_cod = sec_dep_cod";
-                $cadena_sql.=" AND SYSDATE BETWEEN sec_fecha_desde AND NVL(sec_fecha_hasta,SYSDATE)";
+                $cadena_sql.=" AND current_timestamp BETWEEN sec_fecha_desde AND coalesce(sec_fecha_hasta,current_timestamp)";
                 $cadena_sql.=" AND sec_estado = 'A'";
                 break;
            

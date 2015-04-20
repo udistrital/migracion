@@ -106,7 +106,7 @@ class sql_registroAdicionarTablaHomologaciones extends sql {
                     $cadena_sql.="'".$variable['cod_proyecto_hom']."',";
                     $cadena_sql.="'".$variable['cod_hijo']."',";
                     $cadena_sql.="'A',";
-                    //$cadena_sql.="to_date(sysdate,'dd/mm/yyyy'),";
+                    //$cadena_sql.="to_date(current_timestamp,'dd/mm/yyyy'),";
                     $cadena_sql.="'".$variable['time']."',";
                     $cadena_sql.="'".$variable['tipo']."')"; 
                 
@@ -151,7 +151,7 @@ class sql_registroAdicionarTablaHomologaciones extends sql {
                     $cadena_sql.="'A',";
                     $cadena_sql.="'".$variable['annio']."',";
                     $cadena_sql.="'".$variable['periodo']."',";
-                    //$cadena_sql.="to_date(sysdate,'dd/mm/yyyy'),";
+                    //$cadena_sql.="to_date(current_timestamp,'dd/mm/yyyy'),";
                     $cadena_sql.="'".$variable['time']."')";
                 
                 break;

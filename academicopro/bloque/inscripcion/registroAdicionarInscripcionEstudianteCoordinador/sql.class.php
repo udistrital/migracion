@@ -174,8 +174,8 @@ class sql_registroAdicionarInscripcionEstudianteCoordinador extends sql {
                 $cadena_sql="SELECT DISTINCT ACE_CRA_COD FROM ACCALEVENTOS ";
                 $cadena_sql.="WHERE ACE_ANIO=".$variable[3];
                 $cadena_sql.=" AND ACE_PERIODO=".$variable[4];
-                $cadena_sql.=" AND ACE_FEC_INI<=SYSDATE ";
-                $cadena_sql.="AND ACE_FEC_FIN>=SYSDATE ";
+                $cadena_sql.=" AND ACE_FEC_INI<=current_timestamp ";
+                $cadena_sql.="AND ACE_FEC_FIN>=current_timestamp ";
                 $cadena_sql.="AND ACE_COD_EVENTO=15 ";
                 $cadena_sql.="AND ACE_ESTADO LIKE '%A%' ";
                 $cadena_sql.="AND ACE_CRA_COD !=".$variable[1];

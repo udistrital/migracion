@@ -378,7 +378,7 @@ class sql_reporteInterno extends sql {	//@ Método que crea las sentencias sql p
                 $cadena_sql.="not_asi_cod,";
                 $cadena_sql.="asi_nombre,";
                 $cadena_sql.="not_nota, ";
-                $cadena_sql.="nvl(not_sem,0) not_sem, ";
+                $cadena_sql.="coalesce(not_sem,0) not_sem, ";
                 $cadena_sql.="not_est_cod, ";
                 $cadena_sql.="est_nombre, ";
                 $cadena_sql.="est_nro_iden, ";

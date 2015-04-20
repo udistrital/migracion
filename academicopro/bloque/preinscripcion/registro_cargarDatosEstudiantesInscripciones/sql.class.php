@@ -106,7 +106,7 @@ class sql_registroCargarDatosEstudiantesInscripciones extends sql {
                 $cadena_sql = "SELECT ";
                 $cadena_sql.=" not_est_cod COD_ESTUDIANTE,";
                 $cadena_sql.=" not_asi_cod CODIGO,";
-                $cadena_sql.=" NVL(not_nota,0) NOTA,";
+                $cadena_sql.=" coalesce(not_nota,0) NOTA,";
                 $cadena_sql.=" not_cra_cod PROYECTO,";
                 $cadena_sql.=" not_cred CREDITOS,";
                 $cadena_sql.=" not_cea_cod CLASIFICACION,";
@@ -122,7 +122,7 @@ class sql_registroCargarDatosEstudiantesInscripciones extends sql {
                 $cadena_sql = "SELECT ";
                 $cadena_sql.=" not_est_cod COD_ESTUDIANTE,";
                 $cadena_sql.=" not_asi_cod CODIGO,";
-                $cadena_sql.=" NVL(not_nota,0) NOTA,";
+                $cadena_sql.=" coalesce(not_nota,0) NOTA,";
                 $cadena_sql.=" not_cra_cod PROYECTO,";
                 $cadena_sql.=" not_cred CREDITOS,";
                 $cadena_sql.=" not_cea_cod CLASIFICACION,";
@@ -147,7 +147,7 @@ class sql_registroCargarDatosEstudiantesInscripciones extends sql {
                 $cadena_sql.=" req_cod COD_REQUISITO, ";
                 $cadena_sql.=" req_cra_cod CARRERA, ";
                 $cadena_sql.=" req_asi_corre ASI_CORRE, ";
-                $cadena_sql.=" NVL(Req_Pen_Nro,0) COD_PLAN";
+                $cadena_sql.=" coalesce(Req_Pen_Nro,0) COD_PLAN";
                 $cadena_sql.=" FROM acreq ";
                 $cadena_sql.=" WHERE req_estado LIKE '%A%'";
                 break;

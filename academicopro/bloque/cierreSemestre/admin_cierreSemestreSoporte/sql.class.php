@@ -80,7 +80,7 @@ class sql_adminCierreSemestre extends sql
      
                             case "fechaactual":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="TO_CHAR(SYSDATE, 'YYYYmmddhh24mmss') FECHA  ";
+				$cadena_sql.="TO_CHAR(current_timestamp, 'YYYYmmddhh24mmss') FECHA  ";
 				$cadena_sql.="FROM ";
 				$cadena_sql.="dual";
 				break;
@@ -123,7 +123,7 @@ class sql_adminCierreSemestre extends sql
                                 break;
                             
                             case 'consultarDatosEstudiantesCierre':
-                                $cadena_sql=" select A.est_cod CODIGO, NVL(A.est_estado_est,0) ESTADO, NVL(A.est_acuerdo,0) ACUERDO";
+                                $cadena_sql=" select A.est_cod CODIGO, coalesce(A.est_estado_est,0) ESTADO, coalesce(A.est_acuerdo,0) ACUERDO";
                                 $cadena_sql.=" from acest A";
                                 $cadena_sql.=" inner join reglamento on A.est_cod=reg_est_cod and reg_cra_cod=A.est_cra_cod";
                                 $cadena_sql.=" inner join acesthis H on A.est_cod=H.est_cod and H.est_ano=reg_ano and H.est_per=reg_per";
@@ -154,16 +154,16 @@ class sql_adminCierreSemestre extends sql
                             case 'consultarDatosReglamento':
                                 $cadena_sql=" SELECT A.est_cod CODIGO,";
                                 $cadena_sql.=" A.est_nombre NOMBRE_ESTUDIANTE,";
-                                $cadena_sql.=" NVL(H.est_estado,'-') ESTADO_ANTERIOR,";
-                                $cadena_sql.=" NVL(A.est_estado_est,'-') ESTADO_ACTUAL,";
-                                $cadena_sql.=" NVL(A.est_acuerdo,'0') ACUERDO,";
-                                $cadena_sql.=" NVL(reg_motivo,0) MOTIVO_PRUEBA,";
-                                $cadena_sql.=" NVL(reg_asi_3,0) ESP_ACAD_REPRO,";
-                                $cadena_sql.=" NVL(reg_veces,0) MAX_VECES_REPROBADO,";
-                                $cadena_sql.=" NVL(reg_promedio,0) PROMEDIO,";
-                                $cadena_sql.=" NVL(reg_causal_exclusion,0) CAUSAL_EXCLUSION,";
-                                $cadena_sql.=" NVL(reg_porcentaje_plan,0) PORCENTAJE_PLAN,";
-                                $cadena_sql.=" NVL(reg_espacio_veces,0) ESPACIOS_REPROBADOS";
+                                $cadena_sql.=" coalesce(H.est_estado,'-') ESTADO_ANTERIOR,";
+                                $cadena_sql.=" coalesce(A.est_estado_est,'-') ESTADO_ACTUAL,";
+                                $cadena_sql.=" coalesce(A.est_acuerdo,'0') ACUERDO,";
+                                $cadena_sql.=" coalesce(reg_motivo,0) MOTIVO_PRUEBA,";
+                                $cadena_sql.=" coalesce(reg_asi_3,0) ESP_ACAD_REPRO,";
+                                $cadena_sql.=" coalesce(reg_veces,0) MAX_VECES_REPROBADO,";
+                                $cadena_sql.=" coalesce(reg_promedio,0) PROMEDIO,";
+                                $cadena_sql.=" coalesce(reg_causal_exclusion,0) CAUSAL_EXCLUSION,";
+                                $cadena_sql.=" coalesce(reg_porcentaje_plan,0) PORCENTAJE_PLAN,";
+                                $cadena_sql.=" coalesce(reg_espacio_veces,0) ESPACIOS_REPROBADOS";
                                 $cadena_sql.=" FROM acest A";
                                 $cadena_sql.=" INNER JOIN reglamento ON A.est_cod=reg_est_cod AND reg_cra_cod=A.est_cra_cod";
                                 $cadena_sql.=" INNER JOIN acesthis H ON A.est_cod=H.est_cod AND H.est_ano=reg_ano AND H.est_per=reg_per";

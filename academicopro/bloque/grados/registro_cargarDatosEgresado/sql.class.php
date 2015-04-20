@@ -212,8 +212,8 @@ class sql_registroCargarDatosEgresado extends sql {
             case "consultarSecretarios":
                 $cadena_sql=" SELECT sec_cod,";
                 $cadena_sql.=" trim(sec_nombre)||' '||trim(sec_apellido) NOMBRE,";
-                $cadena_sql.=" nvl(to_char(sec_fecha_desde,'YYYYMMDD'),'') FECHA_DESDE,";
-                $cadena_sql.=" nvl(to_char(sec_fecha_hasta,'YYYYMMDD'),to_char(sysdate,'YYYYMMDD')) FECHA_HASTA";
+                $cadena_sql.=" coalesce(to_char(sec_fecha_desde,'YYYYMMDD'),'') FECHA_DESDE,";
+                $cadena_sql.=" coalesce(to_char(sec_fecha_hasta,'YYYYMMDD'),to_char(current_timestamp,'YYYYMMDD')) FECHA_HASTA";
                 $cadena_sql.=" FROM acsecretario";
                 $cadena_sql.=" WHERE sec_dep_cod=".$variable;
                 $cadena_sql.=" ORDER BY sec_estado,sec_fecha_desde desc";
@@ -222,8 +222,8 @@ class sql_registroCargarDatosEgresado extends sql {
             case "consultarRectores":
                 $cadena_sql=" SELECT rec_cod,";
                 $cadena_sql.=" trim(rec_nombre)||' '||trim(rec_apellido) NOMBRE,";
-                $cadena_sql.=" nvl(to_char(rec_fecha_desde,'YYYYMMDD'),'') FECHA_DESDE,";
-                $cadena_sql.=" nvl(to_char(rec_fecha_hasta,'YYYYMMDD'),to_char(sysdate,'YYYYMMDD')) FECHA_HASTA";
+                $cadena_sql.=" coalesce(to_char(rec_fecha_desde,'YYYYMMDD'),'') FECHA_DESDE,";
+                $cadena_sql.=" coalesce(to_char(rec_fecha_hasta,'YYYYMMDD'),to_char(current_timestamp,'YYYYMMDD')) FECHA_HASTA";
                 $cadena_sql.=" FROM acrector";
                 $cadena_sql.=" ORDER BY rec_estado,rec_fecha_desde desc";
                 break;

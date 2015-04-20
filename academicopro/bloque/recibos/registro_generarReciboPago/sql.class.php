@@ -52,7 +52,7 @@ class sql_registroGenerarReciboPago extends sql {
                     $cadena_sql.=" ".$variable['valorExtraordinario']."  EMA_EXT, ";
                     $cadena_sql.=" ape_ano EMA_ANO, ";
                     $cadena_sql.=" ape_per EMA_PER, ";
-                    $cadena_sql.=" SYSDATE EMA_FECHA, ";
+                    $cadena_sql.=" current_timestamp EMA_FECHA, ";
                     $cadena_sql.=" 'A' EMA_ESTADO, ";
                     $cadena_sql.=" SEQ_MATRICULA.nextval EMA_SECUENCIA, ";
                     $cadena_sql.=" ".$variable['cuota']."  EMA_CUOTA, ";

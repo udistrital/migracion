@@ -57,7 +57,7 @@ class sql_adminInscripcionCoordinadorPosgrado extends sql {
                 $cadena_sql.=" cra_abrev NOMBRE,";
                 $cadena_sql.=" ctp_pen_nro PLAN,";
                 $cadena_sql.=" tra_nivel NIVEL,";
-                $cadena_sql.=" NVL(tra_cod_nivel,0) CODIGONIVEL,";
+                $cadena_sql.=" coalesce(tra_cod_nivel,0) CODIGONIVEL,";
                 $cadena_sql.=" ctp_ind_cred CREDITOS";
                 $cadena_sql.=" FROM ACCRA";
                 $cadena_sql.=" INNER JOIN V_CRA_TIP_PEN ON CTP_CRA_COD=CRA_COD";
@@ -76,14 +76,14 @@ class sql_adminInscripcionCoordinadorPosgrado extends sql {
                 	$cadena_sql.=" cra_abrev NOMBRE,";
                 	$cadena_sql.=" ctp_pen_nro PLAN,";
                 	$cadena_sql.=" tra_nivel NIVEL,";
-                	$cadena_sql.=" NVL(tra_cod_nivel,0) CODIGONIVEL,";
+                	$cadena_sql.=" coalesce(tra_cod_nivel,0) CODIGONIVEL,";
                 	$cadena_sql.=" ctp_ind_cred CREDITOS";
                 	$cadena_sql.=" FROM ACCRA";
                 	$cadena_sql.=" INNER JOIN V_CRA_TIP_PEN ON CTP_CRA_COD=CRA_COD";
                 	$cadena_sql.=" INNER JOIN ACTIPCRA ON CRA_TIP_CRA=TRA_COD";
                 	$cadena_sql.=" INNER JOIN GEUSUWEB  ON CRA_COD = USUWEB_CODIGO_DEP";
                 	$cadena_sql.=" WHERE USUWEB_CODIGO=".$variable;
-                	$cadena_sql.=" AND USUWEB_FECHA_FIN >= sysdate ";
+                	$cadena_sql.=" AND USUWEB_FECHA_FIN >= current_timestamp ";
                 	$cadena_sql.="  AND USUWEB_ESTADO = 'A' ";
                 	//$cadena_sql.=" AND (CTP_IND_CRED NOT LIKE '%N%'OR TRA_COD_NIVEL NOT IN (2,3,4)";
                 	//$cadena_sql.=" AND CTP_IND_CRED LIKE '%S%'";
