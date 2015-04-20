@@ -121,7 +121,6 @@ class funcion_adminConsultarEstudianteHorarioCoordinador extends funcionGeneral 
                 $validacion=$this->validacion->validarProyectoAsistente($codEstudiante,$this->usuario);
 
         }
-
         if (is_array($validacion)||$validacion=='ok') {
 
             $pagina = $this->configuracion["host"] . $this->configuracion["site"] . "/index.php?";
@@ -129,10 +128,10 @@ class funcion_adminConsultarEstudianteHorarioCoordinador extends funcionGeneral 
             $variable.="&opcion=mostrarConsulta";
             $variable.="&codProyecto=" . $_REQUEST['codProyecto'];
             $variable.="&planEstudio=" . $_REQUEST['planEstudio'];
-            $variable.="&planEstudioGeneral=" . $validacion['planEstudioEstudiante'];
-            $variable.="&codProyectoEstudiante=" . $validacion['codProyectoEstudiante'];
-            $variable.="&planEstudioEstudiante=" . $validacion['planEstudioEstudiante'];
-            $variable.="&nombreProyecto=" . $validacion['nombreProyecto'];
+            $variable.="&planEstudioGeneral=" . (isset($validacion['planEstudioEstudiante'])?$validacion['planEstudioEstudiante']:'');
+            $variable.="&codProyectoEstudiante=" . (isset($validacion['codProyectoEstudiante'])?$validacion['codProyectoEstudiante']:'');
+            $variable.="&planEstudioEstudiante=" . (isset($validacion['planEstudioEstudiante'])?$validacion['planEstudioEstudiante']:'');
+            $variable.="&nombreProyecto=" . (isset($validacion['nombreProyecto'])?$validacion['nombreProyecto']:'');
             $variable.="&codEstudiante=" . $_REQUEST['codEstudiante'];
 
             include_once($this->configuracion["raiz_documento"] . $this->configuracion["clases"] . "/encriptar.class.php");
@@ -147,7 +146,7 @@ class funcion_adminConsultarEstudianteHorarioCoordinador extends funcionGeneral 
             $variable.="&opcion=consultar";
             $variable.="&codProyecto=" . $_REQUEST['codProyecto'];
             $variable.="&planEstudio=" . $_REQUEST['planEstudio'];
-            $variable.="&planEstudioGeneral=" . $_REQUEST['planEstudioEstudiante'];
+            $variable.="&planEstudioGeneral=" . (isset($_REQUEST['planEstudioEstudiante'])?$_REQUEST['planEstudioEstudiante']:'');
             $variable.="&nombreProyecto=" . $_REQUEST['nombreProyecto'];
 
             include_once($this->configuracion["raiz_documento"] . $this->configuracion["clases"] . "/encriptar.class.php");

@@ -50,7 +50,7 @@ class sql_adminConsultarHorarioEstudianteCoordinador extends sql { //@ Método q
             case 'consultarInscripciones':
 
                 $cadena_sql = "SELECT distinct ins_asi_cod CODIGO,";
-                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO,";
+                $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO,";
                 $cadena_sql.=" asi_nombre NOMBRE,";
                 $cadena_sql.=" ins_cred CREDITOS, ";
                 $cadena_sql.=" ins_cea_cod CLASIFICACION, ";
