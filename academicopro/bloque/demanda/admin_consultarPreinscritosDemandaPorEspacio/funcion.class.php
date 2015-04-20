@@ -291,10 +291,10 @@ class funcion_adminConsultarPreinscritosDemandaPorEspacio extends funcionGeneral
          */
     function buscarDatosEspacio($codigo) {
                        
-              $variablesEspacios = array( codEspacio => $codigo,
-                                          ano=>$this->ano,
-                                          periodo=>  $this->periodo,
-                                          opcion => codigo);
+              $variablesEspacios = array( 'codEspacio' => $codigo,
+                                          'ano'=>$this->ano,
+                                          'periodo'=>  $this->periodo,
+                                          'opcion' => 'codigo');
 
               $cadena_sql = $this->sql->cadena_sql("buscarDatosEspacio", $variablesEspacios);
               $arreglo_datos_espacio = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -344,10 +344,10 @@ class funcion_adminConsultarPreinscritosDemandaPorEspacio extends funcionGeneral
      */
     function buscarFacultad($codigo) {
 
-              $variablesEspacios = array( codEspacio => $codigo,
-                                          ano=>$this->ano,
-                                          periodo=>  $this->periodo,
-                                          opcion => codigo);
+              $variablesEspacios = array( 'codEspacio' => $codigo,
+                                          'ano'=>$this->ano,
+                                          'periodo'=>  $this->periodo,
+                                          'opcion' => 'codigo');
 
               $cadena_sql = $this->sql->cadena_sql("buscarFacultad", $variablesEspacios);
               $arreglo_facultad = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");              
@@ -359,8 +359,8 @@ class funcion_adminConsultarPreinscritosDemandaPorEspacio extends funcionGeneral
          */
     function buscarProyectosFacultad($codigo, $facultad) {
                        
-              $variablesEspacios = array( codEspacio => $codigo,
-                                          codFacultad => $facultad,
+              $variablesEspacios = array( 'codEspacio' => $codigo,
+                                          'codFacultad' => $facultad,
                                         );
 
               $cadena_sql = $this->sql->cadena_sql("buscarProyectosFacultad", $variablesEspacios);
@@ -380,8 +380,8 @@ class funcion_adminConsultarPreinscritosDemandaPorEspacio extends funcionGeneral
             $ruta = "pagina=".$this->formulario;
             $ruta.= "&opcion=consultarPorCodigo";
             $ruta.= "&codEspacio=" . $codEspacio;
-            $ruta.= "&codProyecto=" . $proyecto['CODIGO'];
-            $ruta.= "&nombreProyecto=" . $proyecto['NOMBRE'];
+            $ruta.= "&codProyecto=" . (isset($proyecto['CODIGO'])?$proyecto['CODIGO']:'');
+            $ruta.= "&nombreProyecto=" . (isset($proyecto['NOMBRE'])?$proyecto['NOMBRE']:'');
             $ruta = $this->cripto->codificar_url($ruta,  $this->configuracion);
             $enlace=$indice.$ruta;            
             ?>
@@ -462,10 +462,10 @@ class funcion_adminConsultarPreinscritosDemandaPorEspacio extends funcionGeneral
 
     function buscarNumeroEstudiantesPreinscritosProyecto($proyecto,$espacio) {
               
-    $variables = array( codProyecto => $proyecto,
-                        codEspacio => $espacio,
-                        ano=>$this->ano,
-                        periodo=>  $this->periodo,
+    $variables = array( 'codProyecto' => $proyecto,
+                        'codEspacio' => $espacio,
+                        'ano'=>$this->ano,
+                        'periodo'=>  $this->periodo,
                        );      
       
       $cadena_sql = $this->sql->cadena_sql("buscarNumeroEstudiantesPreinscritos", $variables);
@@ -477,10 +477,10 @@ class funcion_adminConsultarPreinscritosDemandaPorEspacio extends funcionGeneral
 
     function buscarEstudiantesPreinscritosProyecto($proyecto, $espacio) {
         
-    $variables = array( codProyecto => $proyecto,
-                        codEspacio => $espacio,
-                        ano=>$this->ano,
-                        periodo=>  $this->periodo,
+    $variables = array( 'codProyecto' => $proyecto,
+                        'codEspacio' => $espacio,
+                        'ano'=>$this->ano,
+                        'periodo'=>  $this->periodo,
                        );         
         
       $cadena_sql = $this->sql->cadena_sql("buscarEstudiantesPreinscritosProyecto", $variables);

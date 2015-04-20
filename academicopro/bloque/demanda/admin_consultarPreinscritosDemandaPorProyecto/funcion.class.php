@@ -449,7 +449,7 @@ class funcion_adminConsultarPreinscritosDemandaPorProyecto extends funcionGenera
               $variablesEspacios = array('codEspacio' => $codigo,
                                          'ano'=>$this->ano,
                                          'periodo'=>  $this->periodo,
-                                         'opcion' => codigo);
+                                         'opcion' => 'codigo');
 
               $cadena_sql = $this->sql->cadena_sql("buscarDatosEspacio", $variablesEspacios);
               $arreglo_datos_espacio = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");

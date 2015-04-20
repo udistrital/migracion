@@ -162,7 +162,9 @@ class funciones_adminConsultarInscripcionEstudiantesInactivos extends funcionGen
      */
     function seleccionarEstado($configuracion)
     {
-        if($_REQUEST['proyecto'])
+        $totalEstudiantes='';
+        $totalInscripciones='';
+        if(isset($_REQUEST['proyecto']))
             {
 
                 $arreglo=explode("-",$_REQUEST['proyecto']);
@@ -171,7 +173,7 @@ class funciones_adminConsultarInscripcionEstudiantesInactivos extends funcionGen
                 $nombreProyecto=$arreglo[2];
 
                 $variable=array($codProyecto,$nombreProyecto,$planEstudio);
-            }else if($_REQUEST['codProyecto'] && $_REQUEST['planEstudio'])
+            }else if(isset($_REQUEST['codProyecto']) && isset($_REQUEST['planEstudio']))
                 {
                     $codProyecto=$_REQUEST['codProyecto'];
                     $planEstudio=$_REQUEST['planEstudio'];

@@ -267,6 +267,7 @@ class funcion_registro_cancelarEspacioPreinscripcionDemandaEstud extends funcion
       $_REQUEST['periodo']=$this->periodo;
       //verifica si el espacio esta inscrito y cancelado
       $cancelado=$this->verificarCancelado($_REQUEST);
+      $retorno='';
       if($cancelado=='ok')
       {
         $canceladoOracle=$this->desbloquearRegistroInscripcion();

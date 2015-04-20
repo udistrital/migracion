@@ -54,7 +54,7 @@ class funciones_registroCancelarInscripcionEstudiantesInactivos extends funcionG
         $this->encabezadoModulo($configuracion);
 
         $variablesConsulta=array($id_estado,$codProyecto);
-        $cadena_sql=$this->sql->cadena_sql($configuracion,"estudiantes_asignaturas", $variablesConsulta);//echo $cadena_sql;exit;
+        $cadena_sql=$this->sql->cadena_sql($configuracion,"estudiantes_asignaturas", $variablesConsulta);
         $resultado_estudiantes=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
 
         ?>
@@ -65,9 +65,9 @@ class funciones_registroCancelarInscripcionEstudiantesInactivos extends funcionG
             $pagina=$configuracion["host"].$configuracion["site"]."/index.php?";
             $ruta="pagina=adminConsultarInscripcionEstudiantesInactivos";
             $ruta.="&opcion=reporte";
-            $ruta.="&codProyecto=".$resultado_proyectos[$i][0];
-            $ruta.="&planEstudio=".$resultado_proyectos[$i][2];
-            $ruta.="&nombreProyecto=".$resultado_proyectos[$i][1];
+            $ruta.="&codProyecto=".$codProyecto;
+            $ruta.="&planEstudio=".$planEstudio;
+            $ruta.="&nombreProyecto=".$nombreProyecto;
 
             include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
             $this->cripto=new encriptar();
@@ -285,7 +285,7 @@ class funciones_registroCancelarInscripcionEstudiantesInactivos extends funcionG
         }
 
         for($i=1;$i<$totalEstudiantes;$i++) {
-            if($_REQUEST['codEstudiante'.$i]!=NULL) {
+            if(isset($_REQUEST['codEstudiante'.$i])&&$_REQUEST['codEstudiante'.$i]!=NULL) {
                 $codEstudiante[$j]=$_REQUEST['codEstudiante'.$i];
                 $j++;
             }
@@ -296,7 +296,7 @@ class funciones_registroCancelarInscripcionEstudiantesInactivos extends funcionG
         $bar->setAutohide(true);
     
         $bar->setForegroundColor('#F3E3A4');
-        $cadena_sql=$this->sql->cadena_sql($configuracion,"periodoActivo", $variablesConsulta);//echo $cadena_sql;exit;
+        $cadena_sql=$this->sql->cadena_sql($configuracion,"periodoActivo", "");
         $resultado_periodo=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
         $annio=$resultado_periodo[0][0];
         $periodo=$resultado_periodo[0][1];
@@ -308,19 +308,19 @@ class funciones_registroCancelarInscripcionEstudiantesInactivos extends funcionG
 
         for($h=1;$h<$j;$h++) {
             $variablesConsulta=array($id_estado,$codProyecto,$codEstudiante[$h]);
-            $cadena_sql=$this->sql->cadena_sql($configuracion,"estudiante_inscripciones", $variablesConsulta);//echo "<br>".$cadena_sql;exit;
+            $cadena_sql=$this->sql->cadena_sql($configuracion,"estudiante_inscripciones", $variablesConsulta);
             $resultado_inscripciones=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
             $reporte[$h]['codigo']=$codEstudiante[$h];
            
 
-            $cadena_sql=$this->sql->cadena_sql($configuracion,"cancelarEspaciosOracle", $variablesConsulta);//echo $cadena_sql;exit;
+            $cadena_sql=$this->sql->cadena_sql($configuracion,"cancelarEspaciosOracle", $variablesConsulta);
             $resultado_cancelacionOracle=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"" );
 
             $bar->setMessage("Cancelando inscripciones de $h estudiantes");
             $bar->increase();
             $variablesConsulta2=array($id_estado,$codProyecto,$codEstudiante[$h],$annio,$periodo);
 
-            $cadena_sql=$this->sql->cadena_sql($configuracion,"cancelarEspaciosMySQL", $variablesConsulta2);//echo $cadena_sql;exit;
+            $cadena_sql=$this->sql->cadena_sql($configuracion,"cancelarEspaciosMySQL", $variablesConsulta2);
             $resultado_cancelacionMySQL=$this->ejecutarSQL($configuracion, $this->accesoGestion, $cadena_sql,"" );
 
             if(is_array($resultado_inscripciones))
@@ -328,7 +328,13 @@ class funciones_registroCancelarInscripcionEstudiantesInactivos extends funcionG
                     for($p=0;$p<count($resultado_inscripciones);$p++)
                     {
                         $reporte[$h]['nombreEst']=$resultado_inscripciones[0][1];
-                        $reporte[$h]['asignaturas'].=$resultado_inscripciones[$p][2].",".$resultado_inscripciones[$p][3].",".$resultado_inscripciones[$p][4].",";
+			if(!isset($reporte[$h]['asignaturas']))
+			{
+				$reporte[$h]['asignaturas']=$resultado_inscripciones[$p][2].",".$resultado_inscripciones[$p][3].",".$resultado_inscripciones[$p][4].",";
+			}else{
+				$reporte[$h]['asignaturas'].=$resultado_inscripciones[$p][2].",".$resultado_inscripciones[$p][3].",".$resultado_inscripciones[$p][4].",";
+				}
+                        
 
                         $variablesConsultaIns=array($resultado_inscripciones[$p][2],$resultado_inscripciones[$p][4],$annio,$periodo);
 
@@ -341,7 +347,7 @@ class funciones_registroCancelarInscripcionEstudiantesInactivos extends funcionG
                     }
                 }else
                     {
-                        $cadena_sql=$this->sql->cadena_sql($configuracion,"datos_estudiante", $codEstudiante[$h]);//echo "<br>".$cadena_sql;//exit;
+                        $cadena_sql=$this->sql->cadena_sql($configuracion,"datos_estudiante", $codEstudiante[$h]);
                         $resultado_datosEst=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
 
                         $reporte[$h]['nombreEst']=$resultado_datosEst[0][1];
@@ -444,24 +450,24 @@ class funciones_registroCancelarInscripcionEstudiantesInactivos extends funcionG
         $codEspacio=$_REQUEST['codEspacio'];
         $grupo=$_REQUEST['grupo'];
 
-        $cadena_sql=$this->sql->cadena_sql($configuracion,"periodoActivo", $variablesConsulta);//echo $cadena_sql;exit;
+        $cadena_sql=$this->sql->cadena_sql($configuracion,"periodoActivo", "");
         $resultado_periodo=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
         $annio=$resultado_periodo[0][0];
         $periodo=$resultado_periodo[0][1];
 
         $variablesConsulta=array($id_estado,$codProyecto,$codEstudiante,$codEspacio);
-        $cadena_sql=$this->sql->cadena_sql($configuracion,"estudiante_inscripcionesCancelar", $variablesConsulta);//echo "<br>".$cadena_sql;exit;
+        $cadena_sql=$this->sql->cadena_sql($configuracion,"estudiante_inscripcionesCancelar", $variablesConsulta);
         $resultado_inscripciones=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
         $reporte[1]['codigo']=$codEstudiante;
         $reporte[1]['nombreEst']=$resultado_inscripciones[0][1];
         $reporte[1]['asignaturas']=$resultado_inscripciones[0][2].",".$resultado_inscripciones[0][3].",".$resultado_inscripciones[0][4].",";
 
         $variablesConsulta=array($codEstudiante,$codEspacio,$grupo,$annio,$periodo);
-        $cadena_sql=$this->sql->cadena_sql($configuracion,"cancelarAsignaturaOracle", $variablesConsulta);//echo $cadena_sql;exit;
+        $cadena_sql=$this->sql->cadena_sql($configuracion,"cancelarAsignaturaOracle", $variablesConsulta);
         $resultado_cancelaOracle=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"" );
 
         if($resultado_cancelaOracle==true) {
-            $cadena_sql=$this->sql->cadena_sql($configuracion,"cancelarAsignaturaMySQL", $variablesConsulta);//echo $cadena_sql;exit;
+            $cadena_sql=$this->sql->cadena_sql($configuracion,"cancelarAsignaturaMySQL", $variablesConsulta);
             $resultado_cancelaMySQL=$this->ejecutarSQL($configuracion, $this->accesoGestion, $cadena_sql,"" );
 
             $variablesConsultaIns=array($codEspacio,$grupo,$annio,$periodo);

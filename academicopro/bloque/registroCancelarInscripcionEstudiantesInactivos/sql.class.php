@@ -32,7 +32,7 @@ class sql_registroCancelarInscripcionEstudiantesInactivos extends sql {
                 break;
 
             case 'estudiantes_asignaturas':
-                $cadena_sql .= "SELECT DISTINCT est_cod, ";
+                $cadena_sql = "SELECT DISTINCT est_cod, ";
                 $cadena_sql .= "                est_nombre, ";
                 $cadena_sql .= "                ins_asi_cod, ";
                 $cadena_sql .= "                asi_nombre, ";
@@ -53,7 +53,7 @@ class sql_registroCancelarInscripcionEstudiantesInactivos extends sql {
                 break;
 
             case 'datos_estudiante':
-                $cadena_sql .= "SELECT DISTINCT est_cod, est_nombre ";
+                $cadena_sql = "SELECT DISTINCT est_cod, est_nombre ";
                 $cadena_sql .= "FROM   acest ";
                 $cadena_sql .= "WHERE  est_cod = '".$variable."' ";
                 break;
@@ -82,7 +82,7 @@ class sql_registroCancelarInscripcionEstudiantesInactivos extends sql {
                 break;
 
             case 'estudiante_inscripciones':
-                $cadena_sql .= "SELECT DISTINCT est_cod, ";
+                $cadena_sql = "SELECT DISTINCT est_cod, ";
                 $cadena_sql .= "                est_nombre, ";
                 $cadena_sql .= "                ins_asi_cod, ";
                 $cadena_sql .= "                asi_nombre, ";
@@ -104,7 +104,7 @@ class sql_registroCancelarInscripcionEstudiantesInactivos extends sql {
                 break;
 
             case 'cancelarEspaciosOracle':
-                $cadena_sql .= "DELETE FROM ACINS ";
+                $cadena_sql = "DELETE FROM ACINS ";
                 $cadena_sql .= " WHERE ins_est_cod ='".$variable[2]."'";
                 $cadena_sql .= " AND ins_cra_cod = '".$variable[1]."' ";
                 $cadena_sql .= " AND ins_estado LIKE '%A%' ";
@@ -113,7 +113,7 @@ class sql_registroCancelarInscripcionEstudiantesInactivos extends sql {
                 break;
             
             case 'cancelarEspaciosMySQL':
-                $cadena_sql .= "UPDATE ".$configuracion['prefijo']."horario_estudiante ";
+                $cadena_sql = "UPDATE ".$configuracion['prefijo']."horario_estudiante ";
                 $cadena_sql .= " SET horario_estado ='3'";
                 $cadena_sql .= " WHERE horario_codEstudiante = '".$variable[2]."' ";
                 $cadena_sql .= " AND horario_ano = '".$variable[3]."' ";
@@ -121,7 +121,7 @@ class sql_registroCancelarInscripcionEstudiantesInactivos extends sql {
                 break;
 
             case 'cancelarAsignaturaOracle':
-                $cadena_sql .= "DELETE FROM ACINS ";
+                $cadena_sql = "DELETE FROM ACINS ";
                 $cadena_sql .= " WHERE ins_est_cod ='".$variable[0]."'";
                 $cadena_sql .= " AND ins_asi_cod = '".$variable[1]."' ";
                 $cadena_sql .= " AND ins_gr = '".$variable[2]."' ";
@@ -131,7 +131,7 @@ class sql_registroCancelarInscripcionEstudiantesInactivos extends sql {
                 break;
 
             case 'cancelarAsignaturaMySQL':
-                $cadena_sql .= "UPDATE ".$configuracion['prefijo']."horario_estudiante ";
+                $cadena_sql = "UPDATE ".$configuracion['prefijo']."horario_estudiante ";
                 $cadena_sql .= " SET horario_estado ='3'";
                 $cadena_sql .= " WHERE horario_codEstudiante = '".$variable[0]."' ";
                 $cadena_sql .= " AND horario_idEspacio = '".$variable[1]."' ";
@@ -140,7 +140,7 @@ class sql_registroCancelarInscripcionEstudiantesInactivos extends sql {
                 break;
 
             case 'estudiante_inscripcionesCancelar':
-                $cadena_sql .= "SELECT DISTINCT est_cod, ";
+                $cadena_sql = "SELECT DISTINCT est_cod, ";
                 $cadena_sql .= "                est_nombre, ";
                 $cadena_sql .= "                ins_asi_cod, ";
                 $cadena_sql .= "                asi_nombre, ";
@@ -162,7 +162,7 @@ class sql_registroCancelarInscripcionEstudiantesInactivos extends sql {
                 $cadena_sql .= "       ORDER BY est_cod " ;
                 break;
         }
-        //echo $cadena_sql."<br>";
+
         return $cadena_sql;
     }
 

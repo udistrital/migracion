@@ -68,10 +68,10 @@ class bloque_registroCancelarInscripcionEstudiantesInactivos extends bloque
                                 $variable.="&planEstudio=".$_REQUEST["planEstudio"];
                                 $variable.="&id_estado=".$_REQUEST["id_estado"];
                                 $variable.="&totalEstudiantes=".$_REQUEST["totalEstudiantes"];
-
+				$seleccionado=0;
                                 for($i=1;$i<$_REQUEST["totalEstudiantes"];$i++)
                                 {
-                                    if($_REQUEST["codEstudiante".$i]!=NULL)
+                                    if(isset($_REQUEST["codEstudiante".$i])&&$_REQUEST["codEstudiante".$i]!=NULL)
                                     {
                                         $variable.="&codEstudiante".$i."=".$_REQUEST["codEstudiante".$i];
                                         $seleccionado++;
