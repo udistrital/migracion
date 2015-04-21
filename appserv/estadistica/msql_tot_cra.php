@@ -45,7 +45,7 @@ $QryTotCra = "SELECT dep_cod cod_fac,
 		ape_ano,
 		ape_per,
 		COUNT(DISTINCT(est_cod)) total
-		FROM mntac.gedep, mntac.accra, mntac.actipcra, mntac.acest a, mntac.acasperi b
+		FROM mntge.gedep, mntac.accra, mntac.actipcra, mntac.acest a, mntac.acasperi b
 		WHERE ape_ano = ".$_SESSION['A']."
 		AND ape_per = ".$_SESSION['G']."
 		and cra_cod = ".$_SESSION['C']."

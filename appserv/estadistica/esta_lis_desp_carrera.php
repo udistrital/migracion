@@ -9,7 +9,7 @@ $configuracion=$esta_configuracion->variable("../");
 $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 
-if($_REQUEST['cracod']=='Seleccione el Proyecto Curricular' || $_REQUEST['peri']=='Per&iacute;odo'){
+if(isset($_REQUEST['cracod'])=='Seleccione el Proyecto Curricular' || isset($_REQUEST['peri'])=='Per&iacute;odo'){
    die('<h3>Seleccione un Proyecto curricular y un per&iacute;odo.<br><input type="button" value="Regresar" OnClick="history.go(-1)" style="cursor:pointer"><h3>');
    exit;
 }
@@ -58,6 +58,6 @@ echo'</select><INPUT TYPE="Submit" VALUE="Consultar" style="cursor:pointer" styl
 
 </form></div>';
 
-if(!$_REQUEST['cracod']) $_REQUEST['cracod'] = $cracod;
-if(!$_REQUEST['peri']) $_REQUEST['peri'] = $per;
+if(!isset($_REQUEST['cracod'])) $_REQUEST['cracod'] = $cracod;
+if(!isset($_REQUEST['peri'])) $_REQUEST['peri'] = $per;
 ?>

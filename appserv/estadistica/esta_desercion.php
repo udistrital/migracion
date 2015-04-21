@@ -38,6 +38,7 @@ print'<p>&nbsp;</p>
 		print'<tr><td align="center">'.$RowEst[$i][6].'</td>
 		<td align="left">'.ucfirst(strtolower($RowEst[$i][7])).'</td>
 		<td align="right">'.$RowEst[$i][8].'</td></tr>';
+		$cont = isset($cont)?$cont:'';
 		$cont+=$RowEst[$i][8];
 	$i++;
 	}

@@ -25,7 +25,8 @@ $QryEst = "SELECT dep_cod,
 	AND NOT EXISTS (SELECT not_est_cod
 	FROM acnot
 	WHERE b.est_cod = not_est_cod
-	AND (DECODE(a.ape_per,1,((a.ape_ano||a.ape_per)+2),3,((a.ape_ano||a.ape_per)+8))) = (not_ano||not_per))
+	AND (CASE WHEN a.ape_per=1 THEN (cast((a.ape_ano::text||a.ape_per::text) as integer)+2) WHEN a.ape_per=3 
+ 	THEN (cast((a.ape_ano::text||a.ape_per::text) as integer)+8) END ) = cast((not_ano::text||not_per::text) as integer))			
 	AND NOT EXISTS (SELECT egr_est_cod
 	FROM acegresado
 	WHERE egr_est_cod = b.est_cod)
