@@ -144,8 +144,11 @@ class funcion_admin_inscripcionGraduando extends funcionGeneral {
                 if((isset($codEstudiante)?$codEstudiante:'') && !is_array($codEstudiante)){
 
                     $this->datosEstudiante=$this->consultarDatosEstudiante($codEstudiante);
+                    if ( is_array($this->datosEstudiante))
+                    {
                     $this->datosEgresado=$this->consultarDatosEgresado($codEstudiante,$this->datosEstudiante['CODIGO_CRA']);
                     $this->datosGraduando=$this->consultarDatosGraduando($codEstudiante,$this->datosEstudiante['CODIGO_CRA']);
+                    }
                 }
 
                 if (is_array($this->datosEstudiante)) {
@@ -1033,7 +1036,9 @@ class funcion_admin_inscripcionGraduando extends funcionGeneral {
         $variables=array(
                             'codEstudiante'=>$codEstudiante,
                             'proyecto'=>$codProyecto
-                        );   
+                        ); 
+
+        //var_dump($variables);exit;
 
         $cadena_sql = $this->sql->cadena_sql("consultarDatosEgresado", $variables);
         $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");

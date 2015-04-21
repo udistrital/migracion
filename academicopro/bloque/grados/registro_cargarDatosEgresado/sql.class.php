@@ -206,7 +206,7 @@ class sql_registroCargarDatosEgresado extends sql {
                 $cadena_sql.=" '".(isset($variable['telefonoCelular'])?$variable['telefonoCelular']:'')."',";
                 $cadena_sql.=" 'A',";
                 $cadena_sql.=" '".(isset($variable['mencion'])?$variable['mencion']:'')."',";
-                $cadena_sql.=" 'L')";                    
+                $cadena_sql.=" 'L')";                               
                 break;
                 
             case "consultarSecretarios":

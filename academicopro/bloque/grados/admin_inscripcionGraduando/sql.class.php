@@ -73,7 +73,7 @@ class sql_admin_inscripcionGraduando extends sql {	//@ Método que crea las sent
 
                 $cadena_sql="SELECT coalesce(egr_tip_iden,'') TIPO_IDENTIFICACION, ";
                 $cadena_sql.=" egr_nro_iden IDENTIFICACION, ";
-                $cadena_sql.=" SUBSTR(egr_nombre,INSTR(egr_nombre,' ',1,2)+1) APELLIDO, ";
+                $cadena_sql.=" SUBSTR(egr_nombre::text,INSTR(egr_nombre,' ',1,2)+1) APELLIDO, ";
                 $cadena_sql.=" SUBSTR(egr_nombre,1,INSTR(egr_nombre,' ',1,2)-1) NOMBRE, ";
                 $cadena_sql.=" coalesce(egr_sexo,'') SEXO, ";
                 $cadena_sql.=" coalesce(egr_lug_exp_iden,null) LUGAR_DOCUMENTO, ";
@@ -98,9 +98,9 @@ class sql_admin_inscripcionGraduando extends sql {	//@ Método que crea las sent
                 $cadena_sql.=" coalesce(egr_direccion_empresa,'') DIRECCION_EMPRESA, ";
                 $cadena_sql.=" coalesce(egr_telefono_empresa,'') TELEFONO_EMPRESA, ";
                 $cadena_sql.=" coalesce(egr_caracter_nota,null) MENCION ";
-                $cadena_sql.=" FROM acegresado";
+                $cadena_sql.=" FROM acegresado";                
                 $cadena_sql.=" WHERE egr_est_cod = '".$variable['codEstudiante']."' ";
-                $cadena_sql.=" AND egr_cra_cod = '".$variable['proyecto']."' ";
+                $cadena_sql.=" AND egr_cra_cod = '".$variable['proyecto']."' ";                
                 break;      
             
             case 'consultarDatosGraduando':
@@ -112,7 +112,7 @@ class sql_admin_inscripcionGraduando extends sql {	//@ Método que crea las sent
                 $cadena_sql.=" coalesce(ing_acta,'') ACTA_SUST ";
                 $cadena_sql.=" FROM acinsgrado";
                 $cadena_sql.=" WHERE ing_est_cod = '".$variable['codEstudiante']."' ";
-                $cadena_sql.=" AND ing_cra_cod = '".$variable['proyecto']."' ";                
+                $cadena_sql.=" AND ing_cra_cod = '".$variable['proyecto']."' ";     
                 break;      
 
             case 'consultarTiposDocumentos':

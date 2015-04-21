@@ -99,15 +99,14 @@ class sql_registroActualizarIntensidadHorariaEgresado extends sql {
                 $cadena_sql.=" FROM acest ";
                 $cadena_sql.=" LEFT OUTER JOIN acegresado ON est_cod=egr_est_cod";
                 $cadena_sql.=" LEFT OUTER JOIN acestotr ON est_cod=eot_cod";
-                $cadena_sql.=" WHERE est_cod=".$variable;
-                
+                $cadena_sql.=" WHERE est_cod=".$variable;                                              
             break;
 
          //Oracle
          case "actualizar_egresado":
                 $cadena_sql=" UPDATE acegresado ";
                 $cadena_sql.=" SET ".$variable['listaCambios'];
-                $cadena_sql.=" WHERE egr_est_cod ='".$variable['codEstudiante']."'";
+                $cadena_sql.=" WHERE egr_est_cod ='".$variable['codEstudiante']."'";             
                 break;
 
          case "actualizar_estudiante":
