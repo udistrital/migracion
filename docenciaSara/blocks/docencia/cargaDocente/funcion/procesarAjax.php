@@ -147,7 +147,7 @@ switch($_REQUEST["funcion"]){
                 $arregloHorario = array($asignatura,$grupo,$annio,$periodo,$proyecto);
 		$cadena_sql = $this->sql->cadena_sql("cargaCursoTab", $arregloHorario);
                 $registro = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-		break; 
+                break; 
             
            case "#respuestaGuardarCurso":
             
@@ -183,6 +183,7 @@ switch($_REQUEST["funcion"]){
                         if(!$registroVerificaCrucePlan)
                         {
                         $cadena_sqlInsertar = $this->sql->cadena_sql("guardarCargaCurso", $arregloAsignacion);
+                        echo $cadena_sqlInsertar; exit;
                         $registro=$esteRecursoDB->ejecutarAcceso($cadena_sqlInsertar,"accion");
                         }else{
                             $mensajeCruce.="No se puede agregar por cruce de Plan de trabajo (".$registroVerificaCrucePlan[0][0]." - ".$registroVerificaCrucePlan[0][1].")\n";
@@ -250,6 +251,7 @@ switch($_REQUEST["funcion"]){
                                     {
                                         $cadena_sql = $this->sql->cadena_sql("inhabilitarCarga", $arregloAsignacion);
                                         $registro=$esteRecursoDB->ejecutarAcceso($cadena_sql,"accion");
+                                        echo $cadena_sql; exit;
                                     }
                                 unset($registroVerifica);    
                             }
@@ -280,8 +282,9 @@ switch($_REQUEST["funcion"]){
                                             if(!$registroVerificaCrucePlan)
                                             {
                                             $cadena_sql = $this->sql->cadena_sql("guardarCargaCursoModificar", $arregloAsignacion);
+                                            echo $cadena_sql; exit;
                                             $registro=$esteRecursoDB->ejecutarAcceso($cadena_sql,"accion");
-                                                //print_r($registro);
+                                                
                                             }else{
                                                 $mensajeCruce.="No se puede agregar por cruce de Plan de trabajo (".$registroVerificaCrucePlan[0][0]." - ".$registroVerificaCrucePlan[0][1].")\n";
                                             }
@@ -322,6 +325,7 @@ switch($_REQUEST["funcion"]){
                                     {
                                         $cadena_sql = $this->sql->cadena_sql("inhabilitarCarga", $arregloAsignacion);
                                         $registro=$esteRecursoDB->ejecutarAcceso($cadena_sql,"accion");
+                                        echo $cadena_sql; exit;
                                     }
                                 unset($registroVerifica);    
                             }
@@ -341,6 +345,7 @@ switch($_REQUEST["funcion"]){
                         {
                             $cadena_sql = $this->sql->cadena_sql("inhabilitarCarga", $arregloAsignacion);
                             $registro=$esteRecursoDB->ejecutarAcceso($cadena_sql,"accion");
+                            echo $cadena_sql; exit;
                         }
                         unset($registroVerifica);
                 }
@@ -354,8 +359,7 @@ switch($_REQUEST["funcion"]){
 //echo $cadena_sql;
 //print_r($registro);
 
-
-if ($registro) {
+if (is_array($registro)) {
 
 	if(($_REQUEST["funcion"]=="#nombreDoc") || ($_REQUEST["funcion"]=="#docenteNuevoCurso")){
 
@@ -507,12 +511,12 @@ if ($registro) {
                 for($m=0;$m<count($registro);$m++)
                 {
                     $respuesta.="<tr class='jqueryui'>";                    
-                        $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['DOC_NOMBRE'].' '.$registro[$m]['DOC_APELLIDO']."</td>";
-                        $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['CAR_DOC_NRO_IDEN']."</td>";
-                        $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['CRA_NOMBRE']."</td>";
-                        $respuesta.="<td class='celda_hora' align='center'><div id='horas".$registro[$m]["CAR_DOC_NRO_IDEN"]."' name='horas".$registro[$m]['CAR_DOC_NRO_IDEN']."'>".$registro[$m]['CAR_NRO_HRS']."</div></td>";
-                        $respuesta.="<td class='celda_hora' align='center'><a onclick='modificarDocente(".$registro[$m]["CAR_DOC_NRO_IDEN"]." );'><img src='".$directorioImagenes."/edit.png'></a></td>";
-                        $respuesta.="<td class='celda_hora' align='center'><a onclick='eliminarDocente(".$registro[$m]["CAR_DOC_NRO_IDEN"].");'><img src='".$directorioImagenes."/cancel.png'></a></td>";
+                        $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['doc_nombre'].' '.$registro[$m]['doc_apellido']."</td>";
+                        $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['car_doc_nro_iden']."</td>";
+                        $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['cra_nombre']."</td>";
+                        $respuesta.="<td class='celda_hora' align='center'><div id='horas".$registro[$m]["car_doc_nro_iden"]."' name='horas".$registro[$m]['car_doc_nro_iden']."'>".$registro[$m]['car_nro_hrs']."</div></td>";
+                        $respuesta.="<td class='celda_hora' align='center'><a onclick='modificarDocente(".$registro[$m]["car_doc_nro_iden"]." );'><img src='".$directorioImagenes."/edit.png'></a></td>";
+                        $respuesta.="<td class='celda_hora' align='center'><a onclick='eliminarDocente(".$registro[$m]["car_doc_nro_iden"].");'><img src='".$directorioImagenes."/cancel.png'></a></td>";
                     $respuesta.="</tr>";
                     
                     /*
@@ -520,14 +524,14 @@ if ($registro) {
                      */
                     $respuesta.="<tr class='jqueryui'>"; 
                     $respuesta.="<td colspan='10'>"; 
-                    $respuesta.="<div name='modifica".$registro[$m]['CAR_DOC_NRO_IDEN']."' id='modifica".$registro[$m]['CAR_DOC_NRO_IDEN']."' style='display: none;'> ";
+                    $respuesta.="<div name='modifica".$registro[$m]['car_doc_nro_iden']."' id='modifica".$registro[$m]['car_doc_nro_iden']."' style='display: none;'> ";
                     $respuesta.="<table width='100%' class='jqueryui' border='0'>";
                         $respuesta.="<tr class='jqueryui centrar'>";
                             $respuesta.="<td align='center'>";
                             $respuesta.="Docente:";
                             $respuesta.="</td>"; 
                             $respuesta.="<td align='center'>";
-                            $respuesta.=$registro[$m]['DOC_NOMBRE'].' '.$registro[$m]['DOC_APELLIDO'];
+                            $respuesta.=$registro[$m]['doc_nombre'].' '.$registro[$m]['doc_apellido'];
                             $respuesta.="</td>"; 
                         $respuesta.="</tr>";
                         $respuesta.="<tr class='jqueryui centrar'>";
@@ -535,12 +539,12 @@ if ($registro) {
                             $respuesta.="Digite el número de horas a asignar:";
                             $respuesta.="</td>"; 
                             $respuesta.="<td align='center'>";
-                            $respuesta.="<input id='horasDoc".$registro[$m]['CAR_DOC_NRO_IDEN']."' value='".$registro[$m]['CAR_NRO_HRS']."' class='ui-widget ui-widget-content validate[required]' type='text' tabindex='2' maxlength='100' size='5' name='horasDoc".$registro[$m]['CAR_DOC_NRO_IDEN']."' title='Digite el número de horas a asignar:' autocomplete='off'>";
+                            $respuesta.="<input id='horasDoc".$registro[$m]['car_doc_nro_iden']."' value='".$registro[$m]['car_nro_hrs']."' class='ui-widget ui-widget-content validate[required]' type='text' tabindex='2' maxlength='100' size='5' name='horasDoc".$registro[$m]['car_doc_nro_iden']."' title='Digite el número de horas a asignar:' autocomplete='off'>";
                             $respuesta.="</td>"; 
                         $respuesta.="</tr>";
                         $respuesta.="<tr class='jqueryui centrar'>";
                             $respuesta.="<td class='centrar' colspan='10' align='center'>";
-                            $respuesta.="<input type='button' id='guardarModificar' name='guardarModificar' value='Guardar' class='ui-widget ui-widget-content jqueryui' onclick='modificarHorasDocente(".$registro[$m]['CAR_DOC_NRO_IDEN'].");' >";
+                            $respuesta.="<input type='button' id='guardarModificar' name='guardarModificar' value='Guardar' class='ui-widget ui-widget-content jqueryui' onclick='modificarHorasDocente(".$registro[$m]['car_doc_nro_iden'].");' >";
                             $respuesta.="<div name='respuestaModificar' id='respuestaModificar' style='display: none;'></div> ";
                             $respuesta.="</td>"; 
                         $respuesta.="</tr>";
@@ -554,7 +558,7 @@ if ($registro) {
                      */
                     $respuesta.="<tr class='jqueryui'>"; 
                     $respuesta.="<td colspan='10'>"; 
-                    $respuesta.="<div name='elimina".$registro[$m]['CAR_DOC_NRO_IDEN']."' id='elimina".$registro[$m]['CAR_DOC_NRO_IDEN']."' style='display: none;'> ";
+                    $respuesta.="<div name='elimina".$registro[$m]['car_doc_nro_iden']."' id='elimina".$registro[$m]['car_doc_nro_iden']."' style='display: none;'> ";
                     $respuesta.="<table width='100%' class='jqueryui' border='0'>";
                         $respuesta.="<tr class='jqueryui centrar'>";
                             $respuesta.="<td align='center'>";
@@ -564,8 +568,8 @@ if ($registro) {
                         $respuesta.="<tr class='jqueryui centrar'>";
                             $respuesta.="<td class='centrar' colspan='10' align='center'>";
                             
-                            $respuesta.="<input type='button' id='guardarEliminar' name='guardarEliminar' value='Si' class='ui-widget ui-widget-content jqueryui' onclick='eliminarHorasDocente(".$registro[$m]['CAR_DOC_NRO_IDEN'].");' >";
-                            $respuesta.="<input type='button' id='noguardarEliminar' name='noguardarEliminar' value='No' class='ui-widget ui-widget-content jqueryui' onclick='eliminarDocente(".$registro[$m]['CAR_DOC_NRO_IDEN'].");' >";
+                            $respuesta.="<input type='button' id='guardarEliminar' name='guardarEliminar' value='Si' class='ui-widget ui-widget-content jqueryui' onclick='eliminarHorasDocente(".$registro[$m]['car_doc_nro_iden'].");' >";
+                            $respuesta.="<input type='button' id='noguardarEliminar' name='noguardarEliminar' value='No' class='ui-widget ui-widget-content jqueryui' onclick='eliminarDocente(".$registro[$m]['car_doc_nro_iden'].");' >";
                             
                             $respuesta.="<div name='respuestaEliminar' id='respuestaEliminar' style='display: none;'></div> ";
                             $respuesta.="</td>"; 
@@ -596,7 +600,7 @@ if ($registro) {
                 $respuesta .= "Tipo de Vinculación: ";
                 $respuesta .= "</div>";
                 $respuesta .= "<div class='campoTextoContenido'>";
-                $respuesta .= nl2br($registro[0]['TVI_NOMBRE']);
+                $respuesta .= nl2br($registro[0]['tvi_nombre']);
                 $respuesta .= "</div>";
                 
                 
@@ -604,7 +608,7 @@ if ($registro) {
                 $respuesta .= "Proyecto: ";
                 $respuesta .= "</div>";
                 $respuesta .= "<div class='campoTextoContenido'>";
-                $respuesta .= nl2br($registro[0]['CRA_NOMBRE']);
+                $respuesta .= nl2br($registro[0]['cra_nombre']);
                 $respuesta .= "</div>";
                                
             }else if(($_REQUEST["funcion"]=="#respuestaModificar"))
@@ -657,7 +661,7 @@ if ($registro) {
                             //Consulta para los nombres de los docentes
                             $cadena_sqlHorario = $this->sql->cadena_sql("horarioCursoTabCurso",$arregloHorario);
                             $registroHorario = $esteRecursoDB->ejecutarAcceso($cadena_sqlHorario, "busqueda");
-                            
+                         
                             $respuesta = "<table width='100%' class='jqueryui' border='0'>";
 
                             $respuesta .= "<caption>DOCENTES ASIGNADOS</caption>";
@@ -676,31 +680,31 @@ if ($registro) {
                                 $respuesta.="<th class='celda_titulo_cursos'>MODIFICAR CARGA</th>";
                                 $respuesta.="<th class='celda_titulo_cursos'>BORRAR CARGA</th>";
                             $respuesta.="</tr>";
-
-                            for($m=0;$m<count($registro);$m++)
+                           
+                            for($m=0;$m<=count($registro)-1;$m++)
                             {
                                 $respuesta.="<tr class='jqueryui'>";                    
-                                    $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['DOC_NOMBRE'].' '.$registro[$m]['DOC_APELLIDO']."</td>";
-                                    $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['CAR_DOC_NRO']."</td>";
-                                    $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['CRA_NOMBRE']."</td>";
-                                    $respuesta.="<td class='celda_hora' align='center'><div id='horas".$registro[$m]["CAR_DOC_NRO"]."' name='horas".$registro[$m]['CAR_DOC_NRO']."'>".$registro[$m]['HORAS']."</div></td>";
-                                    $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['TVI_NOMBRE']."</td>";
-                                    $respuesta.="<td class='celda_hora' align='center'><a onclick='modificarDocente(".$registro[$m]["CAR_DOC_NRO"].", \"".$_REQUEST['curso']."\");'><img src='".$directorioImagenes."/edit.png'></a></td>";
-                                    $respuesta.="<td class='celda_hora' align='center'><a onclick='eliminarDocente(".$registro[$m]["CAR_DOC_NRO"].", \"".$_REQUEST['curso']."\");'><img src='".$directorioImagenes."/cancel.png'></a></td>";
+                                    $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['doc_nombre'].' '.$registro[$m]['doc_apellido']."</td>";
+                                    $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['car_doc_nro']."</td>";
+                                    $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['cra_nombre']."</td>";
+                                    $respuesta.="<td class='celda_hora' align='center'><div id='horas".$registro[$m]["car_doc_nro"]."' name='horas".$registro[$m]['car_doc_nro']."'>".$registro[$m]['horas']."</div></td>";
+                                    $respuesta.="<td class='celda_hora' align='center'>".$registro[$m]['tvi_nombre']."</td>";
+                                    $respuesta.="<td class='celda_hora' align='center'><a onclick='modificarDocente(".$registro[$m]["car_doc_nro"].", \"".$_REQUEST['curso']."\");'><img src='".$directorioImagenes."/edit.png'></a></td>";
+                                    $respuesta.="<td class='celda_hora' align='center'><a onclick='eliminarDocente(".$registro[$m]["car_doc_nro"].", \"".$_REQUEST['curso']."\");'><img src='".$directorioImagenes."/cancel.png'></a></td>";
                                 $respuesta.="</tr>";
 
                                 /*
                                  * DIV PARA MODIFICAR LAS HORAS POR DOCENTE
                                  */
-                                $arregloHorarioDocente = array($asignatura,$grupo,$annio,$periodo,$registro[$m]['CAR_DOC_NRO'],$proyecto);
+                                $arregloHorarioDocente = array($asignatura,$grupo,$annio,$periodo,$registro[$m]['car_doc_nro'],$proyecto);
                                 $cadena_sqlHorarioDocente = $this->sql->cadena_sql("cargaCursoTabDocente",$arregloHorarioDocente);
                                 $registroHorarioDocente = $esteRecursoDB->ejecutarAcceso($cadena_sqlHorarioDocente, "busqueda");
                                 
                                 $respuesta.="<tr class='jqueryui'>"; 
                                 $respuesta.="<td colspan='10'>"; 
-                                $respuesta.="<div name='".$_REQUEST['curso']."modifica".$registro[$m]['CAR_DOC_NRO']."' id='".$_REQUEST['curso']."modifica".$registro[$m]['CAR_DOC_NRO']."' style='display: none;'> ";
+                                $respuesta.="<div name='".$_REQUEST['curso']."modifica".$registro[$m]['car_doc_nro']."' id='".$_REQUEST['curso']."modifica".$registro[$m]['car_doc_nro']."' style='display: none;'> ";
                                 $respuesta.="<fieldset id='cargaDocente' class='ui-widget ui-widget-content'>";
-                                $respuesta .= "<legend class='ui-state-default ui-corner-all'> Modificar Carga a Docente: ".$registro[$m]['DOC_NOMBRE'].' '.$registro[$m]['DOC_APELLIDO']." </legend>";
+                                $respuesta .= "<legend class='ui-state-default ui-corner-all'> Modificar Carga a Docente: ".$registro[$m]['doc_nombre'].' '.$registro[$m]['doc_apellido']." </legend>";
                                 $respuesta.="<table width='100%' class='jqueryui' border='0'>";
                                 
                                 $respuesta.="<tr class='celda_sin_registros'>";
@@ -714,9 +718,9 @@ if ($registro) {
                                                     $tituloHorasSelec = "0";                                                
                                                 }
                                         $respuesta.="Horas Asignadas: ";                                         
-                                        $respuesta.="<input type='hidden' id='".$registro[$m]['CAR_DOC_NRO']."modcontHorasSelecCurso".$_REQUEST['curso']."' value='".$tituloHorasSelec."'> ";
-                                        $respuesta.="<input type='hidden' id='".$registro[$m]['CAR_DOC_NRO']."modtotalHorasSelecCurso".$_REQUEST['curso']."' value='".count($registroHorario)."'> ";
-                                        $respuesta.="<div id='".$registro[$m]['CAR_DOC_NRO']."modhorasSelecCurso".$_REQUEST['curso']."'> ".$tituloHorasSelec." </div> ";
+                                        $respuesta.="<input type='hidden' id='".$registro[$m]['car_doc_nro']."modcontHorasSelecCurso".$_REQUEST['curso']."' value='".$tituloHorasSelec."'> ";
+                                        $respuesta.="<input type='hidden' id='".$registro[$m]['car_doc_nro']."modtotalHorasSelecCurso".$_REQUEST['curso']."' value='".count($registroHorario)."'> ";
+                                        $respuesta.="<div id='".$registro[$m]['car_doc_nro']."modhorasSelecCurso".$_REQUEST['curso']."'> ".$tituloHorasSelec." </div> ";
                                         $respuesta.="</td>"; 
                                     $respuesta.="</tr>";
                                     
@@ -751,9 +755,9 @@ if ($registro) {
                                                                         $claseCelda = "celda_hora_seleccionada";
                                                                     }
                                                             }
-                                                            $respuesta.="<tr id='".$registro[$m]['CAR_DOC_NRO']."Curso".$_REQUEST['curso']."modifica".$i."' class='".$claseCelda."' onclick='modificarHorasDocCurso(\"".$registro[$m]['CAR_DOC_NRO']."\", \"".$_REQUEST['curso']."\",\"".$i."\")'>";
+                                                            $respuesta.="<tr id='".$registro[$m]['car_doc_nro']."Curso".$_REQUEST['curso']."modifica".$i."' class='".$claseCelda."' onclick='modificarHorasDocCurso(\"".$registro[$m]['car_doc_nro']."\", \"".$_REQUEST['curso']."\",\"".$i."\")'>";
                                                                 $respuesta.="<td>";
-                                                                $respuesta.="<input type='hidden' id='".$registro[$m]['CAR_DOC_NRO']."Curso".$_REQUEST['curso']."modhoraSelecHorario".$i."' value='".$registroHorario[$i][8]."'> ";
+                                                                $respuesta.="<input type='hidden' id='".$registro[$m]['car_doc_nro']."Curso".$_REQUEST['curso']."modhoraSelecHorario".$i."' value='".$registroHorario[$i][8]."'> ";
                                                                     $respuesta.=$registroHorario[$i][5];
                                                                 $respuesta.="</td>";
                                                                 $respuesta.="<td>";
@@ -778,7 +782,7 @@ if ($registro) {
                                     
                                     $respuesta.="<tr class='jqueryui centrar'>";
                                         $respuesta.="<td class='centrar' colspan='10' align='center'>";
-                                        $respuesta.="<input type='button' id='guardarModificar' name='guardarModificar' value='Guardar' class='ui-widget ui-widget-content jqueryui' onclick='guardarModificarDocenteCurso(\"".$registro[$m]['CAR_DOC_NRO']."\",\"".$_REQUEST['curso']."\",\"".$registro[$m]['CAR_TIP_VIN']."\")' >";
+                                        $respuesta.="<input type='button' id='guardarModificar' name='guardarModificar' value='Guardar' class='ui-widget ui-widget-content jqueryui' onclick='guardarModificarDocenteCurso(\"".$registro[$m]['car_doc_nro']."\",\"".$_REQUEST['curso']."\",\"".$registro[$m]['CAR_TIP_VIN']."\")' >";
                                         $respuesta.="<div name='respuestaModificar' id='respuestaModificar' style='display: none;'></div> ";
                                         $respuesta.="</td>"; 
                                     $respuesta.="</tr>";
@@ -793,9 +797,9 @@ if ($registro) {
                                  */
                                 $respuesta.="<tr class='jqueryui'>"; 
                                 $respuesta.="<td colspan='10'>"; 
-                                $respuesta.="<div name='".$_REQUEST['curso']."elimina".$registro[$m]['CAR_DOC_NRO']."' id='".$_REQUEST['curso']."elimina".$registro[$m]['CAR_DOC_NRO']."' style='display: none;'> ";
+                                $respuesta.="<div name='".$_REQUEST['curso']."elimina".$registro[$m]['car_doc_nro']."' id='".$_REQUEST['curso']."elimina".$registro[$m]['car_doc_nro']."' style='display: none;'> ";
                                 $respuesta.="<fieldset id='cargaDocente' class='ui-widget ui-widget-content'>";
-                                $respuesta .= "<legend class='ui-state-default ui-corner-all'> Borrar Carga a Docente: ".$registro[$m]['DOC_NOMBRE'].' '.$registro[$m]['DOC_APELLIDO']." </legend>";
+                                $respuesta .= "<legend class='ui-state-default ui-corner-all'> Borrar Carga a Docente: ".$registro[$m]['doc_nombre'].' '.$registro[$m]['doc_apellido']." </legend>";
                                 $respuesta.="<table width='100%' class='jqueryui' border='0'>";
                                     $respuesta.="<tr class='jqueryui centrar'>";
                                         $respuesta.="<td align='center'>";
@@ -805,8 +809,8 @@ if ($registro) {
                                     $respuesta.="<tr class='jqueryui centrar'>";
                                         $respuesta.="<td class='centrar' colspan='10' align='center'>";
 
-                                        $respuesta.="<input type='button' id='guardarEliminar' name='guardarEliminar' value='Si' class='ui-widget ui-widget-content jqueryui' onclick='eliminarHorasDocente(\"".$registro[$m]['CAR_DOC_NRO']."\",\"".$_REQUEST['curso']."\",\"".$registro[$m]['CAR_TIP_VIN']."\");' >";
-                                        $respuesta.="<input type='button' id='noguardarEliminar' name='noguardarEliminar' value='No' class='ui-widget ui-widget-content jqueryui' onclick='$(\"#elimina".$registro[$m]['CAR_DOC_NRO']."\").css(\"display\", \"none\");' >";
+                                        $respuesta.="<input type='button' id='guardarEliminar' name='guardarEliminar' value='Si' class='ui-widget ui-widget-content jqueryui' onclick='eliminarHorasDocente(\"".$registro[$m]['car_doc_nro']."\",\"".$_REQUEST['curso']."\",\"".$registro[$m]['CAR_TIP_VIN']."\");' >";
+                                        $respuesta.="<input type='button' id='noguardarEliminar' name='noguardarEliminar' value='No' class='ui-widget ui-widget-content jqueryui' onclick='$(\"#elimina".$registro[$m]['car_doc_nro']."\").css(\"display\", \"none\");' >";
 
                                         $respuesta.="<div name='respuestaEliminarCurso' id='respuestaEliminarCurso' style='display: none;'></div> ";
                                         $respuesta.="</td>"; 
