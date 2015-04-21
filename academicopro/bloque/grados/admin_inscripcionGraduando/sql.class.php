@@ -145,28 +145,28 @@ class sql_admin_inscripcionGraduando extends sql {	//@ Método que crea las sent
 
             case "consultarTitulosGrado":
                 $cadena_sql=" SELECT tit_cod COD_TITULO,";
-               // $cadena_sql.=" tit_nombre||' ('||decode(tit_sexo,'M','MASCULINO','F','FEMENINO')||')' NOMBRE_TITULO,";
-                $cadena_sql.=" tit_nombre||' ('||(CASE WHEN tit_sexo::text='M' THEN 'MASCULINO' ELSE tit_sexo::text='F' THEN 'FEMENINO' END sexo)||')' NOMBRE_TITULO,";
+                //$cadena_sql.=" tit_nombre||' ('||decode(tit_sexo,'M','MASCULINO','F','FEMENINO')||')' NOMBRE_TITULO,";
+                $cadena_sql.=" tit_nombre||' ('||(CASE WHEN tit_sexo::text='M' THEN 'MASCULINO' WHEN tit_sexo::text='F' THEN 'FEMENINO' END)||')' NOMBRE_TITULO,";
                 $cadena_sql.=" tit_sexo SEXO";
                 $cadena_sql.=" from actitulo";
-                $cadena_sql.=" WHERE tit_cra_cod=".$variable;               
+                $cadena_sql.=" WHERE tit_cra_cod=".$variable;   
                 break;
             
             case "consultarSecretarios":
                 $cadena_sql=" SELECT sec_cod,";
-                $cadena_sql.=" trim(sec_nombre)||' '||trim(sec_apellido)||' ('||coalesce(to_char(sec_fecha_desde,'DD-MON-YYYY'),'')||' '||DECODE(coalesce(sec_fecha_hasta,''),'','','hasta '||to_char(sec_fecha_hasta,'DD-MON-YYYY'))||')' NOMBRE_FECHA,";
+                $cadena_sql.=" trim(sec_nombre)||' '||trim(sec_apellido)||' ('||coalesce(to_char(sec_fecha_desde,'DD-MON-YYYY'),'')||' '||CASE WHEN coalesce(sec_fecha_hasta::text,'')='' then '' ELSE 'hasta '|| to_char(sec_fecha_hasta,'DD-MON-YYYY') end||')' NOMBRE_FECHA,";
                 $cadena_sql.=" coalesce(to_char(sec_fecha_desde,'YYYYMMDD'),'') SEC_DESDE,";
-                $cadena_sql.=" coalesce(to_char(sec_fecha_hasta,'YYYYMMDD'),to_char(sysdate,'YYYYMMDD')) SEC_HASTA";
+                $cadena_sql.=" coalesce(to_char(sec_fecha_hasta,'YYYYMMDD'),to_char(current_timestamp,'YYYYMMDD')) SEC_HASTA";
                 $cadena_sql.=" FROM acsecretario";
                 $cadena_sql.=" WHERE sec_dep_cod=".$variable;
-                $cadena_sql.=" ORDER BY sec_estado,sec_fecha_desde desc";
+                $cadena_sql.=" ORDER BY sec_estado,sec_fecha_desde desc";               
                 break;
             
             case "consultarRectores":
                 $cadena_sql=" SELECT rec_cod,";
-                $cadena_sql.=" trim(rec_nombre)||' '||trim(rec_apellido)||' ('||coalesce(to_char(rec_fecha_desde,'DD-MON-YYYY'),'')||' '||DECODE(coalesce(rec_fecha_hasta,''),'','','hasta '||to_char(rec_fecha_hasta,'DD-MON-YYYY'))||')' NOMBRE_FECHA,";
+                $cadena_sql.=" trim(rec_nombre)||' '||trim(rec_apellido)||' ('||coalesce(to_char(rec_fecha_desde,'DD-MON-YYYY'),'')||' '||CASE WHEN coalesce(rec_fecha_hasta::text,'')='' then '' ELSE 'hasta '|| to_char(rec_fecha_hasta,'DD-MON-YYYY') end||')' NOMBRE_FECHA,";
                 $cadena_sql.=" coalesce(to_char(rec_fecha_desde,'YYYYMMDD'),'') RECTOR_DESDE,";
-                $cadena_sql.=" coalesce(to_char(rec_fecha_hasta,'YYYYMMDD'),to_char(sysdate,'YYYYMMDD')) RECTOR_HASTA";
+                $cadena_sql.=" coalesce(to_char(rec_fecha_hasta,'YYYYMMDD'),to_char(current_timestamp,'YYYYMMDD')) RECTOR_HASTA";
                 $cadena_sql.=" FROM acrector";
                 $cadena_sql.=" ORDER BY rec_estado,rec_fecha_desde desc";
                 break;

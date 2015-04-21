@@ -301,55 +301,55 @@ class funcion_registro_registrarDatosGraduando extends funcionGeneral {
                                 $indiceEgresado++;
                             }
                           
-                            if($this->datos['actaGrado']!=(isset($this->datosEgresado['EGR_ACTA_GRADO'])?$this->datosEgresado['EGR_ACTA_GRADO']:'')){
+                            if(isset($this->datos['actaGrado'])!=(isset($this->datosEgresado['EGR_ACTA_GRADO'])?$this->datosEgresado['EGR_ACTA_GRADO']:'')){
                                 $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_ACTA_GRADO';
                                 $this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['actaGrado']."'";
                                 $indiceEgresado++;
                             }
                             
-                            if($this->datos['mencion']!=(isset($this->datosEgresado['EGR_CARACTER_NOTA'])?$this->datosEgresado['EGR_CARACTER_NOTA']:'')&& is_numeric($this->datos['mencion'])){
+                            if(isset($this->datos['mencion'])!=(isset($this->datosEgresado['EGR_CARACTER_NOTA'])?$this->datosEgresado['EGR_CARACTER_NOTA']:'')&& is_numeric($this->datos['mencion'])){
                                 $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_CARACTER_NOTA';
                                 $this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['mencion']."'";
                                 $indiceEgresado++;
                             }
                             
-                            if($this->datos['fechaGrado']!=(isset($this->datosEgresado['EGR_FECHA_GRADO'])?$this->datosEgresado['EGR_FECHA_GRADO']:'')){
+                            if(isset($this->datos['fechaGrado'])!=(isset($this->datosEgresado['EGR_FECHA_GRADO'])?$this->datosEgresado['EGR_FECHA_GRADO']:'')){
                                 $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_FECHA_GRADO';
                                 $this->cambiosTEgresado[$indiceEgresado]['valor']="TO_DATE('".$this->datos['fechaGrado']."','yyyy-mm-dd')";
                                 $indiceEgresado++;
                             }
                             
-                            if($this->datos['libro']!=(isset($this->datosEgresado['EGR_LIBRO'])?$this->datosEgresado['EGR_LIBRO']:'')){
+                            if(isset($this->datos['libro'])!=(isset($this->datosEgresado['EGR_LIBRO'])?$this->datosEgresado['EGR_LIBRO']:'')){
                                 $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_LIBRO';
                                 $this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['libro']."'";
                                 $indiceEgresado++;
                             }
                             
-                            if($this->datos['folio']!=(isset($this->datosEgresado['EGR_FOLIO'])?$this->datosEgresado['EGR_FOLIO']:'')){
+                            if(isset($this->datos['folio'])!=(isset($this->datosEgresado['EGR_FOLIO'])?$this->datosEgresado['EGR_FOLIO']:'')){
                                 $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_FOLIO';
                                 $this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['folio']."'";
                                 $indiceEgresado++;
                             }
                             
-                            if($this->datos['registroDiploma']!=(isset($this->datosEgresado['EGR_REG_DIPLOMA'])?$this->datosEgresado['EGR_REG_DIPLOMA']:'')){
+                            if(isset($this->datos['registroDiploma'])!=(isset($this->datosEgresado['EGR_REG_DIPLOMA'])?$this->datosEgresado['EGR_REG_DIPLOMA']:'')){
                                 $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_REG_DIPLOMA';
                                 $this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['registroDiploma']."'";
                                 $indiceEgresado++;
                             }
                             
-                            if($this->datos['tituloObtenido']!=(isset($this->datosEgresado['EGR_TITULO'])?$this->datosEgresado['EGR_TITULO']:'') && is_numeric($this->datos['tituloObtenido'])){
+                            if(isset($this->datos['tituloObtenido'])!=(isset($this->datosEgresado['EGR_TITULO'])?$this->datosEgresado['EGR_TITULO']:'') && is_numeric($this->datos['tituloObtenido'])){
                                 $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_TITULO';
                                 $this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['tituloObtenido']."'";
                                 $indiceEgresado++;
                             }
                             
-                            if($this->datos['rector']!=(isset($this->datosEgresado['EGR_RECTOR'])?$this->datosEgresado['EGR_RECTOR']:'') && is_numeric($this->datos['rector']) ){
+                            if(isset($this->datos['rector'])!=(isset($this->datosEgresado['EGR_RECTOR'])?$this->datosEgresado['EGR_RECTOR']:'') && is_numeric($this->datos['rector']) ){
                                 $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_RECTOR';
                                 $this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['rector']."'";
                                 $indiceEgresado++;
                             }
                             
-                            if($this->datos['secretarioAcademico']!=(isset($this->datosEgresado['EGR_SECRETARIO'])?$this->datosEgresado['EGR_SECRETARIO']:'') && is_numeric($this->datos['secretarioAcademico'])){
+                            if(isset($this->datos['secretarioAcademico'])!=(isset($this->datosEgresado['EGR_SECRETARIO'])?$this->datosEgresado['EGR_SECRETARIO']:'') && is_numeric($this->datos['secretarioAcademico'])){
                                 $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_SECRETARIO';
                                 $this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['secretarioAcademico']."'";
                                 $indiceEgresado++;
@@ -485,8 +485,43 @@ class funcion_registro_registrarDatosGraduando extends funcionGeneral {
     }
     
     function registrarDatosEgresado(){
-        
-        $cadena_sql = $this->sql->cadena_sql("registrarDatosEgresado", $this->datos);
+    	    	
+    	foreach ($this->datos as $key => $value) {
+    		if($value=='')
+    		{
+    			$this->datos[$key]='null';	    				    	
+    		} 		
+    	} 	
+    	
+    	if(!isset($this->datos['mencion'])){
+    		$this->datos['mencion'] = 'null';    		    		
+    	}
+    	if(!isset($this->datos['tituloObtenido'])){
+    		$this->datos['tituloObtenido'] = 'null';    		    		
+    	}
+    	if(!isset($this->datos['rector'])){
+    		$this->datos['rector'] = 'null';    		    		
+    	}
+    	if(!isset($this->datos['secretarioAcademico'])){
+    		$this->datos['secretarioAcademico'] = 'null';    		    		
+    	}        	
+    	if(!isset($this->datos['fechaGrado'])){
+    		$this->datos['fechaGrado'] = '';
+    	}
+    	if(!isset($this->datos['actaGrado'])){
+    		$this->datos['actaGrado'] = '';
+    	}
+    	if(!isset($this->datos['libro'])){
+    		$this->datos['libro'] = '';
+    	}
+    	if(!isset($this->datos['folio'])){
+    		$this->datos['folio'] = '';
+    	}	    
+    	if(!isset($this->datos['registroDiploma'])){
+    		$this->datos['registroDiploma'] = '';
+    	}	    	
+    	    	
+        $cadena_sql = $this->sql->cadena_sql("registrarDatosEgresado", $this->datos);        
         $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "");
         return $this->totalAfectados($this->configuracion, $this->accesoOracle);
     }
@@ -567,17 +602,17 @@ class funcion_registro_registrarDatosGraduando extends funcionGeneral {
                             $mensaje="El valor del tipo de identificación no es válido. Seleccione uno de la lista";
                         }
 
-                        if($this->datos['tituloObtenido'] && !is_numeric($this->datos['tituloObtenido']) ){
+                        if(isset($this->datos['tituloObtenido']) && !is_numeric($this->datos['tituloObtenido']) ){
                             $band=1;
                             $mensaje="El valor del título no es válido. Seleccione uno de la lista";
                         }
                         
-                        if($this->datos['rector'] && !is_numeric($this->datos['rector']) ){
+                        if(isset($this->datos['rector']) && !is_numeric($this->datos['rector']) ){
                             $band=1;
                             $mensaje="El valor del Rector no es válido. Seleccione uno de la lista";
                         }
                         
-                        if($this->datos['secretarioAcademico'] && !is_numeric($this->datos['secretarioAcademico']) ){
+                        if(isset($this->datos['secretarioAcademico']) && !is_numeric($this->datos['secretarioAcademico']) ){
                             $band=1;
                             $mensaje="El valor del Secretario académico no es válido. Seleccione uno de la lista";
 

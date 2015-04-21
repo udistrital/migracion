@@ -510,17 +510,17 @@ class funcion_registroActualizarIntensidadHorariaEgresado extends funcionGeneral
                             $mensaje="El valor del tipo de identificación no es válido. Seleccione uno de la lista";
                         }
                         
-                        if($this->datos['tituloObtenido'] && !is_numeric($this->datos['tituloObtenido']) ){
+                        if(isset($this->datos['tituloObtenido']) && !is_numeric($this->datos['tituloObtenido']) ){
                             $band=1;
                             $mensaje="El valor del título no es válido. Seleccione uno de la lista";
                         }
                         
-                        if($this->datos['rector'] && !is_numeric($this->datos['rector']) ){
+                        if(isset($this->datos['rector']) && !is_numeric($this->datos['rector']) ){
                             $band=1;
                             $mensaje="El valor del Rector no es válido. Seleccione uno de la lista";
                         }
                         
-                        if($this->datos['secretarioAcademico'] && !is_numeric($this->datos['secretarioAcademico']) ){
+                        if(isset($this->datos['secretarioAcademico']) && !is_numeric($this->datos['secretarioAcademico']) ){
                             $band=1;
                             $mensaje="El valor del Secretario académico no es válido. Seleccione uno de la lista";
 
