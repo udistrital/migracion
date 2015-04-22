@@ -12,7 +12,7 @@
                     WHERE usuweb_codigo=$usuario
                     AND usuweb_estado='A'
                     AND usuweb_tipo='".$_SESSION['usuario_nivel']."'
-                    AND (NVL(TO_CHAR(usuweb_fecha_fin,'yyyymmddhh24miss'),0)>=TO_CHAR(sysdate,'yyyymmddhh24miss') OR usuweb_fecha_fin is null ) )) ";
+                    AND (coalesce(TO_CHAR(usuweb_fecha_fin,'yyyymmddhh24miss'),'0')>=TO_CHAR(current_timestamp,'yyyymmddhh24miss') OR usuweb_fecha_fin is null ) )) ";
     $cadena_sql.=" AND EOB_APE_ANO ='".$_REQUEST['ano']."' ";
     $cadena_sql.=" AND EOB_APE_PER ='".$_REQUEST['periodo']."' ";
     $cadena_sql.=" ORDER BY EOB_CONSECUTIVO DESC";

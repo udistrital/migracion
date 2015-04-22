@@ -15,7 +15,7 @@ $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 $accesoSGA=$conexion->estableceConexion(999);
 $obj_validacion=new validarUsu();
 
-if(!$_REQUEST['tipo']){
+if(!isset($_REQUEST['tipo'])){
     $_REQUEST['tipo']=$_SESSION['usuario_nivel'];
 }
 
