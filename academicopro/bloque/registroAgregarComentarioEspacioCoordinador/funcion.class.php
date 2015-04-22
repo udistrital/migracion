@@ -51,12 +51,14 @@ class funcion_registroAgregarComentarioEspacioCoordinador extends funcionGeneral
         $codEspacio=$_REQUEST['codEspacio'];
         $planEstudio=$_REQUEST['planEstudio'];
         $nivel=$_REQUEST['nivel'];
-        $creditos=$_REQUEST['creditos'];
+        $creditos= isset($_REQUEST['creditos'])?$_REQUEST['creditos']:'';
         $htd=$_REQUEST['htd'];
         $htc=$_REQUEST['htc'];
         $hta=$_REQUEST['hta'];
         $clasificacion=$_REQUEST['clasificacion'];
         $nombreEspacio=$_REQUEST['nombreEspacio'];
+        $codProyecto = isset($codProyecto)?$codProyecto:'';
+        $nombreProyecto = isset($nombreProyecto)?$nombreProyecto:'';        
 
         $variables=array($codEspacio,$planEstudio,$nivel,$creditos,$htd,$htc,$hta,$clasificacion,$nombreEspacio);
 

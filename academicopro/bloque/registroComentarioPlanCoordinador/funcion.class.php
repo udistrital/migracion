@@ -48,8 +48,8 @@ class funcion_registroComentarioPlanCoordinador extends funcionGeneral {
 
     function formularioComentario($configuracion) {
 
-        $id_comentario=$_REQUEST['id_comentario'];
-        $planEstudio=$_REQUEST['planEstudio'];
+        $id_comentario= isset($_REQUEST['id_comentario'])?$_REQUEST['id_comentario']:'';
+        $planEstudio=isset($_REQUEST['planEstudio'])?$_REQUEST['planEstudio']:'';
         $usuario=$this->usuario;
 
         if($id_comentario==true)
@@ -69,8 +69,19 @@ class funcion_registroComentarioPlanCoordinador extends funcionGeneral {
             $cadena_sql_evento=$this->sql->cadena_sql($configuracion,$this->accesoGestion,"registroLogComentarioLeyo",$variablesRegistro);
             $registroEvento==$this->ejecutarSQL($configuracion, $this->accesoGestion, $cadena_sql_evento,"");
         }
-
-        $variables=array($codEspacio,$planEstudio,$nivel,$creditos,$htd,$htc,$hta,$clasificacion,$nombreEspacio);
+        
+        $codEspacio = isset($codEspacio)?$codEspacio:'';
+        $nivel = isset($nivel)?$nivel:'';
+        $creditos = isset($creditos)?$creditos:'';
+        $htd = isset($htd)?$htd:'';
+        $htc = isset($htc)?$htc:'';
+        $hta = isset($hta)?$hta:'';
+        $clasificacion = isset($clasificacion)?$clasificacion:'';
+        $nombreEspacio = isset($nombreEspacio)?$nombreEspacio:'';   
+        $codProyecto = isset($codProyecto)?$codProyecto:'';
+        $nombreProyecto = isset($nombreProyecto)?$nombreProyecto:'';        
+        
+  		$variables=array($codEspacio,$planEstudio,$nivel,$creditos,$htd,$htc,$hta,$clasificacion,$nombreEspacio);
 
         $this->encabezadoModulo($configuracion, $planEstudio, $codProyecto, $nombreProyecto);
 
@@ -280,6 +291,7 @@ class funcion_registroComentarioPlanCoordinador extends funcionGeneral {
 
             $variablesRegistro=array($usuario, date('YmdHis'), $ano, $periodo, $planEstudio, $codProyecto);
             $cadena_sql_evento=$this->sql->cadena_sql($configuracion,$this->accesoGestion,"registroLogComentario",$variablesRegistro);
+            $registroEvento = isset($registroEvento)?$registroEvento:'';
             $registroEvento==$this->ejecutarSQL($configuracion, $this->accesoGestion, $cadena_sql_evento,"");
             $band=1;
 

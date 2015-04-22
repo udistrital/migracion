@@ -146,6 +146,10 @@ class bloque_registroRequisitos extends bloque
                          case "eliminar":
 
                                 $pagina=$configuracion["host"].$configuracion["site"]."/index.php?";
+                                $_REQUEST["espacio"] = isset($_REQUEST["espacio"])?$_REQUEST["espacio"]:'';
+                                $_REQUEST["espacioRequisito"] = isset($_REQUEST["espacioRequisito"])?$_REQUEST["espacioRequisito"]:'';
+                                $_REQUEST["planEstudio"] = isset($_REQUEST["planEstudio"])?$_REQUEST["planEstudio"]:'';
+                                $_REQUEST["aprobado"] = isset($_REQUEST["aprobado"])?$_REQUEST["aprobado"]:'';                                                 
 				$variable="pagina=requisitos_espacio";
 				$variable.="&opcion=eliminar";
                                 $variable.="&id_espacio=".$_REQUEST["espacio"];
