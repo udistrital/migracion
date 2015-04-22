@@ -644,8 +644,8 @@ class funcion_adminInscripcionGrupoCoordinadorPosgrado extends funcionGeneral {
                           $variable.="&codEspacio=" . $espacio;
                           $variable.="&id_grupo=" . $id_grupo;
                           $variable.="&grupo=" . $grupo;
-                          $variable.="&nivel=" . $_REQUEST['nivel'];
-                          //var_dump($_REQUEST);exit;
+                          if (isset ($_REQUEST['nivel']))
+                          {$variable.="&nivel=".$_REQUEST['nivel'];}
                           include_once($this->configuracion["raiz_documento"] . $this->configuracion["clases"] . "/encriptar.class.php");
                           $this->cripto = new encriptar();
                           $variable = $this->cripto->codificar_url($variable, $this->configuracion);

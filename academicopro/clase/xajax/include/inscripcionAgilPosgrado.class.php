@@ -144,7 +144,13 @@ function buscarEspacios($codEspacio, $planEstudio, $codProyecto)
                                     $datosInscritos=array_merge($infoEspacio, $resultado_gruposEspacio[$i]);
                                     $resultado_gruposEspacio[$i]['INSCRITOS']=consultarInscritos($configuracion,$accesoOracle,$datosInscritos);
                                     $arregloGrupos[$valorArreglo]=$resultado_gruposEspacio[$i]['GRUPO']."|".$resultado_gruposEspacio[$i]['CUPO']."|".$resultado_gruposEspacio[$i]['INSCRITOS']."|".$resultado_gruposEspacio[$i]['DIA']."|".$resultado_gruposEspacio[$i]['HORA']."|".$resultado_gruposEspacio[$i]['SEDE']."|".$resultado_gruposEspacio[$i]['SALON']."|".$resultado_gruposEspacio[$i]['NOMBRE']."|".$resultado_gruposEspacio[$i]['CARRERA']."|".$resultado_gruposEspacio[$i]['ID_GRUPO']."|".$resultado_gruposEspacio[$i]['HOR_ALTERNATIVO']."|";
-                                    $js.=$arregloGrupos[$valorArreglo];
+                                    if(isset($js))
+                                    {
+                                        $js.=$arregloGrupos[$valorArreglo];
+                                    }else
+                                        {
+                                            $js=$arregloGrupos[$valorArreglo];
+                                        }
                                     $valorArreglo=0;
                                     $htmlGrupo.="<option class='uno' value='".$js."'>".$resultado_gruposEspacio[$i]['GRUPO']." (".$resultado_gruposEspacio[$i]['NOMBRE'].")</option>";
                                     unset($js);
