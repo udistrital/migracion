@@ -31,7 +31,7 @@ class sql_adminBuscarGruposProyectoPosgrado extends sql {
 
                 $cadena_sql="SELECT DISTINCT ";
                 $cadena_sql.=" hor_id_curso     ID_GRUPO,";
-                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo)  GRUPO,";
+                $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)  GRUPO,";
                 $cadena_sql.=" cur_cra_cod      CARRERA";
                 $cadena_sql.=" FROM achorarios horario";
                 $cadena_sql.=" INNER JOIN accursos curso ON horario.hor_id_curso=curso.cur_id";

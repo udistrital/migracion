@@ -37,7 +37,7 @@ class funcion_registroCancelarEstudianteGrupoCoorPosgrado extends funcionGeneral
             $this->accesoGestion=$this->conectarDB($configuracion,"mysqlsga");
 
             //Conexion Oracle
-            $this->accesoOracle=$this->conectarDB($configuracion,"oraclesga");
+            $this->accesoOracle=$this->conectarDB($configuracion,"coordinador");
 
         //Datos de sesion
         $this->formulario="registro_cancelarEstudianteGrupoCoorPosgrado";

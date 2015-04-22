@@ -498,6 +498,13 @@ class funcion_registroAdicionEstudiantesGrupoCoorHoras extends funcionGeneral {
     function realizarInscripcion($datosinscripción) {
       include_once($this->configuracion["raiz_documento"] . $this->configuracion["clases"] . "/registrarInscripcion.class.php");
       $this->registrarEstudiante=new registrarInscripcion($this->usuario,$this->accesoOracle);
+        foreach ($datosinscripción as $key => $value) {
+            if($value=='')
+            {
+            $datosinscripción[$key]='null';
+
+            }
+        }
       $resultado_registro=$this->registrarEstudiante->inscribirEstudiante($datosinscripción);
       return $resultado_registro;
 }

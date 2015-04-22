@@ -1823,7 +1823,7 @@ class validarInscripcion {
 
         $cadena_sql= "SELECT";
         $cadena_sql.=" ins_cra_cod PROYECTO,";
-        $cadena_sql.=" (lpad(cur_cra_cod::text,3,0)||'-'||cur_grupo) GRUPO";
+        $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO";
         $cadena_sql.=" FROM acins";
         $cadena_sql.=" INNER JOIN accursos";
         $cadena_sql.=" ON ins_asi_cod= cur_asi_cod AND ins_gr=cur_id and ins_ano= cur_ape_ano AND ins_per= cur_ape_per";

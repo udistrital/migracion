@@ -48,7 +48,7 @@ class sql_adminConsultarInscripcionEstudianteCoorHoras extends sql { //@ Método
         //$cadena_sql.=" pen_cre CREDITOS,";
         //$cadena_sql.=" pen_ind_ele ELECTIVA,";
         $cadena_sql.=" ins_gr ID_GRUPO,";
-        $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO,";
+        $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO,";
         $cadena_sql.=" ins_hor_alternativo  HOR_ALTERNATIVO, ";
         $cadena_sql.=" ins_sem  NIVEL ";
         $cadena_sql.=" FROM ACINS";

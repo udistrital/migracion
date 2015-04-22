@@ -76,7 +76,7 @@ class funcion_adminInscripcionEstudianteCoorPosgrado extends funcionGeneral {
 
   function consultarEstudiante() {
 
-?>
+      ?>
     <table class='contenidotabla centrar'>
       <form enctype='tipo:multipart/form-data,application/x-www-form-urlencoded,text/plain' method='POST' action='index.php' name='<? echo $this->formulario ?>'>
         <tr align="center">
@@ -160,7 +160,7 @@ class funcion_adminInscripcionEstudianteCoorPosgrado extends funcionGeneral {
           $variable.="&opcion=consultar";
           $variable.="&codProyecto=" . $_REQUEST['codProyecto'];
           $variable.="&planEstudio=" . $_REQUEST['planEstudio'];
-          $variable.="&planEstudioGeneral=" . $_REQUEST['planEstudioEstudiante'];
+          $variable.="&planEstudioGeneral=" . (isset($_REQUEST['planEstudioEstudiante'])?$_REQUEST['planEstudioEstudiante']:'');
           $variable.="&nombreProyecto=" . $_REQUEST['nombreProyecto'];
 
           include_once($this->configuracion["raiz_documento"] . $this->configuracion["clases"] . "/encriptar.class.php");

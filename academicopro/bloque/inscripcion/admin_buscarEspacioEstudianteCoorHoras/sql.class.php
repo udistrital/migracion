@@ -27,8 +27,8 @@ class sql_adminBuscarEspacioEstudianteCoorHoras extends sql {
         break;
 
       case 'nota_aprobatoria':
-        $cadena_sql="SELECT fua_nota_aprobatoria(" . $variable['codProyectoEstudiante'] . ")";
-        $cadena_sql.=" FROM dual";
+        $cadena_sql="SELECT cra_nota_aprob from accra where cra_cod=" . $variable['codProyectoEstudiante'];
+        //$cadena_sql.=" FROM dual";
         break;
 
       case 'espacios_aprobados':
@@ -83,7 +83,7 @@ class sql_adminBuscarEspacioEstudianteCoorHoras extends sql {
         $cadena_sql.=" AND pen_asi_cod NOT IN";
         $cadena_sql.=" (SELECT not_asi_cod FROM acnot";
         $cadena_sql.=" WHERE not_est_cod=" . $variable['codEstudiante'];
-        $cadena_sql.=" AND (not_nota>=(SELECT fua_nota_aprobatoria(".$variable['codProyecto'].") FROM dual)";
+        $cadena_sql.=" AND (not_nota>=(SELECT cra_nota_aprob from accra where cra_cod=".$variable['codProyecto'].")";
         $cadena_sql.=" OR not_obs=19)";
 //                    $cadena_sql.=" AND not_nota>=(SELECT fua_nota_aprobatoria(".$variable['codProyecto'].") FROM dual)";
         $cadena_sql.=" AND not_est_reg like '%A%')";

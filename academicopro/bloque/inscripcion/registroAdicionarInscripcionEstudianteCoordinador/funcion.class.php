@@ -707,7 +707,7 @@ else {
         $variablesVerifica['clasificacion']=$_REQUEST["clasificacion"];
         $variablesVerifica['codProyecto']=$_REQUEST["carrera"];
         $variablesVerifica['planEstudio']=$_REQUEST["planEstudio"];
-        $variablesVerifica['nroGrupo']=$_REQUEST["grupo"];
+        $variablesVerifica['nroGrupo']=$_REQUEST["id_grupo"];
         $variablesVerifica['nroCreditos']=$_REQUEST["creditos"];
         $variablesVerifica['nivel']=$_REQUEST["nivel"];
 
@@ -1102,8 +1102,8 @@ else {
                     $pagina=$this->configuracion["host"].$this->configuracion["site"]."/index.php?";
                     $variable="pagina=registroAdicionarInscripcionEstudianteCoordinador";
                     $variable.="&opcion=adicionar";
-                    $variable.="&grupo=".$_REQUEST["grupo"];
-                    $variable.="&id_grupo=".$_REQUEST["id_grupo"];
+                    $variable.="&grupo=".(isset($_REQUEST["grupo"])?$_REQUEST["grupo"]:'');
+                    $variable.="&id_grupo=".(isset($_REQUEST["id_grupo"])?$_REQUEST["id_grupo"]:'');
                     $variable.="&codEstudiante=".$_REQUEST["codEstudiante"];
                     $variable.="&espacio=".$_REQUEST["espacio"];
                     $variable.="&nivel=".$_REQUEST["nivel"];
@@ -1131,8 +1131,8 @@ else {
                     $pagina=$this->configuracion["host"].$this->configuracion["site"]."/index.php?";
                     $variable="pagina=registroAdicionarInscripcionEstudianteCoordinador";
                     $variable.="&opcion=otrosGrupos";
-                    $variable.="&id_grupo=".$_REQUEST["id_grupo"];
-                    $variable.="&grupo=".$_REQUEST["grupo"];
+                    $variable.="&id_grupo=".(isset($_REQUEST["id_grupo"])?$_REQUEST["id_grupo"]:'');
+                    $variable.="&grupo=".(isset($_REQUEST["grupo"])?$_REQUEST["grupo"]:'');
                     $variable.="&codEstudiante=".$_REQUEST["codEstudiante"];
                     $variable.="&espacio=".$_REQUEST["espacio"];
                     $variable.="&nivel=".$_REQUEST["nivel"];
@@ -1222,6 +1222,7 @@ else {
                                                 $resultado_horarios_registrado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
 
                                                 unset($cruce);
+                                                $cruce=0;
 
                                                 for($n=0;$n<count($resultado_horarios_registrado);$n++) {
                                                                 for($m=0;$m<count($resultado_horarios_registrar);$m++) {

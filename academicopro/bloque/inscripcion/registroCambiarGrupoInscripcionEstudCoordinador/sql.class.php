@@ -69,7 +69,7 @@ class sql_registroCambiarGrupoInscripcionEstudCoordinador extends sql
 
                         case 'grupos_proyecto':
 
-                            $cadena_sql="SELECT DISTINCT CUR_ID,(lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO ";
+                            $cadena_sql="SELECT DISTINCT CUR_ID,(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO ";
                             $cadena_sql.="FROM ACHORARIOS ";
                             $cadena_sql.="INNER JOIN ACCURSOS ON ACHORARIOS.HOR_ID_CURSO=ACCURSOS.CUR_ID ";
                             $cadena_sql.="WHERE CUR_ASI_COD=".$variable[0];
@@ -244,7 +244,7 @@ class sql_registroCambiarGrupoInscripcionEstudCoordinador extends sql
                         break;
 
                         case 'otros_gruposproyecto':
-                            $cadena_sql="SELECT DISTINCT CUR_ID,(lpad(cur_cra_cod,3,0)||'-'||cur_grupo),CRA_NOMBRE";
+                            $cadena_sql="SELECT DISTINCT CUR_ID,(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo),CRA_NOMBRE";
                             $cadena_sql.=" FROM ACCURSOS curso";
                             $cadena_sql.=" INNER JOIN ACHORARIOS horario ON curso.CUR_ID=horario.HOR_ID_CURSO";
                             $cadena_sql.=" INNER JOIN ACCRA cra ON curso.CUR_CRA_COD=cra.CRA_COD";

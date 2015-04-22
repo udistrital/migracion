@@ -29,8 +29,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql.="FROM acest ";
                     $cadena_sql.="INNER JOIN accra ON acest.est_cra_cod=accra.cra_cod ";
                     $cadena_sql.="WHERE est_cod=".$variable;
-//                    echo $cadena_sql;
-//                    exit;
                 break;
 
                 case "estado_estudiante":
@@ -38,8 +36,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql="SELECT estado_cod, estado_nombre FROM acest ";
                     $cadena_sql.="inner join acestado on acest.est_estado_est=acestado.estado_cod ";
                     $cadena_sql.="WHERE est_cod=".$variable;
-//                    echo $cadena_sql;
-//                    exit;
                 break;
 
                 case "buscar_adiciones_estudiantes":
@@ -50,9 +46,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql.=" AND modulos_idPlanEstudio = ".$variable[0];
                     $cadena_sql.=" AND modulos_idModulo = 4 ";
                     $cadena_sql.=" AND modulos_idEstado = 1 ";
-
-//                    echo $cadena_sql;
-//                    exit;
                 break;
 
 
@@ -61,7 +54,7 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql="SELECT DISTINCT  ";//1
                     $cadena_sql.=" ins_asi_cod      CODIGO, ";//0
                     $cadena_sql.=" ins_cra_cod      PROYECTO, ";//1
-                    $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO,";
+                    $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO,";
                     $cadena_sql.=" ins_gr           ID_GRUPO, ";    //9
                     $cadena_sql.=" ins_ano          ANIO, ";                 //3
                     $cadena_sql.=" ins_per          PERIODO, ";              //4
@@ -84,10 +77,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql.=" AND pen_estado LIKE '%A%'";
 //                    $cadena_sql.=" and pen_nro>200";
                     $cadena_sql.=" ORDER BY ins_asi_cod ";
-
-//                    echo $cadena_sql;
-//                    exit;
-
                 break;
 
 
@@ -133,10 +122,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql="SELECT semestre_nroCreditosEstudiante ";
                     $cadena_sql.="FROM ".$configuracion['prefijo']."semestre_creditos_estudiante ";
                     $cadena_sql.="WHERE semestre_codEstudiante=".$variable; //codigo del espacio
-
-                    //echo "cadena".$cadena_sql;
-                    //exit;
-
                 break;
 
                 case 'consultaRegistroHorario':
@@ -146,10 +131,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql.="inner join ".$configuracion['prefijo']."espacio_academico EA on HE.horario_idEspacio=EA.id_espacio ";
                     $cadena_sql.="WHERE horario_codEstudiante=".$variable; //codigo del estudiante
                     $cadena_sql.=" AND horario_estado!='3'"; //codigo del estudiante
-
-                    //echo "cadena".$cadena_sql;
-                    //exit;
-
                 break;
 
                 case 'grabarCreditosNuevo':
@@ -163,10 +144,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql.="'".$variable[4]."',";
                     $cadena_sql.="'".$variable[5]."',";
                     $cadena_sql.="'0')";
-
-                    //echo "cadena".$cadena_sql;
-                    //exit;
-
                 break;
 
                 case 'periodoActivo':
@@ -187,7 +164,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql.=" and (id_evento=102 OR id_evento=103 OR id_evento=106 OR id_evento=107)";
                     $cadena_sql.=" and fecha_estado=1";
                     $cadena_sql.=" ORDER BY id_evento";
-//echo $cadena_sql;exit;
                     break;
 
                 case 'consultaFechasGeneral':
@@ -201,7 +177,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql.=" and (id_evento=102 OR id_evento=103 OR id_evento=106 OR id_evento=107)";
                     $cadena_sql.=" and fecha_estado=1";
                     $cadena_sql.=" ORDER BY id_evento";
-//echo $cadena_sql;exit;
                     break;
 
 
@@ -211,7 +186,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql="SELECT id_facultad ";
                     $cadena_sql.="FROM `sga_proyectoCurricular` ";
                     $cadena_sql.="WHERE `id_usuario_afectado` =".$variable;
-                    
                     break;
 
                 case 'buscarPlan':
@@ -219,7 +193,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql="SELECT est_cra_cod, est_pen_nro ";
                     $cadena_sql.="FROM acest ";
                     $cadena_sql.="WHERE est_cod=".$variable;
-
                     break;
 
                 case 'creditosPlan':
@@ -227,7 +200,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql="SELECT parametro_creditosPlan, parametros_OB, parametros_OC, parametros_EI, parametros_EE ";
                     $cadena_sql.="FROM sga_parametro_plan_estudio ";
                     $cadena_sql.="WHERE parametro_idPlanEstudio=".$variable;
-
                     break;
 
                 case 'espaciosAprobados':
@@ -238,7 +210,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql.="WHERE NOT_EST_COD =".$variable;
                     $cadena_sql.=" AND NOT_NOTA >= '30'";
                     $cadena_sql.=" AND NOT_EST_REG LIKE '%A%'";
-
                     break;
 
                 case 'valorCreditosPlan':
@@ -246,8 +217,6 @@ class sql_adminConsultarInscripcionEstudianteCoordinador extends sql
                     $cadena_sql="SELECT espacio_nroCreditos, id_clasificacion FROM sga_espacio_academico ";
                     $cadena_sql.="JOIN sga_planEstudio_espacio ON sga_espacio_academico.id_espacio = sga_planEstudio_espacio.id_espacio ";
                     $cadena_sql.="WHERE sga_espacio_academico.id_espacio= ".$variable[0]." AND id_planEstudio=".$variable[1];
-                    //echo $cadena_sql;exit;
-
                     break;
 
 	}#Cierre de switch

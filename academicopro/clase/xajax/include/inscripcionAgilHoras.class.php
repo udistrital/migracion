@@ -47,7 +47,7 @@ function buscarEspacios($codEspacio, $planEstudio, $codProyecto)
     $accesoOracle=$conexion->estableceConexion(28,$configuracion);
     $accesoGestion=$conexion->estableceConexion(99,$configuracion);
     
-    if (is_resource($enlace))
+    if ($enlace)
     {
         $cadena_sql=generarSQL("periodoActivo", '');
         $ano=$funcion->ejecutarSQL($configuracion, $accesoOracle, $cadena_sql, "busqueda");
@@ -279,7 +279,7 @@ function generarSQL($tipo, $variable="")
             case 'buscarGruposProyecto':
                 $cadena_sql = "SELECT cur_cra_cod CARRERA,";
                 $cadena_sql.=" cra_nombre NOMBRE,";
-                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO,";
+                $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO,";
                 $cadena_sql.=" cur_id ID_GRUPO,";
                 $cadena_sql.=" cur_nro_cupo CUPO,";
                 $cadena_sql.=" dia_nombre DIA,";

@@ -163,21 +163,21 @@ class registrarInscripcion{
                       $cadena_sql="INSERT INTO ACINS ";
                       $cadena_sql.="(INS_CRA_COD, INS_EST_COD, INS_ASI_COD, INS_GR, INS_OBS, INS_ANO, INS_PER, INS_ESTADO, INS_CRED, INS_NRO_HT, INS_NRO_HP, INS_NRO_AUT, INS_CEA_COD, INS_TOT_FALLAS, INS_SEM, INS_HOR_ALTERNATIVO) ";
                       $cadena_sql.="VALUES ('".$variable['codProyectoEstudiante']."',";
-                      $cadena_sql.="'".$variable['codEstudiante']."',";
-                      $cadena_sql.="'".$variable['codEspacio']."',";
-                      $cadena_sql.="'".$variable['id_grupo']."',";
-                      $cadena_sql.="'0',";
-                      $cadena_sql.="'".$variable['ano']."',";
-                      $cadena_sql.="'".$variable['periodo']."',";
+                      $cadena_sql.="".$variable['codEstudiante'].",";
+                      $cadena_sql.="".$variable['codEspacio'].",";
+                      $cadena_sql.="".$variable['id_grupo'].",";
+                      $cadena_sql.="0,";
+                      $cadena_sql.="".$variable['ano'].",";
+                      $cadena_sql.="".$variable['periodo'].",";
                       $cadena_sql.="'A',";
-                      $cadena_sql.="'".$variable['creditos']."',";
-                      $cadena_sql.="'".$variable['htd']."',";
-                      $cadena_sql.="'".$variable['htc']."',";
-                      $cadena_sql.="'".$variable['hta']."',";
-                      $cadena_sql.="'".$variable['cea']."',";
-                      $cadena_sql.="'0',";                      
-                      $cadena_sql.="'".$variable['sem']."',";
-                      $cadena_sql.="'".$variable['hor_alternativo']."')";
+                      $cadena_sql.="".$variable['creditos'].",";
+                      $cadena_sql.="".$variable['htd'].",";
+                      $cadena_sql.="".$variable['htc'].",";
+                      $cadena_sql.="".$variable['hta'].",";
+                      $cadena_sql.="".$variable['cea'].",";
+                      $cadena_sql.="0,";                      
+                      $cadena_sql.="".$variable['sem'].",";
+                      $cadena_sql.="".$variable['hor_alternativo'].")";
                       
                       break;
 

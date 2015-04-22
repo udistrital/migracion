@@ -171,6 +171,7 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                     $variable.="&opcion=mostrarConsulta";
                     $variable.="&codEstudiante=".$_REQUEST["codEstudiante"];
                     $variable.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
+                    $variable.="&planEstudio=".$_REQUEST["planEstudioGeneral"];
                     $variable.="&codProyecto=".$_REQUEST["codProyecto"];
 
 
@@ -313,9 +314,10 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                 <input type="hidden" name="creditos" value="<?echo $resultado_espacio[0][1]?>">
                 <input type="hidden" name="planEstudio" value="<?echo $planEstudio?>">
                 <input type="hidden" name="carrera" value="<?echo $carrera?>">
-                <input type="hidden" name="ano" value="<?echo $ano?>">
+                <input type="hidden" name="ano" value="<?echo $ano[0].$ano[1]?>">
                 <input type="hidden" name="planEstudioGeneral" value="<?echo $_REQUEST["planEstudioGeneral"]?>">
                 <input type="hidden" name="codProyecto" value="<?echo $_REQUEST["codProyecto"]?>">
+                <input type="hidden" name="estado_est" value="<?echo $_REQUEST["estado_est"]?>">
                 <input type="hidden" name="action" value="<?echo $this->bloque;?>">
                 <input type="image" name="adicion" width="30" height="30" src="<?echo $configuracion['site'].$configuracion['grafico']?>/clean.png" >
             </form>
@@ -361,8 +363,9 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
             $variablesPag="pagina=adminConsultarInscripcionEstudianteCoordinador";
             $variablesPag.="&opcion=mostrarConsulta";
             $variablesPag.="&codEstudiante=".$_REQUEST["codEstudiante"];
-            $variable.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
-            $variable.="&codProyecto=".$_REQUEST["codProyecto"];
+            $variablesPag.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
+            $variablesPag.="&planEstudio=".$_REQUEST["planEstudioGeneral"];
+            $variablesPag.="&codProyecto=".$_REQUEST["codProyecto"];
 
             include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
             $this->cripto=new encriptar();
@@ -477,8 +480,8 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                     $pagina=$configuracion["host"].$configuracion["site"]."/index.php?";
                     $variable="pagina=registroAdicionarEEEstudianteCoordinador";
                     $variable.="&opcion=adicionar";
-                    $variable.="&id_grupo=".$_REQUEST["id_grupo"];
-                    $variable.="&grupo=".$_REQUEST["grupo"];
+                    $variable.="&id_grupo=".(isset($_REQUEST["id_grupo"])?$_REQUEST["id_grupo"]:'');
+                    $variable.="&grupo=".(isset($_REQUEST["grupo"])?$_REQUEST["grupo"]:'');
                     $variable.="&codEstudiante=".$_REQUEST["codEstudiante"];
                     $variable.="&espacio=".$_REQUEST["espacio"];
                     $variable.="&clasificacion=".$_REQUEST["clasificacion"];
@@ -487,6 +490,7 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                     $variable.="&creditos=".$_REQUEST['creditos'];
                     $variable.="&nombre=".$_REQUEST['nombre'];
                     $variable.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
+                    $variable.="&estado_est=".$_REQUEST['estado_est'];
                     $variable.="&codProyecto=".$_REQUEST["codProyecto"];
 
                     include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
@@ -503,8 +507,8 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                     $pagina=$configuracion["host"].$configuracion["site"]."/index.php?";
                     $variable="pagina=registroAdicionarEEEstudianteCoordinador";
                     $variable.="&opcion=otrosGrupos";
-                    $variable.="&id_grupo=".$_REQUEST["id_grupo"];
-                    $variable.="&grupo=".$_REQUEST["grupo"];
+                    $variable.="&id_grupo=".(isset($_REQUEST["id_grupo"])?$_REQUEST["id_grupo"]:'');
+                    $variable.="&grupo=".(isset($_REQUEST["grupo"])?$_REQUEST["grupo"]:'');
                     $variable.="&codEstudiante=".$_REQUEST["codEstudiante"];
                     $variable.="&espacio=".$_REQUEST["espacio"];
                     $variable.="&clasificacion=".$_REQUEST["clasificacion"];
@@ -513,6 +517,7 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                     $variable.="&creditos=".$_REQUEST['creditos'];
                     $variable.="&nombre=".$_REQUEST['nombre'];
                     $variable.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
+                    $variable.="&estado_est=".$_REQUEST['estado_est'];
                     $variable.="&codProyecto=".$_REQUEST["codProyecto"];
 
                     include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
@@ -576,6 +581,7 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                                                 $resultado_horarios_registrado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
                                             
                                                 unset($cruce);
+                                                $cruce=0;
 
                                                 for($n=0;$n<count($resultado_horarios_registrado);$n++) {
                                                                 for($m=0;$m<count($resultado_horarios_registrar);$m++) {
@@ -651,6 +657,7 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                                             <input type="hidden" name="nombre" value="<?echo $_REQUEST['nombre']?>">
                                             <input type="hidden" name="planEstudioGeneral" value="<?echo $_REQUEST["planEstudioGeneral"]?>">
                                             <input type="hidden" name="codProyecto" value="<?echo $_REQUEST["codProyecto"]?>">
+                                            <input type="hidden" name="estado_est" value="<?echo $_REQUEST["estado_est"]?>">
                                             <input type="hidden" name="opcion" value="inscribir">
                                             <input type="hidden" name="action" value="<?echo $this->bloque;?>">
                                             <input type="image" name="adicion" width="30" height="30" src="<?echo $configuracion['site'].$configuracion['grafico']?>/clean.png" >
@@ -704,6 +711,7 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                     $variable.="&opcion=mostrarConsulta";
                     $variable.="&codEstudiante=".$_REQUEST["codEstudiante"];
                     $variable.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
+                    $variable.="&planEstudio=".$_REQUEST["planEstudioGeneral"];
                     $variable.="&codProyecto=".$_REQUEST["codProyecto"];
 
                     include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
@@ -725,6 +733,7 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                     $variable.="&opcion=espacios";
                     $variable.="&codEstudiante=".$_REQUEST["codEstudiante"];
                     $variable.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
+                    $variable.="&estado_est=".$_REQUEST["estado_est"];
                     $variable.="&codProyecto=".$_REQUEST["codProyecto"];
 
                     include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
@@ -1071,6 +1080,7 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                     $variable.="&opcion=mostrarConsulta";
                     $variable.="&codEstudiante=".$_REQUEST["codEstudiante"];
                     $variable.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
+                    $variable.="&planEstudio=".$_REQUEST["planEstudioGeneral"];
                     $variable.="&codProyecto=".$_REQUEST["codProyecto"];
 
                     include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
@@ -1092,6 +1102,7 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                     $variable.="&opcion=espacios";
                     $variable.="&codEstudiante=".$_REQUEST["codEstudiante"];
                     $variable.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
+                    $variable.="&estado_est=".$_REQUEST["estado_est"];
                     $variable.="&codProyecto=".$_REQUEST["codProyecto"];
 
                     include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
@@ -1156,7 +1167,7 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
         $cadena_sql_buscarEspacioMysql=$this->sql->cadena_sql($configuracion,"buscar_espacio_mysql", $variableInscripcion);
         $resultado_EspacioMysql=$this->ejecutarSQL($configuracion, $this->accesoGestion, $cadena_sql_buscarEspacioMysql,"busqueda" );
 
-        if ($resultado_EspacioOracle =='' and $resultado_buscarEspacioMysql == '') {
+        if ($resultado_EspacioOracle =='') {
 
             $cadena_sql_horario_registrado=$this->sql->cadena_sql($configuracion,"horario_registrado", $variableInscripcion);
             $resultado_horario_registrado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql_horario_registrado,"busqueda" );
@@ -1633,8 +1644,9 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
             $variablesPag="pagina=adminConsultarInscripcionEstudianteCoordinador";
             $variablesPag.="&opcion=mostrarConsulta";
             $variablesPag.="&codEstudiante=".$_REQUEST["codEstudiante"];
-            $variable.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
-            $variable.="&codProyecto=".$_REQUEST["codProyecto"];
+            $variablesPag.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
+            $variablesPag.="&planEstudio=".$_REQUEST["planEstudioGeneral"];
+            $variablesPag.="&codProyecto=".$_REQUEST["codProyecto"];
 
             include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
             $this->cripto=new encriptar();

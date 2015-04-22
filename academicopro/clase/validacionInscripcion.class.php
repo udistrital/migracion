@@ -1547,7 +1547,7 @@ class validacionInscripcion {
                         
                     case 'consultar_promedio':
                     	 $cadena_sql=" SELECT fa_promedio_nota('".$variable."') PROMEDIO ";
-                    	 $cadena_sql.=" FROM DUAL ";
+//                    	 $cadena_sql.=" FROM DUAL ";
                     	break;
                     	
                     case 'consultar_datosCurso':

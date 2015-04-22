@@ -78,8 +78,8 @@ class sql_registroAdicionarEEEstudianteCoordinador extends sql {
                   $cadena_sql.="CLP_CEA_COD, ";
                   $cadena_sql.="CEA_ABR, ";
                   $cadena_sql.="CLP_PEN_NRO, ";
-                  $cadena_sql.="(SELECT DISTINCT PEN_CRA_COD FROM ACPEN WHERE PEN_ASI_COD=CLP_ASI_COD AND PEN_NRO=CLP_PEN_NRO AND PEN_ESTADO LIKE '%A%' AND ROWNUM=1) PEN_CRA_COD, ";
-                  $cadena_sql.="(SELECT CRA_NOMBRE FROM ACCRA INNER JOIN ACPEN ON PEN_CRA_COD=CRA_COD WHERE PEN_ASI_COD=CLP_ASI_COD AND PEN_NRO=CLP_PEN_NRO AND PEN_ESTADO LIKE '%A%' AND rownum=1) CRA_NOMBRE, ";
+                  $cadena_sql.="(SELECT DISTINCT PEN_CRA_COD FROM ACPEN WHERE PEN_ASI_COD=CLP_ASI_COD AND PEN_NRO=CLP_PEN_NRO AND PEN_ESTADO LIKE '%A%'  limit 1) PEN_CRA_COD, ";
+                  $cadena_sql.="(SELECT CRA_NOMBRE FROM ACCRA INNER JOIN ACPEN ON PEN_CRA_COD=CRA_COD WHERE PEN_ASI_COD=CLP_ASI_COD AND PEN_NRO=CLP_PEN_NRO AND PEN_ESTADO LIKE '%A%' limit 1) CRA_NOMBRE, ";
                   $cadena_sql.="DEP_COD, ";
                   $cadena_sql.="DEP_NOMBRE ";
                   $cadena_sql.="FROM ACCLASIFICACPEN ";
@@ -247,7 +247,7 @@ class sql_registroAdicionarEEEstudianteCoordinador extends sql {
 
             case 'grupos_proyecto':
 
-                $cadena_sql="SELECT DISTINCT CUR_ID,(lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO ";
+                $cadena_sql="SELECT DISTINCT CUR_ID,(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO ";
                 $cadena_sql.=" FROM ACHORARIOS ";
                 $cadena_sql.=" INNER JOIN ACCURSOS ON ACHORARIOS.HOR_ID_CURSO=ACCURSOS.CUR_ID ";
                 $cadena_sql.=" WHERE CUR_ASI_COD=".$variable[0];
@@ -260,7 +260,7 @@ class sql_registroAdicionarEEEstudianteCoordinador extends sql {
 
             case 'otros_grupos':
 
-                $cadena_sql="SELECT DISTINCT CUR_ID,(lpad(cur_cra_cod,3,0)||'-'||cur_grupo),CRA_NOMBRE";
+                $cadena_sql="SELECT DISTINCT CUR_ID,(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo),CRA_NOMBRE";
                 $cadena_sql.=" FROM ACCURSOS curso";
                 $cadena_sql.=" INNER JOIN ACHORARIOS horario ON curso.CUR_ID=horario.HOR_ID_CURSO";
                 $cadena_sql.=" INNER JOIN ACCRA cra ON curso.CUR_CRA_COD=cra.CRA_COD";

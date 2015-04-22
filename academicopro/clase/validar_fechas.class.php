@@ -756,7 +756,7 @@ class validar_fechas {
                 break;
 
             case 'preinscripcion_estudiante':
-                $cadena_sql=" SELECT Fua_Realizo_Preins(".$variable.") FROM DUAL";
+                $cadena_sql=" SELECT Fua_Realizo_Preins(".$variable.")";
                 break;
 
             case 'preinscripcion_proyecto':

@@ -37,7 +37,7 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.cl
   $conexion = new multiConexion();
   $accesoOracle = $conexion->estableceConexion(75, $configuracion);
 
-  if (is_resource($enlace)) {
+  if ($enlace) {
     $busqueda = "SELECT DISTINCT est_nombre NOMBRE, cra_nombre PROYECTO, est_estado_est ESTADO, est_ind_cred MODALIDAD";
     $busqueda.=" FROM acest";
     $busqueda.=" INNER JOIN accra ON acest.est_cra_cod=accra.cra_cod";

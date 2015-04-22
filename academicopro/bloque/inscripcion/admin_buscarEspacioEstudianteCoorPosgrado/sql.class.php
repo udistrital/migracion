@@ -27,8 +27,8 @@ class sql_adminBuscarEspacioEstudianteCoorPosgrado extends sql {
         break;
 
       case 'nota_aprobatoria':
-        $cadena_sql="SELECT fua_nota_aprobatoria(" . $variable['codProyectoEstudiante'] . ")";
-        $cadena_sql.=" FROM dual";
+        $cadena_sql="SELECT cra_nota_aprob from accra where cra_cod=" . $variable['codProyectoEstudiante'];
+        //$cadena_sql.=" FROM dual";
         break;
 
       case 'espacios_plan_estudio':

@@ -103,7 +103,7 @@ class sql_adminInscripcionGrupoCoordinadorPosgrado extends sql {
 
                 $cadena_sql="SELECT ";
                 $cadena_sql.=" cur_id           ID_GRUPO,";
-                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO,";
+                $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO,";
                 $cadena_sql.=" cur_nro_cupo     CUPO,";
                 $cadena_sql.=" cur_nro_ins      INSCRITOS";
                 $cadena_sql.=" FROM accursos";

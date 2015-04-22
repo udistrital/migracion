@@ -99,7 +99,7 @@ class sql_estudiantesInscritosGrupoCoorHoras extends sql
 
                     $cadena_sql="SELECT ";
                     $cadena_sql.=" cur_id       ID_GRUPO,";
-                    $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO,";
+                    $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO,";
                     $cadena_sql.=" cur_nro_cupo CUPO,";
                     $cadena_sql.=" cur_nro_ins  INSCRITOS";
                     $cadena_sql.=" FROM ACCURSOS";
@@ -224,9 +224,9 @@ class sql_estudiantesInscritosGrupoCoorHoras extends sql
                     
                     $cadena_sql="select distinct cur_nro from ACCURSOS ";
                     $cadena_sql.=" inner join achorarios on cur_id= hor_id_curso ";
+                    $cadena_sql.=" inner join acasperi on ape_ano=cur_ape_ano and ape_per=cur_ape_per";
                     $cadena_sql.=" where cur_asi_cod=".$variable[0];
-                    $cadena_sql.=" and cur_ape_ano=(SELECT APE_ANO FROM ACASPERI WHERE APE_ESTADO LIKE '%A%') ";
-                    $cadena_sql.=" and cur_ape_per=(SELECT APE_PER FROM ACASPERI WHERE APE_ESTADO LIKE '%A%') ";
+                    $cadena_sql.=" and ape_estado='A'";
                     $cadena_sql.=" and cur_cra_cod= ".$variable[3];
                     $cadena_sql.=" ORDER BY cur_nro";
 
@@ -238,11 +238,11 @@ class sql_estudiantesInscritosGrupoCoorHoras extends sql
                     $cadena_sql.=" FROM ACHORARIOS ";
                     $cadena_sql.=" INNER JOIN ACCURSOS ON ACHORARIO.HOR_ID_CURSO=ACCURSOS.CUR_ID ";
                     $cadena_sql.=" INNER JOIN GESALONES ON ACHORARIOS.HOR_SAL_ID_ESPACIO = GESALONES.SAL_ID_ESPACIO";
+                    $cadena_sql.=" INNER JOIN ACASPERI ON APE_ANO=CUR_APE_ANO AND APE_PER=CUR_APE_PER";
                     $cadena_sql.=" LEFT OUTER JOIN GESEDE ON GESALONES.SAL_SED_ID=GESEDE.SED_ID ";
                     $cadena_sql.=" WHERE CUR_ASI_COD=".$variable[0];
                     $cadena_sql.=" AND CUR_CRA_COD=".$variable[1];
-                    $cadena_sql.=" AND HOR_APE_ANO=(SELECT APE_ANO FROM ACASPERI WHERE APE_ESTADO LIKE '%A%') ";
-                    $cadena_sql.=" AND HOR_APE_PER=(SELECT APE_PER FROM ACASPERI WHERE APE_ESTADO LIKE '%A%')";
+                    $cadena_sql.=" AND APE_ESTADO ='A') ";
                     $cadena_sql.=" AND HOR_NRO=".$variable[3];
                     $cadena_sql.=" ORDER BY 1,2,3";
 
@@ -354,14 +354,14 @@ class sql_estudiantesInscritosGrupoCoorHoras extends sql
                 case 'horario_grupos':
 
                     $cadena_sql="SELECT DISTINCT  HOR_DIA_NRO, HOR_HORA, SED_ABREV, HOR_SAL_COD ";
-                    $cadena_sql.="FROM ACHORARIOS ";
+                    $cadena_sql.=" FROM ACHORARIOS ";
                     $cadena_sql.=" INNER JOIN ACCURSOS ON ACHORARIOS.HOR_ID_CURSO=ACCURSOS.CUR_ID ";
                     $cadena_sql.=" INNER JOIN GESALONES ON ACHORARIOS.HOR_SAL_ID_ESPACIO = GESALONES.SAL_ID_ESPACIO";
+                    $cadena_sql.=" INNER JOIN ACASPERI ON APE_ANO=CUR_APE_ANO AND APE_PER=CUR_APE_PER";
                     $cadena_sql.=" LEFT OUTER JOIN GESEDE ON GESALONES.SAL_SED_ID=GESEDE.SED_ID ";
-                    $cadena_sql.="WHERE CUR_ASI_COD=".$variable[0][0]; //codigo del espacio
+                    $cadena_sql.=" WHERE CUR_ASI_COD=".$variable[0][0]; //codigo del espacio
 //                    $cadena_sql.=" AND CUR_CRA_COD=".$variable[0][1];  //codigo del proyecto curricular
-                    $cadena_sql.=" AND HOR_APE_ANO=(SELECT APE_ANO FROM ACASPERI WHERE APE_ESTADO LIKE '%A%') ";
-                    $cadena_sql.=" AND HOR_APE_PER=(SELECT APE_PER FROM ACASPERI WHERE APE_ESTADO LIKE '%A%')";
+                    $cadena_sql.=" AND APE_ESTADO = 'A'";
                     $cadena_sql.=" AND HOR_NRO=".$variable[0][2];//numero de grupo
                     $cadena_sql.=" ORDER BY 1,2,3";//no cambiar el orden
 

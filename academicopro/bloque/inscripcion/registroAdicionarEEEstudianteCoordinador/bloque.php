@@ -80,6 +80,7 @@ class bloque_registroAdicionarEEEstudianteCoordinador extends bloque
                                 $variable.="&creditos=".$_REQUEST["creditos"];
                                 $variable.="&nombre=".$_REQUEST["nombre"];
                                 $variable.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
+                                $variable.="&estado_est=".$_REQUEST['estado_est'];
                                 $variable.="&codProyecto=".$_REQUEST["codProyecto"];
                                 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
 				$this->cripto=new encriptar();
@@ -102,6 +103,7 @@ class bloque_registroAdicionarEEEstudianteCoordinador extends bloque
                                 $variable.="&planEstudio=".$_REQUEST["planEstudio"];
                                 $variable.="&creditos=".$_REQUEST["creditos"];
                                 $variable.="&planEstudioGeneral=".$_REQUEST["planEstudioGeneral"];
+                                $variable.="&estado_est=".$_REQUEST['estado_est'];
                                 $variable.="&codProyecto=".$_REQUEST["codProyecto"];
 
                                 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
