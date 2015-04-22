@@ -31,7 +31,7 @@ class sql_adminBuscarGruposProyectoCI extends sql {
 
                 $cadena_sql="SELECT DISTINCT cur_id ID_GRUPO,";
                 $cadena_sql.=" cur_cra_cod CARRERA,";
-                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO";
+                $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO";
                 $cadena_sql.=" FROM achorarios";
                 $cadena_sql.=" INNER JOIN ACCURSOS ON achorarios.HOR_ID_CURSO=ACCURSOS.CUR_ID";
                 $cadena_sql.=" WHERE cur_asi_cod=".$variable['codEspacio'];

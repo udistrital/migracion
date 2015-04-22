@@ -426,7 +426,7 @@ class procedimientosCI {
 
                   case 'actualizar_cupo':
 
-                      $cadena_sql="UPDATE accurso ";
+                      $cadena_sql="UPDATE accursos ";
                       $cadena_sql.="SET cur_nro_ins=";
                       $cadena_sql.="   (SELECT count(*) FROM acins";
                       $cadena_sql.="    WHERE ins_asi_cod = ".$variable['codEspacio'];
@@ -434,7 +434,7 @@ class procedimientosCI {
                       $cadena_sql.="    and ins_ano=".$this->ano;
                       $cadena_sql.="    and ins_per=".$this->periodo.")";
                       $cadena_sql.=" WHERE cur_asi_cod=".$variable['codEspacio'];
-                      $cadena_sql.=" AND cur_nro=".$variable['idGrupo'];
+                      $cadena_sql.=" AND cur_id=".$variable['idGrupo'];
                       $cadena_sql.=" AND cur_ape_ano=".$this->ano;
                       $cadena_sql.=" AND cur_ape_per=".$this->periodo;
                       break;

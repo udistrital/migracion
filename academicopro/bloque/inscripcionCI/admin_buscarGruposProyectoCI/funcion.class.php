@@ -790,7 +790,7 @@ class funcion_adminBuscarGruposProyectoCI extends funcionGeneral {
           <input type="hidden" name="carrera" value="<? echo $resultado_grupos['CARRERA'] ?>">
           <input type="hidden" name="grupoAnterior" value="<? echo $_REQUEST['idGrupo'] ?>">
           <input type="hidden" name="opcion" value="inscribir">
-          <input type="hidden" name="action" value="<? echo $_REQUEST['destino'] ?>">
+          <input type="hidden" name="action" value="<? echo "inscripcionCI/".$_REQUEST['destino'] ?>">
           <input type="hidden" name="retorno" value="<? echo $_REQUEST['retorno'] ?>">
           <input type="hidden" name="opcionRetorno" value="<? echo $_REQUEST['opcionRetorno'] ?>">
           <?$i=0;

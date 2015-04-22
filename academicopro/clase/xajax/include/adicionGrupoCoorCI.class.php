@@ -31,7 +31,7 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.cl
   //Conectarse a la base de datos
   $acceso_db = new dbms($configuracion);
   $enlace = $acceso_db->conectar_db();
-  $valor = $acceso_db->verificar_variables($codEstudiante);
+  //$valor = $acceso_db->verificar_variables($codEstudiante);
 
   $html = new html();
   $conexion = new multiConexion();
