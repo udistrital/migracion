@@ -1,5 +1,5 @@
 <?PHP
-if($_REQUEST['t'] == 'ADM')
+if(isset($_REQUEST['t']) == 'ADM')
 {
 	$QryAdm = "SELECT des_descripcion,COUNT(emp_nro_iden)
 	FROM pecargo, pecargodes, peemp
@@ -31,7 +31,7 @@ if($_REQUEST['t'] == 'ADM')
 		<td align="right"><b>'.$i.'</b></td>
 	</table><p></p>';
 }
-elseif($_REQUEST['t'] == 'DOP'){
+elseif(isset($_REQUEST['t']) == 'DOP'){
 	$QryAdm = "SELECT des_descripcion, COUNT(emp_nro_iden)
 	FROM pecargo, pecargodes, peemp
 	WHERE des_tc_cod = car_tc_cod
@@ -63,7 +63,7 @@ elseif($_REQUEST['t'] == 'DOP'){
 	<td align="right"><b>'.$total.'</b></td>
 	</table><p></p>';
 }
-elseif($_REQUEST['t'] == 'DVE'){
+elseif(isset($_REQUEST['t']) == 'DVE'){
 	   print'<h3>Sin Detalle</h3>';
 	   /*
 	   $QryAdm = OCIParse($oci_conecta, "");
@@ -90,7 +90,7 @@ elseif($_REQUEST['t'] == 'DVE'){
 		OCIFreeCursor($QryAdm);
 		*/
 }
-elseif($_REQUEST['t'] == 'PEN'){
+elseif(isset($_REQUEST['t']) == 'PEN'){
 	$QryAdm = "SELECT des_descripcion, COUNT(emp_nro_iden)
 		FROM mntpe.pecargo, mntpe.pecargodes, mntpe.peemp
 		WHERE des_tc_cod = car_tc_cod

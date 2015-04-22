@@ -12,7 +12,7 @@ $QryEmp = "SELECT 'ADMINISTRATIVOS', COUNT(emp_nro_iden),'ADM'
 	AND car_tc_cod IN ('DP','DC','DH')
 	UNION
 	SELECT 'PENSIONADOS',COUNT(emp_nro_iden),'PEN'
-	FROM peemp, pecargo
+	FROM mntpe.peemp, mntpe.pecargo
 	WHERE emp_estado_e <> 'R'
 	AND emp_car_cod = car_cod
 	AND car_tc_cod IN ('PA','PD')

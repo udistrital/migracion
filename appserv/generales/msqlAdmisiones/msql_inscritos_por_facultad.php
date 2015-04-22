@@ -6,7 +6,7 @@ $QryInsFac = "SELECT dep_cod cod_fac,
 		cra_nombre carrera,
 		'ASPIRANTES' tabla,
 		COUNT(asp_cred) total_inscripciones
-		FROM mntac.acasperiadm, mntac.gedep, accra, mntac.acaspw
+		FROM mntac.acasperiadm, mntge.gedep, accra, mntac.acaspw
 		WHERE ape_estado = 'X'
 		AND dep_cod = ".$_REQUEST['FacCod']."
 		AND dep_cod = cra_dep_cod
@@ -16,16 +16,15 @@ $QryInsFac = "SELECT dep_cod cod_fac,
 		GROUP BY dep_cod,
 		dep_nombre,
 		cra_cod,
-		cra_nombre,
-		'ASPIRANTES'   
+		cra_nombre
 		UNION
 		SELECT dep_cod,
 		dep_nombre,
 		cra_cod,
-		DECODE(cra_cod,0,'SIN CARRERA',cra_nombre),
+		CASE WHEN cra_cod=0 THEN 'SIN CARRERA' ELSE cra_nombre END,
 		'REINGRESO',   
 		COUNT(are_cred)
-		FROM mntac.acasperiadm, mntac.gedep, accra, mntac.acaspreingreso
+		FROM mntac.acasperiadm, mntge.gedep, accra, mntac.acaspreingreso
 		WHERE ape_estado = 'X'
 		AND dep_cod = ".$_REQUEST['FacCod']."
 		AND dep_cod = cra_dep_cod
@@ -33,14 +32,13 @@ $QryInsFac = "SELECT dep_cod cod_fac,
 		AND ape_per = are_ape_per
 		AND are_cra_cursando IS NULL
 		AND are_cra_transferencia IS NULL
-		AND cra_cod = NVL((SELECT est_cra_cod
+		AND cra_cod = coalesce((SELECT est_cra_cod
 		FROM acest
 		WHERE mntac.acaspreingreso.are_est_cod = est_cod),0)
 		GROUP BY dep_cod,
 		dep_nombre,
 		cra_cod,
-		cra_nombre,
-		'REINGRESO'   
+		cra_nombre
 		UNION 
 		SELECT dep_cod,
 		dep_nombre,
@@ -48,7 +46,7 @@ $QryInsFac = "SELECT dep_cod cod_fac,
 		cra_nombre,
 		'TRANS. INTERNA',   
 		COUNT(are_cred)
-		FROM mntac.acasperiadm, mntac.gedep, accra, mntac.acaspreingreso
+		FROM mntac.acasperiadm, mntge.gedep, accra, mntac.acaspreingreso
 		WHERE ape_estado = 'X'
 		AND dep_cod = ".$_REQUEST['FacCod']."
 		AND dep_cod = cra_dep_cod
@@ -58,8 +56,7 @@ $QryInsFac = "SELECT dep_cod cod_fac,
 		GROUP BY dep_cod,
 		dep_nombre,
 		cra_cod,
-		cra_nombre,
-		'TRANS. INTERNA'     
+		cra_nombre 
 		UNION   
 		SELECT dep_cod,
 		dep_nombre,
@@ -67,7 +64,7 @@ $QryInsFac = "SELECT dep_cod cod_fac,
 		cra_nombre,
 		'TRANS. EXTERNA',   
 		COUNT(atr_cred)
-		FROM mntac.acasperiadm, mntac.gedep, accra, mntac.acasptransferencia
+		FROM mntac.acasperiadm, mntge.gedep, accra, mntac.acasptransferencia
 		WHERE ape_estado = 'X'
 		AND dep_cod = ".$_REQUEST['FacCod']."
 		AND dep_cod = cra_dep_cod
@@ -77,7 +74,7 @@ $QryInsFac = "SELECT dep_cod cod_fac,
 		GROUP BY dep_cod,
 		dep_nombre,
 		cra_cod,
-		cra_nombre,
-		'TRANS. EXTERNA'    
+		cra_nombre   
 		ORDER BY 1,2,3,4 ASC";
+	
 ?>

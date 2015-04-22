@@ -31,7 +31,7 @@ N&uacute;mero de Inscritos por Facultad</span><br><br>
 <br>
 
 <?php
-$QryFac = "SELECT unique(cra_dep_cod), dep_nombre
+$QryFac = "SELECT DISTINCT(cra_dep_cod), dep_nombre
 	FROM accra, gedep
 	WHERE dep_cod = cra_dep_cod
 	AND cra_estado = 'A'
@@ -65,7 +65,7 @@ if(!empty($_REQUEST['FacCod'])){
 	require_once('msqlAdmisiones/msql_inscritos_por_facultad.php');
 	
 	$RowInsFac = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryInsFac,"busqueda");
-	
+	$Facultad = isset($Facultad)?$Facultad:'';
 	print'<table width="90%" border="1" align="center" cellpadding="0" cellspacing="0" style="border-collapse:collapse" '.$EstiloTab.'>
 	<caption>'.$Facultad.'</caption>
 	<tr class="tr">
