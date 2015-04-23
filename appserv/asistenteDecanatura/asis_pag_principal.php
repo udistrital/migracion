@@ -76,7 +76,7 @@ echo'
     </tr>
     <tr>
       <td width="100%" align="center">
-	  <a href="../generales/cambiar_mi_clave.php" target="_self" onMouseOver="link();return true;" onClick="link();return true;">Por seguridad, cambie su clave con frecuencia.</a></td>
+	  <b>Por seguridad, cambie su clave con frecuencia!!</b></td>
     </tr>
   </table>
 </div>	

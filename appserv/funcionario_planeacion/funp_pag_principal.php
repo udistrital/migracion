@@ -47,7 +47,7 @@ echo'<p>&nbsp;</p><div align="center">
     </tr>
     <tr>
       <td width="100%" align="center" height="1">
-	  <a href="../generales/cambiar_mi_clave.php" target="_self" onMouseOver="link();return true;" onClick="link();return true;" title="Cambio de clave">Por seguridad, cambie su clave con frecuencia.</a></td>
+	  <b>Por seguridad, cambie su clave con frecuencia!!</b></td>
     </tr>
   </table>
 </div><br><br>';
