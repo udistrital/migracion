@@ -229,12 +229,12 @@ class funcion_registroAplicarReglamento extends funcionGeneral
     */	
 	function procesarEstudiante($registroEstudiante){
 
-		$this->codigoEstudiante=$registroEstudiante['COD_ESTUDIANTE'];
-                $this->validarSetentaPorciento($registroEstudiante['COD_ESTUDIANTE']);
-		$this->acuerdoEstudiante=$registroEstudiante['ACUERDO'];
+		$this->codigoEstudiante=isset($registroEstudiante['COD_ESTUDIANTE'])?$registroEstudiante['COD_ESTUDIANTE']:'';
+                $this->validarSetentaPorciento($this->codigoEstudiante);
+		$this->acuerdoEstudiante=isset($registroEstudiante['ACUERDO'])?$registroEstudiante['ACUERDO']:'';
 //                echo "<br>".$this->codigoEstudiante." -- ".  $this->acuerdoEstudiante."<br>";
-		$this->promedioEstudiante=($registroEstudiante['PROMEDIO']);
-		$this->estadoEstudiante=($registroEstudiante['ESTADO']);
+		$this->promedioEstudiante=isset($registroEstudiante['PROMEDIO'])?$registroEstudiante['PROMEDIO']:'';
+		$this->estadoEstudiante=isset($registroEstudiante['ESTADO'])?$registroEstudiante['ESTADO']:'';
                 $this->causal=0;
                 $this->porcentaje=0;
                 $this->matriculas=0;
@@ -346,6 +346,7 @@ class funcion_registroAplicarReglamento extends funcionGeneral
                         $this->actualizarCausal();
                         //actualiza el estado del estudiante despues de aplicar reglamento
                         $this->actualizarEstadoEstudiante();
+                        $registroEstudiante['ESTADO']=isset($registroEstudiante['ESTADO'])?$registroEstudiante['ESTADO']:'';
                         //registra el evento de recálculo de reglamento
                         $datosRegistro=array('usuario'=>  $this->usuario,
                                                 'evento'=>48,

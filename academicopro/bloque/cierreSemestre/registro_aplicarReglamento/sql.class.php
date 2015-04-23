@@ -276,11 +276,13 @@ class sql_registro extends sql
                 $cadena_sql.=" AND est_cra_cod=not_cra_cod";
                 $cadena_sql.=" LEFT OUTER JOIN acplanestudio ON est_cra_cod=plan_cra_cod";
                 $cadena_sql.=" AND est_pen_nro=plan_pen_nro";
-                $cadena_sql.=" WHERE not_est_cod=".$variable['codEstudiante'];
+              	$cadena_sql.=" WHERE not_est_cod=".$variable['codEstudiante'];
+              //  $cadena_sql.=" WHERE not_est_cod=".$variable;                
                 $cadena_sql.=" AND trim(not_est_reg)='A'";
                 $cadena_sql.=" AND (not_nota>=(SELECT cra_nota_aprob FROM accra WHERE cra_cod=not_cra_cod)";
                 $cadena_sql.=" OR not_obs IN (19,22,24))";
-                $cadena_sql.=" GROUP BY est_cra_cod,est_pen_nro,est_ind_cred,plan_creditos";
+                $cadena_sql.=" GROUP BY est_cra_cod,est_pen_nro,est_ind_cred,plan_creditos";	 
+                echo $cadena_sql;exit;                
                 break;
 
             case 'consultarMatriculasEstudiante':
