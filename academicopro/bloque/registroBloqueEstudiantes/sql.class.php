@@ -42,14 +42,14 @@ class sql_registroBloqueEstudiantes extends sql
                         break;
 
                         case 'bloques_registrados':
-
+                            //se comentan algunas lineas para que busque el bloque sin tener en cuenta si tiene registrados estudiantes
                             $cadena_sql="SELECT distinct RBPE.bloque_idBloque,RBPE.bloque_idPlanEstudio,RBPE.bloque_idProyecto,RBPE.bloque_estado";
                             $cadena_sql.=" FROM ".$configuracion['prefijo']."registroBloquePlanEstudio RBPE";
-                            $cadena_sql.=" inner join sga_registroBloqueEstudiantes RBE on RBE.bloque_idBloque=RBPE.bloque_idBloque ";
-                            $cadena_sql.=" and RBE.bloque_idPlanEstudio=RBPE.bloque_idPlanEstudio and RBE.bloque_idProyecto=RBPE.bloque_idProyecto ";
-                            $cadena_sql.=" WHERE RBE.bloque_idPlanEstudio=".$variable[2];
-                            $cadena_sql.=" AND RBE.bloque_idProyecto=".$variable[0];
-                            $cadena_sql.=" and RBE.bloque_codEstudiante like '".$variable[3].$variable[4]."%'";
+                            //$cadena_sql.=" inner join sga_registroBloqueEstudiantes RBE on RBE.bloque_idBloque=RBPE.bloque_idBloque ";
+                            //$cadena_sql.=" and RBE.bloque_idPlanEstudio=RBPE.bloque_idPlanEstudio and RBE.bloque_idProyecto=RBPE.bloque_idProyecto ";
+                            $cadena_sql.=" WHERE RBPE.bloque_idPlanEstudio=".$variable[2];
+                            $cadena_sql.=" AND RBPE.bloque_idProyecto=".$variable[0];
+                            //$cadena_sql.=" and RBE.bloque_codEstudiante like '".$variable[3].$variable[4]."%'";
                             $cadena_sql.=" and RBPE.bloque_ano = ".$variable[3];
                             $cadena_sql.=" and RBPE.bloque_periodo = ".$variable[5];
                             $cadena_sql.=" order by 1";
@@ -87,7 +87,7 @@ class sql_registroBloqueEstudiantes extends sql
                             $cadena_sql.=" where est_cra_cod= ".$variable[0];
                             $cadena_sql.=" and est_pen_nro= ".$variable[1];
                             $cadena_sql.=" and est_ind_cred like '%S%' and est_estado like '%A%'";
-                            $cadena_sql.=" AND EST_COD LIKE '".$variable[2]."%'";
+                            $cadena_sql.=" AND cast(EST_COD as text) LIKE '".$variable[2]."%'";
                         break;
 
                         case 'verificar_bloque':
@@ -102,6 +102,17 @@ class sql_registroBloqueEstudiantes extends sql
                             $cadena_sql.=" and RBE.bloque_codEstudiante like '".$variable[3].$variable[4]."%'";
                             $cadena_sql.=" and RBE.bloque_ano =".$variable[3];
                             $cadena_sql.=" and RBE.bloque_periodo =".$variable[5];
+                        break;
+
+                        case 'verificar_bloque_plan':
+
+                            $cadena_sql="SELECT distinct RBPE.bloque_idBloque,RBPE.bloque_idPlanEstudio,RBPE.bloque_idProyecto,RBPE.bloque_estado";
+                            $cadena_sql.=" FROM ".$configuracion['prefijo']."registroBloquePlanEstudio RBPE";
+                            $cadena_sql.=" WHERE RBPE.bloque_idPlanEstudio=".$variable[1];
+                            $cadena_sql.=" AND RBPE.bloque_idProyecto=".$variable[0];
+                            $cadena_sql.=" AND RBPE.bloque_idBloque=".$variable[2];
+                            $cadena_sql.=" and RBPE.bloque_ano =".$variable[3];
+                            $cadena_sql.=" and RBPE.bloque_periodo =".$variable[5];
                         break;
 
                         case 'borrar_bloque':
@@ -157,6 +168,7 @@ class sql_registroBloqueEstudiantes extends sql
                             $cadena_sql.=" AND horario_idPlanEstudio=".$variable[2]; //codigo del planEstudio
                             $cadena_sql.=" AND horario_ano=".$variable[3]; //codigo del planEstudio
                             $cadena_sql.=" AND horario_periodo=".$variable[4]; //codigo del planEstudio
+                            $cadena_sql.=" order by 1";
                         break;
 
                         case 'horario_grupos_registrados':
@@ -169,7 +181,7 @@ class sql_registroBloqueEstudiantes extends sql
                             $cadena_sql.=" salon.sal_edificio           ID_EDIFICIO,";
                             $cadena_sql.=" edi.edi_nombre               EDIFICIO,";
                             $cadena_sql.=" curso.cur_nro_cupo           CUPO, ";
-                            $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo)  GRUPO,";
+                            $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)  GRUPO,";
                             $cadena_sql.=" hor_alternativa              HOR_ALTERNATIVA ";
                             $cadena_sql.=" FROM achorarios horario";
                             $cadena_sql.=" INNER JOIN accursos curso ON horario.hor_id_curso=curso.cur_id ";
@@ -332,7 +344,6 @@ class sql_registroBloqueEstudiantes extends sql
                             $cadena_sql.=" and id_evento=108";
                             $cadena_sql.=" and fecha_estado=1";
                             $cadena_sql.=" ORDER BY id_evento";
-                        //echo $cadena_sql;exit;
                             break;
 
                         case 'consultaFechasGeneral':

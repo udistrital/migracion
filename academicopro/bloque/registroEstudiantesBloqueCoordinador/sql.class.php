@@ -111,7 +111,7 @@ class sql_registroEstudiantesBloqueCoordinador extends sql
 //                            $cadena_sql.=" where est_pen_nro= ".$variable[1];
                             $cadena_sql.=" and est_pen_nro= ".$variable[1];
                             $cadena_sql.=" and est_ind_cred like '%S%' and est_estado like '%A%'";
-                            $cadena_sql.=" AND EST_COD LIKE '".$variable[2].$variable[3]."%'";
+                            $cadena_sql.=" AND cast(EST_COD as text) LIKE '".$variable[2].$variable[3]."%'";
                         break;
 
                         case 'verificar_bloque':
@@ -393,7 +393,7 @@ class sql_registroEstudiantesBloqueCoordinador extends sql
                     $cadena_sql.=" where est_cra_cod= ".$variable[0];
                     $cadena_sql.=" and est_pen_nro= ".$variable[1];
                     $cadena_sql.=" and est_ind_cred like '%S%' and est_estado like '%A%'";
-                    $cadena_sql.=" AND EST_COD like '".$variable[4].$variable[6]."%'";
+                    $cadena_sql.=" AND cast(EST_COD as text) like '".$variable[4].$variable[6]."%'";
                     $cadena_sql.=" AND EST_COD='".$variable[3]."'";
                     break;
 		}

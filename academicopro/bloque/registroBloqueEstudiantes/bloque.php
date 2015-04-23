@@ -143,7 +143,7 @@ class bloque_registroBloqueEstudiantes extends bloque
                                 for($i=0;$i<500;$i++)
 
                                 {
-                                    if($_REQUEST['estudiante'.$i]==NULL)
+                                    if(!isset($_REQUEST['estudiante'.$i]) || $_REQUEST['estudiante'.$i]==NULL)
                                         {
 
                                         }else
@@ -274,7 +274,6 @@ class bloque_registroBloqueEstudiantes extends bloque
 // @ Crear un objeto bloque especifico
 
 $esteBloque=new bloque_registroBloqueEstudiantes($configuracion);
-//echo $_REQUEST['action'];
 if(!isset($_REQUEST['action']))
 {
 	$esteBloque->html();

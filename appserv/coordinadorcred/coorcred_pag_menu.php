@@ -208,7 +208,8 @@ require_once("../clase/encriptar.class.php");
         $enlaceManuales=$indiceAcademico1.$variable;
 
 	//Cursos Intermedios
-        $variable="pagina=adminCursosIntermediosCoordinador";
+        //Se inactiva porque se hace desde el menu de Coordinador
+        /*$variable="pagina=adminCursosIntermediosCoordinador";
 	$variable.="&usuario=".$_SESSION['usuario_login'];
 	$variable.="&opcion=verProyectos";
 	$variable.="&tipoUser=28";
@@ -217,6 +218,10 @@ require_once("../clase/encriptar.class.php");
 
 	$variable=$cripto->codificar_url($variable,$configuracion);
         $enlaceCursosIntermedios=$indiceAcademico1.$variable;
+        
+        el enlace que estaba en el menu de inscripciones también se inactiva
+        <li class="subitem1"><a target="principal" href="<? echo $enlaceCursosIntermedios ?>">Cursos Intermedios</a></li>*/
+
 
 	//Adiciones y cancelaciones coordinadores
         $variable="pagina=adminInscripcionCoordinador";
@@ -351,7 +356,6 @@ require_once("../clase/encriptar.class.php");
 <li class="item1">
 <a href="#">Inscripciones</a>
 <ul class="submenus">
-<li class="subitem1"><a target="principal" href="<? echo $enlaceCursosIntermedios ?>">Cursos Intermedios</a></li>
 <li class="subitem1"><a target="principal" href="<? echo $enlaceAcademicoInscripcionNuevos?>">Inscripci&oacute;n Nuevos</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceAcademicoPreinsDemanda?>">Preins. por Demanda</a></li>
 <li class="subitem1"><a target="principal" href="<? echo $enlaceAsignaturasInscritas?>">Estudiantes Inactivos</a></li>

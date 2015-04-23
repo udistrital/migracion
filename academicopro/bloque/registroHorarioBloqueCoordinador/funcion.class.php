@@ -832,7 +832,7 @@ class funciones_registroHorarioBloqueCoordinador extends funcionGeneral {
                                 $ruta.="&planEstudio=".$_REQUEST['planEstudio'];
                                 $ruta.="&nombreProyecto=".$_REQUEST['nombreProyecto'];
                                 $ruta.="&totalEstudiantes=".$_REQUEST['totalEstudiantes'];
-                                $ruta.="&totalCreditos=".$totalCreditos;
+                                $ruta.="&totalCreditos=".(isset($totalCreditos)?$totalCreditos:0);
 
                                 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
                                 $this->cripto=new encriptar();
@@ -1085,6 +1085,7 @@ class funciones_registroHorarioBloqueCoordinador extends funcionGeneral {
                         $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"horario_registrado", $variableInscritos);//echo $cadena_sql;exit;
                         $resultado_horarios_registrado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
                         unset($cruce);
+                        $cruce=0;
 
                         for($n=0;$n<count($resultado_horarios_registrado);$n++)
                         {
@@ -1355,7 +1356,7 @@ class funciones_registroHorarioBloqueCoordinador extends funcionGeneral {
                         $ruta.="&grupo=".$_REQUEST['grupo'];
                         $ruta.="&id_grupo=".$_REQUEST['id_grupo'];
                         $ruta.="&idEspacio=".$_REQUEST['idEspacio'];
-                        $ruta.="&totalCreditos=".$_REQUEST['totalCreditos'];
+                        $ruta.="&totalCreditos=".(isset($_REQUEST['totalCreditos'])?$_REQUEST['totalCreditos']:0);
 
                         include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
                         $this->cripto=new encriptar();
@@ -1375,7 +1376,7 @@ class funciones_registroHorarioBloqueCoordinador extends funcionGeneral {
                         $ruta.="&planEstudio=".$_REQUEST['planEstudio'];
                         $ruta.="&nombreProyecto=".$_REQUEST['nombreProyecto'];
                         $ruta.="&totalEstudiantes=".$_REQUEST['totalEstudiantes'];
-                        $ruta.="&totalCreditos=".$totalCreditos;
+                        $ruta.="&totalCreditos=".(isset($totalCreditos)?$totalCreditos:0);
 
                         include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
                         $this->cripto=new encriptar();

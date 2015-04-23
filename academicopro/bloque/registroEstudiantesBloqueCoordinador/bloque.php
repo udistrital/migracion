@@ -81,7 +81,6 @@ class bloque_registroEstudiantesBloqueCoordinador extends bloque
                                 
                                 $j=0;
                                 for($i=0;$i<500;$i++)
-
                                 {
                                     $_REQUEST['estudiante'.$i]=(isset($_REQUEST['estudiante'.$i])?$_REQUEST['estudiante'.$i]:'');
                                     if($_REQUEST['estudiante'.$i]==NULL)
@@ -92,9 +91,7 @@ class bloque_registroEstudiantesBloqueCoordinador extends bloque
                                                 $variable.="&estudiante".$j."=".$_REQUEST['estudiante'.$i];
                                                 $j++;
                                             }
-
                                 }
-//var_dump($_REQUEST);exit;
                                 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
 				$this->cripto=new encriptar();
 				$variable=$this->cripto->codificar_url($variable,$configuracion);
@@ -112,9 +109,8 @@ class bloque_registroEstudiantesBloqueCoordinador extends bloque
                                 $variable.="&nombreProyecto=".$_REQUEST["nombreProyecto"];
                                 $j=0;
                                 for($i=0;$i<500;$i++)
-
                                 {
-                                    if($_REQUEST['estudiante'.$i]==NULL)
+                                    if(!isset($_REQUEST['estudiante'.$i]) || $_REQUEST['estudiante'.$i]==NULL)
                                         {
 
                                         }else
@@ -122,10 +118,8 @@ class bloque_registroEstudiantesBloqueCoordinador extends bloque
                                                 $variable.="&estudiante".$j."=".$_REQUEST['estudiante'.$i];
                                                 $j++;
                                             }
-
                                 }
 
-//var_dump($_REQUEST);exit;
                                 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
 				$this->cripto=new encriptar();
 				$variable=$this->cripto->codificar_url($variable,$configuracion);
@@ -144,7 +138,6 @@ class bloque_registroEstudiantesBloqueCoordinador extends bloque
 // @ Crear un objeto bloque especifico
 
 $esteBloque=new bloque_registroEstudiantesBloqueCoordinador($configuracion);
-//echo $_REQUEST['action'];
 if(!isset($_REQUEST['action']))
 {
 	$esteBloque->html($configuracion);

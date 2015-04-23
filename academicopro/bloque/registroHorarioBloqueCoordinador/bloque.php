@@ -132,6 +132,7 @@ class bloque_registroHorarioBloqueCoordinador extends bloque
                                 $variable.="&planEstudio=".$_REQUEST["planEstudio"];
                                 $variable.="&grupo=".$_REQUEST["grupo"];
                                 $variable.="&id_grupo=".$_REQUEST["id_grupo"];
+                                $variable.="&id_grupoAnt=".$_REQUEST["id_grupoAnt"];
                                 $variable.="&totalEstudiantes=".$_REQUEST['totalEstudiantes'];
 
                                 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");

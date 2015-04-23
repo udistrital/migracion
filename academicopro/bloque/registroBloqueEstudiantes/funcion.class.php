@@ -32,7 +32,7 @@ class funciones_registroBloqueEstudiantes extends funcionGeneral {
         $this->accesoGestion=$this->conectarDB($configuracion,"mysqlsga");
 
         //Conexion Oracle
-        $this->accesoOracle=$this->conectarDB($configuracion,"oraclesga");
+        $this->accesoOracle=$this->conectarDB($configuracion,"coordinadorCred");
 
         //Datos de sesion
         $this->formulario="registroBloqueEstudiantes";
@@ -153,7 +153,7 @@ class funciones_registroBloqueEstudiantes extends funcionGeneral {
         $cadena_sql=$this->sql->cadena_sql($this->configuracion,$this->accesoGestion,"periodoActivo",'');
         $resultado_periodo=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
         
-        if($_REQUEST['codProyecto'] && $_REQUEST['planEstudio'] && $_REQUEST['nombreProyecto'])
+        if(isset($_REQUEST['codProyecto']) && isset($_REQUEST['planEstudio']) && isset($_REQUEST['nombreProyecto']))
             {
                 $variable=array($_REQUEST['codProyecto'],$_REQUEST['nombreProyecto'],$_REQUEST['planEstudio']);
             }else
@@ -330,10 +330,20 @@ class funciones_registroBloqueEstudiantes extends funcionGeneral {
                         include_once($this->configuracion["raiz_documento"].$this->configuracion["clases"]."/encriptar.class.php");
                         $this->cripto=new encriptar();
                         $ruta=$this->cripto->codificar_url($ruta,$this->configuracion);
-                    ?>
+                    if (count($resultado_estudiantesBloque)>0 || count($resultado_espaciosRegistrados)>0)
+                    {
+                        ?>
+            <img alt="No se puede borrar el bloque" border="0" src="<?echo $this->configuracion['site'].$this->configuracion['grafico']?>/no.png" width="30" height="30"><br><font size="1">No Borrar Bloque</font>
+                            <?
+                    }else
+                        {
+                        ?>
             <a href="<?echo $pagina.$ruta?>">
                 <img alt="Horario" border="0" src="<?echo $this->configuracion['site'].$this->configuracion['grafico']?>/no.png"onmouseover="this.width=50;this.height=50" onmouseout="this.width=30;this.height=30" width="30" height="30"><br><font size="1">Borrar Bloque</font>
             </a>
+            
+                            <?
+                        }?>
         </td>
         <td width="10%">
                     <?
@@ -369,7 +379,7 @@ class funciones_registroBloqueEstudiantes extends funcionGeneral {
                         $ruta=$this->cripto->codificar_url($ruta,$this->configuracion);
                     ?>
             <a href="<?echo $pagina.$ruta?>">
-                <img alt="Horario" border="0" src="<?echo $this->configuracion['site'].$this->configuracion['grafico']?>/personas.png"onmouseover="this.width=50;this.height=50" onmouseout="this.width=30;this.height=30" width="30" height="30"><br><font size="1">Estudiantes</font>
+                <img alt="Estudiantes" border="0" src="<?echo $this->configuracion['site'].$this->configuracion['grafico']?>/personas.png"onmouseover="this.width=50;this.height=50" onmouseout="this.width=30;this.height=30" width="30" height="30"><br><font size="1">Estudiantes</font>
             </a>
         </td>
         <td width="10%">
@@ -385,10 +395,20 @@ class funciones_registroBloqueEstudiantes extends funcionGeneral {
                         include_once($this->configuracion["raiz_documento"].$this->configuracion["clases"]."/encriptar.class.php");
                         $this->cripto=new encriptar();
                         $ruta=$this->cripto->codificar_url($ruta,$this->configuracion);
-                    ?>
+                    if(count($resultado_espaciosRegistrados)<=0 || count($resultado_estudiantesBloque)<=0)
+                    {
+                        ?>
+                <img alt="No se puede publicar" border="0" src="<?echo $this->configuracion['site'].$this->configuracion['grafico']?>/web.png" width="30" height="30"><br><font size="1">No Publicar</font>
+                            <?
+                    }else
+                        {
+                        ?>
             <a href="<?echo $pagina.$ruta?>">
-                <img alt="Borrar" border="0" src="<?echo $this->configuracion['site'].$this->configuracion['grafico']?>/web.png"onmouseover="this.width=50;this.height=50" onmouseout="this.width=30;this.height=30" width="30" height="30"><br><font size="1">Publicar</font>
+                <img alt="Publicar" border="0" src="<?echo $this->configuracion['site'].$this->configuracion['grafico']?>/web.png"onmouseover="this.width=50;this.height=50" onmouseout="this.width=30;this.height=30" width="30" height="30"><br><font size="1">Publicar</font>
             </a>
+                            <?
+                        }
+                    ?>
         </td>
                 <?
                 }else if($resultado_bloquesRegistrados[$i][3]=='1')
@@ -797,7 +817,7 @@ class funciones_registroBloqueEstudiantes extends funcionGeneral {
             }
       $variablesBloque=array($_REQUEST['codProyecto'],$_REQUEST['planEstudio'],$_REQUEST['idBloque'],$resultado_periodo[0][0], $perEst, $resultado_periodo[0][1]);
 
-                $cadena_sql_verificarBloque=$this->sql->cadena_sql($this->configuracion,$this->accesoGestion,"verificar_bloque", $variablesBloque);
+        $cadena_sql_verificarBloque=$this->sql->cadena_sql($this->configuracion,$this->accesoGestion,"verificar_bloque", $variablesBloque);
         $resultado_verificarBloque=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql_verificarBloque,"busqueda" );
 
         if($_REQUEST['idBloque']==NULL) {
@@ -832,9 +852,18 @@ class funciones_registroBloqueEstudiantes extends funcionGeneral {
         }
 
         else if($resultado_verificarBloque==NULL) {
+            
+            $cadena_sql_bloquePlan=$this->sql->cadena_sql($this->configuracion,$this->accesoGestion,"verificar_bloque_plan", $variablesBloque);
+            $resultado_bloquePlan=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql_bloquePlan,"busqueda" );
+            if (is_array($resultado_bloquePlan))
+            {
+                //el bloque ya está registrado y no hay que guardarlo nuevamente
+            }else
+                {
+                    $cadena_sql_bloquePlanEstudio=$this->sql->cadena_sql($this->configuracion,$this->accesoGestion,"guardar_bloque", $variablesBloque);
+                    $resultado_bloquePlanEstudio=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql_bloquePlanEstudio,"" );
+                }
 
-            $cadena_sql_bloquePlanEstudio=$this->sql->cadena_sql($this->configuracion,$this->accesoGestion,"guardar_bloque", $variablesBloque);
-            $resultado_bloquePlanEstudio=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql_bloquePlanEstudio,"" );
 
             for($i=0;$i<=400;$i++) {
                 $_REQUEST['estudiante'.$i]=(isset($_REQUEST['estudiante'.$i])?$_REQUEST['estudiante'.$i]:'');

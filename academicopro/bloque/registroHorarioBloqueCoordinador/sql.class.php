@@ -54,7 +54,7 @@ class sql_registroHorarioBloqueCoordinador extends sql
                             $cadena_sql.=" salon.sal_edificio           ID_EDIFICIO,";
                             $cadena_sql.=" edi.edi_nombre               EDIFICIO,";
                             $cadena_sql.=" curso.cur_nro_cupo           CUPO, ";
-                            $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo)  GRUPO,";
+                            $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)  GRUPO,";
                             $cadena_sql.=" hor_alternativa              HOR_ALTERNATIVA ";
                             $cadena_sql.=" FROM achorarios horario";
                             $cadena_sql.=" INNER JOIN accursos curso ON horario.hor_id_curso=curso.cur_id ";
@@ -109,7 +109,7 @@ class sql_registroHorarioBloqueCoordinador extends sql
                         case 'grupos_proyecto':
 
                             $cadena_sql=" SELECT DISTINCT CUR_ID                    ID_GRUPO, ";
-                            $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo)  GRUPO";
+                            $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)  GRUPO";
                             $cadena_sql.=" FROM ACHORARIOS HORARIO";
                             $cadena_sql.=" INNER JOIN ACCURSOS CURSO ON HORARIO.HOR_ID_CURSO = CURSO.CUR_ID ";
                             $cadena_sql.=" WHERE CUR_ASI_COD=".$variable[0];
