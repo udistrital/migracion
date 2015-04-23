@@ -363,8 +363,7 @@ class mysql
 		
 		if($busqueda)
 		{
-			unset($this->registro);			
-                        
+			unset($this->registro);			                        
                         
                         //carga una a una las filas en $this->registro
 			while($row=mysqli_fetch_array($busqueda,MYSQL_BOTH))

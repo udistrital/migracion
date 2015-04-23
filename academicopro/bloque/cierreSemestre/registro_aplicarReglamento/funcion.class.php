@@ -230,7 +230,7 @@ class funcion_registroAplicarReglamento extends funcionGeneral
 	function procesarEstudiante($registroEstudiante){
 
 		$this->codigoEstudiante=isset($registroEstudiante['COD_ESTUDIANTE'])?$registroEstudiante['COD_ESTUDIANTE']:'';
-                $this->validarSetentaPorciento($this->codigoEstudiante);
+        $this->validarSetentaPorciento($registroEstudiante['COD_ESTUDIANTE']);
 		$this->acuerdoEstudiante=isset($registroEstudiante['ACUERDO'])?$registroEstudiante['ACUERDO']:'';
 //                echo "<br>".$this->codigoEstudiante." -- ".  $this->acuerdoEstudiante."<br>";
 		$this->promedioEstudiante=isset($registroEstudiante['PROMEDIO'])?$registroEstudiante['PROMEDIO']:'';
@@ -1137,7 +1137,7 @@ class funcion_registroAplicarReglamento extends funcionGeneral
             //$datosEstudiante[0]['codEstudiante']=$datosEstudiante[0]['CODIGO'];
             //$datosEstudiante[0]['PROYECTO_ESTUDIANTE']=$datosEstudiante[0]['CARRERA'];
             //verifica si el estudiante pertenece al proyecto curricular del coordinador
-            if ($this->nivel==28||$this->nivel==4)
+            if ($this->nivel==28||$this->nivel==4 ||$this->nivel=110)
             {
                 $validar=$this->validacion->validarEstudiante($datosEstudiante);
                 if (!is_array($validar))

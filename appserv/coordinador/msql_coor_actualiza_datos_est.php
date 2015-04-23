@@ -102,10 +102,10 @@
 
     
     if($cambios){
-        $row_qry = $conexion->ejecutarSQL($configuracion,$accesoOracle,$qery,"busqueda");
+        $row_qry = $conexion->ejecutarSQL($configuracion,$accesoOracle,$qery,"");
     }
     if($cambios2){
-        $row_reg = $conexion->ejecutarSQL($configuracion,$accesoOracle,$reg,"busqueda");
+        $row_reg = $conexion->ejecutarSQL($configuracion,$accesoOracle,$reg,"");
 
     }
     if($cambios || $cambios2){
@@ -117,7 +117,7 @@
         $cadena_registro .= " '".$_REQUEST['estcod']." ".$cambios." ".$cambios2."',"; 
         $cadena_registro .= " '".$_REQUEST['estcod']."')";
 
-        $resultado_evento = $conexion->ejecutarSQL($configuracion,$accesoSGA,$cadena_registro,"busqueda");
+        $resultado_evento = $conexion->ejecutarSQL($configuracion,$accesoSGA,$cadena_registro,"");
     }
 
     function solo_letras($cadena){

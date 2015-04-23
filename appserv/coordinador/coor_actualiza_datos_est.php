@@ -135,7 +135,9 @@ else
 }
 $consultaPlanes="select distinct pen_nro from acpen where pen_cra_cod=".$rowConsulta[0][23]." and pen_estado='A' order by pen_nro";
 $planes = $conexion->ejecutarSQL($configuracion,$accesoOracle,$consultaPlanes,"busqueda");
-$alerta= isset($alerta)?(alerta):"";
+
+$alerta= (isset($alerta)?($alerta):"");
+
 echo'<form name="dat" method=post action="coor_actualiza_datos_est.php">
 <div align="center">
 <table border="0" width="746" cellspacing="3" cellpadding="1">
