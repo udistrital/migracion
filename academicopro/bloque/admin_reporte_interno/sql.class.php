@@ -69,7 +69,6 @@ class sql_reporteInterno extends sql {	//@ Método que crea las sentencias sql p
                 //$cadena_sql.=" AND asi_ind_cred like '%S%'";
                 //$cadena_sql.=" AND not_cred is not null";
                 $cadena_sql.=" ORDER BY not_sem, not_asi_cod, not_ano desc, not_per desc";
-
                 break;
 
             case "buscarEspacioPosgrado":
@@ -129,8 +128,6 @@ class sql_reporteInterno extends sql {	//@ Método que crea las sentencias sql p
                 $cadena_sql.=" CLASF.clasificacion_abrev,  ";
                 $cadena_sql.=" CLASF.clasificacion_nombre  ";
                 $cadena_sql.=" FROM ".$configuracion['prefijo']."espacio_clasificacion CLASF  ";
-
-
                 break;
 
             case "promedio":
@@ -195,8 +192,6 @@ class sql_reporteInterno extends sql {	//@ Método que crea las sentencias sql p
 
                 break;
 
-
-
             /*case "contar":
 					$cadena_sql="SELECT ";
 					$cadena_sql.="COUNT";
@@ -230,8 +225,6 @@ class sql_reporteInterno extends sql {	//@ Método que crea las sentencias sql p
 						  $cadena_sql.=$variable[1];
 						}
 					break;*/
-
-
 
             case "editar":
                 $cadena_sql="UPDATE ";
@@ -342,7 +335,6 @@ class sql_reporteInterno extends sql {	//@ Método que crea las sentencias sql p
                 $cadena_sql="SELECT est_cra_cod, est_pen_nro ";
                 $cadena_sql.="FROM acest ";
                 $cadena_sql.="WHERE est_cod=".$variable;
-
                 break;
 
             case 'creditosPlan':
@@ -408,7 +400,6 @@ class sql_reporteInterno extends sql {	//@ Método que crea las sentencias sql p
 //                $cadena_sql.=" inner join acpen on pen_asi_cod= not_asi_cod ";
 //                $cadena_sql.=" where pen_ind_ele='S' and not_est_cod=".$variable." and not_nota<'30') ";
                 $cadena_sql.=" ORDER BY not_sem, not_asi_cod, not_ano desc, not_per desc ";
-
                 //echo $cadena_sql;exit;
 
                 break;

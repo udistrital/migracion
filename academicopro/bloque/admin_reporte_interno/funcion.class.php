@@ -79,7 +79,11 @@ class funcion_reporteInterno extends funcionGeneral
             //busca si el estudiante es de creditos
             $cadena_sql_est=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"buscar_estudiante", $codEstudiante);
             $resultado_est=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql_est,"busqueda");
-
+                        
+            if($resultado_est==NULL){
+            	echo "El codigo: ".$_REQUEST['codigo']." No se encuentra registrado en el sistema";
+            }else{            
+             
             $cadena_sql_cra=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"buscar_carrera", $resultado_est);
             $resultado_cra=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql_cra,"busqueda");
 
@@ -90,14 +94,14 @@ class funcion_reporteInterno extends funcionGeneral
             {
                 $resultado_promedio[0]['PROMEDIO']='**';
             }
-
+                       
             if(trim($resultado_est[0]['IND_CRED'])=='S') {
             //buscar espacios cursados para estudiantes creditos pregrado
             if($resultado_cra[0]['NIVEL']==1)
               {
                   $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"buscarEspacioPregrado",$resultado_est);
-                  $resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-
+                  $resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");	         
+                  
                   $vistaRangos=$this->porcentajeParametros($configuracion, $codEstudiante);
                   $cadena_sql_clasif=$this->sql->cadena_sql($configuracion,$this->accesoGestion,"descrip_clasif","");
                   $resultado_clasif=$this->ejecutarSQL($configuracion, $this->accesoGestion, $cadena_sql_clasif, "busqueda");
@@ -225,30 +229,31 @@ class funcion_reporteInterno extends funcionGeneral
 
                     $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"buscar_promedio",$codEstudiante);
                     $resultadoPromedio=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-                    
+                                       
                     $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"secretario", $codEstudiante);//echo $cadena_sql;exit;
                     $resultado_secre=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 
+                    
                     if($resultadoEspacios == false )
-                    {
+                    {                    	
                         echo "<script>
                             alert('El Estudiante con Codigo ".$codEstudiante." no tiene notas registradas');
                             </script>
                                     ";
                         echo "<script>javascript:window.history.back();</script>";
                         exit;
-                    }
+                    }                    
 
                     //$promedio = $prom->acumuladohoras($resultadoPromedio);
                     $promedio = $resultadoPromedio[0]['PROMEDIO'];
-
+					
                     //Titulos de las columnas
                     $titulo=array(utf8_decode('CÓDIGO'),utf8_decode('ASIGNATURA'),'H.T.T','H.T.P',utf8_decode('AÑO'),'PER','NOTA','OBS');
-
+					                    
                     //Array que contiene la informacion del estudiante
                     $encabezado=array();
                     $firma = $resultado_secre[0][0].' '.$resultado_secre[0][1];
-
+                    
                     // Nombre del estudiante
                     $encabezado[0][0] = $resultadoEspacios[0][5];
                     // Numero de identificación
@@ -260,13 +265,14 @@ class funcion_reporteInterno extends funcionGeneral
                     // Codigo del estudiante
                     $encabezado[1][1] = $resultadoEspacios[0][4];
                     // Fecha de generacion del certificado
-                    $encabezado[1][2] = date("j/M/Y", time());
+                    $encabezado[1][2] = date("j/M/Y", time());     
 
                     $this->cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"buscarPlan",$codEstudiante);
                     $registroPlan=$this->accesoOracle->ejecutarAcceso($this->cadena_sql,"busqueda");
                     $planEstudiante=$registroPlan[0][1];
-
-                    $variableEspacio[0]=$planEstudiante;
+                    
+                    $variableEspacio[0]=$planEstudiante;                    
+                                        
                     //Carga de datos
                     $data=array();
                     $totalEspacios=count($resultadoEspacios);
@@ -316,26 +322,29 @@ class funcion_reporteInterno extends funcionGeneral
                                           {}else
                                           {$data[($i+1)+($data[$i][11])][7]=$resultadoEspacios[$i][11];}//obs
                                       }
-
                           }
-                      }
-
-                      
-                        $pdf->SetTitle('');
+                      }                 
+                          
+        	            $pdf->SetTitle('');
                         $pdf->AddPage();
                         $pdf->SetFont('Arial','',12);
                         $pdf->SetY(25);
                         $pdf->SetFont('Arial','B',8);
                         $pdf->Ln(10);
-                        $pdf->SetFont('Arial','B',8);
+                        $pdf->SetFont('Arial','B',8); 
+                        /*-- 
+                         * Para los Estudiantes que no tengan materias electivas el array $data cambia 
+                         * por lo tanto no llegan los valores correctos para construir el PDF
+                         * -----*/
+                        
                         $pdf->FancyTableHoras($titulo, $data, $encabezado);
-
+                        
                         $pdf->Ln(5);
 
-                        $pdf->Output('','',$encabezado[1][1]);
+                        $pdf->Output('','',$encabezado[1][1]);                    
                     
                   }
-            
+            }    
 	}
 	
 	function ingresarCodigo($configuracion)

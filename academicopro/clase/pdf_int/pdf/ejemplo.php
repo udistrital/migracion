@@ -400,7 +400,7 @@ if($datos[0][2]=='**')
 	}*/
 
 function FancyTableHoras($header,$data,$datos)
-{
+{	
     $fill=0;
     $this->SetFillColor(0,0,0);
 	$this->SetTextColor(255);
@@ -440,15 +440,19 @@ function FancyTableHoras($header,$data,$datos)
         $this->Ln(10);
         //Restauraci�n de colores y fuentes
 	$this->SetFillColor(250,250,250);
-	$this->SetTextColor(0);
-	
+	$this->SetTextColor(0);	
 
 	//Datos
 	$fill=0;
-	foreach($data as $row)
-	{
-            if(strstr($row[1],'XYZ'))//Los nombres de nivel comienzan con XYZ
-                {
+	
+	
+	foreach($data as $row)	{			
+
+		
+            if(strstr($row[1],'XYZ'))//Los nombres de nivel comienzan con XYZ          
+            
+                {           	 
+                	 
                     $row[1]=substr($row[1],3);//elimina XYZ al nombre del nivel
                     $this->SetFont('Arial','B','10');
                     $this->Ln(5);
