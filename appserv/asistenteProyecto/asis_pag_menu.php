@@ -234,7 +234,6 @@ require_once("../clase/encriptar.class.php");
 <li class="subitem1"><a target="principal" href="<? echo $enlaceConsejeriaEstudiante ?>">Historia Acad&eacute;mica</a></li>
 <li class="subitem1"><a target="principal" href="<? echo $enlaceAcademicoInterno ?>">Certificados Internos</a></li>
 <li class="subitem1"><a target="principal" href="<? echo $enlaceCertificadoEstudio ?>">Certificados de Estudio</a></li>
-<li class="subitem1"><a target="principal" href="<?echo $enlaceAcademicoAdiciones?>">Adici&oacute;n y Cancelaci&oacute;n</a></li>	  
 <li class="subitem1"><a target="principal" href="<?echo $enlaceHistoricoRecibosPago;?>">Hist&oacute;rico Recibos de Pago</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceAcademicoCodificarEstudiante?>">Codif. Estud. Nuevos</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceInscripcionGrados;?>">Inscripci&oacute;n a grado</a></li>
@@ -304,6 +303,7 @@ require_once("../clase/encriptar.class.php");
 <li class="item5">
 <a href="#">Inscripciones</a>
 <ul class="submenus">
+<li class="subitem1"><a target="principal" href="<?echo $enlaceAcademicoAdiciones?>">Adici&oacute;n y Cancelaci&oacute;n</a></li>	  
 <li class="subitem1"><a target="principal" href="<?echo $enlaceAcademicoConsultarHorario?>">Horario Estudiantes</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceAcademicoCursosIntermedios?>">Cursos Intermedios</a></li>
 </ul>

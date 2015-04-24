@@ -102,9 +102,8 @@ class sql_adminInscripcionCoordinadorPosgrado extends sql {
                 	$cadena_sql.=" INNER JOIN ACTIPCRA ON CRA_TIP_CRA=TRA_COD";
                 	$cadena_sql.=" INNER JOIN GEUSUWEB  ON CRA_COD = USUWEB_CODIGO_DEP";
                 	$cadena_sql.=" WHERE USUWEB_CODIGO=".$variable;
-                	$cadena_sql.=" AND USUWEB_FECHA_FIN >= current_timestamp ";
                 	$cadena_sql.="  AND USUWEB_ESTADO = 'A' ";
-                	//$cadena_sql.=" AND (CTP_IND_CRED NOT LIKE '%N%'OR TRA_COD_NIVEL NOT IN (2,3,4)";
+                        $cadena_sql.="  AND ((usuweb_fecha_fin >= current_timestamp AND usuweb_tipo_vinculacion=9) or usuweb_tipo_vinculacion=10) ";                	//$cadena_sql.=" AND (CTP_IND_CRED NOT LIKE '%N%'OR TRA_COD_NIVEL NOT IN (2,3,4)";
                 	//$cadena_sql.=" AND CTP_IND_CRED LIKE '%S%'";
                 	//                $cadena_sql.=" AND TRA_COD_NIVEL IN (1,2,3,4)";//para pregrado es 1. Se cambia tambien en Validaciones, proyectos del coordinador
                 	//$cadena_sql.=" OR TRA_COD_NIVEL IS NULL)";

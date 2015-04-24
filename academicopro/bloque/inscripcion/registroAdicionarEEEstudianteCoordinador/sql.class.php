@@ -436,7 +436,7 @@ class sql_registroAdicionarEEEstudianteCoordinador extends sql {
             case 'registroEvento':
 
                 $cadena_sql="insert into ".$configuracion['prefijo']."log_eventos ";
-                $cadena_sql.="VALUES('','".$variable[0]."',";
+                $cadena_sql.="VALUES(0,'".$variable[0]."',";
                 $cadena_sql.="'".$variable[1]."',";
                 $cadena_sql.="'".$variable[2]."',";
                 $cadena_sql.="'".$variable[3]."',";

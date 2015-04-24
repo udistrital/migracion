@@ -926,6 +926,7 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                                                 $resultado_horarios_registrado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
 
                                                 unset($cruce);
+                                                $cruce=0;
 
                                                 for($n=0;$n<count($resultado_horarios_registrado);$n++) {
                                                                 for($m=0;$m<count($resultado_horarios_registrar);$m++) {
@@ -1008,6 +1009,7 @@ class funciones_registroAdicionarEEEstudianteCoordinador extends funcionGeneral 
                                             <input type="hidden" name="nombre" value="<?echo $_REQUEST['nombre']?>">
                                             <input type="hidden" name="planEstudioGeneral" value="<?echo $_REQUEST["planEstudioGeneral"]?>">
                                             <input type="hidden" name="codProyecto" value="<?echo $_REQUEST["codProyecto"]?>">
+                                            <input type="hidden" name="estado_est" value="<?echo $_REQUEST["estado_est"]?>">
                                             <input type="hidden" name="opcion" value="inscribir">
                                             <input type="hidden" name="action" value="<?echo $this->bloque;?>">
                                             <input type="image" name="adicion" width="30" height="30" src="<?echo $configuracion['site'].$configuracion['grafico']?>/clean.png" >

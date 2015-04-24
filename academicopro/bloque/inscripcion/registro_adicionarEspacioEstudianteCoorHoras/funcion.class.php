@@ -467,6 +467,12 @@ class funcion_registroAdicionarEspacioEstudianteCoorHoras extends funcionGeneral
      * @return <int>
      */
     function adicionarOracle($datos) {
+        foreach ($datos as $key => $value) {
+            if($value=='')
+            {
+                $datos[$key]='null';
+            }
+        }
         $cadena_sql_adicionar=$this->sql->cadena_sql("adicionar_espacio_oracle",$datos);
         $resultado_adicionar=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql_adicionar,"");
         return $this->totalAfectados($this->configuracion, $this->accesoOracle);
