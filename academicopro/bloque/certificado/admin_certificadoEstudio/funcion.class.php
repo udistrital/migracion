@@ -210,7 +210,7 @@ class funcion_adminCertificadoEstudio extends funcionGeneral
         function consultarDatosEstudiante($cod_estudiante) {
             $cadena_sql_est=$this->sql->cadena_sql("datos_estudiante", $cod_estudiante);
             return $resultado_est=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql_est,"busqueda");
-
+            
         }//fin funcion consultarDatosEstudiante
         
         
@@ -260,7 +260,7 @@ class funcion_adminCertificadoEstudio extends funcionGeneral
                                         'DIA_EXP'=>$dia,
                                         'MES_EXP'=>$this->mesEnLetras($mes),
                                         'ANIO_EXP'=>$anio
-                        );
+                        );                   
 
                     include_once($this->configuracion["raiz_documento"] . $this->configuracion["clases"] . "/crearDocumento.class.php");
                     $this->Documento = new crearDocumento($this->configuracion);

@@ -291,6 +291,9 @@ class crearDocumento  extends funcionGeneral{
            return $documento;
        }
        
+       /**
+        * Sentencias SQl consulta tabla pro_sga de la bd MySQl
+        */
        
        function cadena_sql( $opcion,$variable="")
 	{
@@ -323,6 +326,7 @@ class crearDocumento  extends funcionGeneral{
                                 $cadena_sql.=" WHERE pad_id_documento=".$variable;
                                 $cadena_sql.=" AND pad_estado='A'";
                                 $cadena_sql.=" AND par_estado='A'";
+                                
                                 break;
                         
                         case "documento":
