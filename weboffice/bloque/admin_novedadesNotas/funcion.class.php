@@ -72,6 +72,7 @@ class funciones_admin_panelPrincipal extends funcionGeneral
                 }
 		$sql=$this->sql->cadena_sql($this->configuracion,$this->acceso_oci,"consultarRegistros",$valor);
 		$registro=$this->ejecutarSQl($this->configuracion,$this->acceso_oci,$sql,"busqueda"); //adicionar el rownum
+		
 		if(!is_array($registro)){
 			
 			echo $this->template->render(array('filtro'=>$valor,
@@ -271,19 +272,19 @@ class funciones_admin_panelPrincipal extends funcionGeneral
 			//reviso que los valores de la consulta sean diferentes a los valores enviados para Modificar el registro e insertar en el log solo los registros actualizados
 			if($registros[0][2]<>$valor['semestre']){
                                 if(!$cadenaActualizar ){
-                                    $cadenaActualizar = "NOT_SEM='".$valor['semestre']."'";
+                                    $cadenaActualizar = "NOT_SEM=".$valor['semestre']."";
                                     $logModificaInfoBasica = "NOT_SEM: ".$registros[0][2]."=>".$valor['semestre'];
                                 }else{
-                                    $cadenaActualizar .= ", NOT_SEM='".$valor['semestre']."'";
+                                    $cadenaActualizar .= ", NOT_SEM=".$valor['semestre']."";
                                     $logModificaInfoBasica .= "NOT_SEM: ".$registros[0][2]."=>".$valor['semestre'];
                                 }
 			}	
 			if($registros[0][1]<>$valor['grupo']){
                                 if(!$cadenaActualizar ){
-                                    $cadenaActualizar = "NOT_GR='".$valor['grupo']."'";
+                                    $cadenaActualizar = "NOT_GR=".$valor['grupo']."";
                                     $logModificaInfoBasica = "NOT_GR: ".$registros[0][1]."=>".$valor['grupo'];
                                 }else{
-                                    $cadenaActualizar .= ", NOT_GR='".$valor['grupo']."'";
+                                    $cadenaActualizar .= ", NOT_GR=".$valor['grupo']."";
                                     $logModificaInfoBasica .= "NOT_GR: ".$registros[0][1]."=>".$valor['grupo'];
                                 }
 			}	
@@ -292,7 +293,7 @@ class funciones_admin_panelPrincipal extends funcionGeneral
                                     $cadenaActualizar = "NOT_NOTA=".$valor['nota']."";
                                     $logNovedadNota = "NOT_NOTA: ".$registros[0][6]."=>".$valor['nota'];
                                 }else{
-                                    $cadenaActualizar .= ", NOT_NOTA='".$valor['nota']."'";
+                                    $cadenaActualizar .= ", NOT_NOTA=".$valor['nota']."";
                                     $logNovedadNota .= ", NOT_NOTA: ".$registros[0][6]."=>".$valor['nota'];
                                 }
 			}	
@@ -325,10 +326,10 @@ class funciones_admin_panelPrincipal extends funcionGeneral
 			}
 			if(isset($valor['creditos']) AND $registros[0][14]<>$valor['creditos'] && is_array($fechas)){
                                 if(!$cadenaActualizar ){
-                                    $cadenaActualizar = "NOT_CRED='".$valor['creditos']."'";
+                                    $cadenaActualizar = "NOT_CRED=".$valor['creditos']."";
                                     $logNovedadNota = "NOT_CRED: ".$registros[0][14]."=>".$valor['creditos'];
                                 }else{
-                                    $cadenaActualizar .= ", NOT_CRED='".$valor['creditos']."'";
+                                    $cadenaActualizar .= ", NOT_CRED=".$valor['creditos']."";
                                     $logNovedadNota = ", NOT_CRED: ".$registros[0][14]."=>".$valor['creditos'];
                                 }
 			}
