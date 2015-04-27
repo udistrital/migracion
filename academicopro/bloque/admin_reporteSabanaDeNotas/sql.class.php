@@ -43,8 +43,8 @@ class sql_reporteSabanaDeNotas extends sql {	//@ Método que crea las sentencias
                 $cadena_sql.=" est_pen_nro PENSUM,";
                 $cadena_sql.=" est_nro_iden DOCUMENTO,";
                 $cadena_sql.=" TRIM(est_ind_cred) IND_CRED,";
-                $cadena_sql.=" fa_promedio_nota(est_cod) PROMEDIO,";
-                $cadena_sql.="  ('OAS'||ABS((est_cod+est_nro_iden*est_cra_cod-TO_NUMBER(TO_CHAR(current_timestamp,'yyyymmdd'))+12))||decode(trim(est_ind_cred),'N','H','S','C')) MARCA";
+                $cadena_sql.=" fa_promedio_nota(est_cod) PROMEDIO,";              
+ 				$cadena_sql.=" ('OAS'||ABS((est_cod+est_nro_iden*est_cra_cod-cast(TO_CHAR(current_timestamp,'yyyymmdd')as integer) +12))||CASE WHEN trim(est_ind_cred)='N' THEN 'H' WHEN trim(est_ind_cred)='S' THEN 'C' END) MARCA";
                 $cadena_sql.=" FROM ".$this->configuracion['esquema_academico']."acest";
                 $cadena_sql.=" WHERE est_cod in (".$variable.")";
                 break;
@@ -58,12 +58,12 @@ class sql_reporteSabanaDeNotas extends sql {	//@ Método que crea las sentencias
                 $cadena_sql.=" asi_nombre       ESPACIO,";
                 $cadena_sql.=" nde_sem          NOT_SEM,";
                 $cadena_sql.=" not_obs          OBSERVACION,";
-                $cadena_sql.=" decode(not_nota,0,to_number(0.0),(not_nota/10))      NOT_NOTA,";
-                $cadena_sql.=" to_number(decode(nde_nota,0,'0.0',nde_nota))         NOT_NOTA_BASE,";
-                $cadena_sql.=" decode(not_obs,19,nob_nombre,20,nob_nombre,22,nob_nombre,23,nob_nombre,24,nob_nombre,25,nob_nombre,mon_nombre)       LETRAS,";
+                $cadena_sql.=" CASE WHEN not_nota=0 THEN cast((0.0) as integer) ELSE (not_nota/10) END      NOT_NOTA,";
+                $cadena_sql.=" cast((CASE WHEN nde_nota=0 THEN 0.0 ELSE nde_nota END)  as integer)   NOT_NOTA_BASE,";
+                $cadena_sql.=" CASE WHEN not_obs=19 THEN nob_nombre WHEN not_obs=20 THEN nob_nombre WHEN not_obs=22 THEN nob_nombre WHEN not_obs=23 THEN nob_nombre WHEN not_obs=24 THEN nob_nombre WHEN not_obs=25 THEN nob_nombre ELSE  mon_nombre END  LETRAS,";
                 $cadena_sql.=" (coalesce(nde_nro_ht,0) + coalesce(nde_nro_hp,0) + coalesce(nde_nro_aut,0)) INTENSIDAD,";
-                $cadena_sql.=" decode(trim(est_ind_cred),'S',nde_cred,null)                 CREDITOS,";
-                $cadena_sql.=" decode(trim(est_ind_cred),'S',not_cea_cod,null)              CLASIFICACION,";
+                $cadena_sql.=" CASE WHEN trim(est_ind_cred)='S' THEN nde_cred ELSE null END      CREDITOS,";
+                $cadena_sql.=" CASE WHEN trim(est_ind_cred)='S' THEN not_cea_cod ELSE null END      CLASIFICACION,";
                 $cadena_sql.=" nde_nro_ht       HT,";
                 $cadena_sql.=" nde_nro_hp       HP,";
                 $cadena_sql.=" nde_nro_aut      HA";
@@ -83,7 +83,6 @@ class sql_reporteSabanaDeNotas extends sql {	//@ Método que crea las sentencias
                 $cadena_sql.=" and nob_cod = nde_obs";
                 $cadena_sql.=" and est_cod IN (".$variable[0].")";
                 $cadena_sql.=" and nde_cra_cod =".$variable[1];
-                
                 break;
             
             case "proyecto_de_estudiante":
