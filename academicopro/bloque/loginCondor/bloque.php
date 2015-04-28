@@ -46,7 +46,6 @@ if ($acceso_db->probar_conexion()==TRUE)
 	$usuario=$_REQUEST["usuario"];
 	$nombre_pagina=$_REQUEST["pagina"];
 
-        
 	if(!isset($_REQUEST["tipoUser"]))
 	{
 		$acceso=1;
@@ -80,6 +79,10 @@ if ($acceso_db->probar_conexion()==TRUE)
 			      $acceso=6;
 			break;
 
+                        case "Decano":
+			      $acceso=7;
+			break;
+                    
                         case "decano":
 			      $acceso=7;
 			break;
