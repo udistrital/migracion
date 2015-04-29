@@ -18,7 +18,7 @@ if($configuracion['activar_caduca_pwd']=='S')
 		 $tipo=68;
 		 $tokenCondor = $miCodificador->codificar($tokenCondor);
 		 $opcion="temasys=";
-		 $variable.="gestionPassword&pagina=validarActualizacion";
+		 $variable="gestionPassword&pagina=validarActualizacion";
 		 $variable.="&usuario=".$usuario;
 		 $variable.="&tipo=".$tipo;
 		 $variable.="&token=".$tokenCondor;
@@ -82,4 +82,3 @@ if($configuracion['activar_caduca_pwd']=='S')
 <noframes><body>
 </body></noframes>
 </html>
-

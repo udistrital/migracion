@@ -1,3 +1,4 @@
+
 <?php
 /**
  * SQL admin_consultarHistoricoRecibos
@@ -70,9 +71,8 @@ class sql_adminConsultarHistoricoRecibos extends sql {
                 $cadena_sql.=" INNER JOIN gedep ON cra_dep_cod=dep_cod";
                 $cadena_sql.=" INNER JOIN acestado ON est_estado_est=estado_cod";
                 $cadena_sql.=" WHERE";
-                $cadena_sql.=" est_cod=".$variable;
-                
-            break;
+                $cadena_sql.=" est_cod=".$variable;                
+            	break;
 
             //Oracle
               case 'consultar_recibos_estudiante':

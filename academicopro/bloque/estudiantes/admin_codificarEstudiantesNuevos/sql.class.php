@@ -1,3 +1,4 @@
+
 <?php
 /*--------------------------------------------------------------------------------------------------------------------------
   @ Derechos de Autor: Vea el archivo LICENCIA.txt que viene con la distribucion
@@ -97,7 +98,7 @@ class sql_admin_codificarEstudiantesNuevos extends sql {	//@ Método que crea la
                     }else
                         {
                             $cadena_sql.=" AND ead_asp_cred=".$variable['codigo'];
-}
+						}  
                 break;      
             
             case 'consultarEstadosAcademicos':
@@ -162,7 +163,8 @@ class sql_admin_codificarEstudiantesNuevos extends sql {	//@ Método que crea la
                 $cadena_sql.=" ORDER BY pen_nro desc";
                 break;
             
-        }#Cierre de switch
+        }#Cierre de switch     
+        
         return $cadena_sql;
     }#Cierre de funcion cadena_sql
 }#Cierre de clase
