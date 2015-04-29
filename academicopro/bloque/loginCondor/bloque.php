@@ -45,7 +45,6 @@ if ($acceso_db->probar_conexion()==TRUE)
 	$id_usuario=$_REQUEST["usuario"];
 	$usuario=$_REQUEST["usuario"];
 	$nombre_pagina=$_REQUEST["pagina"];
-
 	if(!isset($_REQUEST["tipoUser"]))
 	{
 		$acceso=1;
@@ -109,7 +108,7 @@ if ($acceso_db->probar_conexion()==TRUE)
 			case "secgeneral":
 				$acceso=14;
 			break;
-			case "secretario":
+			case "secacademico":
 				$acceso=15;
 			break;
 			case "asistenteCeri":

@@ -103,6 +103,7 @@ ob_start();
 	$variable.="&usuario=".$_SESSION['usuario_login'];
         $variable.="&tipoUser=83";
         $variable.="&opcion=verEstudiante";
+        $variable.="&modulo=secacademico";
 	$variable.="&aplicacion=Condor";
         $variable=$cripto->codificar_url($variable,$configuracion);
 	$enlaceConsejeriaEstudiante=$indiceAcademico.$variable;    
