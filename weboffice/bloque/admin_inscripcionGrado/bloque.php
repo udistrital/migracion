@@ -29,8 +29,7 @@ include_once("sql.class.php");
 
 //Clase
 class bloque_adminInscripcionGrado extends bloque
-{
-
+{		
 	 public function __construct($configuracion)
 	{
  		$this->sql=new sql_adminInscripcionGrado();
@@ -38,9 +37,17 @@ class bloque_adminInscripcionGrado extends bloque
  		
 	}
 	
-	
 	function html($configuracion)
 	{
+
+		$tema =  isset($tema)?$tema:'';
+		$formulario = isset($formulario)?$formulario:'';
+		$verificar = isset($verificar)?$verificar:'';
+		$fila = isset($fila)?$fila:'';
+		$tab = isset($tab)?$tab:'';
+		$accesoOracle = isset($accesoOracle)?$accesoOracle:'';
+		$acceso_db = isset($acceso_db)?$acceso_db:'';
+		
 		if(isset($_REQUEST['opcion']))
 		{
 			$accion=$_REQUEST['opcion'];
