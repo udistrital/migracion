@@ -133,7 +133,8 @@ class funciones_adminIntensidadHoraria extends funcionGeneral
 	{
 		$valor[0]=$_REQUEST['estudiante'];
 		
-		$busqueda="BEGIN ACTUALIZANOTAS_EST(".$valor[0]."); END; ";
+		//$busqueda="BEGIN ACTUALIZANOTAS_EST(".$valor[0]."); END; ";
+		$busqueda = "select ACTUALIZANOTAS_EST(".$valor[0].") ";
 		
 		$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $busqueda, "");
 		if($resultado==TRUE)

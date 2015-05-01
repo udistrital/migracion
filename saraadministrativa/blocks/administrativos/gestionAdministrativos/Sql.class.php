@@ -45,7 +45,8 @@ class SqlgestionAdministrativos extends sql {
         case "buscarUsuario":
             $cadena_sql = "SELECT ";
             $cadena_sql.="emp_nombre, ";
-            $cadena_sql.="emp_nro_iden ";
+            $cadena_sql.="emp_nro_iden, ";
+            $cadena_sql.="emp_cod ";
             $cadena_sql.="FROM ";
             $cadena_sql.="peemp ";
             $cadena_sql.="WHERE ";
@@ -53,7 +54,7 @@ class SqlgestionAdministrativos extends sql {
             break;
 
         case "certificadoFuncionarios":
-            $cadena_sql = "SELECT unique cir_emp_nro_iden, ";
+            $cadena_sql = "SELECT distinct cir_emp_nro_iden, ";
             $cadena_sql.="cir_ano, ";
             $cadena_sql.="cir_desde, ";
             $cadena_sql.="to_char(cir_desde,'yyyy') desdea, ";
@@ -71,27 +72,32 @@ class SqlgestionAdministrativos extends sql {
             $cadena_sql.="cir_total_ingresos, ";
             $cadena_sql.="cir_aportes_salud, ";
             $cadena_sql.="cir_aporte_voluntario, ";
-            $cadena_sql.="nvl(cir_aportes_pension,0), ";
+            $cadena_sql.="coalesce(cir_aportes_pension,0), ";
             $cadena_sql.="cir_exentas, ";
             $cadena_sql.="cir_retencion, ";
             $cadena_sql.="cir_estado, ";
             $cadena_sql.="emp_Nombre, ";
-            $cadena_sql.="SYSDATE, ";
-            $cadena_sql.="to_char(sysdate,'yyyy') fechaa, ";
-            $cadena_sql.="to_char(sysdate,'mm') fecham, ";
-            $cadena_sql.="to_char(sysdate,'dd') fechad ";
+            $cadena_sql.="CURRENT_TIMESTAMP, ";
+            $cadena_sql.="to_char(CURRENT_TIMESTAMP,'yyyy') fechaa, ";
+            $cadena_sql.="to_char(CURRENT_TIMESTAMP,'mm') fecham, ";
+            $cadena_sql.="to_char(CURRENT_TIMESTAMP,'dd') fechad ";
             $cadena_sql.="FROM ";
             $cadena_sql.="prceringret2004, ";
-            $cadena_sql.="peemp, ";
-            $cadena_sql.="DUAL ";
+            $cadena_sql.="peemp ";
             $cadena_sql.="WHERE ";
             $cadena_sql.="cir_emp_nro_iden = emp_nro_iden ";
-            $cadena_sql.="and cir_ano = ".$variable['anio']." ";
+            if(isset($_REQUEST['anio']))
+            {	
+            	$cadena_sql.="and cir_ano = ".$variable['anio']." ";
+            }
             $cadena_sql.="and emp_nro_iden = '".$variable['usuario']."' ";
             $cadena_sql.="and emp_estado = 'A' ";
             $cadena_sql.="and cir_estado = 'A' ";
             $cadena_sql.="ORDER BY emp_nombre ASC ";
         break;
+        
+        
+        
         case "certificadoContratistas":
             $cadena_sql = "SELECT ";
             $cadena_sql.="cir_ano, ";
@@ -122,8 +128,12 @@ class SqlgestionAdministrativos extends sql {
             $cadena_sql.="FROM ";
             $cadena_sql.="MNTPE.PRCERINGRET_OTROS ";
             $cadena_sql.="WHERE ";
-            $cadena_sql.="cir_ano = ".$variable['anio']." ";
-            $cadena_sql.="and cir_emp_nro_iden = '".$variable['usuario']."' ";
+            if(isset($_REQUEST['anio']))
+            {
+	            $cadena_sql.="cir_ano = ".$variable['anio']." ";
+	            $cadena_sql.="and ";
+            }
+            $cadena_sql.="cir_emp_nro_iden = '".$variable['usuario']."' ";
             $cadena_sql.="and cir_estado = 'A' ";
             $cadena_sql.="ORDER BY cir_emp_nro_iden ASC ";
         break;
@@ -145,8 +155,62 @@ class SqlgestionAdministrativos extends sql {
             $cadena_sql.="WHERE ";
             $cadena_sql.="rtfte_anio=" . $variable['anio'] . " ";
             break;
+        
+        case "datosCertificacion":
+            $cadena_sql = "SELECT ";
+            $cadena_sql.="primer_nombre, ";
+            $cadena_sql.="segundo_nombre, ";
+            $cadena_sql.="primer_apellido, ";
+            $cadena_sql.="segundo_apellido, ";
+            $cadena_sql.="tipo_identificacion, ";
+            $cadena_sql.="identificacion, ";
+            $cadena_sql.="to_char(fecha_ingreso,'dd-mm-YYYY'), ";
+            $cadena_sql.="to_char(fecha_retiro,'dd-mm-YYYY'), ";
+            $cadena_sql.="resolucion, ";
+            $cadena_sql.="to_char(fecha_resolucion,'dd-mm-YYYY'), ";
+            $cadena_sql.="cargo, ";
+            $cadena_sql.="dependencia, ";
+            $cadena_sql.="sueldo_basico_mensual, ";
+            $cadena_sql.="salario_promedio, ";
+            $cadena_sql.="jefe_recursos_humanos, ";
+            $cadena_sql.="mesada, ";
+            $cadena_sql.="genero, ";
+            $cadena_sql.="lugar_expedicion, ";
+            $cadena_sql.="to_char(fecha_pago_pension,'dd-mm-YYYY') ";
+            $cadena_sql.="FROM v_datos_certificacion ";
+            $cadena_sql.="WHERE ";
+            $cadena_sql.="identificacion = '".$variable['usuario']."' ";
+            break;
+        
+        case "sueldoBasico":
+            $cadena_sql= "SELECT ";
+            $cadena_sql.="fu_salario_promedio_detalle(".$variable['codEmpleado'].",".$variable['codDetalleSalBasico'].") ";
+            $cadena_sql.="FROM ";
+            $cadena_sql.="dual ";
+            break;
+        
+        case "otrosIngresos":
+            $cadena_sql= "SELECT ";
+            $cadena_sql.="fu_salario_promedio_detalle(".$variable['codEmpleado'].",".$variable['codDetalleOtrosIng'].") ";
+            $cadena_sql.="FROM ";
+            $cadena_sql.="dual ";
+            break;
+        
+        case "doceavas":
+            $cadena_sql= "SELECT ";
+            $cadena_sql.="fu_salario_promedio_detalle(".$variable['codEmpleado'].",".$variable['codDetalleDoceavas'].") ";
+            $cadena_sql.="FROM ";
+            $cadena_sql.="dual ";
+            break;
+        
+        case "salarioPromedio":
+            $cadena_sql= "SELECT ";
+            $cadena_sql.="fu_salario_promedio_detalle(".$variable['codEmpleado'].",".$variable['codDetalleSalProm'].") ";
+            $cadena_sql.="FROM ";
+            $cadena_sql.="dual ";
+            break;
         }
-
+        //echo $cadena_sql."<br><br>";
         return $cadena_sql;
     }
 

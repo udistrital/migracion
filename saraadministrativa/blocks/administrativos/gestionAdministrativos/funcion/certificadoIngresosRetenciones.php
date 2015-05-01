@@ -1,9 +1,11 @@
 <?
-$ruta = $this->miConfigurador->getVariableConfiguracion("host");
-$ruta.=$this->miConfigurador->getVariableConfiguracion("site")."/blocks/administrativos/gestionAdministrativos";
+$ruta = $this->miConfigurador->getVariableConfiguracion("raizDocumento")."/blocks/administrativos/gestionAdministrativos";;
+//$ruta.=$this->miConfigurador->getVariableConfiguracion("site")."/blocks/administrativos/gestionAdministrativos";
 
 $conexion = "funcionario";
 $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
+
+error_reporting(0);
 
 if (!$esteRecursoDB) {
 
@@ -73,25 +75,24 @@ elseif($_REQUEST['tipoCertificado']=='contratistasHonorarios')
         if($registro[$k][22]=='H')
         {
             setlocale(LC_MONETARY, 'en_US');
-            $valorPagado="$0";
-            $valorCesantias="$0";
-            $valorGastos="$0";
-            $valorPensiones="$0";
-            $valorOtros="$0";
-            $valorTotal="$0";
-            $aporteSalud="$0";
-            $aportePension="$0";
-            $aportePensionVoluntaria="$0";
-            $aportePensionVoluntaria="$0";
-            $valorRetefuente="$0";
+            $valorPagado=money_format('$ %!.0i',$registro[$k][9]);
+            $valorCesantias=money_format('$ %!.0i',$registro[$k][10]);
+            $valorGastos=money_format('$ %!.0i',$registro[$k][11]);
+            $valorPensiones=money_format('$ %!.0i',$registro[$k][12]);
+            $valorOtros=money_format('$ %!.0i',$registro[$k][13]);
+            $valorTotal=money_format('$ %!.0i',$registro[$k][14]);
+            $aporteSalud=money_format('$ %!.0i',$registro[$k][15]);
+            $aportePension=money_format('$ %!.0i',$registro[$k][20]);
+            $aportePensionVoluntaria=money_format('$ %!.0i',$registro[$k][16]);
+            $valorRetefuente=money_format('$ %!.0i',$registro[$k][18]);
             $anioGravable=$registro[$k][0];
             $numeroIdentificacion=$registro[$k][1];
             $apellidosNombres=$registro[$k][2]." ".$registro[$k][3]." ".$registro[$k][4]." ".$registro[$k][5];
             $periodoCertificacion=$registro[$k][6]."&nbsp;&nbsp; A: ".$registro[$k][7];
             $fecha=  date("d-m-Y");
             $fechaExpedicion=$fecha;
-            $valorHonorarios=money_format('$ %!.0i',$registro[$k][21]);
-            $valorRetencion=money_format('$ %!.0i',$registro[$k][18]);
+            $valorHonorarios="";
+            $valorRetencion="";
         }
     }
 }
@@ -105,7 +106,7 @@ else
         if($registro[$k][22]=='S')
         {
             setlocale(LC_MONETARY, 'en_US');
-            $valorPagado=money_format('$ %!.0i',$registro[$k][9]);
+            $valorPagado='';
             $valorCesantias=money_format('$ %!.0i',$registro[$k][10]);
             $valorGastos=money_format('$ %!.0i',$registro[$k][11]);
             $valorPensiones=money_format('$ %!.0i',$registro[$k][12]);
@@ -114,7 +115,7 @@ else
             $aporteSalud=money_format('$ %!.0i',$registro[$k][15]);
             $aportePension=money_format('$ %!.0i',$registro[$k][20]);
             $aportePensionVoluntaria=money_format('$ %!.0i',$registro[$k][16]);
-            $valorRetefuente=money_format('$ %!.0i',$registro[$k][18]);
+            $valorRetefuente='';
             $anioGravable=$registro[$k][0];
             $numeroIdentificacion=$registro[$k][1];
             $apellidosNombres=$registro[$k][2]." ".$registro[$k][3]." ".$registro[$k][4]." ".$registro[$k][5];
@@ -584,8 +585,8 @@ if(is_array($registro))
       </table>      
       <table border='1' style='width: 100%; border-width: 1px 1px 1px 1px; font-family: Arial, Verdana, Trebuchet MS, Helvetica, sans-serif; border-spacing: 1px; border-collapse: collapse; padding:10px'>
             <tr>
-                <td style='width: 80%;height:6 px; text-align:left'>
-                    <font style='font-size: 9'><br>Certifico que durante el año gravable de ".$anioGravable.":<br>";
+                <td style='width: 50%; height:760 px; text-align:left'>
+                    <!--font style='font-size: 9'><br>Certifico que durante el año gravable de ".$anioGravable.":<br>";
                     for($i=0; $i<=count ($registroUvt)-1; $i++)
                     {
                         if($registroUvt[$i]['rtfte_nombre']=='patrimonio')
@@ -622,17 +623,29 @@ if(is_array($registro))
                         }
                     }
                     $contenido.="Por lo tanto, manifiesto que no estoy obligado a presentar declaración de renta y complementarios por el año gravable ".$anioGravable.".<br>&nbsp;";
-                    $contenido.="</font>
+                    $contenido.="</font-->
+                     
                 </td>
-                <td style='width: 20%;height:6 px; text-align:left;vertical-align:text-top'>
+                
+                <td style='width: 50%;height:760 px; text-align:left;vertical-align:text-top'>
                     <font style='font-size: 9'>Firma del empleado</font>
+                    <br>
+                    <font style='color: white'>.</font>
+                    <br>
+                    <font style='color: white'>.</font>
+                    <br>
+                    <font style='color: white'>.</font>
+                    <br>
+                    <font style='color: white'>.</font>
+                    <br>
+                    <font style='color: white'>.</font>
                 </td>
             </tr>
      </table>
      <font style='font-size: 9'>NOTA: Este certificado sustituye para todos los efectos legales la declaración de Renta y complementarios para el empleado que lo firme.</font>
     </page>";
     
-    //echo $contenido;
+    //echo $contenido; exit;
     
     $rutaClases=$this->miConfigurador->getVariableConfiguracion("raizDocumento")."/classes";
     include_once($rutaClases."/html2pdf/html2pdf.class.php");

@@ -12,6 +12,8 @@ if (!isset($GLOBALS["autorizado"])) {
     exit;
 }
 
+error_reporting(0);
+
 $esteBloque = $this->miConfigurador->getVariableConfiguracion("esteBloque");
 $nombreFormulario = $esteBloque["nombre"];
 
@@ -44,46 +46,46 @@ else
 }
 $cadena_sql = $this->sql->cadena_sql("anioper", $variable);
 $resultAnioPer = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-$ano=$resultAnioPer[0][0];
+$ano=$resultAnioPer[0][0]+1;
 $per=$resultAnioPer[0][1];
+$cierto1=0;
+$cierto2=0;
 
-for($i=$ano; $i>=$ano-2; $i--)
-{
-    $variable['anio']=$i;
-    $cadena_sql = $this->sql->cadena_sql("certificadoFuncionarios", $variable);
-    $registroFuncionarios = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+$cadena_sql = $this->sql->cadena_sql("certificadoFuncionarios", $variable);
+$registroFuncionarios = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
     
-    $cadena_sql = $this->sql->cadena_sql("certificadoContratistas", $variable);
-    $registroContratistas = $esteRecursoDB1->ejecutarAcceso($cadena_sql, "busqueda");
-}
+$cadena_sql = $this->sql->cadena_sql("certificadoContratistas", $variable);
+$registroContratistas = $esteRecursoDB1->ejecutarAcceso($cadena_sql, "busqueda");
 
-if($registroFuncionarios || $registroContratistas)
+if(is_array($registroFuncionarios) || is_array($registroContratistas))
 {
         //------------------Division para las pestañas-------------------------
         $atributos["id"] = "tabs";
         $atributos["estilo"] = "";
         echo $this->miFormulario->division("inicio", $atributos);
         unset($atributos);
+        
         if(is_array($registroFuncionarios))
-        {    
-            $nombre=$registroFuncionarios[0][22];
-            $identificacion=$registroFuncionarios[0][0];
+        {
+        	$nombre=$registroFuncionarios[0][22];
+        	$identificacion=$registroFuncionarios[0][0];
         }
         else
-        {    
-            $nombre=$registroContratistas[0][2].' '.$registroContratistas[0][3].' '.$registroContratistas[0][4].' '.$registroContratistas[0][5];
-            $identificacion=$registroContratistas[0][1];
-        }        
-        ////-------------------------------Mensaje-------------------------------------
+        {
+        	$nombre=$registroContratistas[0][2].' '.$registroContratistas[0][3].' '.$registroContratistas[0][4].' '.$registroContratistas[0][5];
+        	$identificacion=$registroContratistas[0][1];
+        }
+        
         $tipo = 'message';
-        $mensaje = "<center><span class='textoNegrita textoGrande textoCentrar'><br>CERTIFICADO DE INGRESOS Y RETENCIONES</span></center><br>
+        $mensaje = "<center><span class='textoNegrita textoGrande textoCentrar'><br>CERTIFICADO DE INGRESOS Y RETENCIONES</span></center>
                     <span class='textoNegrita textoPequeno textoCentrar'>Nombre: ".$nombre."</span><br>
                     <span class='textoNegrita textoPequeno textoCentrar'>Identificación: ".$identificacion."</span><br>
                     <p class='textoJustificar'>
                         Seleccione el a&ntilde;o, haga Click en la imagen del PDF para generar el certificado de ingresos y retenciones.
                     </p> ";
-
-
+        
+        
         $esteCampo = "mensaje";
         $atributos["id"] = "mensaje"; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
         $atributos["etiqueta"] = "";
@@ -92,6 +94,10 @@ if($registroFuncionarios || $registroContratistas)
         $atributos["mensaje"] = $mensaje;
         echo $this->miFormulario->cuadroMensaje($atributos);
         unset($atributos);
+        
+                
+        ////-------------------------------Mensaje-------------------------------------
+        
 
 	
         echo "<table id='tablaCertificados'>";
@@ -105,24 +111,37 @@ if($registroFuncionarios || $registroContratistas)
                     }
                     if(is_array($registroContratistas))
                     {
+                    	$cierto1=0;
+                    	$cierto2=0;
+                    	$cierto3=0;
+                    	$cierto4=0;
                         for($k=0; $k<=count($registroContratistas)-1; $k++)
                         {
                             if($registroContratistas[$k][22]=='H')
                             {
-                                echo "<th>Certificado Contratistas Honorarios</th>";
+                                $cierto1=1;
                             }
                             if($registroContratistas[$k][22]=='S')
                             {
-                                echo "<th>Certificado Contratistas Salario</th>";
+                                $cierto2=1;
                             }
                         }
+                        if($cierto1==1)
+                        {
+                        	echo "<th>Certificado Contratistas Honorarios</th>";
+                        }
+                        if($cierto2==1)
+                        {
+                        	echo "<th>Certificado Contratistas Salario</th>";
+                        }	
+                        		
                     }
                     
             echo"</tr>
             </thead>
             <tbody>";
         
-        for($i=$ano-1; $i>=$ano-2; $i--)
+    for($i=$ano-1; $i>=$ano-5; $i--)
 	{
            
             
@@ -156,52 +175,61 @@ if($registroFuncionarios || $registroContratistas)
                     {
                         for($k=0; $k<=count($registroContratistas)-1; $k++)
                         {
-                            if($registroContratistas[$k][22]=='H')
-                            {
-                                $variables ="pagina=gestionAdministrativos"; //pendiente la pagina para modificar parametro                                                        
-                                $variables.="&opcion=certificadoIngresosRetenciones";
-                                $variables.="&action=".$esteBloque["nombre"];
-                                $variables.="&anio=".$i;
-                                if(isset($_REQUEST['docuentoNumero']))
-                                {    
-                                    $variables.="&usuario=".$_REQUEST['docuentoNumero'];
-                                }
-                                else
-                                {    
-                                    $variables.="&usuario=".$_REQUEST['usuario'];
-                                }
-                                $variables.="&tipoCertificado=contratistasHonorarios";
-                                $variables.="&tipo=".$_REQUEST['tipo'];
-                                $variables.="&bloque=".$esteBloque["id_bloque"];
-                                $variables.="&bloqueGrupo=".$esteBloque["grupo"];
-                                $variables = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variables, $directorio);
-                                echo "  <td align='center'><a href='".$variables."'>";               
-                                echo "  <img src='".$rutaBloque."images/pdf.png' width='25px'>"; 
-                                echo "  </a></td>";
-                            }
-                            if($registroContratistas[$k][22]=='S')
-                            {
-                                $variables ="pagina=gestionAdministrativos"; //pendiente la pagina para modificar parametro                                                        
-                                $variables.="&opcion=certificadoIngresosRetenciones";
-                                $variables.="&action=".$esteBloque["nombre"];
-                                $variables.="&anio=".$i;
-                                if(isset($_REQUEST['docuentoNumero']))
-                                {    
-                                    $variables.="&usuario=".$_REQUEST['docuentoNumero'];
-                                }
-                                else
-                                {    
-                                    $variables.="&usuario=".$_REQUEST['usuario'];
-                                }
-                                $variables.="&tipoCertificado=contratistasSueldo";
-                                $variables.="&tipo=".$_REQUEST['tipo'];
-                                $variables.="&bloque=".$esteBloque["id_bloque"];
-                                $variables.="&bloqueGrupo=".$esteBloque["grupo"];
-                                $variables = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variables, $directorio);
-                                echo "  <td align='center'><a href='".$variables."'>";               
-                                echo "  <img src='".$rutaBloque."images/pdf.png' width='25px'>"; 
-                                echo "  </a></td>";
-                            }
+                        	if($registroContratistas[$k][22]=='H')
+                        	{
+                        		$cierto3=1;
+                        	}
+                        	if($registroContratistas[$k][22]=='S')
+                        	{
+                        		$cierto4=1;
+                        	}
+                        	
+                        }
+                        if($cierto3==1)
+                        {
+                        	$variables ="pagina=gestionAdministrativos"; //pendiente la pagina para modificar parametro
+                        	$variables.="&opcion=certificadoIngresosRetenciones";
+                        	$variables.="&action=".$esteBloque["nombre"];
+                        	$variables.="&anio=".$i;
+                        	if(isset($_REQUEST['docuentoNumero']))
+                        	{
+                        		$variables.="&usuario=".$_REQUEST['docuentoNumero'];
+                        	}
+                        	else
+                        	{
+                        		$variables.="&usuario=".$_REQUEST['usuario'];
+                        	}
+                        	$variables.="&tipoCertificado=contratistasHonorarios";
+                        	$variables.="&tipo=".$_REQUEST['tipo'];
+                        	$variables.="&bloque=".$esteBloque["id_bloque"];
+                        	$variables.="&bloqueGrupo=".$esteBloque["grupo"];
+                        	$variables = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variables, $directorio);
+                        	echo "  <td align='center'><a href='".$variables."'>";
+                        	echo "  <img src='".$rutaBloque."images/pdf.png' width='25px'>";
+                        	echo "  </a></td>";
+                        }
+                        if($cierto4==1)
+                        {
+                        	$variables ="pagina=gestionAdministrativos"; //pendiente la pagina para modificar parametro
+                        	$variables.="&opcion=certificadoIngresosRetenciones";
+                        	$variables.="&action=".$esteBloque["nombre"];
+                        	$variables.="&anio=".$i;
+                        	if(isset($_REQUEST['docuentoNumero']))
+                        	{
+                        		$variables.="&usuario=".$_REQUEST['docuentoNumero'];
+                        	}
+                        	else
+                        	{
+                        		$variables.="&usuario=".$_REQUEST['usuario'];
+                        	}
+                        	$variables.="&tipoCertificado=contratistasSueldo";
+                        	$variables.="&tipo=".$_REQUEST['tipo'];
+                        	$variables.="&bloque=".$esteBloque["id_bloque"];
+                        	$variables.="&bloqueGrupo=".$esteBloque["grupo"];
+                        	$variables = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variables, $directorio);
+                        	echo "  <td align='center'><a href='".$variables."'>";
+                        	echo "  <img src='".$rutaBloque."images/pdf.png' width='25px'>";
+                        	echo "  </a></td>";
                         }
                     }   
                 

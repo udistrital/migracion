@@ -39,7 +39,7 @@ class sql_adminIntensidadHoraria extends sql
 				$cadena_sql="";
 				break;
 		}
-		echo $cadena_sql."<br>";
+		//echo $cadena_sql."<br>";
 		return $cadena_sql;
 	}
 	
