@@ -315,7 +315,7 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 	
 		case "inscritos":
 				//Oracle
-				$cadena_sql="SELECT ROWNUM, ";
+				$cadena_sql="SELECT row_number() OVER (ORDER BY codigo) AS ROWNUM, ";
 				$cadena_sql.="codigo, ";
 				$cadena_sql.="nombre, ";
 				$cadena_sql.="apellido, ";
@@ -350,7 +350,7 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 				$cadena_sql.="  est_telefono telefono, ";
 				$cadena_sql.="  eot_tel_cel celular, ";
 				$cadena_sql.="  eot_email mail, ";
-				$cadena_sql.="  decode(est_sexo,'M','Masculino','F','Femenino') sexo ";
+				$cadena_sql.="  CASE WHEN est_sexo::text='M' THEN 'Masculino' WHEN est_sexo::text='F'  THEN 'Femenino' END sexo ";
 				$cadena_sql.="FROM acasperi, gedep, accra, acsecretario, peemp, acinsgrado, acest, acdirectorgrado, acestotr ";
 				$cadena_sql.="WHERE ape_estado = 'A' ";
 				$cadena_sql.="	AND dep_cod = cra_dep_cod ";
@@ -368,7 +368,7 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 				$cadena_sql.="  AND dir_nro_iden=ing_director ";
 				$cadena_sql.="  AND eot_cod=est_cod "; 
 				$cadena_sql.="ORDER BY est_cod ASC ";
-				$cadena_sql.=")";
+				$cadena_sql.=") as temporal";
 				break;
 		case "PromEgresados":
 				//Oracle

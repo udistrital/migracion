@@ -285,6 +285,9 @@ class validarInscripcion {
             {
                 $cadena_sql_proyectos=$this->cadena_sql("facultad_sec_academico",$codSecAcademico);
                 $resultado_proyectos=$this->funcionGeneral->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql_proyectos,"busqueda" );
+                
+                //var_dump($resultado_proyectos);exit;
+                
                 $tipo=0;
                 $total=count($resultado_proyectos);
                 for($i=0;$i<$total;$i++)
@@ -1742,7 +1745,7 @@ class validarInscripcion {
         $cadena_sql.=" WHERE emp_nro_iden= ".$variable;
         $cadena_sql.=" AND sec_estado='A'";
         $cadena_sql.=" ORDER BY DEPENDENCIA";
-    break;
+	    break;
     
       case 'horario_grupo':
 

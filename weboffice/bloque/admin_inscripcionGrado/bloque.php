@@ -50,6 +50,10 @@ class bloque_adminInscripcionGrado extends bloque
 		
 		if(isset($_REQUEST['opcion']))
 		{
+			
+			$registro=(isset($registro)?$registro:'');
+			$total = (isset($total)?$total:'');
+			$valor= (isset($valor)?$total:'');
 			$accion=$_REQUEST['opcion'];
 			
 			switch($accion)

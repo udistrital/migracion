@@ -248,7 +248,7 @@ $enlaceCargarArchivoGrados=$indiceAcademico.$variable;
 <li class="subitem1"><a target="principal" href="<?echo $total_grados;?>">Listado total inscritos</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $proy_grados;?>">Inscritos por proyecto</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceInscripcionGrados;?>">Inscribir estudiante</a></li>
-<?/*?><li class="subitem1"><a target="principal" href="<?echo $enlaceCargarArchivoGrados;?>">Cargar archivo</a></li><?*/?>
+<li class="subitem1"><a target="principal" href="<?echo $enlaceCargarArchivoGrados;?>">Cargar archivo</a></li>
 </ul>
 </li>
 

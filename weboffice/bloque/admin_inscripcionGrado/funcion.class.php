@@ -1097,6 +1097,7 @@ ________________________________________________________________________________
 	
 	function verificarUsuario()
 	{
+		$configuracion = (isset($configuracion)?$configuracion:'');
 		//Verificar existencia del usuario 	
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "datosUsuarios",$this->identificacion);
 		$unUsuario=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
