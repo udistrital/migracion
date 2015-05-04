@@ -35,7 +35,7 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.cl
   $accesoOracle = $conexion->estableceConexion(75, $configuracion);
 //echo $cod_proyecto;exit;
 
-  if (is_resource($enlace)) {
+  if (isset($enlace)) {
     $busqueda = "SELECT DISTINCT est_nombre NOMBRE,"; 
     $busqueda.= " est_cra_cod COD_PROYECTO, ";
     $busqueda.= " cra_nombre PROYECTO, ";

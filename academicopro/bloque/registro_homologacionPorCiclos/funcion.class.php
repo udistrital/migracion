@@ -145,7 +145,7 @@ class funcion_registroHomologacionPorCiclos extends funcionGeneral {
                                 //consulta notas anteriores del estudiante
                                 $notasAnteriores = $this->consultarNotasEstudiante($cod_estudianteAnt,$datosEstudianteAnt[0]['CRA_COD']); 
                                 //consulta espacios del plan de estudios del estudiante
-                                $espaciosPlanEstudio = $this->buscarEspaciosPlan($datosEstudiante[0]['PENSUM'],$espaciosProyecto); 
+                                $espaciosPlanEstudio = $this->buscarEspaciosPlan($datosEstudiante[0]['PENSUM'],$espaciosProyecto);
                                 //Solicita buscar homologaciones por tipo. tipo_homologacion define el tipo de homologaciones a buscar: implicitas, directa 0, union 1, bifurcacion 2
                                 $resultadoHomologaciones=$this->homologaciones->ejecutarHomologacion($datosEstudiante,$notasAnteriores,$notasActuales,$espaciosPlanEstudio, $tabla_homologaciones,'implicitas',$notaAprobatoria[0]['NOTA_APROBATORIA']);
                                 if(is_array($resultadoHomologaciones['IMPLICITAS']))
@@ -588,9 +588,13 @@ class funcion_registroHomologacionPorCiclos extends funcionGeneral {
      * NOT_CRED, NOT_NRO_HT, NOT_NRO_HP, NOT_NRO_AUT, NOT_CEA_COD,  NOT_ASI_COD_INS, NOT_ASI_HOMOLOGA, NOT_EST_HOMOLOGA)
      */
     function adicionarOracleHomologacion($datos) {
-        //$datos['identificador']= $consecutivo;
+        foreach ($datos as $key => $value) {
+            if($value=='')
+            {
+                $datos[$key]='null';
+            }
+        }
         $cadena_sql_homologacion=$this->sql->cadena_sql("adicionar_homologacion",$datos);
-        //echo "<br>cadena homologacion oracle <br>".$cadena_sql_homologacion."<br>";
         $resultado_homologacion=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql_homologacion,"");
         return $this->totalAfectados($this->configuracion, $this->accesoOracle);
     }

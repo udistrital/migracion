@@ -128,24 +128,24 @@ class sql_registroHomologacionPendientes extends sql {
                     $cadena_sql="INSERT INTO ACNOT ";
                     $cadena_sql.="(NOT_CRA_COD, NOT_EST_COD, NOT_ASI_COD, NOT_ANO, NOT_PER, NOT_SEM, NOT_NOTA, NOT_GR, NOT_OBS, NOT_FECHA, NOT_EST_REG, NOT_CRED, NOT_NRO_HT, NOT_NRO_HP, NOT_NRO_AUT, NOT_CEA_COD, NOT_ASI_COD_INS, NOT_ASI_HOMOLOGA, NOT_EST_HOMOLOGA) ";
                     $cadena_sql.="VALUES (";
-                    $cadena_sql.="'".$variable['NOT_CRA_COD']."',";
-                    $cadena_sql.="'".$variable['NOT_EST_COD']."',";
-                    $cadena_sql.="'".$variable['NOT_ASI_COD']."',";
-                    $cadena_sql.="'".$variable['NOT_ANO']."',";
-                    $cadena_sql.="'".$variable['NOT_PER']."',";
-                    $cadena_sql.="'".$variable['NOT_SEM']."',";
-                    $cadena_sql.="'".$variable['NOT_NOTA']."',";
-                    $cadena_sql.="'".$variable['NOT_GR']."',";
-                    $cadena_sql.="'".$variable['NOT_OBS']."',";
+                    $cadena_sql.="".$variable['NOT_CRA_COD'].",";
+                    $cadena_sql.="".$variable['NOT_EST_COD'].",";
+                    $cadena_sql.="".$variable['NOT_ASI_COD'].",";
+                    $cadena_sql.="".$variable['NOT_ANO'].",";
+                    $cadena_sql.="".$variable['NOT_PER'].",";
+                    $cadena_sql.="".$variable['NOT_SEM'].",";
+                    $cadena_sql.="".$variable['NOT_NOTA'].",";
+                    $cadena_sql.="".$variable['NOT_GR'].",";
+                    $cadena_sql.="".$variable['NOT_OBS'].",";
                     $cadena_sql.="to_date('".$variable['NOT_FECHA']."','dd/mm/yyyy'),";
                     $cadena_sql.="'".$variable['NOT_EST_REG']."',";
-                    $cadena_sql.="'".$variable['NOT_CRED']."',";
-                    $cadena_sql.="'".$variable['NOT_NRO_HT']."',";
-                    $cadena_sql.="'".$variable['NOT_NRO_HP']."',";
-                    $cadena_sql.="'".$variable['NOT_NRO_AUT']."',";
-                    $cadena_sql.="'".$variable['NOT_CEA_COD']."',";
-                    $cadena_sql.="'".$variable['NOT_ASI_COD_INS']."',";
-                    $cadena_sql.="'".$variable['NOT_ASI_HOMOLOGA']."',";
+                    $cadena_sql.="".$variable['NOT_CRED'].",";
+                    $cadena_sql.="".$variable['NOT_NRO_HT'].",";
+                    $cadena_sql.="".$variable['NOT_NRO_HP'].",";
+                    $cadena_sql.="".$variable['NOT_NRO_AUT'].",";
+                    $cadena_sql.="".$variable['NOT_CEA_COD'].",";
+                    $cadena_sql.="".$variable['NOT_ASI_COD_INS'].",";
+                    $cadena_sql.="".$variable['NOT_ASI_HOMOLOGA'].",";
                     $cadena_sql.="'".$variable['NOT_EST_HOMOLOGA']."')"; 
                 break; 
             
@@ -163,7 +163,7 @@ class sql_registroHomologacionPendientes extends sql {
                         $cadena_sql.=" EST.EST_COD           AS COD_ESTUDIANTE, ";
                         $cadena_sql.=" EST.EST_NOMBRE        AS NOMBRE ";
                         $cadena_sql.=" FROM ACEST EST ";
-                        $cadena_sql.=" WHERE SUBSTR(EST.EST_COD,1,5)='".$variable['cohorte']."' ";
+                        $cadena_sql.=" WHERE SUBSTR(EST.EST_COD::text,1,5)='".$variable['cohorte']."' ";
                         $cadena_sql.=" AND EST.EST_CRA_COD = ".$variable['cod_proyecto']." ";
                         $cadena_sql.=" AND EST.EST_ESTADO_EST IN ('A','B','V','J' )";
                         $cadena_sql.=" AND EST.EST_COD IN (SELECT DISTINCT NOT_EST_COD FROM ACNOT WHERE NOT_EST_REG='A')";
@@ -174,10 +174,6 @@ class sql_registroHomologacionPendientes extends sql {
         }
         return $cadena_sql;
     }
-
-
-}
-?>}
 
 
 }

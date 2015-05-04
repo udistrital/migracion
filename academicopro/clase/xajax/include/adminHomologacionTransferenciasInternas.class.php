@@ -32,7 +32,7 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.cl
         $conexion = new multiConexion();
         $accesoOracle = $conexion->estableceConexion(75, $configuracion);
 
-        if (is_resource($enlace)) {
+        if (isset($enlace)) {
             $busqueda = "SELECT DISTINCT est_nombre NOMBRE,"; 
             $busqueda.= " est_cra_cod COD_PROYECTO, ";
             $busqueda.= " cra_nombre PROYECTO, ";
@@ -83,7 +83,7 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.cl
         $accesoOracle = $conexion->estableceConexion(75, $configuracion);
         //echo $cod_proyecto;exit;
 
-        if (is_resource($enlace)) {
+        if (isset($enlace)) {
             $busqueda = "SELECT DISTINCT cra_cod COD_PROYECTO, ";
             $busqueda.= " cra_nombre PROYECTO ";
             $busqueda.=" FROM accra ";

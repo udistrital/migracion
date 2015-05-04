@@ -48,7 +48,7 @@ class bloque_registroHomologacionPendientes extends bloque {
                                 }
                     }
                     $variable.="&cod_proyecto=" . $_REQUEST['cod_proyecto'];                    
-                    $variable.="&cohorte=" . $_REQUEST['cohorte'];                    
+                    $variable.="&cohorte=" . (isset($_REQUEST['cohorte'])?$_REQUEST['cohorte']:'');
                     $variable.="&tipo_homologacion=" . $_REQUEST['tipo_homologacion'];
                           
                     include_once($this->configuracion["raiz_documento"] . $this->configuracion["clases"] . "/encriptar.class.php");

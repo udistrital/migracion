@@ -45,8 +45,8 @@ class sql_adminHomologacionesPendientes extends sql
                         break;
                         
                         case 'consultaCohortesProyecto':
-                            $cadena_sql =" SELECT DISTINCT (CASE WHEN  LENGTH(EST_COD)=11 THEN SUBSTR(EST_COD,1,5) ";
-                            $cadena_sql.=" ELSE SUBSTR(EST_COD,1,3) ";
+                            $cadena_sql =" SELECT DISTINCT (CASE WHEN  LENGTH(EST_COD::text)=11 THEN SUBSTR(EST_COD::text,1,5) ";
+                            $cadena_sql.=" ELSE SUBSTR(EST_COD::text,1,3) ";
                             $cadena_sql.=" END )    AS COHORTE ";
                             $cadena_sql.=" FROM ACEST ";
                             $cadena_sql.=" WHERE EST_CRA_COD=".$variable;
@@ -61,7 +61,7 @@ class sql_adminHomologacionesPendientes extends sql
                         $cadena_sql.=" EST.EST_COD           AS COD_ESTUDIANTE, ";
                         $cadena_sql.=" EST.EST_NOMBRE        AS NOMBRE ";
                         $cadena_sql.=" FROM ACEST EST ";
-                        $cadena_sql.=" WHERE SUBSTR(EST.EST_COD,1,5)='".$variable['cohorte']."' ";
+                        $cadena_sql.=" WHERE SUBSTR(EST.EST_COD::text,1,5)='".$variable['cohorte']."' ";
                         $cadena_sql.=" AND EST.EST_CRA_COD = ".$variable['cod_proyecto']." ";
                         $cadena_sql.=" AND EST.EST_ESTADO_EST IN ('A','B','V','J','U','Z' )";
                         $cadena_sql.=" AND EST.EST_COD IN (SELECT DISTINCT NOT_EST_COD FROM ACNOT WHERE NOT_EST_REG='A')";

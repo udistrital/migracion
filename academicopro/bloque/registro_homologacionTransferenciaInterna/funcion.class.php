@@ -879,6 +879,12 @@ class funcion_registroHomologacionTransferenciaInterna extends funcionGeneral {
      * NOT_CRED, NOT_NRO_HT, NOT_NRO_HP, NOT_NRO_AUT, NOT_CEA_COD,  NOT_ASI_COD_INS, NOT_ASI_HOMOLOGA, NOT_EST_HOMOLOGA)
      */
     function adicionarOracleHomologacion($datos) {
+        foreach ($datos as $key => $value) {
+            if($value=='')
+            {
+                $datos[$key]='null';
+            }
+        }
         $cadena_sql_homologacion=$this->sql->cadena_sql("adicionar_homologacion",$datos);
         $resultado_homologacion=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql_homologacion,"");
         return $this->totalAfectados($this->configuracion, $this->accesoOracle);

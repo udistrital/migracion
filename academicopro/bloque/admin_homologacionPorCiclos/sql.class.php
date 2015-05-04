@@ -46,7 +46,7 @@ class sql_adminHomologacionPorCiclos extends sql
                         break;
                         
                         case 'consultaCohortesProyecto':
-                            $cadena_sql="SELECT DISTINCT SUBSTR(EST_COD,1,5) COHORTE ";
+                            $cadena_sql="SELECT DISTINCT SUBSTR(EST_COD::text,1,5) COHORTE ";
                             $cadena_sql.="FROM ACEST ";
                             $cadena_sql.="WHERE EST_CRA_COD=".$variable;
                             $cadena_sql.=" ORDER BY COHORTE DESC";
@@ -66,7 +66,7 @@ class sql_adminHomologacionPorCiclos extends sql
                         $cadena_sql.=" WHERE ESTADO_ACTIVO='N' ";
                         $cadena_sql.=" AND EST2.EST_CRA_COD = ".$variable['cod_proyectoAnt']." ";
                         $cadena_sql.=") ANTIGUOS ON EST.EST_NRO_IDEN = ANTIGUOS.IDEN ";
-                        $cadena_sql.="WHERE SUBSTR(EST.EST_COD,1,5)='".$variable['cohorte']."' ";
+                        $cadena_sql.="WHERE SUBSTR(EST.EST_COD::text,1,5)='".$variable['cohorte']."' ";
                         $cadena_sql.="AND EST.EST_CRA_COD = ".$variable['cod_proyecto']." ";
                         $cadena_sql.="AND EST.EST_ESTADO_EST IN ('A','B','V','J' )";
                         $cadena_sql.=" ORDER BY COD_ESTUDIANTE";
