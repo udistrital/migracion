@@ -867,13 +867,17 @@ class funcion_admin_inscripcionGraduando extends funcionGeneral {
                                         <td colspan="6">
                                             <?
                                             $html_titulos="<select id='tituloObtenido' tabindex='".$tab++."' size='1' name='tituloObtenido'>";
-                                            $html_titulos.="<option value=''>Seleccione uno</option>  ";          
+                                            $html_titulos.="<option value=''>Seleccione uno</option>  ";  
+                                          
+                                         	if (isset($this->registroTitulos))
+                                            {       
                                             foreach ($this->registroTitulos as $key => $titulo) {
                                                     $html_titulos.="<option value='".$titulo[0]."' ";
                                                         if($this->datosEstudiante['SEXO']==$titulo[2]&&(isset($this->datosEgresado['TITULO'])?$this->datosEgresado['TITULO']:'')==$titulo[0]){
                                                              $html_titulos.=" selected ";
                                                         }
                                                      $html_titulos.=" >".$titulo[1]."</option>  ";          
+                                            }
                                             }
                                             $html_titulos.="</select>";
                                             echo $html_titulos;
@@ -886,13 +890,17 @@ class funcion_admin_inscripcionGraduando extends funcionGeneral {
                                             <?
                                             $fecha_grado=ereg_replace("[/]", "", $this->datosEgresado['FECHA_GRADO']);
                                             $html_rector="<select id='rector' tabindex='".$tab++."' size='1' name='rector'>";
-                                            $html_rector.="<option value=''>Seleccione uno</option>  ";          
+                                            $html_rector.="<option value=''>Seleccione uno</option>  ";
+
+                                            if (isset($this->rectores))
+                                            {
                                             foreach ($this->rectores as $key => $rector) {
                                                     $html_rector.="<option value='".$rector[0]."' ";
                                                     if((isset($this->datosEgresado['RECTOR'])?$this->datosEgresado['RECTOR']:'')==$rector[0] && $fecha_grado>=$rector['RECTOR_DESDE'] && $fecha_grado<=$rector['RECTOR_HASTA']){
                                                          $html_rector.=" selected ";
                                                     }
                                                      $html_rector.=" >".$rector[1]."</option>  ";          
+                                            }
                                             }
                                             $html_rector.="</select>";
                                             echo $html_rector;

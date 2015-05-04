@@ -159,7 +159,7 @@ class sql_admin_inscripcionGraduando extends sql {	//@ Método que crea las sent
                 $cadena_sql.=" coalesce(to_char(sec_fecha_hasta,'YYYYMMDD'),to_char(current_timestamp,'YYYYMMDD')) SEC_HASTA";
                 $cadena_sql.=" FROM acsecretario";
                 $cadena_sql.=" WHERE sec_dep_cod=".$variable;
-                $cadena_sql.=" ORDER BY sec_estado,sec_fecha_desde desc";               
+                $cadena_sql.=" ORDER BY sec_estado,sec_fecha_desde desc"; 
                 break;
             
             case "consultarRectores":
@@ -168,7 +168,7 @@ class sql_admin_inscripcionGraduando extends sql {	//@ Método que crea las sent
                 $cadena_sql.=" coalesce(to_char(rec_fecha_desde,'YYYYMMDD'),'') RECTOR_DESDE,";
                 $cadena_sql.=" coalesce(to_char(rec_fecha_hasta,'YYYYMMDD'),to_char(current_timestamp,'YYYYMMDD')) RECTOR_HASTA";
                 $cadena_sql.=" FROM acrector";
-                $cadena_sql.=" ORDER BY rec_estado,rec_fecha_desde desc";
+                $cadena_sql.=" ORDER BY rec_estado,rec_fecha_desde desc";  
                 break;
             
             case 'consultar_codigo_estudiante_por_id':

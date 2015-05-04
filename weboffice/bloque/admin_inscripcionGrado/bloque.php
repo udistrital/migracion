@@ -93,6 +93,9 @@ class bloque_adminInscripcionGrado extends bloque
 	
 	function action($configuracion)
 	{
+		$accesoOracle = isset($accesoOracle)?$accesoOracle:'';
+		$acceso_db = isset($acceso_db)?$acceso_db:'';
+		
 		$this->funcion->revisarFormulario();
 		
 		$tipo="busqueda";

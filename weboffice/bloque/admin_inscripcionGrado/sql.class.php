@@ -165,7 +165,7 @@ class sql_adminInscripcionGrado extends sql
 				break;
 				
 			case "verificaEstudiantesCarrera":
-				$cadena_sql="SELECT row_number() OVER (ORDER BY codigo) AS ROWNUM,, ";
+				$cadena_sql="SELECT row_number() OVER (ORDER BY codigo) AS ROWNUM, ";
 				$cadena_sql.="	codigo, ";
 				$cadena_sql.="	nombre, ";
 				$cadena_sql.="	apellido, ";
@@ -218,7 +218,7 @@ class sql_adminInscripcionGrado extends sql
 				$cadena_sql.="  AND dir_nro_iden=ing_director ";
 				$cadena_sql.="  AND eot_cod=est_cod "; 
 				$cadena_sql.="ORDER BY est_cod ASC ";
-				$cadena_sql.=") as temporal";					
+				$cadena_sql.=") as temporal";		
 				break;
 				
 			case "contarRegistros":
@@ -237,7 +237,8 @@ class sql_adminInscripcionGrado extends sql
 				$cadena_sql.="	AND ing_estado = 'A' ";
 				$cadena_sql.="	AND ing_cra_cod = est_cra_cod ";
 				$cadena_sql.="	AND ing_est_cod = est_cod ";
-				$cadena_sql.="ORDER BY est_cod ASC ";
+				//$cadena_sql.="ORDER BY est_cod ASC ";
+				$cadena_sql.="GROUP BY est_cod ";				
 				break;
 
 			case "promedioEgresados":

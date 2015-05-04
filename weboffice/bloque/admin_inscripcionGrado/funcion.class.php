@@ -842,6 +842,7 @@ class funciones_adminInscripcionGrado extends funcionGeneral
 																		
 												$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "consultaTotalProyectos",$valor);
 												$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+												$tab =(isset($tab)?$tab:'');
 												if(!is_array($resultado))
 												{
 													echo "No tiene Proyectos Curriculares registrados";

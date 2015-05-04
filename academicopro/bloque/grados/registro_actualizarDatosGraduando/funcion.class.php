@@ -520,6 +520,8 @@ class funcion_registroActualizarIntensidadHorariaEgresado extends funcionGeneral
                             $mensaje="El valor del Rector no es válido. Seleccione uno de la lista";
                         }
                         
+                       // var_dump($this->datos['secretarioAcademico']);exit;
+                        
                         if(isset($this->datos['secretarioAcademico']) && !is_numeric($this->datos['secretarioAcademico']) ){
                             $band=1;
                             $mensaje="El valor del Secretario académico no es válido. Seleccione uno de la lista";
