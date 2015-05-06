@@ -52,7 +52,7 @@ class bloqueAdminSolicitud extends bloque
 	
 		if(!isset($_REQUEST["action"]))
 		{
-
+			$_REQUEST["opcion"]=isset($_REQUEST["opcion"])?$_REQUEST["opcion"]:'';
 			if($_REQUEST["opcion"]=='exito')
 			{
 				include_once($configuracion["raiz_documento"].$configuracion["clases"]."/alerta.class.php");
@@ -86,6 +86,7 @@ class bloqueAdminSolicitud extends bloque
 		}
 		else
 		{
+			error_reporting(0);
 			if(!$_REQUEST["opcion"])
 			{
 				$this->funcion->redireccionarInscripcion($configuracion,'verPeriodos',$_REQUEST['estudiante']);
@@ -96,15 +97,16 @@ class bloqueAdminSolicitud extends bloque
 	
 	function action($configuracion)
 	{
+		$_REQUEST["periodos"]=isset($_REQUEST["periodos"])?$_REQUEST["periodos"]:'';
 		if(!$_REQUEST["periodos"]){
-		
+			$periodosaPagar=isset($periodosaPagar)?$periodosaPagar:'';
 			$periodosaPagar="";
 			//var_dump($_REQUEST);
 			foreach($_REQUEST as $clave=>$valor)
 			{	
 				
 				if((substr($clave,0,13))=='reciboperiodo'){
-					
+					error_reporting(0);
 					$periodosaPagar.=$valor.'@';
 					$periodosaPagar.=$_REQUEST[$valor];
 					$periodosaPagar.='#';	

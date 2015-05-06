@@ -226,7 +226,7 @@ ________________________________________________________________________________
 			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda");
 			
 			
-		$html.='Los siguientes recibos podr&aacute;n ser generados desde la respectiva coordinaci&oacute;n';
+		$html='Los siguientes recibos podr&aacute;n ser generados desde la respectiva coordinaci&oacute;n';
 		$html.='<hr>';
 		$html.='<form  enctype="multipart/form-data" method="POST" action="index.php" name="generar_recibos" >';		
 		$html.='<center><table>';	

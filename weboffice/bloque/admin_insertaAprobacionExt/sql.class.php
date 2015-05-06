@@ -46,40 +46,47 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="to_date('".$variable[4]."','dd/mm/yy'),";				
 				$cadena_sql.="'".$variable[5]."',";
 				$cadena_sql.=$variable[6].",";
-				$cadena_sql.="SYSDATE,";
+				$cadena_sql.="CURRENT_TIMESTAMP,";
 				$cadena_sql.="'".$variable[7]."')";								
 																
 				break;
 			case "recibosSinPagar":
 				$cadena_sql="SELECT ape_ano,ape_per ";
-				$cadena_sql.="FROM   "; 
-				$cadena_sql.="( ";
-				$cadena_sql.="SELECT ape_ano, ";
-				$cadena_sql.="   ape_per ";
-				$cadena_sql.="FROM acasperi, acestmat ";
-				$cadena_sql.="WHERE ape_per IN (1,3) ";
-				$cadena_sql.="   AND ape_ano >= 2004 ";
-				$cadena_sql.="   AND ape_ano = ema_ano ";
-				$cadena_sql.="   AND ape_per = ema_per ";
-				$cadena_sql.="   AND ema_pago <> 'S' ";
-				$cadena_sql.="   AND ema_estado = 'A' ";
-				$cadena_sql.="   AND ema_est_cod = ".$variable." ";
-				$cadena_sql.="UNION ";
-				$cadena_sql.="SELECT ape_ano, ";
-				$cadena_sql.="   ape_per ";
-				$cadena_sql.="FROM acasperi, acest ";
-				$cadena_sql.="WHERE ape_per IN (1,3) ";
- 				$cadena_sql.="  AND ape_estado <> 'X' ";
-				$cadena_sql.="   AND est_cod = ".$variable." ";
-				$cadena_sql.="   AND ape_ano|| ape_per >= DECODE(LENGTH(est_cod),7,(SUBSTR(est_cod,1,2)+1900),11,SUBSTR(est_cod,1,4))||DECODE(DECODE(LENGTH(est_cod),7,(SUBSTR(est_cod,3,1)),11,SUBSTR(est_cod,5,1)),1,1,2,3) ";
-				$cadena_sql.="   AND NOT EXISTS (SELECT ema_ano||ema_per ";
-				$cadena_sql.="                   FROM acestmat ";
-				$cadena_sql.="			 WHERE acasperi.ape_ano||acasperi.ape_per = ema_ano||ema_per ";
-				$cadena_sql.="			 AND ema_est_cod = ".$variable." ) ";
-				$cadena_sql.=")	 ";			   
+				$cadena_sql.="FROM ( SELECT ape_ano, ape_per ";
+				$cadena_sql.="		FROM acasperi, acestmat ";
+				$cadena_sql.="		WHERE ape_per IN (1,3) ";
+				$cadena_sql.="		AND ape_ano >= 2004 ";
+				$cadena_sql.="		AND ape_ano = ema_ano ";
+				$cadena_sql.="		AND ape_per = ema_per ";
+				$cadena_sql.="		AND ema_pago <> 'S' ";
+				$cadena_sql.="		AND ema_estado = 'A' ";
+				$cadena_sql.="		AND ema_est_cod = ".$variable." ";
+				$cadena_sql.="		UNION ";
+				$cadena_sql.="		SELECT ape_ano, ape_per ";
+				$cadena_sql.="		FROM acasperi, acest ";
+				$cadena_sql.="		WHERE ape_per IN (1,3) ";
+				$cadena_sql.="		AND ape_estado <> 'X' ";
+				$cadena_sql.="		AND est_cod = ".$variable." ";
+				$cadena_sql.="		AND (ape_ano::text || ape_per::text )::int >= ";
+				$cadena_sql.="  ((case when char_LENGTH(est_cod::text)=7 ";
+				$cadena_sql.="		then (SUBSTR(est_cod::text,1,2)::int+1900) ";
+				$cadena_sql.="		when char_LENGTH(est_cod::text)=11 ";
+				$cadena_sql.="		then SUBSTR(est_cod::text,1,4)::int end)::text ";
+				$cadena_sql.="		|| ";
+				$cadena_sql.="  (case when (case when char_LENGTH(est_cod::text)=7 ";
+				$cadena_sql.="			then (SUBSTR(est_cod::text,3,1)) ";
+				$cadena_sql.="			when char_LENGTH(est_cod::text)=11 ";
+				$cadena_sql.="			then SUBSTR(est_cod::text,5,1) end)::int=1 ";
+				$cadena_sql.="			then 1 ";
+				$cadena_sql.="			when (case when char_LENGTH(est_cod::text)=7 ";
+				$cadena_sql.="			then (SUBSTR(est_cod::text,3,1)) ";
+				$cadena_sql.="			when char_LENGTH(est_cod::text)=11 ";
+				$cadena_sql.="			then SUBSTR(est_cod::text,5,1) end)::int=2 ";
+				$cadena_sql.="			then 3 end)::text)::int ";
+				$cadena_sql.="	AND NOT EXISTS (SELECT ema_ano::text||ema_per::text FROM acestmat WHERE acasperi.ape_ano::text||acasperi.ape_per::text = ema_ano::text||ema_per::text AND ema_est_cod = ".$variable." ) ) as periodo ";
 				$cadena_sql.="ORDER BY ape_ano, ape_per ASC ";
-				break;	
-							
+			break;
+				
 			case "verificaEstudianteCoordinador":
 				//Oracle
 				$cadena_sql="SELECT ";
