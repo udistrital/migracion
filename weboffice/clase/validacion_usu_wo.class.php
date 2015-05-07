@@ -125,8 +125,8 @@ class validarUsu {
 
         $cadena_sql="SELECT DISTINCT usuweb_codigo_dep DEPENDENCIA,";
         $cadena_sql.=" usuweb_tipo_vinculacion TIPO,";
-        $cadena_sql.=" NVL(TO_CHAR(usuweb_fecha_inicio,'yyyymmddhh24miss'),0) FECHA_INICIO,";
-        $cadena_sql.=" NVL(TO_CHAR(usuweb_fecha_fin,'yyyymmddhh24miss'),0) FECHA_FIN,";
+        $cadena_sql.=" coalesce(TO_CHAR(usuweb_fecha_inicio,'yyyymmddhh24miss'),'0') FECHA_INICIO,";
+        $cadena_sql.=" coalesce(TO_CHAR(usuweb_fecha_fin,'yyyymmddhh24miss'),'0') FECHA_FIN,";
         $cadena_sql.=" cra_abrev NOMBRE ";
         $cadena_sql.=" FROM geusuweb";
         $cadena_sql.=" LEFT OUTER JOIN accra ON usuweb_codigo_dep=cra_cod";
