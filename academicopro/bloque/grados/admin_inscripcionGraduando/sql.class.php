@@ -100,7 +100,7 @@ class sql_admin_inscripcionGraduando extends sql {	//@ Método que crea las sent
                 $cadena_sql.=" coalesce(egr_caracter_nota,null) MENCION ";
                 $cadena_sql.=" FROM acegresado";                
                 $cadena_sql.=" WHERE egr_est_cod = '".$variable['codEstudiante']."' ";
-                $cadena_sql.=" AND egr_cra_cod = '".$variable['proyecto']."' ";                
+                $cadena_sql.=" AND egr_cra_cod = '".$variable['proyecto']."' ";      
                 break;      
             
             case 'consultarDatosGraduando':

@@ -766,8 +766,7 @@ class funcion_admin_inscripcionGraduando extends funcionGeneral {
                                         <td class='cuadro_plano' style="border:0px"><? echo (isset($this->datosEgresado['DIPLOMA'])?$this->datosEgresado['DIPLOMA']:''); ?></td>
                                     </tr>
                                     <tr>
-                                        <td class='cuadro_plano' style="border:0px" width="20%">&nbsp;Titulo obtenido:
-                                        </td>
+                                        <td class='cuadro_plano' style="border:0px" width="20%">&nbsp;Titulo obtenido: </td>
                                         <td class='cuadro_plano' style="border:0px" colspan="6"><?echo (isset($this->datosEgresado['TITULO'])?$this->datosEgresado['TITULO']:'');?></td>
                                     </tr>
                                     <tr>
@@ -891,9 +890,7 @@ class funcion_admin_inscripcionGraduando extends funcionGeneral {
                                             $fecha_grado=ereg_replace("[/]", "", $this->datosEgresado['FECHA_GRADO']);
                                             $html_rector="<select id='rector' tabindex='".$tab++."' size='1' name='rector'>";
                                             $html_rector.="<option value=''>Seleccione uno</option>  ";
-
-                                            if (isset($this->rectores))
-                                            {
+									
                                             foreach ($this->rectores as $key => $rector) {
                                                     $html_rector.="<option value='".$rector[0]."' ";
                                                     if((isset($this->datosEgresado['RECTOR'])?$this->datosEgresado['RECTOR']:'')==$rector[0] && $fecha_grado>=$rector['RECTOR_DESDE'] && $fecha_grado<=$rector['RECTOR_HASTA']){
@@ -901,8 +898,8 @@ class funcion_admin_inscripcionGraduando extends funcionGeneral {
                                                     }
                                                      $html_rector.=" >".$rector[1]."</option>  ";          
                                             }
-                                            }
-                                            $html_rector.="</select>";
+                                            
+                                            $html_rector.="</select>";                                            
                                             echo $html_rector;
                                             ?>
 

@@ -337,10 +337,12 @@ class funcion_registro_registrarDatosGraduando extends funcionGeneral {
                                 $indiceEgresado++;
                             }
                             
-                            if(isset($this->datos['tituloObtenido'])!=(isset($this->datosEgresado['EGR_TITULO'])?$this->datosEgresado['EGR_TITULO']:'') && is_numeric($this->datos['tituloObtenido'])){
-                                $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_TITULO';
-                                $this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['tituloObtenido']."'";
-                                $indiceEgresado++;
+                         if(!isset($this->datos['tituloObtenido']) || !isset($this->datos['rector']) || !isset($this->datos['secretarioAcademico'])){
+                               
+                            if($this->datos['tituloObtenido']!=(isset($this->datosEgresado['EGR_TITULO'])?$this->datosEgresado['EGR_TITULO']:'') && is_numeric($this->datos['tituloObtenido'])){
+                            	$this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_TITULO';
+                            	$this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['tituloObtenido']."'";
+                            	$indiceEgresado++;
                             }
                             
                             if(isset($this->datos['rector'])!=(isset($this->datosEgresado['EGR_RECTOR'])?$this->datosEgresado['EGR_RECTOR']:'') && is_numeric($this->datos['rector']) ){
@@ -354,7 +356,7 @@ class funcion_registro_registrarDatosGraduando extends funcionGeneral {
                                 $this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['secretarioAcademico']."'";
                                 $indiceEgresado++;
                             }
-                          
+                           }
         }
                         
     }
@@ -489,12 +491,15 @@ class funcion_registro_registrarDatosGraduando extends funcionGeneral {
     	foreach ($this->datos as $key => $value) {
     		if($value=='')
     		{
-    			$this->datos[$key]='null';	    				    	
+    			$this->datos[$key]=null;	    				    	
     		} 		
     	} 	
     	
     	if(!isset($this->datos['mencion'])){
     		$this->datos['mencion'] = 'null';    		    		
+    	}
+    	if(!isset($this->datos['nota'])){
+    		$this->datos['nota'] = 'null';
     	}
     	if(!isset($this->datos['tituloObtenido'])){
     		$this->datos['tituloObtenido'] = 'null';    		    		
@@ -601,21 +606,23 @@ class funcion_registro_registrarDatosGraduando extends funcionGeneral {
                             $band=1;
                             $mensaje="El valor del tipo de identificación no es válido. Seleccione uno de la lista";
                         }
+                        
+                        if (!isset($this->datos['tituloObtenido']) || !isset($this->datos['rector']) || !isset($this->datos['secretarioAcademico'])){
 
-                        if(isset($this->datos['tituloObtenido']) && !is_numeric($this->datos['tituloObtenido']) ){
+                        	if(isset($this->datos['tituloObtenido']) && !is_numeric($this->datos['tituloObtenido']) ){
                             $band=1;
                             $mensaje="El valor del título no es válido. Seleccione uno de la lista";
-                        }
+                       		} 
                         
-                        if(isset($this->datos['rector']) && !is_numeric($this->datos['rector']) ){
+                       		if(isset($this->datos['rector']) && !is_numeric($this->datos['rector']) ){
                             $band=1;
                             $mensaje="El valor del Rector no es válido. Seleccione uno de la lista";
-                        }
+                        	}
                         
-                        if(isset($this->datos['secretarioAcademico']) && !is_numeric($this->datos['secretarioAcademico']) ){
+                       		if(isset($this->datos['secretarioAcademico']) && !is_numeric($this->datos['secretarioAcademico']) ){
                             $band=1;
                             $mensaje="El valor del Secretario académico no es válido. Seleccione uno de la lista";
-
+                        	}
                         }
                         if($band==0){
                             $mensaje='ok';

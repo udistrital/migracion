@@ -107,13 +107,14 @@ class sql_registroActualizarIntensidadHorariaEgresado extends sql {
                 $cadena_sql=" UPDATE acegresado ";
                 $cadena_sql.=" SET ".$variable['listaCambios'];
                 $cadena_sql.=" WHERE egr_est_cod ='".$variable['codEstudiante']."'";             
+                echo "actualiza egresado";
                 break;
 
          case "actualizar_estudiante":
                 $cadena_sql=" UPDATE acest ";
                 $cadena_sql.=" SET ".$variable['listaCambios'];
                 $cadena_sql.=" WHERE est_cod ='".$variable['codEstudiante']."'";
-
+				echo "actualiza estudiante";
                 break;		
 
     
@@ -121,7 +122,6 @@ class sql_registroActualizarIntensidadHorariaEgresado extends sql {
                 $cadena_sql=" UPDATE acestotr ";
                 $cadena_sql.=" SET ".$variable['listaCambios'];
                 $cadena_sql.=" WHERE eot_cod ='".$variable['codEstudiante']."'";
-
                 break;		
 
     
