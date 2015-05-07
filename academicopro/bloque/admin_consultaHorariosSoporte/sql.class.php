@@ -47,21 +47,21 @@ class sql_adminConsultaHorario extends sql
 				$this->cadena_sql="SELECT DISTINCT ";
 				$this->cadena_sql.="cra_dep_cod FACULTAD, ";
 				$this->cadena_sql.="cra_cod CODIGO, ";
-				$this->cadena_sql.="cra_abrev NOMBRE ";
+				$this->cadena_sql.="cra_abrev NOMBRE, ";
+				$this->cadena_sql.="cra_tip_cra TIP_CRA ";
 				$this->cadena_sql.="FROM ";
-				$this->cadena_sql.="ACASPERI,ACCRA,ACCALEVENTOS ";
+				$this->cadena_sql.="ACASPERI,ACCRA,ACCALEVENTOS A ";
 				$this->cadena_sql.="WHERE ";
 				$this->cadena_sql.="CRA_COD=ACE_CRA_COD ";
-				$this->cadena_sql.="AND ";
-				$this->cadena_sql.="CRA_ESTADO='A' ";
-				$this->cadena_sql.="AND ";
-				$this->cadena_sql.="ACE_ANIO=APE_ANO ";
-				$this->cadena_sql.="AND ";
-				$this->cadena_sql.="ACE_PERIODO=APE_PER ";
-				$this->cadena_sql.="AND ";
-				$this->cadena_sql.="APE_ESTADO='A' ";
+				$this->cadena_sql.="AND CRA_ESTADO='A' ";
+				$this->cadena_sql.="AND ACE_ANIO=APE_ANO ";
+				$this->cadena_sql.="AND ACE_PERIODO=APE_PER ";
+				$this->cadena_sql.="AND APE_ESTADO='A' ";
+				$this->cadena_sql.="AND CRA_COD NOT IN ";
+				$this->cadena_sql.="(SELECT ACE_CRA_COD FROM ACCALEVENTOS B WHERE A.ACE_ANIO=B.ACE_ANIO AND A.ACE_PERIODO=B.ACE_PERIODO AND ACE_COD_EVENTO=14) ";
 				$this->cadena_sql.="AND ";
 				$this->cadena_sql.="CRA_COD NOT IN (0,999) ";
+				$this->cadena_sql.="ORDER BY CRA_DEP_COD,CRA_TIP_CRA,CRA_COD";
 				break;
 				
 			case "proyecto_curricular":
@@ -170,20 +170,21 @@ class sql_adminConsultaHorario extends sql
 			        $this->cadena_sql.="cur_ape_per PERIODO, ";
 				$this->cadena_sql.="cur_asi_cod COD_ESPACIO, ";
                                 $this->cadena_sql.="asi_nombre NOM_ESPACIO, ";
-				$this->cadena_sql.="cur_nro GRUPO, ";
-				$this->cadena_sql.="cur_cra_cod COD_PROYECTO ";
-                                $this->cadena_sql.="FROM accurso ";
+				$this->cadena_sql.="cur_grupo GRUPO, ";
+				$this->cadena_sql.="cur_cra_cod COD_PROYECTO, ";
+				$this->cadena_sql.="cur_id ID_GRUPO ";
+                                $this->cadena_sql.="FROM accursos ";
                                 $this->cadena_sql.="INNER JOIN acasi ON asi_cod = cur_asi_cod "; 
                                 $this->cadena_sql.="WHERE cur_cra_cod='".$variable['proyecto']."' ";
                                 $this->cadena_sql.="AND cur_ape_ano='".$variable['anio']."' ";
                                 $this->cadena_sql.="AND cur_ape_per='".$variable['periodo']."' ";
                                 if($variable['asignatura'])
                                     {$this->cadena_sql.="AND cur_asi_cod='".$variable['asignatura']."' ";}
-                                $this->cadena_sql.="ORDER BY cur_asi_cod, cur_nro ";
+                                $this->cadena_sql.="ORDER BY cur_asi_cod, cur_grupo ";
 				break;	    
                             
                        case "resumenHorarioCurso":
-                                $this->cadena_sql="SELECT DISTINCT ";
+                                /*$this->cadena_sql="SELECT DISTINCT ";
 			        $this->cadena_sql.="hor.hor_dia_nro DIA, ";
 				$this->cadena_sql.="hor.hor_hora HORA_C, ";
                                 $this->cadena_sql.="h.hor_larga HORA_L, ";
@@ -212,9 +213,35 @@ class sql_adminConsultaHorario extends sql
                                 $this->cadena_sql.="AND cur.cur_ape_per='".$variable['periodo']."' ";
                                 $this->cadena_sql.="AND cur.cur_nro='".$variable['grupo']."' ";
                                 $this->cadena_sql.="AND hor.hor_dia_nro='".$variable['dia']."' ";
-                                $this->cadena_sql.="ORDER BY hor.hor_dia_nro, hor.hor_hora ";
+                                $this->cadena_sql.="ORDER BY hor.hor_dia_nro, hor.hor_hora ";*/
+                                $this->cadena_sql="SELECT DISTINCT";
+                                $this->cadena_sql.=" horario.hor_dia_nro DIA,";
+                                $this->cadena_sql.=" horario.hor_hora HORA_C,";
+                                $this->cadena_sql.=" h.hor_larga HORA_L, ";
+                                $this->cadena_sql.=" h.hor_rango HORA_R, ";
+                                $this->cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO, ";
+                                $this->cadena_sql.=" sede.sed_id COD_SEDE,";
+                                $this->cadena_sql.=" sede.sed_id NOM_SEDE, ";
+                                $this->cadena_sql.=" horario.hor_sal_id_espacio COD_SALON_NVO,";
+                                $this->cadena_sql.=" salon.sal_cod COD_SALON_OLD, ";
+                                $this->cadena_sql.=" salon.sal_nombre NOM_SALON,";
+                                $this->cadena_sql.=" salon.sal_edificio ID_EDIFICIO,";
+                                $this->cadena_sql.=" edi.edi_nombre NOM_EDIFICIO";
+                                $this->cadena_sql.=" FROM accursos curso ";
+                                $this->cadena_sql.=" LEFT OUTER JOIN achorarios horario ON horario.hor_id_curso=curso.cur_id ";
+                                $this->cadena_sql.=" LEFT OUTER JOIN gesalones salon ON horario.hor_sal_id_espacio = salon.sal_id_espacio";
+                                $this->cadena_sql.=" LEFT OUTER JOIN gesede sede ON salon.sal_sed_id=sede.sed_id ";
+                                $this->cadena_sql.=" LEFT OUTER JOIN geedificio edi ON salon.sal_edificio=edi.edi_cod";
+                                $this->cadena_sql.=" LEFT OUTER JOIN gehora h ON h.hor_cod=horario.hor_hora AND h.hor_estado='A' ";
+				$this->cadena_sql.="WHERE curso.cur_cra_cod='".$variable['proyecto']."' ";
+                                $this->cadena_sql.="AND curso.cur_ape_ano='".$variable['anio']."' ";
+                                $this->cadena_sql.="AND curso.cur_asi_cod='".$variable['asignatura']."' ";
+                                $this->cadena_sql.="AND curso.cur_ape_per='".$variable['periodo']."' ";
+                                $this->cadena_sql.="AND curso.cur_id='".$variable['id_grupo']."' ";
+                                //$this->cadena_sql.="AND horario.hor_dia_nro='".$variable['dia']."' ";
+                                $this->cadena_sql.="ORDER BY horario.hor_dia_nro, horario.hor_hora ";
               			break;	     
-                            
+
                             case "fechaactual":
 				$this->cadena_sql="SELECT ";
 				$this->cadena_sql.="TO_CHAR(current_timestamp, 'YYYYmmddhh24mmss') FECHA  ";

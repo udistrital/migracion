@@ -255,7 +255,7 @@ function consultaGrupos($configuracion,$rsGrupos,$variable)
                             </tr>
                     </table>
                     <table class="contenidotabla  centrar" width="100%">
-                         <th class="sigma centrar" colspan="10">RES&Uacute;MEN HORARIOS </th>
+                         <th class="sigma centrar" colspan="11">RES&Uacute;MEN HORARIOS </th>
                             <tr>
                                     <td class="cuadro_plano centrar"width="6%">Periodo</td>
                                     <td class="cuadro_plano centrar" width="4%">Proyecto</td>
@@ -267,236 +267,67 @@ function consultaGrupos($configuracion,$rsGrupos,$variable)
                                     <td class="cuadro_plano centrar" width="10%">Jueves</td>
                                     <td class="cuadro_plano centrar" width="10%">Viernes</td>
                                     <td class="cuadro_plano centrar" width="10%">S&aacute;bado</td>
+                                    <td class="cuadro_plano centrar" width="10%">Domingo</td>
                              </tr>
                             <?
                      foreach ($resultado as $cont => $value) 
-                            { ?>
-                                    <tr class="cuadro_color">
-                                            <td class="cuadro_plano centrar"><? echo $resultado[$cont]['ANIO']."-".$resultado[$cont]['PERIODO'];?></td>
-                                            <td class="cuadro_plano centrar"><? echo $resultado[$cont]['COD_PROYECTO'];?></td>
-                                            <td class="cuadro_plano ">
-                                                <? if($variable['opcion']=='exportarHorario')
-                                                        {  echo $resultado[$cont]['COD_ESPACIO']." - ".UTF8_DECODE($resultado[$cont]['NOM_ESPACIO']);}
-                                                 else   { echo $resultado[$cont]['COD_ESPACIO']." - ".$resultado[$cont]['NOM_ESPACIO'];}      
-                                                  ?>
-                                            </td>
-                                            <td class="cuadro_plano centrar"><? echo $resultado[$cont]['GRUPO'];?></td>
-                                            <td class="cuadro_plano centrar">
-                                                <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
-                                                      'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
-                                                       'anio'=>$resultado[$cont]['ANIO'], 
-                                                       'periodo'=>$resultado[$cont]['PERIODO'], 
-                                                       'grupo'=>$resultado[$cont]['GRUPO'], 
-                                                       'dia'=>'1');
-                                                        $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"resumenHorarioCurso",$varHorario);
-                                                        $resultadoHor=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-                                                    
-                                                    if($resultadoHor)
-                                                            {    ?>
-                                                            <table class="contenidotabla  centrar" width="100%">
-                                                            <? foreach ($resultadoHor as $contHor => $value) {?>
-                                                                <tr>
-                                                                        <td class="sigma centrar">
-                                                                                <?
-                                                                                echo $resultadoHor[$contHor]['HORA_L']." - ";
-                                                                                echo $resultadoHor[$contHor]['NOM_SEDE']." - ";
-                                                                                if($variable['opcion']=='exportarHorario')
-                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";}
-                                                                                else   { echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";}      
-                                                                                echo "(".$resultadoHor[$contHor]['COD_SALON_NVO'].") - ";
-                                                                                if($variable['opcion']=='exportarHorario')
-                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
-                                                                                else   { echo $resultadoHor[$contHor]['NOM_SALON'];} 
-                                                                                if($variable['opcion']!='exportarHorario')
-                                                                                        {echo "<hr> ";}
-                                                                                ?>
-                                                                        </td>
-                                                                </tr>        
-                                                                <?}?>
-                                                            </table>   
-                                                           <?}?>
-                                            </td>
-                                            <td class="cuadro_plano centrar">
-                                                <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
-                                                      'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
-                                                       'anio'=>$resultado[$cont]['ANIO'], 
-                                                       'periodo'=>$resultado[$cont]['PERIODO'], 
-                                                       'grupo'=>$resultado[$cont]['GRUPO'], 
-                                                       'dia'=>'2');
-                                                        $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"resumenHorarioCurso",$varHorario);
-                                                        $resultadoHor=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-                                                    
-                                                    if($resultadoHor)
-                                                            {    ?>
-                                                            <table class="centrar">
-                                                            <? foreach ($resultadoHor as $contHor => $value) {?>
-                                                                <tr>
-                                                                        <td class="sigma centrar">
-                                                                               <?
-                                                                                echo $resultadoHor[$contHor]['HORA_L']." - ";
-                                                                                echo $resultadoHor[$contHor]['NOM_SEDE']." - ";
-                                                                                if($variable['opcion']=='exportarHorario')
-                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";}
-                                                                                else   { echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";}      
-                                                                                echo "(".$resultadoHor[$contHor]['COD_SALON_NVO'].") - ";
-                                                                                if($variable['opcion']=='exportarHorario')
-                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
-                                                                                else   { echo $resultadoHor[$contHor]['NOM_SALON'];} 
-                                                                                if($variable['opcion']!='exportarHorario')
-                                                                                        {echo "<hr> ";}
-                                                                                ?>
-                                                                        </td>
-                                                                </tr>        
-                                                                <?}?>
-                                                            </table>   
-                                                           <?}?>
-                                            </td>
-                                            <td class="cuadro_plano centrar">
-                                                <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
-                                                      'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
-                                                       'anio'=>$resultado[$cont]['ANIO'], 
-                                                       'periodo'=>$resultado[$cont]['PERIODO'], 
-                                                       'grupo'=>$resultado[$cont]['GRUPO'], 
-                                                       'dia'=>'3');
-                                                        $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"resumenHorarioCurso",$varHorario);
-                                                        $resultadoHor=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-                                                    
-                                                    if($resultadoHor)
-                                                            {    ?>
-                                                            <table class="centrar">
-                                                            <? foreach ($resultadoHor as $contHor => $value) {?>
-                                                                <tr>
-                                                                        <td class="sigma centrar">
-                                                                                <?
-                                                                                echo $resultadoHor[$contHor]['HORA_L']." - ";
-                                                                                echo $resultadoHor[$contHor]['NOM_SEDE']." - ";
-                                                                                if($variable['opcion']=='exportarHorario')
-                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";}
-                                                                                else   { echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";}      
-                                                                                echo "(".$resultadoHor[$contHor]['COD_SALON_NVO'].") - ";
-                                                                                if($variable['opcion']=='exportarHorario')
-                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
-                                                                                else   { echo $resultadoHor[$contHor]['NOM_SALON'];}  
-                                                                               if($variable['opcion']!='exportarHorario')
-                                                                                        {echo "<hr> ";}
-                                                                                ?>
-                                                                        </td>
-                                                                </tr>        
-                                                                <?}?>
-                                                            </table>   
-                                                           <?}?>
-                                            </td>
-                                            <td class="cuadro_plano centrar">
-                                                <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
-                                                      'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
-                                                       'anio'=>$resultado[$cont]['ANIO'], 
-                                                       'periodo'=>$resultado[$cont]['PERIODO'], 
-                                                       'grupo'=>$resultado[$cont]['GRUPO'], 
-                                                       'dia'=>'4');
-                                                        $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"resumenHorarioCurso",$varHorario);
-                                                        $resultadoHor=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-                                                    
-                                                    if($resultadoHor)
-                                                            {    ?>
-                                                            <table class="centrar">
-                                                            <? foreach ($resultadoHor as $contHor => $value) {?>
-                                                                <tr>
-                                                                        <td class="sigma centrar">
-                                                                                <?
-                                                                                echo $resultadoHor[$contHor]['HORA_L']." - ";
-                                                                                echo $resultadoHor[$contHor]['NOM_SEDE']." - ";
-                                                                                if($variable['opcion']=='exportarHorario')
-                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";}
-                                                                                else   { echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";}      
-                                                                                echo "(".$resultadoHor[$contHor]['COD_SALON_NVO'].") - ";
-                                                                                if($variable['opcion']=='exportarHorario')
-                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
-                                                                                else   { echo $resultadoHor[$contHor]['NOM_SALON'];}  
-                                                                                if($variable['opcion']!='exportarHorario')
-                                                                                        {echo "<hr> ";}
-                                                                                ?>
-                                                                        </td>
-                                                                </tr>        
-                                                                <?}?>
-                                                            </table>   
-                                                           <?}?>
-                                            </td>
-                                            <td class="cuadro_plano centrar">
-                                                <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
-                                                      'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
-                                                       'anio'=>$resultado[$cont]['ANIO'], 
-                                                       'periodo'=>$resultado[$cont]['PERIODO'], 
-                                                       'grupo'=>$resultado[$cont]['GRUPO'], 
-                                                       'dia'=>'5');
-                                                        $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"resumenHorarioCurso",$varHorario);
-                                                        $resultadoHor=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-                                                    
-                                                    if($resultadoHor)
-                                                            {    ?>
-                                                            <table class="centrar">
-                                                            <? foreach ($resultadoHor as $contHor => $value) {?>
-                                                                <tr>
-                                                                        <td class="sigma centrar">
-                                                                                <?
-                                                                                echo $resultadoHor[$contHor]['HORA_L']." - ";
-                                                                                echo $resultadoHor[$contHor]['NOM_SEDE']." - ";
-                                                                                if($variable['opcion']=='exportarHorario')
-                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";}
-                                                                                else   { echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";}      
-                                                                                echo "(".$resultadoHor[$contHor]['COD_SALON_NVO'].") - ";
-                                                                                if($variable['opcion']=='exportarHorario')
-                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
-                                                                                else   { echo $resultadoHor[$contHor]['NOM_SALON'];}    
-                                                                                if($variable['opcion']!='exportarHorario')
-                                                                                        {echo "<hr> ";}
-                                                                                ?>
-                                                                        </td>
-                                                                </tr>        
-                                                                <?}?>
-                                                            </table>   
-                                                           <?}?>
-                                            </td>
-                                            <td class="cuadro_plano centrar">
-                                                <?   $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
-                                                      'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
-                                                       'anio'=>$resultado[$cont]['ANIO'], 
-                                                       'periodo'=>$resultado[$cont]['PERIODO'], 
-                                                       'grupo'=>$resultado[$cont]['GRUPO'], 
-                                                       'dia'=>'6');
-                                                        $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"resumenHorarioCurso",$varHorario);
-                                                        $resultadoHor=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-                                                    
-                                                    if($resultadoHor)
-                                                            {    ?>
-                                                            <table class="centrar">
-                                                            <? foreach ($resultadoHor as $contHor => $value) {?>
-                                                                <tr>
-                                                                        <td class="sigma centrar">
-                                                                                <?
-                                                                                echo $resultadoHor[$contHor]['HORA_L']." - ";
-                                                                                echo $resultadoHor[$contHor]['NOM_SEDE']." - ";
-                                                                                if($variable['opcion']=='exportarHorario')
-                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";}
-                                                                                else   { echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";}      
-                                                                                echo "(".$resultadoHor[$contHor]['COD_SALON_NVO'].") - ";
-                                                                                if($variable['opcion']=='exportarHorario')
-                                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
-                                                                                else   { echo $resultadoHor[$contHor]['NOM_SALON'];}      
-                                                                                if($variable['opcion']!='exportarHorario')
-                                                                                        {echo "<hr> ";}
-                                                                                ?>
-                                                                        </td>
-                                                                </tr>        
-                                                                <?}?>
-                                                            </table>   
-                                                           <?}?>
-                                            </td>
-                                    </tr>
+                            {
+                                $varHorario=array('proyecto'=>$resultado[$cont]['COD_PROYECTO'],
+                                'asignatura'=> $resultado[$cont]['COD_ESPACIO'], 
+                                'anio'=>$resultado[$cont]['ANIO'], 
+                                'periodo'=>$resultado[$cont]['PERIODO'], 
+                                'grupo'=>$resultado[$cont]['GRUPO'], 
+                                'id_grupo'=>$resultado[$cont]['ID_GRUPO']);
+                                 $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"resumenHorarioCurso",$varHorario);
+                                 $resultadoHor=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                            ?>
+                                <tr class="cuadro_color">
+                                    <td class="cuadro_plano centrar"><? echo $resultado[$cont]['ANIO']."-".$resultado[$cont]['PERIODO'];?></td>
+                                    <td class="cuadro_plano centrar"><? echo $resultado[$cont]['COD_PROYECTO'];?></td>
+                                    <td class="cuadro_plano ">
+                                    <? if(isset($variable['opcion'])&&$variable['opcion']=='exportarHorario')
+                                            {  echo $resultado[$cont]['COD_ESPACIO']." - ".UTF8_DECODE($resultado[$cont]['NOM_ESPACIO']);}
+                                            else   { echo $resultado[$cont]['COD_ESPACIO']." - ".$resultado[$cont]['NOM_ESPACIO'];}      
+                                    ?>
+                                    </td>
+                                    <td class="cuadro_plano centrar"><? echo $resultado[$cont]['GRUPO'];?></td>
+                                    <?for($dia=1;$dia<8;$dia++){?>
+                                    <td class="cuadro_plano centrar">
+                                    <?   if($resultadoHor)
+                                            {    ?>
+                                            <table class="contenidotabla  centrar" width="100%">
+                                                <tr>
+                                                    <td class="sigma centrar">
+                                                    <? foreach ($resultadoHor as $contHor => $value) 
+                                                        {
+                                                            if($value['DIA']==$dia){
+                                                                echo $resultadoHor[$contHor]['HORA_L']." - ";
+                                                                echo $resultadoHor[$contHor]['NOM_SEDE']." - ";
+                                                                if(isset($variable['opcion'])&&$variable['opcion']=='exportarHorario')
+                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_EDIFICIO'])." - ";}
+                                                                else   { echo $resultadoHor[$contHor]['NOM_EDIFICIO']." - ";}      
+                                                                echo "(".$resultadoHor[$contHor]['COD_SALON_NVO'].") - ";
+                                                                if(isset($variable['opcion'])&&$variable['opcion']=='exportarHorario')
+                                                                       { echo UTF8_DECODE($resultadoHor[$contHor]['NOM_SALON']);}
+                                                                else   { echo $resultadoHor[$contHor]['NOM_SALON'];} 
+                                                                if(isset($variable['opcion'])&&$variable['opcion']!='exportarHorario')
+                                                                        {echo "<hr> ";}
+                                                                echo "<br><br>";
+                                                                }else{}
+                                                            ?>
+                                                            <?}?>
+                                                    </td>
+                                                </tr>        
+                                            </table>   
+                                            <?}?>
+                                    </td>
+                                <?}?>
+                                </tr>
                         <?  }  ?>
                     </table>
                     <?
             }
-    } 
+    }
 }
 
 ?>
