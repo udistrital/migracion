@@ -349,7 +349,7 @@ class funcion_registroActualizarIntensidadHorariaEgresado extends funcionGeneral
                                 $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_REG_DIPLOMA';
                                 $this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['registroDiploma']."'";
                                 $indiceEgresado++;
-                            }
+                            }                         
                             
                             if($this->datos['tituloObtenido']!=(isset($this->datosEgresado['EGR_TITULO'])?$this->datosEgresado['EGR_TITULO']:'') && is_numeric($this->datos['tituloObtenido'])){
                                 $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_TITULO';
@@ -367,9 +367,8 @@ class funcion_registroActualizarIntensidadHorariaEgresado extends funcionGeneral
                                 $this->cambiosTEgresado[$indiceEgresado]['campo']='EGR_SECRETARIO';
                                 $this->cambiosTEgresado[$indiceEgresado]['valor']="'".$this->datos['secretarioAcademico']."'";
                                 $indiceEgresado++;
-                            }
-                            
-                          
+                            }                                    
+                                                    
                     break;
 
                 default:
@@ -546,7 +545,9 @@ class funcion_registroActualizarIntensidadHorariaEgresado extends funcionGeneral
                     'codEstudiante'=>  $this->datosEgresado['EGR_EST_COD']
             );
         $cadena_sql = $this->sql->cadena_sql("actualizar_egresado", $datos);
-        $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "");
+        echo "debe parar aca";
+        echo $cadena_sql;exit;
+        $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "");        
         return $this->totalAfectados($this->configuracion, $this->accesoOracle);
     }
     

@@ -195,7 +195,7 @@ class sql_registro_registrarDatosGraduando extends sql {
                 $cadena_sql.=" '".$variable['telefonoCelular']."',";
                 $cadena_sql.=" 'A',";
                 $cadena_sql.=" ".$variable['mencion'].",";
-                $cadena_sql.=" '')";                  
+                $cadena_sql.=" '')";  
                 break;
         }
         return $cadena_sql;
