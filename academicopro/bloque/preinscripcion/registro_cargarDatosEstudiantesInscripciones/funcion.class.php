@@ -870,23 +870,26 @@ class funcion_registroCargarDatosEstudiantesInscripciones extends funcionGeneral
     function evaluarRequisitosHoras ($proyecto, $espaciosAprobados, $espaciosPorCursar,$plan){
         foreach($espaciosPorCursar as $espacio)
         {
-            foreach ($this->requisitosHoras as $requisito)
+            if(isset($this->requisitosHoras)&&is_array($this->requisitosHoras))
             {
-                $numeroRequisitos=0;
-                $numeroAprobados=0;
-                if ($requisito['CARRERA']==$proyecto&&$espacio['CODIGO']==$requisito['COD_ASIGNATURA']&&$plan==$requisito['COD_PLAN'])
+                foreach ($this->requisitosHoras as $requisito)
                 {
-                    $numeroRequisitos++;
-                    foreach ($espaciosAprobados as $aprobado)
+                    $numeroRequisitos=0;
+                    $numeroAprobados=0;
+                    if ($requisito['CARRERA']==$proyecto&&$espacio['CODIGO']==$requisito['COD_ASIGNATURA']&&$plan==$requisito['COD_PLAN'])
                     {
-                        if ($aprobado['CODIGO']==$requisito['COD_REQUISITO'])
+                        $numeroRequisitos++;
+                        foreach ($espaciosAprobados as $aprobado)
                         {
-                            $numeroAprobados++;
+                            if ($aprobado['CODIGO']==$requisito['COD_REQUISITO'])
+                            {
+                                $numeroAprobados++;
+                            }
+                        }    
+                        if ($numeroAprobados!=$numeroRequisitos)
+                        {
+                            $noCumple[]=array('CODIGO'=>$espacio['CODIGO'], 'REQUISITO'=>$requisito['COD_REQUISITO']);
                         }
-                    }    
-                    if ($numeroAprobados!=$numeroRequisitos)
-                    {
-                        $noCumple[]=array('CODIGO'=>$espacio['CODIGO'], 'REQUISITO'=>$requisito['COD_REQUISITO']);
                     }
                 }
             }
