@@ -33,7 +33,10 @@ fu_cabezote("ACTUALIZACI&Oacute;N DE DATOS");
 
 $cedula = $_SESSION['usuario_login'];
 //Actualiza datos
-if($_REQUEST['actualizar'])
+
+
+
+if(isset($_REQUEST['actualizar']))
 {
 	if(empty($_REQUEST['mail']))
 	{

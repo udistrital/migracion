@@ -16,7 +16,7 @@ fu_tipo_user(61);
 		 $tipo=61;
 		 $tokenCondor = $miCodificador->codificar($tokenCondor);
 		 $opcion="temasys=";
-		 $variable.="gestionPassword&pagina=validarActualizacion";
+		 $variable="gestionPassword&pagina=validarActualizacion";
 		 $variable.="&usuario=".$usuario;
 		 $variable.="&tipo=".$tipo;
 		 $variable.="&token=".$tokenCondor;
