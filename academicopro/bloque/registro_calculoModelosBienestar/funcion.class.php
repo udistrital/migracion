@@ -212,20 +212,26 @@ class funcion_registroCalculoModelosBienestar extends funcionGeneral
     </body>
         <?
             $a=1;
-            foreach ($estudiantes as $key => $estudiante) {
-                $this->estudiante=$estudiante['COD_ESTUDIANTE'];
-                $this->consultarDatos();
-                $porcentaje = $a * 100 / $total; //saco mi valor en porcentaje
-                echo "<script>callprogress(".round($porcentaje).",".$a.",".$total.")</script>"; //llamo a la función JS(JavaScript) para actualizar el progreso
-                flush(); //con esta funcion hago que se muestre el resultado de inmediato y no espere a terminar todo el bucle
-                ob_flush();
-                $a++;
-                if(!isset($this->mensaje[$this->datosEstudiante['CODIGO']]))
-                {
-                    $this->mensaje[$this->datosEstudiante['CODIGO']][]="Registro exitoso";
-                    $this->estudiantesExitosos++;
+            if(is_array($estudiantes)&&!empty($estudiantes))
+            {
+                foreach ($estudiantes as $key => $estudiante) {
+                    $this->estudiante=$estudiante['COD_ESTUDIANTE'];
+                    $this->consultarDatos();
+                    $porcentaje = $a * 100 / $total; //saco mi valor en porcentaje
+                    echo "<script>callprogress(".round($porcentaje).",".$a.",".$total.")</script>"; //llamo a la función JS(JavaScript) para actualizar el progreso
+                    flush(); //con esta funcion hago que se muestre el resultado de inmediato y no espere a terminar todo el bucle
+                    ob_flush();
+                    $a++;
+                    if(!isset($this->mensaje[$this->datosEstudiante['CODIGO']]))
+                    {
+                        $this->mensaje[$this->datosEstudiante['CODIGO']][]="Registro exitoso";
+                        $this->estudiantesExitosos++;
+                    }
                 }
-            }
+            }else
+                {
+                    echo "<script>callprogress(100,0,0)</script>"; //llamo a la función JS(JavaScript) para actualizar el progreso
+                }
             
             $this->mostrarReporteResultadoProceso($total);
             

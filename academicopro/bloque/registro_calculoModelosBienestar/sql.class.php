@@ -86,7 +86,7 @@ class sql_registroCalculoModelosBienestar extends sql {	//@ Método que crea las
                 break;            
             
             case 'consultar_espacios_plan_estudio_estudiante':
-                $cadena_sql=" select pen_asi_cod CODIGO, pen_sem SEMESTRE, pen_ind_ele ELECTIVA, pen_crE CREDITOS from acpen";
+                $cadena_sql=" select pen_asi_cod CODIGO, pen_sem SEMESTRE, pen_ind_ele ELECTIVA, pen_cre CREDITOS from acpen";
                 $cadena_sql.=" where pen_nro=".$variable['plan'];
                 $cadena_sql.=" and pen_cra_cod=".$variable['proyecto'];
                 $cadena_sql.=" and pen_estado='A'";
