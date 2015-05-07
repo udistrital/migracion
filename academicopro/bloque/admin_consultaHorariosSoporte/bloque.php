@@ -11,16 +11,19 @@
 * @author        Jairo Lavado
 * @revision      Última revisión 23 de Noviembre de 2012
 /*--------------------------------------------------------------------------------------------------------------------------
-* @subpackage		admin_solicitud
+* @revisiones 
+* @author        Milton Parra
+* @revision      Última revisión 07 de Mato de 2015
+/*--------------------------------------------------------------------------------------------------------------------------
+* @subpackage		admin_ConsultaHorario
 * @package		bloques
 * @copyright    	Universidad Distrital Francisco Jose de Caldas
 * @version      	0.0.0.3
 * @author		Paulo Cesar Coronado
 * @author			Oficina Asesora de Sistemas
 * @link			N/D
-* @description  	Bloque para gestionar las solicitudes de recibos de pago
-*				realizadas por las diferentes coordinaciones. Implementa el
-*				caso de uso: CONSULTAR horarios
+* @description  	Bloque para presentar horarios de proyecto Curriculares que han realizado Preinscripción automáticas.
+*                       Implementa el caso de uso: CONSULTAR horarios
 *
 /*--------------------------------------------------------------------------------------------------------------------------*/
 if(!isset($GLOBALS["autorizado"]))
@@ -132,7 +135,6 @@ class bloqueAdminConsultaHorario extends bloque
                                      $variable.='&espacio='.$_REQUEST['espacio'];
                                      $variable.='&periodo='.$_REQUEST['periodo'];
                                      $variable.='&tipoBusca='.$_REQUEST['tipoBusca'];
-                                     //echo $variable;exit;
                                      $variable=$this->cripto->codificar_url($variable,$configuracion);
                                      echo "<script>location.replace('".$pagina.$variable."')</script>";
 			  break;
@@ -153,7 +155,6 @@ class bloqueAdminConsultaHorario extends bloque
 }
 // @ Crear un objeto bloque especifico
 $esteBloque=new bloqueAdminConsultaHorario($configuracion);
-//echo $_REQUEST['action'];
 if(isset($_REQUEST['cancelar']))
     {   unset($_REQUEST['action']);		
             $pagina=$configuracion['host'].$configuracion['site'].'/index.php?';

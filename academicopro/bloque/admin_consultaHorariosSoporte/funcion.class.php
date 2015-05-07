@@ -116,7 +116,6 @@ function consultarCarrera($configuracion,$variable)
                     $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "consultaGrupos", $variable);
                     break;
                 }
-            //echo $cadena_sql;// exit;    
             $rsGrupos=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
             $this->consultaGrupos($configuracion,$rsGrupos,$variable);
 	}        

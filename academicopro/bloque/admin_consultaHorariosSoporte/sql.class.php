@@ -184,36 +184,6 @@ class sql_adminConsultaHorario extends sql
 				break;	    
                             
                        case "resumenHorarioCurso":
-                                /*$this->cadena_sql="SELECT DISTINCT ";
-			        $this->cadena_sql.="hor.hor_dia_nro DIA, ";
-				$this->cadena_sql.="hor.hor_hora HORA_C, ";
-                                $this->cadena_sql.="h.hor_larga HORA_L, ";
-                                $this->cadena_sql.="h.hor_rango HORA_R, ";
-				$this->cadena_sql.="cur.cur_nro GRUPO, ";
-				$this->cadena_sql.="hor.hor_sed_cod COD_SEDE, ";
-                                $this->cadena_sql.="sede.sed_id NOM_SEDE, ";
-				$this->cadena_sql.="hor.hor_sal_id_espacio COD_SALON_NVO, ";
-                                $this->cadena_sql.="salon.sal_cod COD_SALON_OLD, ";
-                                $this->cadena_sql.="salon.sal_nombre NOM_SALON, ";
-				$this->cadena_sql.="cur.cur_cra_cod COD_PROYECTO, ";
-                                $this->cadena_sql.="salon.sal_edificio ID_EDIFICIO, ";
-                                $this->cadena_sql.="edif.edi_nombre NOM_EDIFICIO ";
-                                $this->cadena_sql.="FROM accurso cur ";
-                                $this->cadena_sql.="LEFT OUTER JOIN achorario_2012 hor ON hor.hor_asi_cod=cur.cur_asi_cod ";
-                                $this->cadena_sql.="AND hor.hor_nro=cur.cur_nro ";
-                                $this->cadena_sql.="AND hor.hor_ape_ano=cur.cur_ape_ano ";
-                                $this->cadena_sql.="AND hor.hor_ape_per=cur.cur_ape_per ";
-                                $this->cadena_sql.="LEFT OUTER JOIN gesalon_2012 salon ON hor.hor_sal_id_espacio = salon.sal_id_espacio AND salon.sal_estado='A' ";
-                                $this->cadena_sql.="LEFT OUTER JOIN gehora h ON h.hor_cod=hor.hor_hora AND h.hor_estado='A' ";
-                                $this->cadena_sql.="LEFT OUTER JOIN gesede sede ON hor.hor_sed_cod=sede.sed_cod ";
-                                $this->cadena_sql.="LEFT OUTER JOIN geedificio edif ON salon.sal_edificio=edif.edi_cod ";
-				$this->cadena_sql.="WHERE cur.cur_cra_cod='".$variable['proyecto']."' ";
-                                $this->cadena_sql.="AND cur.cur_ape_ano='".$variable['anio']."' ";
-                                $this->cadena_sql.="AND cur.cur_asi_cod='".$variable['asignatura']."' ";
-                                $this->cadena_sql.="AND cur.cur_ape_per='".$variable['periodo']."' ";
-                                $this->cadena_sql.="AND cur.cur_nro='".$variable['grupo']."' ";
-                                $this->cadena_sql.="AND hor.hor_dia_nro='".$variable['dia']."' ";
-                                $this->cadena_sql.="ORDER BY hor.hor_dia_nro, hor.hor_hora ";*/
                                 $this->cadena_sql="SELECT DISTINCT";
                                 $this->cadena_sql.=" horario.hor_dia_nro DIA,";
                                 $this->cadena_sql.=" horario.hor_hora HORA_C,";
@@ -238,7 +208,6 @@ class sql_adminConsultaHorario extends sql
                                 $this->cadena_sql.="AND curso.cur_asi_cod='".$variable['asignatura']."' ";
                                 $this->cadena_sql.="AND curso.cur_ape_per='".$variable['periodo']."' ";
                                 $this->cadena_sql.="AND curso.cur_id='".$variable['id_grupo']."' ";
-                                //$this->cadena_sql.="AND horario.hor_dia_nro='".$variable['dia']."' ";
                                 $this->cadena_sql.="ORDER BY horario.hor_dia_nro, horario.hor_hora ";
               			break;	     
 
@@ -273,7 +242,6 @@ class sql_adminConsultaHorario extends sql
 				$this->cadena_sql="";
 				break;
 		}
-		//echo $this->cadena_sql."<br>";
 		return $this->cadena_sql;
 	}
 	
