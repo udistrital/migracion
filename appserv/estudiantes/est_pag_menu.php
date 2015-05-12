@@ -150,6 +150,19 @@ $cripto=new encriptar();
 	{
 		$plan = '../palndeestudio/sin_plan.pdf';
 	}
+//enlace Manuales
+$enlaceManEvalDoc=$configuracion['host_soporte']."/soporte/archivos/manual_evaluacion_docente.pdf";
+
+
+        //Consejerias, consulta estado academico del estudiante e historia académica
+        $variable="pagina=admin_consejeriasConsultaEstudiante";
+	$variable.="&usuario=".$_SESSION['usuario_login'];
+        $variable.="&tipoUser=52";
+        $variable.="&opcion=verEstudiante";
+	$variable.="&modulo=Estudiante";
+	$variable.="&aplicacion=Condor";
+        $variable=$cripto->codificar_url($variable,$configuracion);
+	$enlaceConsejeriaEstudiante=$indiceAcademico1.$variable;
 
 ?>
 <html>
@@ -163,7 +176,7 @@ $cripto=new encriptar();
 
 </head>
 <body class='menu'>
-<? //require_once('../usuarios/usuarios.php'); ?>
+<? require_once('../usuarios/usuarios.php'); ?>
 <p align="center">
 
 <script src="../script/jquery.min.js"></script>
@@ -218,6 +231,7 @@ $cripto=new encriptar();
 <li class="subitem1"><a target="principal" href="<?  echo $configuracion['host_derechos_pecuniarios'];?>">Derechos Pecuniarios</a></li>
 <li class="subitem1"><a target="principal" href="<? print $plan; ?>">Plan de Estudio</a></li>
 <li class="subitem1"><a target="principal" href="../generales/gen_fac_trabgrado.php">Trabajos de Grado</a></li>
+<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceConsejeriaEstudiante ?>">Historia Acad&eacute;mica</a></li>
 </ul>
 </li>
 
@@ -226,6 +240,12 @@ $cripto=new encriptar();
 <a href="#">Biblioteca</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<?echo $enlaceAdminBiblioteca?>">Bases de Datos</a></li>
+</ul>
+</li>
+<li class="item2">
+<a href="#">Manuales</a>
+<ul class="submenus">
+<li class="subitem1"><a target="principal" href="<?php echo $enlaceManEvalDoc ?>">Manual evaluación docente</a></li>
 </ul>
 </li>
 

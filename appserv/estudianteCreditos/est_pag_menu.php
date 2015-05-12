@@ -210,9 +210,18 @@ $cripto=new encriptar();
 	//$variable=$cripto->codificar_url($variable,$configuracion);
 	$variable=$miCodificador->codificar($variable);
 	$enlaceCambioPassword=$indiceSaraPassword.$opcion.$variable;
+//Enlaces Manuales
+$enlaceManEvalDoc=$configuracion['host_soporte']."/soporte/archivos/manual_evaluacion_docente.pdf";
 
-
-
+          //Consejerias, consulta estado academico del estudiante e historia académica
+        $variable="pagina=admin_consejeriasConsultaEstudiante";
+	$variable.="&usuario=".$_SESSION['usuario_login'];
+        $variable.="&tipoUser=52";
+        $variable.="&opcion=verEstudiante";
+	$variable.="&modulo=Estudiante";
+	$variable.="&aplicacion=Condor";
+        $variable=$cripto->codificar_url($variable,$configuracion);
+	$enlaceConsejeriaEstudiante=$indiceAcademico.$variable;
 ?>
 <html>
 <head>
@@ -290,7 +299,7 @@ $cripto=new encriptar();
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="est_adm_correos_doc.php">Contactar Docentes</a></li>
 <li class="subitem1"><a target="principal" href="<?PHP echo $enlaceEvaldocentes?>">Evaluaci&oacute;n docentes</a></li>
-<li class="subitem1"><a target="principal" href="https://portalws.udistrital.edu.co/soporte/archivos/manual_evaluacion_docente.pdf">Manual evaluación docentes</a></li>
+<li class="subitem1"><a target="principal" href="https://portalws.udistrital.edu.co/soporte/archivos/manual_evaluacion_docente .pdf">Manual evaluación docente</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceAcademicoConsejerias?>">Consejerias</a></li>
 </ul>
 </li>
@@ -305,6 +314,7 @@ $cripto=new encriptar();
 <li class="subitem1"><a target="principal" href="<?echo $enlaceNormatividad?>">Normatividad</a></li>
 <li class="subitem1"><a target="principal" href="<? echo $configuracion['host_derechos_pecuniarios'];?>">Derechos Pecuniarios</a></li>
 <li class="subitem1"><a target="principal" href="<?PHP echo $enlaceAcademicoConsultaPlanEstudio ?>">Plan de Estudio</a></li>
+<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceConsejeriaEstudiante ?>">Historia Acad&eacute;mica</a></li>
 </ul>
 </li>
 
@@ -312,6 +322,7 @@ $cripto=new encriptar();
 <a href="#">Manuales</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<?echo $enlaceManuales?>">Manuales</a></li>
+<li class="subitem1"><a target="principal" href="<?php echo $enlaceManEvalDoc ?>">Manual evaluación docente</a></li>
 </ul>
 </li>
 
