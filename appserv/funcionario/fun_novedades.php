@@ -24,7 +24,7 @@ fu_tipo_user(24);
 <?php
 fu_cabezote("NOVEDADES DE NOMINA");
 $funcod = $_SESSION['usuario_login'];
-$funcod = $_SESSION["fun_cod"];
+//$funcod = $_SESSION["fun_cod"];
 $QryCod = "select emp_cod from peemp where emp_nro_iden = '".$_SESSION['usuario_login']."'";
 $RowCod = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryCod,"busqueda");
 $_SESSION["fun_cod"]=$RowCod[0][0];
