@@ -71,7 +71,13 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
     if($this->nivel==30){
         $this->mostrarEnlaceRegresar();        
         }
-        
+    if($this->nivel==51||$this->nivel==52){
+        if (isset($this->usuario)&&$this->usuario==(isset($_REQUEST['usuario'])?$_REQUEST['usuario']:''))
+            {
+                $_REQUEST['datoBusqueda']=$_REQUEST['usuario'];
+                $_REQUEST['tipoBusqueda']='codigo';
+            }
+        }
         $datoBusqueda = (isset($_REQUEST['datoBusqueda'])?$_REQUEST['datoBusqueda']:'');
         $tipoBusqueda = (isset($_REQUEST['tipoBusqueda'])?$_REQUEST['tipoBusqueda']:'');
         if(($tipoBusqueda=='codigo' || $tipoBusqueda=='identificacion') && is_numeric($datoBusqueda)){

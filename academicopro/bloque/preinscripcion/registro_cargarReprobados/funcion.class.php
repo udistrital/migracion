@@ -108,6 +108,7 @@ function __construct($configuracion, $sql) {
             
             $codFacultad=$_REQUEST['facultad'];
             $totalEstudiantes=0;
+            $totalEspacios=0;
             $this->carreras=$this->consultarDatosCarreras($codFacultad);  
         foreach ($this->carreras as $proyectos)
           {
@@ -132,13 +133,14 @@ function __construct($configuracion, $sql) {
                     {
                         $this->registrarArregloReprobados($arreglo);
                         $totalEstudiantes++;
+                        $totalEspacios+=count($arreglo);
                     }
                     unset($arreglo);
              }
              
          }
        }
-          echo $totalEstudiantes;exit;
+          echo "<br>".$totalEstudiantes." estudiantes. ".$totalEspacios." espacios registrados.";exit;
              
     }
 
@@ -187,6 +189,12 @@ function clasificacionReprobados($espacio){
 
         foreach ($arregloEstudiante as $estudiante)
         {
+            foreach ($estudiante as $key => $value) {
+                if($value=='')
+                {
+                    $estudiante[$key]='null';
+                }
+            }            
             $cadena_sql_adicionar=$this->sql->cadena_sql("insertarRegistroDatosEstudiante",$estudiante);
             $resultado_adicionar=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql_adicionar,"");  
             //return $this->totalAfectados($this->configuracion, $this->accesoOracle);

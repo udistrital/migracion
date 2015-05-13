@@ -142,6 +142,8 @@ class funciones_adminRecalcularEstadoEstudiante extends funcionGeneral {
             $this->accesoOracle=$this->conectarDB($configuracion,"asistente");
         }elseif($this->nivel==114){
             $this->accesoOracle=$this->conectarDB($configuracion,"secretario");
+        }elseif($this->nivel==80){
+            $this->accesoOracle=$this->conectarDB($configuracion,"soporteoas");
         }else{
             echo "NO TIENE PERMISOS PARA ESTE MODULO";
             exit;

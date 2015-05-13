@@ -141,6 +141,7 @@
 	$variable.="&tipoUser=80";
 	$variable.="&opcion=ranking";
 	$variable.="&aplicacion=Condor";
+        $variable.="&modulo=soporte";
 	$variable=$cripto->codificar_url($variable,$configuracion);
 	$enlaceinscripcionAutomatica=$indiceAcademico.$variable;
 
