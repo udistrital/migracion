@@ -27,8 +27,7 @@ class sql_adminBuscarEspacioEECreditosEstudianteSop extends sql {
         break;
 
       case 'nota_aprobatoria':
-        $cadena_sql="SELECT fua_nota_aprobatoria(" . $variable['codProyectoEstudiante'] . ")";
-        $cadena_sql.=" FROM dual";
+        $cadena_sql="SELECT cra_nota_aprob from accra where cra_cod=". $variable['codProyectoEstudiante'];
         break;
 
       case 'espacios_estudiante':
@@ -75,7 +74,7 @@ class sql_adminBuscarEspacioEECreditosEstudianteSop extends sql {
         $cadena_sql.=" ON plan_espacio.pen_cra_cod=proyecto.cra_cod";
         $cadena_sql.=" INNER JOIN gedep facultad";
         $cadena_sql.=" ON facultad.dep_cod=proyecto.cra_dep_cod";
-        $cadena_sql.=" INNER JOIN accurso";
+        $cadena_sql.=" INNER JOIN accursos";
         $cadena_sql.=" ON plan_espacio.pen_asi_cod = cur_asi_cod";
         $cadena_sql.=" WHERE plan_espacio.pen_estado LIKE '%A%'";
         $cadena_sql.=" AND clasifica.clp_estado LIKE '%A%'";

@@ -277,6 +277,7 @@ class funcion_adminBuscarGruposEstudianteCreditosSop extends funcionGeneral {
           }
         if ((isset($resultado_grupos[$j-1]['GRUPO'])?$resultado_grupos[$j-1]['GRUPO']:'') != $resultado_grupos[$j]['GRUPO'])
         {
+            $variables['id_grupo'] = $resultado_grupos[$j]['ID_GRUPO'];
             $variables['grupo'] = $resultado_grupos[$j]['GRUPO'];
             $variables['carrera'] = $resultado_grupos[$j]['CARRERA'];
             $this->generarHorario($resultado_grupos[$j],$variables,$estilo,$icono,$horarioGrupo[$resultado_grupos[$j]['GRUPO']]);
