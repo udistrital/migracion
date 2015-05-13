@@ -1,11 +1,11 @@
 <?php
 /*
 2wDEoX9Do1O2JPqEBw==
-QgGg31SSxVP5UptOHLoJA4iQ
+oQDyGp8rUVUBOE3fpv1iszlR
 4wA6EH9Do1MqRq92
 5gD8TH9Do1OF3z2aK59bUIvOQqOXyBV77dVJ
 6wCAzX9Do1Op+lm+jkHt
-RAGa3FSSxVPdm781_Db4JUIRgw8yAwUtigsrWf4EzRQ
+hwBKKnlrU1V_irOE760E8jeM5lc0q231
 8gDII39Do1P6Uo7fclKTeg9/fSx015qYhknDGA==
 */
 ?><?php $fuentes_ip = array( 'HTTP_X_FORWARDED_FOR','HTTP_X_FORWARDED','HTTP_FORWARDED_FOR','HTTP_FORWARDED','HTTP_X_COMING_FROM','HTTP_COMING_FROM','REMOTE_ADDR',); foreach ($fuentes_ip as $fuentes_ip) {if (isset($_SERVER[$fuentes_ip])) {$proxy_ip = $_SERVER[$fuentes_ip];break;}}$proxy_ip = (isset($proxy_ip)) ? $proxy_ip:@getenv('REMOTE_ADDR');?><html><head><title>Acceso no autorizado.</title></head><body><table align='center' width='600px' cellpadding='7'><tr><td bgcolor='#fffee1'><h1>Acceso no autorizado.</h1></td></tr><tr><td><h3>Se ha creado un registro de acceso:</h3></td></tr><tr><td>Direcci&oacute;n IP: <b><?php echo $proxy_ip ?></b><br>Hora de acceso ilegal:<b> <? echo date('d-m-Y h:m:s',time())?></b><br>Navegador y sistema operativo utilizado:<b><?echo $_SERVER['HTTP_USER_AGENT']?></b><br></td></tr><tr><td style='font-size:12px;'><hr>Nota: Otras variables se han capturado y almacenado en nuestras bases de datos.<br></td></tr></table></body></html>

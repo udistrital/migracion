@@ -23,7 +23,7 @@ $esteBloque['nombre']=$_REQUEST['bloqueNombre'];
 $esteBloque['grupo']=$_REQUEST['bloqueGrupo'];
 
 $maxSize=1*1024*1024;//tama�p en mb
-$upload_dir = $this->ruta."/uploads/";
+$upload_dir = $this->ruta."uploads/";
 if (isset($_FILES["archivo"])&&$_FILES["archivo"]['size']<=$maxSize
 	&&($_FILES["archivo"]['type']=="application/vnd.ms-excel"||$_FILES["archivo"]['type']=="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
 	if ($_FILES["archivo"]["error"] > 0) {
