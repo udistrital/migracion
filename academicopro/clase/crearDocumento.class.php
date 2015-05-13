@@ -90,6 +90,7 @@ class crearDocumento  extends funcionGeneral{
         */
        function consultarSeccionesDocumento($tipo){
             $cadena_sql=$this->cadena_sql("secciones_documento",$tipo);
+            echo $cadena_sql;//exit;
             return $resultado=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql, "busqueda");
 		    
        }
@@ -113,7 +114,7 @@ class crearDocumento  extends funcionGeneral{
         */
        function ejecutarSqlParametros($parametros,$parametro_sql){
            $parametros= $this->reemplazarParametrosEnSql($parametros,$parametro_sql);
-           //var_dump($parametros);exit;
+           
            foreach ($parametros as $key => $parametro) {
                $cadena_sql = $parametro['sentencia_sql'];
 

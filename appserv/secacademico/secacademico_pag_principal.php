@@ -13,7 +13,7 @@ $usuario = $_SESSION['usuario_login'];
 echo'<div align="center"><br><br>
   <table border="0" width="500" cellpadding="0">
   <tr><td width="200" align="left" height="9" colspan="2"></td>
-  <td width="300" align="right" height="9" colspan="2"><span class="Estilo7">Visita N� '.$Nro.' de '.$Tot.' desde 28-Jun-2006</span></td></tr></table>
+  <td width="300" align="right" height="9" colspan="2"><span class="Estilo7">Visita N&deg; '.$Nro.' de '.$Tot.' desde 28-Jun-2006</span></td></tr></table>
   <p></p>
   <table border="0" width="500" cellpadding="0">
     <tr>
@@ -26,7 +26,7 @@ echo'<div align="center"><br><br>
                 
 
          <p style="line-height: 100%" align="justify">Cuando 
-         actualice alguna informaci�n, no olvide grabar. La forma segura de salir de esta p&aacute;gina, 
+         actualice alguna informaci&oacute;n, no olvide grabar. La forma segura de salir de esta p&aacute;gina, 
          es haciendo 
 clic en el hiperv&iacute;nculo &quot;<a href="../conexion/salir.php" target="_top" title="Salida segura"><strong>Salir</strong></a>&quot;. 
          <p style="line-height: 100%" align="justify">De 
