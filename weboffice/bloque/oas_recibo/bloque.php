@@ -39,7 +39,7 @@ $sesion=new sesiones($configuracion);
 $sesion->especificar_enlace($enlace);
 $usuario = $sesion->rescatar_valor_sesion($configuracion,"id_usuario");
 
-if (is_resource($enlace))
+if ($enlace)
 {
 	include_once($configuracion["raiz_documento"].$configuracion["clases"]."/dbConexion.class.php");
 	include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
@@ -49,7 +49,7 @@ if (is_resource($enlace))
 	$conexion=new dbConexion($configuracion);
 	$accesoOracle=$conexion->recursodb($configuracion,"oracle");
 	$enlace=$accesoOracle->conectar_db();
-		
+	
 	//Rescatar las carreras que han realizado solicitudes
 	if($_REQUEST['accion']=='listaCompleta'){
 		$cadena_sql=cadenaSQL_admin_impresion($configuracion, "solicitudCarrera", $usuario[0][0]);

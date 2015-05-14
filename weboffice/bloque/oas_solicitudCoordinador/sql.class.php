@@ -329,9 +329,7 @@ class sql_adminSolicitudCoordinador extends sql
 				
 			case "secuencia":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="seq_matricula.NEXTVAL ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="dual ";
+				$cadena_sql.="NEXTVAL('seq_matricula') ";
 				break;
 				
 			case "actualizarSolicitud":
@@ -396,9 +394,9 @@ class sql_adminSolicitudCoordinador extends sql
 				$cadena_sql.=$variable[4].", ";
 				$cadena_sql.=$variable[5].", ";
 				$cadena_sql.=$variable[6].", ";
-				$cadena_sql.="TO_DATE(".$variable[7].",'yyyymmdd'), ";
-				$cadena_sql.="TO_DATE(".$variable[8].",'yyyymmdd'), ";
-				$cadena_sql.="SYSDATE, ";
+				$cadena_sql.="TO_DATE('".$variable[7]."','yyyymmdd'), ";
+				$cadena_sql.="TO_DATE('".$variable[8]."','yyyymmdd'), ";
+				$cadena_sql.="current_date, ";
 				$cadena_sql.="'A', ";
 				$cadena_sql.=$variable[9].", ";
 				$cadena_sql.="2 ";
@@ -472,9 +470,9 @@ class sql_adminSolicitudCoordinador extends sql
 				$cadena_sql.=$variable["anno"].", ";
 				$cadena_sql.=$variable["periodo"].", ";
 				$cadena_sql.=$variable["cuota"].", ";
-				$cadena_sql.="SYSDATE, ";
+				$cadena_sql.="current_date, ";
 				$cadena_sql.="'A', ";
-				$cadena_sql.="seq_matricula.NEXTVAL,";
+				$cadena_sql.="NEXTVAL('seq_matricula'),";
 				$cadena_sql.=$variable["fechaOrdinaria"].", ";
 				$cadena_sql.=$variable["fechaExtraordinaria"]." ";
 				$cadena_sql.=")";

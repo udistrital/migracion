@@ -172,7 +172,7 @@ class SqlvalidarEstudiantesActivos extends sql {
 			case "consultarEstudianteActivo":
 						
 					$cadena_sql="SELECT DECODE(A.ESTADO_ACTIVO,'S','SI','N','NO') FROM ACESTADO A , ACEST B ";
-					$cadena_sql.="WHERE B.EST_ESTADO = A.ESTADO_COD ";
+					$cadena_sql.="WHERE B.EST_ESTADO_EST = A.ESTADO_COD ";
 					$cadena_sql.="AND B.EST_NRO_IDEN = '".$variable."' ";
 					$cadena_sql.="GROUP BY B.EST_NRO_IDEN,A.ESTADO_ACTIVO ";
 					$cadena_sql.="ORDER BY A.ESTADO_ACTIVO DESC ";

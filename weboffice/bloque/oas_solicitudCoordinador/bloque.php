@@ -61,8 +61,8 @@ class bloqueAdminSolicitudCoordinador extends bloque
 			$id_usuario=$this->funcion->rescatarValorSesion($configuracion, $this->funcion->acceso_db, "id_usuario");
 			
 			
-			$variable[1]=$this->annoActual;
-			$variable[2]=$this->periodoActual;
+			$variable[1]=isset($this->annoActual)?$this->annoActual:'';
+			$variable[2]=isset($this->periodoActual)?$this->periodoActual:'';
 			
 			//TO REVIEW
 			//Se rescatan las carreras de los cuales el usuario es coordinador, si el usuario tiene mas de una carrera
