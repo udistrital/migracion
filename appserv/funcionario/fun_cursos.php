@@ -32,7 +32,6 @@ $_SESSION["fun_cod"]=$RowCod[0][0];
 
 require_once('msql_cursos_fun.php');
 $Rowcursos = $conexion->ejecutarSQL($configuracion,$accesoOracle,$cursos,"busqueda");
-echo '<br>';print_r($Rowcursos);echo '<br>';
 if(!is_array($Rowcursos))
 {
 	header("Location: ../err/err_sin_registros.php");
