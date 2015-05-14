@@ -35,6 +35,7 @@ $_SESSION["fun_cod"]=$RowCod[0][0];
 
 require_once('msql_formacion_fun.php');
 $Rowbas = $conexion->ejecutarSQL($configuracion,$accesoOracle,$conbas,"busqueda");
+print_r($Rowbas); exit;
 if(!is_array($Rowbas))
 {
 	header("Location: ../err/err_sin_registros.php");

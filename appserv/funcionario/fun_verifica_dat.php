@@ -34,7 +34,6 @@ if(!file_exists($foto)) {
 else{ $imgfoto='<img border="0" src="'.$foto.'" width="130" height="100" alt="Foto del Funcionario">'; }
 
 require_once('msql_datos_fun.php');
-
 $rowDatos=$conexion->ejecutarSQL($configuracion,$accesoOracle,$datos,"busqueda");
 
 //echo $datos;
