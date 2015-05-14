@@ -26,7 +26,7 @@ class funciones_adminSolicitudCoordinador extends funcionGeneral
 		$this->sql=$sql;
 		$this->accion=$_REQUEST["accion"];
 		//Conexion ORACLE
-		$this->accesoOracle=$this->conectarDB($configuracion,"oracle");
+		$this->accesoOracle=$this->conectarDB($configuracion,"coordinador");
 		
 		//Conexion General
 		$this->acceso_db=$this->conectarDB($configuracion,"");
