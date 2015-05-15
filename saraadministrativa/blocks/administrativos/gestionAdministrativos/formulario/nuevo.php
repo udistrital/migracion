@@ -12,8 +12,6 @@ if (!isset($GLOBALS["autorizado"])) {
     exit;
 }
 
-error_reporting(0);
-
 $esteBloque = $this->miConfigurador->getVariableConfiguracion("esteBloque");
 $nombreFormulario = $esteBloque["nombre"];
 

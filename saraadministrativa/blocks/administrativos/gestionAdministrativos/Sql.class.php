@@ -54,7 +54,7 @@ class SqlgestionAdministrativos extends sql {
             break;
 
         case "certificadoFuncionarios":
-            $cadena_sql = "SELECT distinct cir_emp_nro_iden, ";
+            $cadena_sql = "SELECT unique cir_emp_nro_iden, ";
             $cadena_sql.="cir_ano, ";
             $cadena_sql.="cir_desde, ";
             $cadena_sql.="to_char(cir_desde,'yyyy') desdea, ";
@@ -72,7 +72,7 @@ class SqlgestionAdministrativos extends sql {
             $cadena_sql.="cir_total_ingresos, ";
             $cadena_sql.="cir_aportes_salud, ";
             $cadena_sql.="cir_aporte_voluntario, ";
-            $cadena_sql.="coalesce(cir_aportes_pension,0), ";
+            $cadena_sql.="nvl(cir_aportes_pension,0), ";
             $cadena_sql.="cir_exentas, ";
             $cadena_sql.="cir_retencion, ";
             $cadena_sql.="cir_estado, ";
@@ -83,7 +83,8 @@ class SqlgestionAdministrativos extends sql {
             $cadena_sql.="to_char(CURRENT_TIMESTAMP,'dd') fechad ";
             $cadena_sql.="FROM ";
             $cadena_sql.="prceringret2004, ";
-            $cadena_sql.="peemp ";
+            $cadena_sql.="peemp, ";
+            $cadena_sql.="DUAL ";
             $cadena_sql.="WHERE ";
             $cadena_sql.="cir_emp_nro_iden = emp_nro_iden ";
             if(isset($_REQUEST['anio']))
@@ -95,9 +96,6 @@ class SqlgestionAdministrativos extends sql {
             $cadena_sql.="and cir_estado = 'A' ";
             $cadena_sql.="ORDER BY emp_nombre ASC ";
         break;
-        
-        
-        
         case "certificadoContratistas":
             $cadena_sql = "SELECT ";
             $cadena_sql.="cir_ano, ";
