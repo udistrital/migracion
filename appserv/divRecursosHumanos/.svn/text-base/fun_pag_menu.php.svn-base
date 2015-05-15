@@ -1,0 +1,81 @@
+<?PHP
+require_once('dir_relativo.cfg');
+require_once(dir_conect.'valida_pag.php');
+require_once(dir_conect.'fu_tipo_user.php');
+fu_tipo_user(24);
+ob_start();
+?>
+<html>
+<head>
+<link href="../script/estilo_menu.css" rel="stylesheet" type="text/css">
+<link href="../marcos/apariencia.css" rel="stylesheet" type="text/css">
+<link href="../script/estilo.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript" src="../script/clicder.js"></script>
+<script language="JavaScript" src="../script/SlideMenu.js"></script>
+<script language="JavaScript" src="../script/ventana.js"></script>
+<script language="JavaScript" src="../script/BorraLink.js"></script>
+</head>
+
+<body class='menu'>
+
+<? require_once('../usuarios/usuarios.php'); ?>
+
+
+<script>
+	//Variables de configuracin
+
+
+	//Estos son los 3 niveles del men
+	//top = Main menus
+	//sub = Sub menus
+	//sub2 = SubSub menus
+
+	//makeMenu('TYPE','TEXT','LINK','TARGET', 'END (THE LAST MENU)')
+
+	//Menu 0 
+	makeMenu('top','Datos Personales')
+		makeMenu('sub','Verificar','fun_verifica_dat.php','principal')
+		makeMenu('sub','Beneficiarios','fun_beneficiarios.php','principal')
+		makeMenu('sub','Seguridad Social','fun_seguridad_social.php','principal')
+
+	//Menu 1
+	makeMenu('top','Formaci&oacute;n')
+	    makeMenu('sub','B&aacute;sica y Superior','fun_formacion.php','principal')
+		makeMenu('sub','Cursos','fun_cursos.php','principal')
+
+
+	//Menu 2    
+	makeMenu('top','Cargos')
+	  makeMenu('sub','Actual','fun_cargo.php','principal')
+	  makeMenu('sub','Hist&oacute;rico','fun_hiscar.php','principal')
+
+	//Menu 3
+	makeMenu('top','Despren. de Pago')
+	  makeMenu('sub','Consultas','fun_frm_desp.php','principal')
+	  makeMenu('sub','Cuenta Bancaria','fun_banco.php','principal')
+
+	//Menu 4  
+	makeMenu('top','Novedades')
+	  makeMenu('sub','Activas','fun_novedades.php','principal')
+	  makeMenu('sub','Hist&oacute;rico','fun_hnovedades.php','principal')
+	  
+	//Menu 5  
+	makeMenu('top','Formatos Solicitud')
+	  makeMenu('sub','Reingreso Vacaciones','fun_formato_regreso_vaca.php','principal')
+	  makeMenu('sub','Solicitud y Tr&aacute;mite','fun_formato_solicitud_tramite.php','principal')
+
+	//Menu 6
+	makeMenu('top','Clave')
+	  makeMenu('sub','Cambiar mi Clave','../generales/cambiar_mi_clave.php','principal')
+
+	//Menu 7
+	makeMenu('salir','Cerrar Sesi&oacute;n','../conexion/salir.php','_top','end')
+
+
+	//Ejecucin del men
+	onload=SlideMenuInit;
+</script>
+
+</body>
+</html>

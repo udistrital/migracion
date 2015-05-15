@@ -1,0 +1,1178 @@
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:21:54
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:10
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:27
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:29
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:35
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:37
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:38
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:42
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:44
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:45
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:46
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:47
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:49
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:50
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:50
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:52
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:52
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:53
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:22:58
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:01
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:02
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:02
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:02
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:03
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:05
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:06
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:06
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:06
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:07
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:09
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:11
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:13
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:15
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:16
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:17
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:19
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:20
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:21
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:22
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:25
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:28
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:28
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:31
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:33
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:35
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:38
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:39
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:42
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:43
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:45
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:47
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:49
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:53
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:55
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:23:58
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:24:38
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:25:05
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:25:25
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:25:58
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:26:37
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:26:56
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:27:20
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+	TCP/IP NT Protocol Adapter for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 02-NOV-2007 07:29:40
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 79
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12157, connecting to:
+ (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=aix-bd)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=sudd)(CID=(PROGRAM=httpd)(HOST=aix-app)(USER=oracle))))
+
+  VERSION INFORMATION:
+	TNS for IBM/AIX RISC System/6000: Version 10.1.0.4.0 - Production
+  Time: 01-DEC-2007 10:44:57
+  Tracing not turned on.
