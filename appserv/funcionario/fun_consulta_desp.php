@@ -33,7 +33,7 @@ fu_cabezote("CONSULTA DESPRENDIBLES DE PAGO");
 		<td>
 			<?PHP
 			//$QryAnios = "SELECT unique(ape_ano) FROM acasperi WHERE ape_ano >= 1995 AND ape_estado != 'X' ORDER BY 1 DESC";
-			$QryAnios = "SELECT unique(ape_ano) FROM acasperi WHERE ape_ano >= 1995 ORDER BY 1 DESC";
+			$QryAnios = "SELECT distinct(ape_ano) FROM acasperi WHERE ape_ano >= 1995 ORDER BY 1 DESC";
 			$RowAnios = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryAnios,"busqueda");
 			
 			print'<select size="1" name="anio">';
@@ -81,15 +81,15 @@ fu_cabezote("CONSULTA DESPRENDIBLES DE PAGO");
 	<?PHP
 	//$QryCod = "select emp_cod,emp_nombre from peemp where emp_estado_e <> 'R' AND emp_nro_iden = '".$_SESSION['usuario_login']."'";
 	$QryCod = "select EMP_COD,EMP_NOMBRE from PEEMP
-                    where ((EMP_ESTADO_E <> 'R') or (EMP_COD in (select unique LIQ_EMP_COD
+                    where ((EMP_ESTADO_E <> 'R') or (EMP_COD in (select distinct LIQ_EMP_COD
                                                         from PEPARAM, PRLIQUID
                                                         where PAR_ANO = LIQ_ANO
                                                         union
-                                                        select unique LIQ_EMP_COD
+                                                        select distinct LIQ_EMP_COD
                                                         from PEPARAM, PRLIQUID
                                                         where (PAR_ANO-1) = LIQ_ANO)))
                      AND emp_nro_iden = '".$_SESSION['usuario_login']."'";
-        
+        echo '<br>';print_r($QryCod);echo '<br>';
         $RowCod = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryCod,"busqueda");
 	$cuenta=count($RowCod);
 	

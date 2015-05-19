@@ -3,7 +3,7 @@
 $sqlcta = "SELECT ban_cod,
 	ban_nom_banco,
 	cem_nro_cta,
-	DECODE(cem_tipo, 'A','Ahorro','C','Corriente'),
+	(CASE WHEN cem_tipo =  'A' THEN 'Ahorro' WHEN cem_tipo = 'C' THEN 'Corriente' END),
 	ban_web
 	FROM PRCTAEMP,gebanco
 	WHERE ban_cod = cem_ban_cod
