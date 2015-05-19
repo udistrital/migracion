@@ -162,7 +162,7 @@ function con_registro_recibo($configuracion,$registro,$campos,$tema,$acceso_db,$
 		{
 			if($registroConceptos[$j][3]==1)
 			{
-				$obs_diferido=ejecutar_admin_recibo("SELECT mntac.fua_obs_diferido(".$registro[0][1].",".$registro[0][0].") FROM dual",$accesoOracle,"busqueda");	
+				$obs_diferido=ejecutar_admin_recibo("SELECT mntac.fua_obs_diferido(".$registro[0][1].",".$registro[0][0].")",$accesoOracle,"busqueda");	
 				$registroConceptos[$j][5]=$registroConceptos[$j][5]." ".$obs_diferido[0][0];
 			}	
 			if($registroConceptos[$j][3]==2)

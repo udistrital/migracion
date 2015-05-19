@@ -54,7 +54,7 @@ class sql_registroGenerarReciboPago extends sql {
                     $cadena_sql.=" ape_per EMA_PER, ";
                     $cadena_sql.=" current_timestamp EMA_FECHA, ";
                     $cadena_sql.=" 'A' EMA_ESTADO, ";
-                    $cadena_sql.=" SEQ_MATRICULA.nextval EMA_SECUENCIA, ";
+                    $cadena_sql.=" nextval('SEQ_MATRICULA') EMA_SECUENCIA, ";
                     $cadena_sql.=" ".$variable['cuota']."  EMA_CUOTA, ";
                     $cadena_sql.=" to_date ('".$variable['fechaOrdinaria']." ','yyyy/mm/dd') EMA_FECHA_ORD,";
                     $cadena_sql.=" to_date ('".$variable['fechaExtraordinaria']." ','yyyy/mm/dd') EMA_FECHA_EXT,";
