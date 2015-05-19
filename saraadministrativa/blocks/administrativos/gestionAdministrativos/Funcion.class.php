@@ -50,6 +50,10 @@ class FunciongestionAdministrativos
 	{
 		include_once($this->ruta."/funcion/certificadoIngresosRetenciones.php");
 	}
+        function procesaCertRecHum()
+        {
+                include_once($this->ruta."/funcion/certificadoRecursosHumanos.php");
+        }
         function redireccionar($opcion, $valor=""){ 
 		include_once($this->ruta."/funcion/redireccionar.php");
 	}
@@ -70,6 +74,9 @@ class FunciongestionAdministrativos
                         switch($accion){
 				case "certificadoIngresosRetenciones":
                                         $this->procesaCertIngCert();
+				break;
+                                case "certificadoRecursosHumanos":
+                                        $this->procesaCertRecHum();
 				break;
                                 case "nuevo":
                                         $this->nuevo();

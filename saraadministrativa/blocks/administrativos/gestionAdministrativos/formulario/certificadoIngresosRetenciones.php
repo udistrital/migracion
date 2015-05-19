@@ -16,7 +16,15 @@ if (!$esteRecursoDB) {
     exit;
 }
 $variable['anio']=$_REQUEST['anio'];
-$variable['usuario']=$_REQUEST['usuario'];
+//echo $_REQUEST['docuentoNumero']; exit;
+if(isset($_REQUEST['docuentoNumero']))
+{    
+    $variable['usuario']=$_REQUEST['docuentoNumero'];
+}
+else
+{
+    $variable['usuario']=$_REQUEST['usuario'];
+}    
 
 $cadena_sql = $this->sql->cadena_sql("certificado", $variable);
 $registro = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");

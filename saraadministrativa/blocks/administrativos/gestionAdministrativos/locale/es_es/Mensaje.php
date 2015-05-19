@@ -27,6 +27,7 @@ $this->idioma["informacion"] = "<center><span class='textoNegrita textoGrande te
 $this->idioma["noEncontroRegistro"]="No se encontraron registros...";
 $this->idioma["noEncontroPeriodoActivo"]="No se encontrararon períodos académicos activos...";
 $this->idioma["docuentoNumero"] = "Número de documento:";
+$this->idioma["observacion"] = "Observación:";
 $this->idioma["botonAceptar"] = "Aceptar";
 $this->idioma["botonBuscar"] = "Buscar";
 $this->idioma["botonEnviar"] = "Enviar";

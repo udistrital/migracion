@@ -64,10 +64,19 @@ class FronteragestionAdministrativos {
                     include_once($this->ruta . "formulario/mensaje.php");
                     break;
                 case "consultarCertIngresosRetenciones":
-                    include_once($this->ruta . "formulario/consultarCertIngresosRetenciones.php");
+                    include_once($this->ruta . "formulario/formularioConsultarCertificados.php");
                     break;
                 case "consultarIngRet":
                     include_once($this->ruta . "formulario/nuevo.php");
+                    break;
+                case "consultarCertificadosRecHumanos":
+                    include_once($this->ruta . "formulario/formularioConsultarCertificados.php");
+                    break;
+                case "consultarRecHumanos":
+                    include_once($this->ruta . "formulario/certificadosRecHumumanos.php");
+                    break;
+                case "digitarObservacion":
+                    include_once($this->ruta . "formulario/digitarObservacion.php");
                     break;
             }
         } else {

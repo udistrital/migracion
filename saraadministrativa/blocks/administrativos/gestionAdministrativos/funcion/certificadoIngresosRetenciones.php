@@ -1,11 +1,9 @@
 <?
-$ruta = $this->miConfigurador->getVariableConfiguracion("raizDocumento")."/blocks/administrativos/gestionAdministrativos";;
-//$ruta.=$this->miConfigurador->getVariableConfiguracion("site")."/blocks/administrativos/gestionAdministrativos";
+$ruta = $this->miConfigurador->getVariableConfiguracion("raizDocumento");
+$ruta.="/blocks/administrativos/gestionAdministrativos";
 
 $conexion = "funcionario";
 $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
-
-error_reporting(0);
 
 if (!$esteRecursoDB) {
 
@@ -30,6 +28,7 @@ if (!$esteRecursoDBPGS) {
     echo "//Este se considera un error fatal";
     exit;
 }
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 $variable['anio']=$_REQUEST['anio'];
 
 $variable['usuario']=$_REQUEST['usuario'];
@@ -645,7 +644,7 @@ if(is_array($registro))
      <font style='font-size: 9'>NOTA: Este certificado sustituye para todos los efectos legales la declaración de Renta y complementarios para el empleado que lo firme.</font>
     </page>";
     
-    //echo $contenido; exit;
+    //echo $contenido;
     
     $rutaClases=$this->miConfigurador->getVariableConfiguracion("raizDocumento")."/classes";
     include_once($rutaClases."/html2pdf/html2pdf.class.php");

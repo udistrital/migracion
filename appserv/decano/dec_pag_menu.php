@@ -264,13 +264,6 @@ require_once("../clase/encriptar.class.php");
 </ul>
 </li>
 
-<li class="item1">
-<a href="#">Usuarios</a>
-<ul class="submenus">
-<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceUsuarios?>">Solicitud de usuarios</a></li>
-</ul>
-</li>
-
 <li class="item5"><a href="#">Reportes</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<? echo $enlaceReporteFacultad; ?>">Facultad</a></li>
