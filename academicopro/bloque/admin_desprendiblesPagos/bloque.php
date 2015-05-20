@@ -41,6 +41,12 @@ class bloque_admin_certIngresosRetenciones extends bloque
 	{
 		if(!isset($_REQUEST['cancelar']))
 		{
+		    
+            //Se obtienen las variables de la coneccion juusechec
+            $conexion = $this->funcion->conexion;
+            $accesoOracle = $this->funcion->accesoOracle;
+            $acceso_db = $this->funcion->acceso_db;
+            //Se termina la adquisición de los valores de la conexión
 			if(isset($_REQUEST['opcion']))
 			{
 				$accion=$_REQUEST['opcion'];

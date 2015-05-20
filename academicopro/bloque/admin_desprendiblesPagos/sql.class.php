@@ -40,7 +40,7 @@ class sql_admin_certIngresosRetenciones extends sql
 				
 			case "fechaactual":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(current_timestamp, 'YYYYMMDD')) ";
+				$cadena_sql.="TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) ";
 				$cadena_sql.="FROM ";
 				$cadena_sql.="dual";
 				break;
