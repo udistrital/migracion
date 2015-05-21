@@ -228,9 +228,10 @@ class funcion_adminGenerarActa extends funcionGeneral
                                                             include_once($this->configuracion["raiz_documento"].  $this->configuracion["clases"]."/encriptar.class.php");
 
                                                             $this->cripto=new encriptar();
+                                                            
                                                             $variable=$this->cripto->codificar_url($variable,  $this->configuracion);
-
                                                             echo "<script>location.replace('".$pagina.$variable."')</script>";
+                                                            
                                                 }else{
                                                     $mensaje = "El código ".$codEstudiante." no se encuentra en estado Egresado, se encuentra en estado ".$estudiante[0]['ESTADO_DESCRIPCION'].".";
                                                 }
@@ -310,7 +311,6 @@ class funcion_adminGenerarActa extends funcionGeneral
                                                     'MES_EXP'=>$this->mesEnLetras($mes),
                                                     'ANIO_EXP'=>$anio
                                     );
-
                                 include_once($this->configuracion["raiz_documento"] . $this->configuracion["clases"] . "/crearDocumento.class.php");
                                 $this->Documento = new crearDocumento($this->configuracion);
                                 $this->Documento->crearDocumento($tipo_documento,$parametro_sql,$cod_estudiante);
@@ -328,7 +328,7 @@ class funcion_adminGenerarActa extends funcionGeneral
                                                     'MES_EXP'=>$this->mesEnLetras($mes),
                                                     'ANIO_EXP'=>$anio
                                     );
-
+                                
                                 include_once($this->configuracion["raiz_documento"] . $this->configuracion["clases"] . "/crearDocumento.class.php");
                                 $this->Documento = new crearDocumento($this->configuracion);
                                 $this->Documento->crearDocumento($tipo_documento,$parametro_sql,$cod_estudiante);
