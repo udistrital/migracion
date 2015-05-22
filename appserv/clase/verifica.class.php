@@ -907,6 +907,8 @@ function registrar_sesion($conexion,$sesion,$aplicacion,$tipo_ses)
                             break;
 			case 68: $this->direccionar('../bienestarInstitucional/bienestar.php','');
 			    break;
+			case 72: $this->direccionar('../divRecursosHumanos/divRecursosHumanos.php','');
+			    break;
                         case 75: $this->direccionar('../admin_sga/admin_sga.php','');
                             break;
                         case 80: $this->direccionar('../soporte/soporte.php','');
