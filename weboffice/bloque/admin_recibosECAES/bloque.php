@@ -52,8 +52,8 @@ class bloqueAdminSolicitud extends bloque
 	
 		if(!isset($_REQUEST["action"]))
 		{
-
-			if($_REQUEST["opcion"]=='exito')
+                        $opcion=isset($_REQUEST["opcion"])?$_REQUEST["opcion"]:'';
+                        if($opcion=='exito')
 			{
 				include_once($configuracion["raiz_documento"].$configuracion["clases"]."/alerta.class.php");
 				
