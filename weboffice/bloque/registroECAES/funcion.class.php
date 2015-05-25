@@ -148,10 +148,10 @@ class funciones_registroInscripcionEcaes extends funcionGeneral
                 }	
                 $totreg=count($resultado);
 
-		$confec = "SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'yyyymmdd')) FROM dual";
+		$confec = "SELECT TO_CHAR(current_date, 'yyyymmdd')";
 		@$rows=$this->ejecutarSQL($configuracion, $this->accesoOracle, $confec, "busqueda");
 		$fechahoy =$rows[0][0];
-						
+               
 		if($this->nivel==4){
                     $qryFechas=$this->sql->cadena_sql($this->configuracion,$this->accesoOracle, "validaFechas",$valor);
                     @$calendario=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $qryFechas, "busqueda");
@@ -629,7 +629,7 @@ ________________________________________________________________________________
                 }
                 $totreg=count($resultado);
                 
-		$confec = "SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'yyyymmdd')) FROM dual";
+		$confec = "SELECT TO_CHAR(current_date, 'yyyymmdd')";
 		@$rows=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $confec, "busqueda");
 		$fechahoy =$rows[0][0];
 		

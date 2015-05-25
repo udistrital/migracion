@@ -166,5 +166,9 @@ require_once('qry_usu.php');
 	require_once('conexion_otr.php');
 	header("Location: ../asistenteTesoreria/asistenteTesoreria.php");
  }
+ elseif($_GET['u'] == 72){
+ 	require_once('conexion_otr.php');
+ 	header("Location: ../divRecursosHumanos/divRecursosHumanos.php");
+ }
 
 ?> 

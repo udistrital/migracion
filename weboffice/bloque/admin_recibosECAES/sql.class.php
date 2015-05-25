@@ -55,7 +55,7 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="                   FROM acestmat ";
 				$cadena_sql.="			 WHERE acasperi.ape_ano||acasperi.ape_per = ema_ano||ema_per ";
 				$cadena_sql.="			 AND ema_est_cod = ".$variable." ) ";
-				$cadena_sql.=")	 ";			   
+				$cadena_sql.=") as anio	 ";			   
 				$cadena_sql.="ORDER BY ape_ano, ape_per ASC ";
 				break;	
 							
@@ -124,9 +124,7 @@ class sql_adminSolicitud extends sql
 			
 			case "secuencia":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="seq_matricula.NEXTVAL ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="dual ";
+				$cadena_sql.="NEXTVAL('seq_matricula') ";
 				break;
 				
 								
@@ -162,7 +160,7 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="1, ";
 				$cadena_sql.="TO_DATE('".$variable[5]."','dd/mm/yy'), ";
 				$cadena_sql.="TO_DATE('".$variable[11]."','dd/mm/yy'), ";
-				$cadena_sql.="SYSDATE, ";
+				$cadena_sql.="CURRENT_TIMESTAMP, ";
 				$cadena_sql.="'A', ";
 				$cadena_sql.=$variable[6].", ";
 				$cadena_sql.=$variable[7].", ";

@@ -133,7 +133,7 @@ ________________________________________________________________________________
 
 
 								
-		$html.='Los siguientes recibos estan listos para generar, una vez los genere el proceso no podr&aacute; ser revertido';
+		$html='Los siguientes recibos estan listos para generar, una vez los genere el proceso no podr&aacute; ser revertido';
 		$html.='<hr>';
 		$html.='<form  enctype="multipart/form-data" method="POST" action="index.php" name="generar_recibos" >';		
 		$html.='<center><table class="contenidotabla">';	
@@ -151,7 +151,7 @@ ________________________________________________________________________________
 			$html.=$estudiantes[$i];
 			$html.='</td>';	
 			$html.='</tr>';	
-			$codigos.=$estudiantes[$i]."#";
+			$codigos=$estudiantes[$i]."#";
 		$i++;	
 		}
 		$html.='</table></center>';
@@ -202,7 +202,7 @@ ________________________________________________________________________________
 			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda");	
 			$parametro[4]=$resultado[0][0];	
 			$parametro[12]=$resultado[0][1];	
-			//echo"<br><br>". $cadena_sql;				
+			//echo"<br><br>SSS". $cadena_sql;				
 			///////////////////////////////////FECHAS/////////////////////////////			
 			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechaPago");
 			$resultado=$this->ejecutarSQL($configuracion,$this->accesoOracle, $cadena_sql,"busqueda");	
@@ -217,7 +217,7 @@ ________________________________________________________________________________
 			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda");	
 		
 			$parametro[6]=$resultado[0][0];	
-				//echo $parametro[6];
+				
 			
 			
 			//////año pago/////////////

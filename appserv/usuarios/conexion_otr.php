@@ -1,5 +1,7 @@
 <?php
-session_name($usuarios_sesion);
+if((isset($usuarios_sesion)?$usuarios_sesion:'')){
+    session_name($usuarios_sesion);
+}
 session_start();
 session_cache_limiter('nocache, private');
 

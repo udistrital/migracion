@@ -114,8 +114,8 @@ class sql_registroInscripcionECAES extends sql
 				
 			case "validaFechas":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="NVL(TO_CHAR(ACE_FEC_INI, 'yyyymmdd'), '0'), ";
-				$cadena_sql.="NVL(TO_CHAR(ACE_FEC_FIN, 'yyyymmdd'), '0'), ";
+				$cadena_sql.="coalesce(TO_CHAR(ACE_FEC_INI, 'yyyymmdd'), '0'), ";
+				$cadena_sql.="coalesce(TO_CHAR(ACE_FEC_FIN, 'yyyymmdd'), '0'), ";
 				$cadena_sql.="TO_CHAR(ACE_FEC_INI, 'dd/Mon/YYYY'), ";
 				$cadena_sql.="TO_CHAR(ACE_FEC_FIN, 'dd/Mon/YYYY') ";
 				$cadena_sql.="FROM ";
@@ -136,8 +136,8 @@ class sql_registroInscripcionECAES extends sql
 				
 			case "validaFechasAsistente":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="NVL(TO_CHAR(ACE_FEC_INI, 'yyyymmdd'), '0'), ";
-				$cadena_sql.="NVL(TO_CHAR(ACE_FEC_FIN, 'yyyymmdd'), '0'), ";
+				$cadena_sql.="coalesce(TO_CHAR(ACE_FEC_INI, 'yyyymmdd'), '0'), ";
+				$cadena_sql.="coalesce(TO_CHAR(ACE_FEC_FIN, 'yyyymmdd'), '0'), ";
 				$cadena_sql.="TO_CHAR(ACE_FEC_INI, 'dd/Mon/YYYY'), ";
 				$cadena_sql.="TO_CHAR(ACE_FEC_FIN, 'dd/Mon/YYYY') ";
 				$cadena_sql.="FROM ";
