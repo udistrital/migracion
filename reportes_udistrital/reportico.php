@@ -1005,6 +1005,17 @@ class reportico extends reportico_object
 
 					$this->debug("$colval");
 				}
+				else//For compatibility with POSTGRESQL lower case columns result
+				if ( array_key_exists(strtolower($assoc_key), $result_line ) )
+				{
+					$this->debug("exists");
+					$colval = $result_line[strtolower($assoc_key)];
+			
+					if ( is_string($colval) )
+						$colval = trim($colval);
+			
+					$this->debug("$colval");
+				}
 				else
 					$colval = "NULL";
 				$this->columns[$k]->column_value = $colval;
@@ -4149,13 +4160,12 @@ class reportico extends reportico_object
         // Main Query Result Fetching
 		$this->query_count = 0;
 		while (!$recordSet->EOF) {
-
+				
 			$line = $recordSet->FetchRow();
 			$this->query_count++;
 
 			$g_code_area = "Build Column";
 			$this->build_column_results($line);
-
 			$g_code_area = "Assignment";
 
 			if ( $_counter < 1 )
