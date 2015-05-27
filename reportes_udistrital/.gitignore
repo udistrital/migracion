@@ -1,0 +1,15 @@
+# Ignorando archivos pdf
+*.pdf
+*.PDF
+# Ignorando aechivos .doc
+*.doc
+# Ignorando archivos php errados
+*.php~
+#ignorando achivos .sql de la raiz
+*.sql
+*.sql~
+*.txt
+#ignorando achivos .tlp 
+templates_c/
+
+

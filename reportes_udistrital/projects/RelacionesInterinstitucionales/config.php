@@ -44,7 +44,7 @@ define('AJAX_ENABLED',true);
 
 // Location of Reportico Top Level Directory From Browser Point of View
 // DB connection details for ADODB
-define('SW_DB_TYPE', 'oci8');
+define('SW_DB_TYPE', 'pdo_pgsql');
 // If connecting to existing framework db then use
 // db parameters from external framework
 if ( SW_DB_TYPE == "framework" )
@@ -59,9 +59,9 @@ else
 {
 define('SW_DB_DRIVER', SW_DB_TYPE);
 define('SW_DB_USER', 'soportempl');
-define('SW_DB_PASSWORD', 's0p0rt3milton2013');
-define('SW_DB_HOST', '10.20.0.4');
-define('SW_DB_DATABASE', 'SUDD');
+define('SW_DB_PASSWORD', 'change_my_secret');
+define('SW_DB_HOST', '10.20.0.92');
+define('SW_DB_DATABASE', 'academica');
 }
 define('SW_DB_CONNECT_FROM_CONFIG', true);
 define('SW_DB_DATEFORMAT', 'Y-m-d');

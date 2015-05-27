@@ -9,7 +9,7 @@
 
 // Password required to gain access to Administration Panel
 // Set to Blank to allow reset from browser
-define('SW_ADMIN_PASSWORD','sdadrud3.2');
+define('SW_ADMIN_PASSWORD','change_my_secret');
 
 // Default System Language
 define('SW_LANGUAGE','en_gb');

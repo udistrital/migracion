@@ -1724,9 +1724,10 @@ class reportico extends reportico_object
             {
 				if (array_key_exists("login", $_REQUEST) && isset($_REQUEST['admin_password']))
 				{
-					//Temporal true or para acceder a la administración
-                    // User has supplied an admin password and pressed login
-					if ( true || $_REQUEST['admin_password'] == SW_ADMIN_PASSWORD )
+					// User has supplied an admin password and pressed login
+					//Temporal true or para acceder a la administración juusechec
+					//if ( true || $_REQUEST['admin_password'] == SW_ADMIN_PASSWORD )
+					if ( $_REQUEST['admin_password'] == SW_ADMIN_PASSWORD )							
 					{
 						set_reportico_session_param('admin_password',"1");
 						$loggedon = "ADMIN";
