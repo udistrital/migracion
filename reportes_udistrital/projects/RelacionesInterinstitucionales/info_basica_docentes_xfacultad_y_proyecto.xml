@@ -22,8 +22,8 @@ FROM (SELECT DISTINCT
 	tdo_nombre 			AS TIPO_IDENTIFICACION,
 	'PLANTA' 			AS TIPO_DOCENTE, 
 	emp_direccion 			AS DIRECCION,
-	to_char(emp_telefono) 		AS TELEFONO,
-	to_char(emp_telefono_alt) 	AS TELEFONO2,
+	(emp_telefono::TEXT) 		AS TELEFONO,
+	(emp_telefono_alt::TEXT) 	AS TELEFONO2,
 	emp_email 			AS EMAIL
 FROM pecargo C
 INNER JOIN peemp ON emp_car_cod = C.car_cod  AND C.car_tc_cod IN ('DP','DC','DH') AND emp_estado_e &lt;&gt; 'R' AND emp_estado='A'
