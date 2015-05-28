@@ -9,7 +9,7 @@ require_once(dir_conect.'fu_tipo_user.php');*/
 
 require_once(dir_conect.'valida_pag.php');
 ;*/
-error_reporting(E_ALL);
+
 require_once('dir_relativo.cfg');
 require_once(dir_conect.'valida_pag.php');
 require_once(dir_conect.'fu_tipo_user.php');
@@ -26,10 +26,32 @@ $cod_consul.= "mntac.fua_realizo_preins($estcod) ";
 $cod_consul.= "FROM dual";
 //Ejecuta la funci�n
 
-	$conexion=new multiConexion();
-	//$accesoOracle=$conexion->estableceConexion($configuracion,$_SESSION['usuario_nivel']);
-	//$registro=$conexion->ejecutarSQL($configuracion,$accesoOracle, $cod_consul,"busqueda");
+//verifica si el estudiante se encuentra en mora de acuerdo a listado de Tesorería
+        $conexion2=new multiConexion();
+        $accesoSGA=$conexion2->estableceConexion(999);
     
+        $conexion3=new multiConexion();
+        $accesoOracle=$conexion3->estableceConexion(51);
+        $registroDeudor = consultarDeudor($configuracion, $conexion2,$accesoSGA);
+        if(is_array($registroDeudor)){
+
+            $registroEstudiante=consultarEstudiante($configuracion, $conexion3,$accesoOracle);
+            if($registroEstudiante[0][3]=='POSGRADO' || $registroEstudiante[0][3]=='DOCTORADO' || $registroEstudiante[0][3]=='MAESTRIA'){
+                $mensajeT='Señor(a) Estudiante, \n\nDe acuerdo con nuestros registros contables,  Usted presenta saldos en mora con el pago de alguna(s) de las cuotas de matrículas diferidas, por lo tanto se solicita realizar el pago de acuerdo con el compromiso adquirido con la Universidad.  Recordamos que los saldos en mora serán reportados a la Oficina Asesora Jurídica, para su respectivo cobro. \n\nCualquier aclaración comunicarse al tel. 3239300 Ext. 1750.\n' ;
+            }else{
+                $mensajeT='Señor(a) Estudiante, \n\nDe acuerdo con nuestros registros contables,  Usted presenta saldos en mora con el pago de alguna(s) de las cuotas de matrículas diferidas, por lo tanto se solicita realizar el pago de acuerdo con el compromiso adquirido con la Universidad.  \n\nCualquier aclaración comunicarse al tel. 3239300 Ext. 1750.\n' ;
+            }
+            foreach ($registroDeudor as $deudor) {
+                $mensajeT .= " * Año: ".$deudor[0]." Período: ".$deudor[1]." Valor: ".number_format($deudor[8], 0);
+            }
+            $mensajeT .= " * ";
+            if(is_array($registroDeudor)){
+                echo '<script type="text/javascript">
+                        var mensaje = "'.$mensajeT.'";
+                        alert(mensaje);
+                    </script>';
+            }
+        }
 
 //Valida si el estudiante ya tiene preinscripcion por parte del PROYECTO CURRICULAR
 
@@ -53,7 +75,6 @@ if($result=='N'){
 	}
 }
 else{
-	//echo $Nro."-".$Dia."-".$Mod."-";
 	if($Nro == 1){
 	    $pmenu='est_pag_menu_uno.php';
 	    $pagpal = '../generales/cambiar_mi_clave.php';
@@ -106,6 +127,45 @@ else{
 	}
 }
 			
+function consultarDeudor($configuracion,$conexion2,$accesoSGA){
+        $cadena_sql="SELECT ";
+        $cadena_sql.=" deu_anio,";
+        $cadena_sql.=" deu_per,";
+        $cadena_sql.=" deu_nro_iden,";
+        $cadena_sql.=" deu_nombre_deudor,";
+        $cadena_sql.=" deu_codigo,";
+        $cadena_sql.=" deu_proyecto,";
+        $cadena_sql.=" deu_cuota,";
+        $cadena_sql.=" deu_fecha_ordinaria,";
+        $cadena_sql.=" deu_valor,";
+        $cadena_sql.=" deu_estado";
+        $cadena_sql.=" FROM  sga_deudores_mat";
+        $cadena_sql.=" WHERE "; 
+        $cadena_sql.=" deu_codigo='".$_SESSION['usuario_login']."'";
+        $cadena_sql.=" AND deu_estado=1";
+
+        $resultado = $conexion2->ejecutarSQL($configuracion, $accesoSGA, $cadena_sql, "busqueda");
+	
+	return $resultado;
+        
+    }
+			
+function consultarEstudiante($configuracion, $conexion,$accesoOracle){
+        $cadena_sql="SELECT ";
+        $cadena_sql.=" est_cod,";
+        $cadena_sql.=" est_nombre,";
+        $cadena_sql.=" est_cra_cod,";
+        $cadena_sql.=" trim(tra_nivel) NIVEL";
+        $cadena_sql.=" FROM  acest";
+        $cadena_sql.=" INNER JOIN accra ON est_cra_cod=cra_cod";
+        $cadena_sql.=" LEFT OUTER JOIN actipcra ON cra_tip_cra=tra_cod";
+        $cadena_sql.=" WHERE "; 
+        $cadena_sql.=" est_cod='".$_SESSION['usuario_login']."'";
+        $resultado = $conexion->ejecutarSQL($configuracion, $accesoOracle, $cadena_sql, "busqueda");
+	return $resultado;
+        
+    }
+			
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 
@@ -136,7 +196,7 @@ else{
 						<frameset cols="201,822" FRAMEBORDER='0' BORDER='0' FRAMESPACING='0' NORESIZE >
 							<frame  FRAMEBORDER=0 BORDER=0 FRAMESPACING=0  SCROLLING="auto"  name="menu" target="_self" src="<? print $pmenu; ?>" NORESIZE >
 							<frame  FRAMEBORDER=0 BORDER=0 FRAMESPACING=0  SCROLLING="auto"  name="principal" target="_self" src="<? print $pagpal;?>" NORESIZE >
-						</frameset>
+                                                </frameset>
 					     
 			
 

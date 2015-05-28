@@ -40,7 +40,7 @@ class sql_adminSolicitud extends sql
                                 $cadena_sql.="((case WHEN reglamento.reg_causal_exclusion::text like '1%' then 'BAJO PROMEDIO, 'ELSE '' END) ";
                                 $cadena_sql.="|| (case WHEN reglamento.reg_causal_exclusion::text like '%2%' then 'REPROBAR 3 O MÁS ASIGNATURAS, ' ELSE '' END) ";
                                 $cadena_sql.="|| (case WHEN reglamento.reg_causal_exclusion::text like '%3%' then 'REPROBAR 3 VECES O MÁS UNA ASIGNATURA' ELSE '' END) ";
-                                $cadena_sql.="|| (case WHEN reglamento.reg_causal_exclusion::text like '%4%' then 'PRUEBAS ACADÉMICAS ACUMULADAS' ELSE '' END)) causal ";
+                                $cadena_sql.="|| (case WHEN reglamento.reg_causal_exclusion::text like '%4%' then 'PRUEBAS ACADÉMICAS ACUMULADAS' ELSE '' END)) causal, cra_dep_cod ";
                                 $cadena_sql.="FROM accra INNER JOIN acest ON cra_cod=est_cra_cod ";
                                 $cadena_sql.="INNER JOIN acestotr ON est_cod=eot_cod ";
                                 $cadena_sql.="INNER JOIN acestado ON estado_cod=(CASE WHEN est_acuerdo='2011004' ";
@@ -164,7 +164,20 @@ class sql_adminSolicitud extends sql
                                 $cadena_sql.=" AND respuesta_id_seccion=".$variable['seccion'];
                                 $cadena_sql.=" AND respuesta_id_prueba=".$variable['prueba'];
                                 $cadena_sql.=" AND respuesta_id_proceso=".$variable['proceso'];
-                    break;
+                        break;
+                
+                        case 'consultarMensaje':
+                                $cadena_sql=" SELECT men_info INFO,";
+                                $cadena_sql.=" men_dependencia DEPENDENCIA,";
+                                $cadena_sql.=" estudiante_info_Adicional INFO_ADICIONAL";
+                                $cadena_sql.=" FROM backoffice_mensaje_estudiantes";
+                                $cadena_sql.=" INNER JOIN backoffice_estudiantes_mensajes ON estudiante_mensaje_id = men_id";
+                                $cadena_sql.=" WHERE men_fecha_inicio <= date_format(now(),'%Y%m%d%H%i%s')";
+                                $cadena_sql.=" AND men_fecha_fin >= date_format(now(),'%Y%m%d%H%i%s')";
+                                $cadena_sql.=" AND men_estado= 1";
+                                $cadena_sql.=" AND (estudiante_codigo='".$variable['codEstudiante']."' OR estudiante_proyecto='".$variable['codProyecto']."' OR estudiante_facultad='".$variable['codFacultad']."')";
+                        
+                        break;
 
 			default:
 				$cadena_sql="";
