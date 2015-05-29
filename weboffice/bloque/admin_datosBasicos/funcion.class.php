@@ -67,11 +67,17 @@ ________________________________________________________________________________
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"registroTotal",$this->usuario);
 		$registroTotal=$this->ejecutarSQL($configuracion,$this->accesoOracle,$cadena_sql,"busqueda");		
                 
+                $variables=  array('codEstudiante'=>$this->usuario,
+                                    'codProyecto'=>$registroTotal[0][1],
+                                    'codFacultad'=>$registroTotal[0][11]);
+		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->acceso_db,"consultarMensaje",$variables);
+		$registroMensajeEspecial=$this->ejecutarSQL($configuracion,$this->acceso_db,$cadena_sql,"busqueda");
+                
 		$dia= array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","S&aacute;bado");
 		$mes= array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 		$fecha="Hoy es ".$dia[date('w')]." ".date('d')." de ".$mes[date('n')-1]." de ".date('Y');
 		//$formatoAcuerdo='<a href="https://condor.udistrital.edu.co/appserv/manual/formato_004.doc"><font color="blue">Descargue aqu&iacute; el formato para acogerse al acuerdo 004.</font></a>';
-		
+
                 
                 //$this->mostrarMensajeInicial($configuracion);
 		$html="
@@ -168,8 +174,27 @@ ________________________________________________________________________________
 				 background-color: #de4343;
 				 border-color: #c43d3d;
 			}
+			.eval{
+                                background-color: #F3F781;
+                                font-size: 11pt;
+                        }
+                        a:link {
+                            text-decoration: underline;
+                        }                        
 			</style>
 		";
+                if (is_array($registroMensajeEspecial))
+                {
+                    foreach ($registroMensajeEspecial as $mensajes => $valores) {
+                        $html.="<div class='superior eval'>";
+                        $html.=$valores[0];
+                        if (!is_null($valores[2])){$html.="<br>".$valores[2]."<br>";}
+                        $html.="<br><div align=right>".$valores[1]."</div>";
+                        $html.="</div>";
+                        $html.="<br><br>";
+        
+                    }
+                }
 		$html.="<div class='superior'>Bienvenido(a) ".$registroTotal[0][0]."<br>";
 		$html.="<span style='font-size:9pt;'>".$fecha."</span></div>";
 
