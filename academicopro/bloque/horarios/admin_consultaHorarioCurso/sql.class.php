@@ -66,7 +66,7 @@ class sql_adminHorarios extends sql { //@ Método que crea las sentencias sql pa
                     }
                 else    
                     {
-                      $this->cadena_sql.=" WHERE ape_estado IN ('A','X')";
+                      $this->cadena_sql.=" WHERE ape_estado IN ('A','V','X')";
                       $this->cadena_sql.=" ORDER BY ape_estado  ASC";
                     }
                 break;

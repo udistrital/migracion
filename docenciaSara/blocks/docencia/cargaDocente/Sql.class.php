@@ -79,7 +79,7 @@ class SqlCargaDocente extends sql {
 				$cadena_sql.="acasperi ";
 				$cadena_sql.="WHERE ";
                                 //$cadena_sql.="ape_estado NOT IN ('I') ";
-                                $cadena_sql.="ape_estado IN ('A','X') ";
+                                $cadena_sql.="ape_estado IN ('A','X','V') ";
                                 $cadena_sql.="order by ape_ano, ape_per ASC ";
 				break;
                             

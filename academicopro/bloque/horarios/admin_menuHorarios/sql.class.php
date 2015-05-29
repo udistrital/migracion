@@ -33,7 +33,7 @@ class sql_adminMenuHorario extends sql
                         
                         case "periodo":
                                 $this->cadena_sql=" SELECT ape_ano ANIO, ape_per PERIODO, ape_estado ESTADO FROM ACASPERI ";
-                                $this->cadena_sql.=" WHERE ape_estado IN ('A','P','X')";
+                                $this->cadena_sql.=" WHERE ape_estado IN ('A','P','X','V')";
                                 $this->cadena_sql.=" ORDER BY ape_ano ASC, ape_per ASC";
                                 break;
 				

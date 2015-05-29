@@ -47,7 +47,7 @@ print '<form action="coor_fec_notaspar.php" method="post" name="LisCra" target="
 $i=0;
 while(isset($row_cra[$i][0]))
 {
-	if($row_cra[$i][2]=='PREGRADO')
+	if($row_cra[$i][2]!='PREGRADO')
 	{
 		//if($i == 1)
 		//{ 
@@ -58,7 +58,7 @@ while(isset($row_cra[$i][0]))
 	else
 	{
 		
-			$d = $row_cra[$i][0];
+			$c = $row_cra[$i][0];
 			print '<tr><td align="center">'.$row_cra[$i][1].'</td></tr>';
 		
 	}
