@@ -238,6 +238,13 @@ class funcion_registroInscripcionAutomaticaCoordinador extends funcionGeneral {
      */
     function ejecutarInscripcion()
     {   
+/*        echo "Verificando Horarios del Proyecto...";echo '<img src="'.$this->configuracion['site'].  $this->configuracion['grafico'].'/preinscripcion/procesando.gif" width="400px" height="20">';
+        flush(); //con esta funcion hago que se muestre el resultado de inmediato y no espere a terminar todo el bucle
+        ob_flush();
+        echo "";
+        flush(); //con esta funcion hago que se muestre el resultado de inmediato y no espere a terminar todo el bucle
+        ob_flush();*/
+        
            ?> <head>
                 <script language="javascript">
                 //Creo una función que imprimira en la hoja el valor del porcentanje asi como el relleno de la barra de progreso
@@ -246,7 +253,11 @@ class funcion_registroInscripcionAutomaticaCoordinador extends funcionGeneral {
                  document.getElementById("getProgressBarFillRepro").innerHTML = '<div class="ProgressBarFill" style="width: '+vValor+'%;"></div>';
                 }
                 function callprogress(vValor,vItem,vTotal){
-                 document.getElementById("getprogress").innerHTML = 'Preinscribiendo espacios a estudiantes '+vItem+' de '+vTotal+' estudiantes.  '+vValor ;
+                 document.getElementById("getprogress").innerHTML = 'Preinscribiendo espacios a estudiantes '+vItem+' de '+vTotal+' estudiantes.  '+vValor+'&nbsp;%';
+                 document.getElementById("getProgressBarFill").innerHTML = '<div class="ProgressBarFill" style="width: '+vValor+'%;"></div>';
+                }
+                function callprogressHora(vValor,vItem,vTotal){
+                 document.getElementById("getprogress").innerHTML = 'Verificando Horarios '+vItem+' de '+vTotal+' horarios.  '+vValor+'&nbsp;%';
                  document.getElementById("getProgressBarFill").innerHTML = '<div class="ProgressBarFill" style="width: '+vValor+'%;"></div>';
                 }
                 </script>
@@ -260,10 +271,18 @@ class funcion_registroInscripcionAutomaticaCoordinador extends funcionGeneral {
             <body>
             <!-- Ahora creo la barra de progreso con etiquetas DIV -->
              <div class="ProgressBar">
-                  <div class="ProgressBarText"><span id="getprogress"></span>&nbsp;% </div>
+                  <div class="ProgressBarText"><span id="getprogress"></span></div>
                   <div id="getProgressBarFill"></div>
                 </div>
-            </body><?                    
+            </body><?
+/*            $a=1;
+            for ($a=1;$a<=100;$a++)
+            {
+        echo "<script>callprogressHora(".round($a).")</script>"; //llamo a la función JS(JavaScript) para actualizar el progreso
+                        flush(); //con esta funcion hago que se muestre el resultado de inmediato y no espere a terminar todo el bucle
+                        ob_flush();
+                        sleep(2);
+            }*/
         echo "<center><b>".$this->codProyecto."-".  $this->nombreProyecto."</b><br></center>";
         $i=0;
         $this->estudiantesFinal = array();
@@ -988,6 +1007,12 @@ function consultarEspaciosPreinscritosDemanda($codEstudiante){
      * INS_CRED, INS_NRO_HT, INS_NRO_HP, INS_NRO_AUT, INS_CEA_COD, INS_TOT_FALLAS)
      */
     function adicionarOracleInscripcion($datos) {
+        foreach ($datos as $key => $value) {
+            if($value=='')
+            {
+                $datos[$key]='null';
+            }
+        }        
         $cadena_sql=$this->sql->cadena_sql("adicionar_inscripcion",$datos);
         $resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"");
         return $this->totalAfectados($this->configuracion, $this->accesoOracle);

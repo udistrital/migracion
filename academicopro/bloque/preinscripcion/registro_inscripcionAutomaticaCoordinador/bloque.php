@@ -27,7 +27,6 @@ class bloque_registroInscripcionAutomaticaCoordinador extends bloque {
 
       switch ($accion) {
         case "ejecutarInscripcion":
-          echo "Un momento por favor, se está ejecutando el proceso...";
           $this->funcion->verificarInscripcion();
           break;
 
