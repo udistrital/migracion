@@ -366,9 +366,31 @@ class funcion_adminRankingPreinsDemanda extends funcionGeneral
 *Función que clasifica los estudiantes en un ranking para la ejecución de las inscripciones. 
 */
    function cargarHorariosBinarios(){
+           ?> <head>
+                <script language="javascript">
+                //Creo una función que imprimira en la hoja el valor del porcentanje asi como el relleno de la barra de progreso
+                function callprogressHora(vValor,vItem,vTotal,Fac){
+                 document.getElementById("getprogress").innerHTML = 'Verificando Horarios de '+Fac+': '+vItem+' de '+vTotal+' horarios.  '+vValor+'&nbsp;%';
+                 document.getElementById("getProgressBarFill").innerHTML = '<div class="ProgressBarFill" style="width: '+vValor+'%;"></div>';
+                }
+                </script>
+                <style type="text/css">
+                /* Ahora creo el estilo que hara que aparesca el porcentanje y relleno del mismoo*/
+                  .ProgressBar     { width: 70%; border: 1px solid black; background: #eef; height: 1.25em; display: block; margin-left: auto;margin-right: auto }
+                  .ProgressBarText { position: absolute; font-size: 1em; width: 35em; text-align: center; font-weight: normal; }
+                  .ProgressBarFill { height: 100%; background: #aae; display: block; overflow: visible; }
+                </style>
+            </head>
+            <body>
+            <!-- Ahora creo la barra de progreso con etiquetas DIV -->
+             <div class="ProgressBar">
+                  <div class="ProgressBarText"><span id="getprogress"></span></div>
+                  <div id="getProgressBarFill"></div>
+                </div>
+            </body><?       
        $borrado=$this->vaciarTablaHorariosBinarios();
        $resultadoHorarios =$this->horariosBinario->ConsultarHorarios();
-       echo $resultadoHorarios;
+       $this->mensaje.="Total horarios Binarios registrados: ".$resultadoHorarios;
        $this->redireccionarFormularioInicial($this->mensaje);
       
     }

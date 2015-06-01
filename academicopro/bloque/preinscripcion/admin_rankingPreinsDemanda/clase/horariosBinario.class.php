@@ -73,39 +73,57 @@ class horariosBinario {
     public function ConsultarHorarios()
         {   
             //consulta los horarios creados
-            $resultado=$this->horarios();
-            $horario='';
-            //crea el horario binario para cada registro de curso
-          foreach($resultado as $key=>$horarios){
-              $horas=24;
-              $hora='';
-              //Convierte las horas del horario registrado en una cadena de 24 bits, colocando 1 en la hora respectiva y 0 en los demas
-                for ($i = 1; $i <= $horas; $i++) {
-                    if($i==$horarios['HORA_HOR']){
-                     $hora.=1;
-                    }
-                    elseif($i!=$horas+1){$hora.=0;}
+            $facultades=  $this->facultades();
+            $mensaje=0;
+            $totalHorarios=0;
+            foreach ($facultades as $key => $facultad) {
+
+                $resultado=$this->horarios($facultad[0]);
+                $horario='';
+                $total=count($resultado);
+                $a=2;
+                
+                //crea el horario binario para cada registro de curso
+                foreach($resultado as $key=>$horarios){
+                    //muestra el avance de creación del arreglo de horarios
+                    $porcentaje = $a * 100 / $total; //saco mi valor en porcentaje
+                    echo "<script>callprogressHora(".round($porcentaje).",".$a.",".$total.",".$facultad[0].")</script>"; //llamo a la función JS(JavaScript) para actualizar el progreso
+                    flush(); //con esta funcion hago que se muestre el resultado de inmediato y no espere a terminar todo el bucle
+                    ob_flush();
+                    $a++;
+                    
+                    $horas=24;
+                    $hora='';
+                      //Convierte las horas del horario registrado en una cadena de 24 bits, colocando 1 en la hora respectiva y 0 en los demas
+                    for ($i = 1; $i <= $horas; $i++) {
+                        if($i==$horarios['HORA_HOR']){
+                                $hora.=1;
+                            }
+                            elseif($i!=$horas+1){$hora.=0;}
+                        }
+                        //concatena todas las horas del dia en un solo registro utilizando una operacion OR binario. La clave de cada registro se forma con el id del grupo, proyecto, facultad, alternativa y dia
+                    if(isset($horario[$horarios['CURSO']."|".$horarios['PROYECTO']."|".$horarios['FACULTAD']."|".$horarios['ALTERNATIVA']][$horarios['DIA_HOR']])){
+                             //suma una nueva cadena de bits con otra anterior, si la hay
+                             $horario[$horarios['CURSO']."|".$horarios['PROYECTO']."|".$horarios['FACULTAD']."|".$horarios['ALTERNATIVA']][$horarios['DIA_HOR']]=$hora|$horario[$horarios['CURSO']."|".$horarios['PROYECTO']."|".$horarios['FACULTAD']."|".$horarios['ALTERNATIVA']][$horarios['DIA_HOR']]; 
+
+                     }else{
+                             //ingresa la primer secuencia de bits en el horario binario del curso
+                             $horario[$horarios['CURSO']."|".$horarios['PROYECTO']."|".$horarios['FACULTAD']."|".$horarios['ALTERNATIVA']][$horarios['DIA_HOR']]=$hora; 
+                          }
+                          //$arregloHorarios[]= $horarios['FACULTAD'];
                 }
-                //concatena todas las horas del dia en un solo registro utilizando una operacion OR binario. La clave de cada registro se forma con el id del grupo, proyecto, facultad, alternativa y dia
-                   if(isset($horario[$horarios['CURSO']."|".$horarios['PROYECTO']."|".$horarios['FACULTAD']."|".$horarios['ALTERNATIVA']][$horarios['DIA_HOR']])){
-                            //suma una nueva cadena de bits con otra anterior, si la hay
-                            $horario[$horarios['CURSO']."|".$horarios['PROYECTO']."|".$horarios['FACULTAD']."|".$horarios['ALTERNATIVA']][$horarios['DIA_HOR']]=$hora|$horario[$horarios['CURSO']."|".$horarios['PROYECTO']."|".$horarios['FACULTAD']."|".$horarios['ALTERNATIVA']][$horarios['DIA_HOR']]; 
-                          
-                    }else{
-                            //ingresa la primer secuencia de bits en el horario binario del curso
-                            $horario[$horarios['CURSO']."|".$horarios['PROYECTO']."|".$horarios['FACULTAD']."|".$horarios['ALTERNATIVA']][$horarios['DIA_HOR']]=$hora; 
-                         }
-	          //$arregloHorarios[]= $horarios['FACULTAD'];
-          }
-       //crea los arreglos de horario correspondientes para cada curso
-       $arreglo=$this->crearArreglo($horario);
-       //registra el horario del curso en binario.
-       $registrados=$this->registrarArreglo($arreglo);
-       if($registrados>0){
-            $mensaje = "<br>Registro Exitoso de horarios Binarios!!";
-       }else{
-            $mensaje = "<br>No se registraron horarios Binarios!!";
-       }
+               //crea los arreglos de horario correspondientes para cada curso
+                $arreglo=$this->crearArreglo($horario);
+               //registra el horario del curso en binario.
+                $registrados=$this->registrarArreglo($arreglo);
+                if($registrados>0){
+                    $mensaje+=$registrados;
+                }else{
+                    
+                }
+                echo "<br>Registrados $registrados Horarios<br>";
+            }
+            sleep(2);
        return $mensaje;
        
       }
@@ -114,11 +132,23 @@ class horariosBinario {
      * Funcion que permite consultar los horarios creados 
      * @return type
      */
-      function horarios() {
+      function horarios($facultad) {
             $variables=array('ano'=>  $this->ano,
-                               'periodo'=> $this->periodo               
+                               'periodo'=> $this->periodo,
+                               'facultad'=>$facultad
                               );     
             $cadena_sql=$this->cadena_sql("ConsultarHorarios",$variables);
+            $resultado_horario=$this->funcionGeneral->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
+            return $resultado_horario;
+            
+    }
+        
+    /**
+     * Funcion que permite consultar los horarios creados 
+     * @return type
+     */
+      function facultades() {
+            $cadena_sql=$this->cadena_sql("ConsultarFacultades","");
             $resultado_horario=$this->funcionGeneral->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
             return $resultado_horario;
             
@@ -154,7 +184,7 @@ class horariosBinario {
   return $arreglo;
   }
   
-  function registrarArreglo($arreglo){ 
+  function registrarArreglo($arreglo){
       $total=0;
 	for ($i = 0; $i < count($arreglo); $i++) {	
             $afectado=0;
@@ -205,9 +235,18 @@ class horariosBinario {
                       $cadena_sql.=" INNER JOIN accursos ON hor_id_curso=cur_id";
                       $cadena_sql.=" WHERE cur_ape_ano=".$variable['ano'];
                       $cadena_sql.=" AND cur_ape_per=".$variable['periodo'];
+                      $cadena_sql.=" AND cur_cra_cod in (select cra_cod from accra where cra_dep_cod =".$variable['facultad']." and cra_estado='A')";
                       $cadena_sql.=" AND hor_estado LIKE '%A%'";
                       $cadena_sql.=" AND cur_estado LIKE '%A%'";
-                      $cadena_sql.=" ORDER BY hor_id_curso,hor_dia_nro";  
+                      $cadena_sql.=" ORDER BY hor_id_curso,hor_dia_nro";
+                      break; 
+                  
+                  case "ConsultarFacultades":
+
+                    $cadena_sql=" select distinct cra_dep_cod";
+                    $cadena_sql.=" from accra";
+                    $cadena_sql.=" where cra_dep_cod not in (0,20,100,500)";
+                    $cadena_sql.=" and cra_estado='A'";
                       break; 
                   
                   case 'insertarRegistroHorarios':
