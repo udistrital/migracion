@@ -78,7 +78,7 @@ class sql_adminConsultarReporteGruposAsisVice extends sql {	//@ Método que crea
                 $cadena_sql.=" cra_nombre NOMBRE_PROYECTO,";
                 //$cadena_sql.=" cur_asi_cod COD_ESPACIO,";
                 //$cadena_sql.=" asi_nombre NOMBRE_ESPACIO,";
-                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO,";
+                $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO,";
                 $cadena_sql.=" cur_nro_cupo CUPO,";
                 $cadena_sql.=" cur_id ID_GRUPO,";
                 $cadena_sql.=" (SELECT COUNT(*) FROM acins WHERE ins_asi_cod=cur_asi_cod AND ins_gr=cur_id AND ins_ano=cur_ape_ano AND ins_per=cur_ape_per) INSCRITOS";
@@ -98,7 +98,7 @@ class sql_adminConsultarReporteGruposAsisVice extends sql {	//@ Método que crea
                 $cadena_sql.=" cur_asi_cod CODIGO,";
                 $cadena_sql.=" cur_cra_cod CARRERA,";
                 $cadena_sql.=" cra_nombre NOMBRE,";
-                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) GRUPO,";
+                $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) GRUPO,";
                 $cadena_sql.=" cur_id ID_GRUPO,";
                 $cadena_sql.=" cur_nro_cupo CUPO,";
                 $cadena_sql.=" cur_nro_ins INSCRITOS";
