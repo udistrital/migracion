@@ -66,7 +66,7 @@ class sql_adminConsultarIncritosEspacioPorFacultadAsisVice extends sql {	//@ Mé
                 $cadena_sql.=" EST_NOMBRE nombre_estudiante,";
                 $cadena_sql.=" EST_ESTADO_EST estado_estudiante,";
                 $cadena_sql.=" (SELECT CRA_NOMBRE FROM ACCRA WHERE CRA_COD=INS_CRA_COD) nombre_carrera_est,";
-                $cadena_sql.=" (lpad(cur_cra_cod,3,0)||'-'||cur_grupo) grupo,";
+                $cadena_sql.=" (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo) grupo,";
                 $cadena_sql.=" CUR_CRA_COD carrera_grupo,";
                 $cadena_sql.=" CRA_NOMBRE nombre_carrera_grupo,";
                 $cadena_sql.=" CUR_NRO_CUPO cupo_grupo,";

@@ -125,52 +125,51 @@ class funcion_adminManuales extends funcionGeneral {
      */
     function verManualesAsisVice($configuracion) {
 
-        
                     $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
                     $ruta="pagina=admin_consultarReporteGruposAsisVice";
-                    $ruta.="&usuario=".$_SESSION['usuario_login'];
+                    $ruta.="&usuario=".$this->usuario;
                     $ruta.="&opcion=reporteGrupos";                    
                     $ruta.="&tipoUser=61";
 
                     $ruta=$this->cripto->codificar_url($ruta,$configuracion);
         
         
-        $arregloEnlace[0]=array(    etiqueta => 'Reporte grupos por espacio acad&eacute;mico', 
-                                    ruta=>$indice.$ruta,
-                                    imagen=>'kate.png');
+        $arregloEnlace[0]=array(    'etiqueta' => 'Reporte grupos por espacio acad&eacute;mico', 
+                                    'ruta'=>$indice.$ruta,
+                                    'imagen'=>'kate.png');
                 
 
                     $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 
                     $ruta="pagina=adminConsultarIncritosEspacioPorFacultadAsisVice";
-                    $ruta.="&usuario=".$_SESSION['usuario_login'];
+                    $ruta.="&usuario=".$this->usuario;
                     $ruta.="&opcion=select";
                     $ruta.="&tipoUser=61";
 
                     $ruta=$this->cripto->codificar_url($ruta,$configuracion);        
         
 
-        $arregloEnlace[1]=array(    etiqueta => 'Reporte inscritos por grupo', 
-                                    ruta=>$indice.$ruta,
-                                    imagen=>'kate.png');             
+        $arregloEnlace[1]=array(    'etiqueta' => 'Reporte inscritos por grupo', 
+                                    'ruta'=>$indice.$ruta,
+                                    'imagen'=>'kate.png');             
         
    
-        $arregloEnlace[2]=array(    etiqueta => 'Manual de usuario Asesor Vicerrector', 
-                                    ruta=>$configuracion['site'].$configuracion['bloques'].'/adminManuales/MANUAL_SGA_AsesorVice_Planes_Estudio.pdf',
-                                    imagen=>'acroread.png');
+        $arregloEnlace[2]=array(    'etiqueta' => 'Manual de usuario Asesor Vicerrector', 
+                                    'ruta'=>$configuracion['site'].$configuracion['bloques'].'/adminManuales/MANUAL_SGA_AsesorVice_Planes_Estudio.pdf',
+                                    'imagen'=>'acroread.png');
         
         
-        $arregloEnlace[3]=array(    etiqueta => 'Planes de Estudio', 
-                                    ruta=>$configuracion['site'].$configuracion['bloques'].'/adminManuales/MANUAL_SGA_Coordinador_Planes_Estudio.pdf',
-                                    imagen=>'acroread.png');
+        $arregloEnlace[3]=array(    'etiqueta' => 'Planes de Estudio', 
+                                    'ruta'=>$configuracion['site'].$configuracion['bloques'].'/adminManuales/MANUAL_SGA_Coordinador_Planes_Estudio.pdf',
+                                    'imagen'=>'acroread.png');
                 
-        $arregloEnlace[4]=array(    etiqueta => 'Rangos Planes de Estudios', 
-                                    ruta=>$configuracion['site'].$configuracion['bloques'].'/adminManuales/Rangos/Turor Rangos.htm',
-                                    imagen=>'folder_video.png');
+        $arregloEnlace[4]=array(    'etiqueta' => 'Rangos Planes de Estudios', 
+                                    'ruta'=>$configuracion['site'].$configuracion['bloques'].'/adminManuales/Rangos/Turor Rangos.htm',
+                                    'imagen'=>'folder_video.png');
                 
-        $arregloEnlace[5]=array(    etiqueta => 'Cursos intermedios', 
-                                    ruta=>$configuracion['site'].$configuracion['bloques'].'/adminManuales/Cursos intermedios/TutorCursosIntermedios.htm',
-                                    imagen=>'folder_video.png');
+        $arregloEnlace[5]=array(    'etiqueta' => 'Cursos intermedios', 
+                                    'ruta'=>$configuracion['site'].$configuracion['bloques'].'/adminManuales/Cursos intermedios/TutorCursosIntermedios.htm',
+                                    'imagen'=>'folder_video.png');
                
                
                     

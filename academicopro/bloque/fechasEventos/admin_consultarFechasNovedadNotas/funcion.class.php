@@ -343,8 +343,8 @@ class funcion_adminConsultarFechasNovedadNotas extends funcionGeneral {
                         </table>
                     <div id="div_mensaje1" align="center" class="ab_name">
                         Espacios requeridos (*)     
-                        <input type='hidden' name='xajax' value='<? echo $_REQUEST['xajax'];?>'>
-                        <input type='hidden' name='xajax_file' value='<? echo $_REQUEST['xajax_file'];?>'>
+                        <input type='hidden' name='xajax' value='<? echo (isset($_REQUEST['xajax'])?$_REQUEST['xajax']:'');?>'>
+                        <input type='hidden' name='xajax_file' value='<? echo (isset($_REQUEST['xajax_file'])?$_REQUEST['xajax_file']:'');?>'>
 								
                     </div>
 

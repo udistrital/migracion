@@ -108,8 +108,8 @@ class sql_adminInscripcionAutomaticaCoordinador extends sql {
                 $cadena_sql.=" AND ace_anio=".$variable['ano'];
                 $cadena_sql.=" AND ace_periodo=".$variable['periodo'];
                 $cadena_sql.=" AND ace_estado='A'";
-                $cadena_sql.=" AND sysdate>ace_fec_ini";
-                $cadena_sql.=" AND sysdate<ace_fec_fin";
+                $cadena_sql.=" AND current_timestamp>ace_fec_ini";
+                $cadena_sql.=" AND current_timestamp<ace_fec_fin";
                 break;
 
             case 'consultarEstudiantesClasificados':

@@ -144,19 +144,19 @@ class sql_registroInscripcionAutomaticaCoordinador extends sql {
                         $cadena_sql="INSERT INTO ACINSPRE ";
                         $cadena_sql.="( INS_ANO, INS_PER,INS_CRA_COD, INS_EST_COD, INS_ASI_COD, INS_GR, INS_SEM, INS_ESTADO, INS_CRED, INS_NRO_HT, INS_NRO_HP, INS_NRO_AUT, INS_CEA_COD, INS_HOR_ALTERNATIVO) ";
                         $cadena_sql.="VALUES (";
-                        $cadena_sql.="'".$variable['INS_ANO']."',";
-                        $cadena_sql.="'".$variable['INS_PER']."',";
-                        $cadena_sql.="'".$variable['INS_CRA_COD']."',";
-                        $cadena_sql.="'".$variable['INS_EST_COD']."',";
-                        $cadena_sql.="'".$variable['INS_ASI_COD']."',";
-                        $cadena_sql.="'".$variable['INS_GR']."',";
-                        $cadena_sql.="'".$variable['INS_SEM']."',";
+                        $cadena_sql.="".$variable['INS_ANO'].",";
+                        $cadena_sql.="".$variable['INS_PER'].",";
+                        $cadena_sql.="".$variable['INS_CRA_COD'].",";
+                        $cadena_sql.="".$variable['INS_EST_COD'].",";
+                        $cadena_sql.="".$variable['INS_ASI_COD'].",";
+                        $cadena_sql.="".$variable['INS_GR'].",";
+                        $cadena_sql.="".$variable['INS_SEM'].",";
                         $cadena_sql.="'".$variable['INS_ESTADO']."',";
-                        $cadena_sql.="'".$variable['INS_CRED']."',";
-                        $cadena_sql.="'".$variable['INS_NRO_HT']."',";
-                        $cadena_sql.="'".$variable['INS_NRO_HP']."',";
-                        $cadena_sql.="'".$variable['INS_NRO_AUT']."',";
-                        $cadena_sql.="'".$variable['INS_CEA_COD']."',";
+                        $cadena_sql.="".$variable['INS_CRED'].",";
+                        $cadena_sql.="".$variable['INS_NRO_HT'].",";
+                        $cadena_sql.="".$variable['INS_NRO_HP'].",";
+                        $cadena_sql.="".$variable['INS_NRO_AUT'].",";
+                        $cadena_sql.="".$variable['INS_CEA_COD'].",";
                         $cadena_sql.="'0')";
                         break;
                     
@@ -273,7 +273,7 @@ class sql_registroInscripcionAutomaticaCoordinador extends sql {
                 $cadena_sql.="VALUES (";
                 $cadena_sql.="'14',";
                 $cadena_sql.="'".$variable['codProyecto']."',";
-                $cadena_sql.="sysdate,";
+                $cadena_sql.="current_timestamp,";
                 $cadena_sql.="'".$variable['tipo']."',";
                 $cadena_sql.="'".$variable['facultad']."',";
                 $cadena_sql.="'".$variable['ano']."',";
@@ -349,7 +349,7 @@ class sql_registroInscripcionAutomaticaCoordinador extends sql {
 
             case 'actualizarEventoFinPreins':
                 $cadena_sql="UPDATE accaleventos";
-                $cadena_sql.=" SET ace_fec_fin=sysdate";
+                $cadena_sql.=" SET ace_fec_fin=current_timestamp";
                 $cadena_sql.=" WHERE ace_cra_cod=".$variable['codProyecto'];
                 $cadena_sql.=" AND ace_cod_evento=14";
                 $cadena_sql.=" AND ace_anio=".$variable['ano'];
