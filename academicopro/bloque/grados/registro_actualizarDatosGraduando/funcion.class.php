@@ -545,8 +545,6 @@ class funcion_registroActualizarIntensidadHorariaEgresado extends funcionGeneral
                     'codEstudiante'=>  $this->datosEgresado['EGR_EST_COD']
             );
         $cadena_sql = $this->sql->cadena_sql("actualizar_egresado", $datos);
-        echo "debe parar aca";
-        echo $cadena_sql;exit;
         $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "");        
         return $this->totalAfectados($this->configuracion, $this->accesoOracle);
     }
