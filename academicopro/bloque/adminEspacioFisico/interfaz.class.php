@@ -58,7 +58,7 @@ class Interfaz extends funcionGeneral {
             $titulo = "Edificio";
         if ($espacio == "4")
             $titulo = "Espacio Físico Académico";
-
+        $tab=0;
         $this->formulario = 'RegistrarEspacio';
         $flag = 0;
         ?>
@@ -113,10 +113,13 @@ class Interfaz extends funcionGeneral {
                                 $dato = NULL;
 
                                 $nomAtributo = $atributos[$i]['NOM_ID'];
-                                for ($j = 0; $j < count($valorIngresado); $j++) {
-                                    $dato = $valorIngresado[$j][$nomAtributo];
-                                    if ($dato != NULL)
-                                        break;
+                                if(is_array($valorIngresado))
+                                {
+                                    for ($j = 0; $j < count($valorIngresado); $j++) {
+                                        $dato = $valorIngresado[$j][$nomAtributo];
+                                        if ($dato != NULL)
+                                            break;
+                                    }
                                 }
 
                                 if ($atributos[$i]['TIPO'] == 'COMBOBOX') {
@@ -185,23 +188,38 @@ class Interfaz extends funcionGeneral {
                                                     $flag++;
                                                 } else {
                                                     $cadenaValidacion.=";" . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "','" . $atributos[$i]['NOM_FORM'] . "')";
-                                                    $this->verificar .= "&& " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "','" . $atributos[$i]['NOM_FORM'] . "')";
-                                                }
+                                                    if (isset($this->verificar))
+                                                    {
+                                                        $this->verificar .= "&& " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "','" . $atributos[$i]['NOM_FORM'] . "')";
+                                                    }else
+                                                        {
+                                                            $this->verificar= "&& " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "','" . $atributos[$i]['NOM_FORM'] . "')";
+                                                        }
+                                                    
+                                                    }
                                             }if ($validacion[$j] == 'longitudCadenaSuperior') {
 
-                                                if ($parametros[$j] != 'NA') {
+                                                if ((isset($parametros[$j])) != 'NA') {
                                                     if ($flag == 0) {
                                                         $cadenaValidacion = $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "'," . $parametros[$j] . ",'" . $atributos[$i]['NOM_FORM'] . "')";
                                                         $this->verificar = $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "'," . $parametros[$j] . ",'" . $atributos[$i]['NOM_FORM'] . "')";
                                                         $flag++;
                                                     } else {
                                                         $cadenaValidacion.="; " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "'," . $parametros[$j] . ",'" . $atributos[$i]['NOM_FORM'] . "')";
-                                                        $this->verificar .= "&& " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "'," . $parametros[$j] . ",'" . $atributos[$i]['NOM_FORM'] . "')";
-                                                    }
+                                                        if(isset($this->verificar))
+                                                        {
+                                                            $this->verificar .= "&& " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "'," . $parametros[$j] . ",'" . $atributos[$i]['NOM_FORM'] . "')";
+                                                        }else
+                                                            {
+                                                                $this->verificar= "&& " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "'," . $parametros[$j] . ",'" . $atributos[$i]['NOM_FORM'] . "')";
+                                                            }
+                                                            
+                                                        
+                                                        }
                                                 }
                                             }if ($validacion[$j] == 'solo_numero') {
 
-                                                if ($parametros[$j] == 'NA') {
+                                                if ((isset($parametros[$j])) == 'NA') {
                                                     if ($flag == 0) {
                                                         $cadenaValidacion = "return " . $validacion[$j] . "(event)";
                                                         $flag++;
@@ -284,7 +302,6 @@ class Interfaz extends funcionGeneral {
                                     echo "<br> ";
                                 }
                             }
-                            // echo "<br> validacion ";var_dump($this->verificar);
                             ?>
                             <li class="buttons ">
                                 <div>
@@ -354,15 +371,17 @@ class Interfaz extends funcionGeneral {
             $resultados = $this->ejecutarSQL($configuracion, $this->accesoOracle, $cadenaSql, "busqueda");
         }
 
-        $cant_resultados = count($resultados);
+        if(isset($resultados))
+        {
+            $cant_resultados = count($resultados);
+            for ($i = 0; $i < $cant_resultados; $i++) {
 
-        for ($i = 0; $i < $cant_resultados; $i++) {
-
-            $datos[$i][0] = $resultados[$i]['COD'];
-            $datos[$i][1] = utf8_decode($resultados[$i]['NOM']);
+                $datos[$i][0] = $resultados[$i]['COD'];
+                $datos[$i][1] = utf8_decode($resultados[$i]['NOM']);
+            }
         }
 
-        return $datos;
+        return (isset($datos)?$datos:'');
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -515,7 +534,8 @@ class Interfaz extends funcionGeneral {
     }
 
     function desplegarFormularioModificación($configuracion, $atributos, $espacio, $resultado) {
-
+        $flag='';
+        $tab=0;
         $cant_atributos = count($atributos);
         $this->formulario = 'ModificarEspacio';
         $valorInicial = "";
@@ -526,13 +546,10 @@ class Interfaz extends funcionGeneral {
         }
 
         $valorInicial = rtrim($valorInicial, ";");
-
-        if ($espacio == 1)
-            $titulo = 'Facultad';
-        if ($espacio == 2)
-            $titulo = 'Sede';
-        if ($espacio == 3)
-            $titulo = 'Edificio';
+        if ($espacio == 1)$titulo = 'Facultad';
+        if ($espacio == 2)$titulo = 'Sede';
+        if ($espacio == 3)$titulo = 'Edificio';
+        if ($espacio == 4)$titulo = 'Espacio Físico Académico';
         ?>
         <script>
                                                     function solo_decimal(evt, numero) {
@@ -655,23 +672,36 @@ class Interfaz extends funcionGeneral {
                                                     $flag++;
                                                 } else {
                                                     $cadenaValidacion.=";" . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "','" . $atributos[$i]['NOM_FORM'] . "')";
-                                                    $this->verificar .= "&& " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "','" . $atributos[$i]['NOM_FORM'] . "')";
+                                                    if (isset($this->verificar))
+                                                    {
+                                                        $this->verificar.="&& " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "','" . $atributos[$i]['NOM_FORM'] . "')";
+                                                    }else
+                                                        {
+                                                            $this->verificar="&& " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "','" . $atributos[$i]['NOM_FORM'] . "')";
+                                                        }
+                                                    
                                                 }
                                             }if ($validacion[$j] == 'longitudCadenaSuperior') {
 
-                                                if ($parametros[$j] != 'NA') {
+                                                if ((isset($parametros[$j]))&&$parametros[$j] != 'NA') {
                                                     if ($flag == 0) {
                                                         $cadenaValidacion = $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "'," . $parametros[$j] . ",'" . $atributos[$i]['NOM_FORM'] . "')";
                                                         $this->verificar = $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "'," . $parametros[$j] . ",'" . $atributos[$i]['NOM_FORM'] . "')";
                                                         $flag++;
                                                     } else {
                                                         $cadenaValidacion.="; " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "'," . $parametros[$j] . ",'" . $atributos[$i]['NOM_FORM'] . "')";
-                                                        $this->verificar .= "&& " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "'," . $parametros[$j] . ",'" . $atributos[$i]['NOM_FORM'] . "')";
+                                                        if(isset($this->verificar))
+                                                        {
+                                                            $this->verificar.="&& " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "'," . $parametros[$j] . ",'" . $atributos[$i]['NOM_FORM'] . "')";
+                                                        }else
+                                                            {
+                                                                $this->verificar="&& " . $validacion[$j] . "(" . $this->formulario . ",'" . $atributos[$i]['NOM_ID'] . "'," . $parametros[$j] . ",'" . $atributos[$i]['NOM_FORM'] . "')";
+                                                            }
                                                     }
                                                 }
                                             }if ($validacion[$j] == 'solo_numero') {
 
-                                                if ($parametros[$j] == 'NA') {
+                                                if ((isset($parametros[$j]))&&$parametros[$j] == 'NA') {
                                                     if ($flag == 0) {
                                                         $cadenaValidacion = "return " . $validacion[$j] . "(event)";
                                                         $flag++;
@@ -740,7 +770,6 @@ class Interfaz extends funcionGeneral {
                                     echo "<br> ";
                                 }
                             }
-                            // echo "<br> validacion ";var_dump($this->verificar);
                             ?>
                             <li class="buttons ">
                                 <div>
@@ -985,7 +1014,13 @@ class Interfaz extends funcionGeneral {
                                         <?
                                         for ($i = 0; $i < $cantAtributos; $i++) {
                                             $nombreCampo = $atributos[$i]['NOM_BD'];
-                                            $variable_aux .= $nombreCampo . "=" . $espacioFisicoA[0][$nombreCampo] . ";";
+                                            if(isset($variable_aux))
+                                            {
+                                            $variable_aux.=$nombreCampo . "=" . $espacioFisicoA[0][$nombreCampo] . ";";
+                                            }else
+                                                {
+                                                    $variable_aux=$nombreCampo . "=" . $espacioFisicoA[0][$nombreCampo] . ";";
+                                                }
                                             ?>
                                             <tr class="statement435">
                                                 <th><label><? echo $atributos[$i]['NOM_FORM'] ?></label></th>

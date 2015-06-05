@@ -51,7 +51,7 @@ class SqlAdminEspacioFisico extends sql {
                 $cadena_sql.= " FROM atributoespacio ae";
                 $cadena_sql.= " INNER JOIN tipoatributo ta ON ae.atr_tipa_id=ta.tipa_id";
                 $cadena_sql.= " WHERE ae.atr_estado='A'";
-                $cadena_sql.= " and ae.atr_esp_id=" . $variable;
+                $cadena_sql.= " and ae.atr_esp_id='". $variable."'";
                 $cadena_sql.= " ORDER BY atr_nombre_form_id";
                 //echo "<br> cadena sql ".$cadena_sql;
                 break;
@@ -65,7 +65,8 @@ class SqlAdminEspacioFisico extends sql {
                 $cadena_sql.= " gedep";
                 $cadena_sql.= " WHERE";
                 $cadena_sql.= " dep_estado='A'";
-                $cadena_sql.= " and dep_nombre LIKE '%FACULTAD%'";
+                $cadena_sql.= " and (dep_nombre LIKE '%FACULTAD%'";
+                $cadena_sql.= " or dep_nombre LIKE '%APLICA%')";
                 $cadena_sql.= " ORDER BY dep_cod ";
                 break;
 
@@ -108,7 +109,7 @@ class SqlAdminEspacioFisico extends sql {
                 $cadena_sql.= " geedificio";
                 $cadena_sql.= " WHERE";
                 $cadena_sql.= " edi_estado='A'";
-                if ($variable <> -1) {
+                if ($variable <> -1&&$variable!='') {
                     $cadena_sql.=" AND ";
                     $cadena_sql.="edi_sed_id=";
                     $cadena_sql.="'" . $variable . "' ";
@@ -125,7 +126,7 @@ class SqlAdminEspacioFisico extends sql {
                 //$cadena_sql.= " mntge.gesubtipo_espacio";
                 $cadena_sql.= " WHERE";
                 $cadena_sql.= " ges_estado='A'";
-                if ($variable <> -1) {
+                if ($variable <> -1&&$variable!='') {
                     $cadena_sql.=" AND ";
                     $cadena_sql.="ges_get_cod_es=";
                     $cadena_sql.="'" . $variable . "' ";
@@ -428,7 +429,6 @@ class SqlAdminEspacioFisico extends sql {
                 $cadena_sql.= " gesalones";
                 $cadena_sql.= " WHERE";
                 $cadena_sql.= " sal_id_espacio='" . $variable . "'";
-                //ECHO "<BR> cadena sql ".$cadena_sql;
                 break;
 
             case 'infoEspacioFisicoAcademico':
@@ -879,8 +879,8 @@ class SqlAdminEspacioFisico extends sql {
             case 'listarHorarios':
 
                 $cadena_sql = " SELECT";
-                $cadena_sql.=" hor_asi_cod,";
-                $cadena_sql.=" hor_nro,";
+                $cadena_sql.=" hor_id,";
+                $cadena_sql.=" hor_id_curso,";
                 $cadena_sql.=" hor_hora";
                 $cadena_sql.=" FROM";
                 //$cadena_sql.=" achorario_2012";

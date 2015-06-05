@@ -49,8 +49,12 @@ class EspacioFisico extends funcionGeneral {
     function verificarInformacion($configuracion, $espacioFisico, $tipo) {
 
         foreach ($espacioFisico as $key => $value) {
-
-            $valorIngresado.=$key . "=" . $value . ";";
+            if(!isset($valorIngresado))
+            {
+                $valorIngresado=$key . "=" . $value . ";";
+            }else{
+                    $valorIngresado.=$key . "=" . $value . ";";
+                }
         }
 
         $valorIngresado = rtrim($valorIngresado, ";");
@@ -304,10 +308,9 @@ class EspacioFisico extends funcionGeneral {
         
         $cadenaPeriodoActivo = $this->sql->cadena_sql($configuracion, "periodoActivo", "", "", "");
         $periodoActivo = $this->ejecutarSQL($configuracion, $this->accesoOracle, $cadenaPeriodoActivo, "busqueda");
-        
         $validaciones[0]=$idEspacio;
-        $validaciones[1]=$periodoActivo[0];
-        $validaciones[2]=$periodoActivo[1];
+        $validaciones[1]=$periodoActivo[0][0];
+        $validaciones[2]=$periodoActivo[0][1];
         
         $cadenaHorarios = $this->sql->cadena_sql($configuracion, "listarHorarios", $validaciones, "", "");
         $asignacion = $this->ejecutarSQL($configuracion, $this->accesoOracle, $cadenaHorarios, "busqueda");

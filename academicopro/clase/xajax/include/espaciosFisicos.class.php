@@ -26,6 +26,7 @@
 
 //function SAL_COD_SUB($tipo) {
 function EFA08($tipo) {
+    $tab=0;
     
     //rescata el valor de la configuracion
     require_once("clase/config.class.php");
@@ -42,8 +43,7 @@ function EFA08($tipo) {
     //$conexionOracle=$conexion->conectarDB($configuracion,"coordinador");
     $conexion_db = $conexion->conectarDB($configuracion, "coordinador");
     
-    //echo "<br> conexion db ";var_dump($conexion_db);
-    
+   
     include_once($configuracion["raiz_documento"] . $configuracion["bloques"] . "/adminEspacioFisico/sql.class.php");
     $sql = new SqlAdminEspacioFisico();
     if ($tipo != 0) {
@@ -59,8 +59,6 @@ function EFA08($tipo) {
         $subtipos_a[$i][1] = reemplazar_caracteres($subtipos[$i][1]);
     }
     
-    //echo "<br> subtipos ";var_dump($subtipos_a);
-
     $html = new html();
     $mi_cuadro = $html->cuadro_lista($subtipos_a, 'EFA08', $configuracion, 0, 2, FALSE, $tab++, 'EFA08', "");
     $configuracion["ajax_function"] = "";
@@ -82,7 +80,7 @@ function EFA08($tipo) {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 function EFA02($facultad) {
-    
+    $tab=0;
     //rescata el valor de la configuracion
     require_once("clase/config.class.php");
     setlocale(LC_MONETARY, 'en_US');
@@ -104,7 +102,6 @@ function EFA02($facultad) {
     if ($facultad != " ") {
         $sedes_sql = $sql->cadena_sql($configuracion, "consultar_sedes", $facultad, "", "");        
         $sedes = $conexion->ejecutarSQL($configuracion, $conexion_db, $sedes_sql, "busqueda");        
-        //echo "<br> sedes ";var_dump($sedes);
         $total_reg = count($sedes);
     }
 
@@ -156,6 +153,8 @@ function EFA03($sede) {
 
     include_once($configuracion["raiz_documento"] . $configuracion["bloques"] . "/adminEspacioFisico/sql.class.php");
     $sql = new SqlAdminEspacioFisico();
+    $edificios_a='';
+    $tab=0;
     if ($sede != "") {
         $edificios_sql = $sql->cadena_sql($configuracion, "consultar_edificios", $sede, "", "");
         $edificios = $conexion->ejecutarSQL($configuracion, $conexion_db, $edificios_sql, "busqueda");
@@ -192,6 +191,7 @@ function EFA03($sede) {
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 function EFA14($dep_encargada) {
+        $tab=0;
 
     //rescata el valor de la configuracion
     require_once("clase/config.class.php");
@@ -222,7 +222,6 @@ function EFA14($dep_encargada) {
         $tipos_a[$i][1] = reemplazar_caracteres($tipos[$i][1]);
     }
 
-    //echo "<br> tipos ";var_dump($tipos_a);
 
     $html = new html();
     $mi_cuadro = $html->cuadro_lista($tipos_a, 'EFA14', $configuracion, -1, 2, FALSE, $tab++, 'EFA14', "");
@@ -247,6 +246,7 @@ function EFA04($edificio){
 }
 
 function buscarEspacioFisicoAcademico($buscarEspacio) {
+    $htmlInfo='';
 
     //rescata el valor de la configuracion
     require_once("clase/config.class.php");
@@ -351,15 +351,15 @@ function armarCodigoEspacio($seleccion, $codigo) {
 
 function armarCodigoEdificio($seleccion) {
     
-    $longitud=strlen($codigo);
+    $longitud=strlen((isset($codigo)?$codigo:''));
     
     if($longitud>11){
-        $valor=$codigo;
+        $valor=(isset($codigo)?$codigo:'');
     }else{
-        $valor=$codigo.$seleccion;
+        $valor=(isset($codigo)?$codigo:'').$seleccion;
     }
     
-    $inbox="<input id='E02' name='E02' type='text' class='field text large' value='".$codigo.$seleccion."' maxlength='11' />";
+    $inbox="<input id='E02' name='E02' type='text' class='field text large' value='".(isset($codigo)?$codigo:'').$seleccion."' maxlength='11' />";
     
     $respuesta = new xajaxResponse();     
     $respuesta->addAssign("DIV_E02", "innerHTML", $inbox);
@@ -378,15 +378,15 @@ function armarCodigoEdificio($seleccion) {
 
 function armarCodigoSede($seleccion) {
     
-    $longitud=strlen($codigo);
+    $longitud=strlen((isset($codigo)?$codigo:''));
     
     if($longitud>11){
-        $valor=$codigo;
+        $valor=(isset($codigo)?$codigo:'');
     }else{
-        $valor=$codigo.$seleccion;
+        $valor=(isset($codigo)?$codigo:'').$seleccion;
     }
     
-    $inbox="<input id='S02' name='S02' type='text' class='field text large' value='".$codigo.$seleccion."' maxlength='11' />";
+    $inbox="<input id='S02' name='S02' type='text' class='field text large' value='".(isset($codigo)?$codigo:'').$seleccion."' maxlength='11' />";
     
     $respuesta = new xajaxResponse();     
     $respuesta->addAssign("DIV_S02", "innerHTML", $inbox);

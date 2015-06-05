@@ -54,7 +54,7 @@ class BloqueAdminEspacioFisico extends bloque {
 
                     $espacio = $_REQUEST['espacio'];
                     $valorIngresadoTemp = "";
-                    $valorIngresado = explode(";", $_REQUEST['valorIngresado']);
+                    $valorIngresado = explode(";", (isset($_REQUEST['valorIngresado'])?$_REQUEST['valorIngresado']:''));
                     $cadena_espacio = $this->sql->cadena_sql($configuracion, "atributosEspacio", $espacio, "", "");
                     $atributos = $this->funcion->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_espacio, "busqueda");
                     $cant_atributos = count($atributos);

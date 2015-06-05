@@ -89,16 +89,16 @@ class funcion_adminMenuFlotanteEspacioFisicoAcademico extends funcionGeneral {
         $variable = "pagina=adminMenuFlotanteEspacioFisicoAcademico";
         $variable.= "&opcion=menuAuxiliar";
 
-        $variableFacultad.= $variable . "&espacio=1";
+        $variableFacultad= $variable . "&espacio=1";
         $variableFacultad = $this->cripto->codificar_url($variableFacultad, $this->configuracion);
 
-        $variableSede.= $variable . "&espacio=2";
+        $variableSede= $variable . "&espacio=2";
         $variableSede = $this->cripto->codificar_url($variableSede, $this->configuracion);
 
-        $variableEdificio.= $variable . "&espacio=3";
+        $variableEdificio= $variable . "&espacio=3";
         $variableEdificio = $this->cripto->codificar_url($variableEdificio, $this->configuracion);
 
-        $variableEFA.= $variable . "&espacio=4";
+        $variableEFA= $variable . "&espacio=4";
         $variableEFA = $this->cripto->codificar_url($variableEFA, $this->configuracion);
         ?>
         <script>

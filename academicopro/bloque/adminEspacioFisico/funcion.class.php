@@ -54,8 +54,12 @@ class FuncionAdminEspacioFisico extends funcionGeneral {
     function nuevoRegistro($configuracion, $espacioFisico) {
 
         foreach ($espacioFisico as $key => $value) {
-
-            $valorIngresado.=$key . "=" . $value . ";";
+            if(!isset($valorIngresado))
+            {
+                $valorIngresado=$key . "=" . $value . ";";
+            }else{
+                    $valorIngresado.=$key . "=" . $value . ";";
+                }
         }
 
         $valorIngresado = rtrim($valorIngresado, ";");
@@ -64,7 +68,6 @@ class FuncionAdminEspacioFisico extends funcionGeneral {
         //echo "<br><br> cadena insercion ".$cadena_insercion;
         $resultado_insercion = $this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_insercion, "");
         
-        echo "<br> resultado insercion ";var_dump($resultado_insercion);
 
         if ($resultado_insercion == true) {
             $valorIngresado = NULL;
@@ -154,7 +157,7 @@ class FuncionAdminEspacioFisico extends funcionGeneral {
             $datosEspacio[$key] = $datosEspacio_aux;
         }
 
-        $permitir = $this->espacioFisico->verificarAsignacionHorarios($configuracion, $idEspacio);
+        $permitir = $this->espacioFisico->verificarAsignacionHorarios($configuracion, (isset($idEspacio)?$idEspacio:''));
 
         if ($permitir == TRUE) {
             $cadenaEspacio = $this->sql->cadena_sql($configuracion, "atributosEspacio", $espacio, "", "");
