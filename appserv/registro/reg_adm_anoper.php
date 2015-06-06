@@ -21,8 +21,22 @@ fu_tipo_user(33);
 <script language="JavaScript" type="text/JavaScript">
 <!--
 function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
+	var html;
+	if (window.XMLHttpRequest)  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		http=new XMLHttpRequest();
+	}
+	else  {// code for IE6, IE5
+	    http=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	http.open('HEAD', selObj.options[selObj.selectedIndex].value, false);
+	try{
+	    http.send();
+	    document.getElementById('error_mjs').innerHTML = '';
+	    eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+	    if (restore) selObj.selectedIndex=0;
+	} catch (e) {
+		document.getElementById('error_mjs').innerHTML = 'El archivo al que está intentando acceder no exite.';
+	}
 }
 
 function MM_findObj(n, d) { //v4.01
@@ -65,6 +79,7 @@ print'<div align="center"><br><br><br>
 	<p>&nbsp;</p>
     <table width="478" border="0" align="center">
     <tr>
+	  <td><h1 id="error_mjs"></h1></td>
       <td><p style="line-height: 100%" align="justify"> De acuerdo al per&iacute;odo seleccionado, se despliega la informaci&oacute;n del total de admitidos por Facultad y Carrera. Graficando el porcentaje de admitidos por carrera frente al total de la Facultad.</td>
     </tr>
   </table>

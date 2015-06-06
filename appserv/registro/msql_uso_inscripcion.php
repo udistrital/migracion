@@ -15,9 +15,9 @@ $TotCon = $RowsTotCon[0][0];
 
 $QryUsoC = "SELECT mes_cod,mes_abrev,COUNT(*),ape_ano
 	FROM acasperiadm, gemes, mntac.acrecbanasplog
-	WHERE ape_ano = TO_NUMBER(TO_CHAR(rba_fecha,'yyyy'))
+	WHERE ape_ano = CAST(TO_CHAR(rba_fecha,'yyyy') AS INT)
 	AND ape_estado = 'X'
-	AND mes_cod = TO_CHAR(rba_fecha,'mm')
+	AND mes_cod = CAST(TO_CHAR(rba_fecha,'mm') AS INT)
 	GROUP BY mes_cod,mes_abrev,ape_ano
 	ORDER BY mes_cod ASC";
 	
@@ -25,7 +25,7 @@ $RowsUsoc = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryUsoC,"busque
 
 $QryCont = "SELECT COUNT(*)
 	FROM acasperiadm, mntac.acrecbanasplog
-	WHERE ape_ano = TO_NUMBER(TO_CHAR(rba_fecha,'yyyy'))
+	WHERE ape_ano = CAST(TO_CHAR(rba_fecha,'yyyy') AS INT)
 	AND ape_estado = 'X'";
 
 $RowCont = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryCont,"busqueda");
