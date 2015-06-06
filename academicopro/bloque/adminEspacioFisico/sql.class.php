@@ -53,7 +53,6 @@ class SqlAdminEspacioFisico extends sql {
                 $cadena_sql.= " WHERE ae.atr_estado='A'";
                 $cadena_sql.= " and ae.atr_esp_id='". $variable."'";
                 $cadena_sql.= " ORDER BY atr_nombre_form_id";
-                //echo "<br> cadena sql ".$cadena_sql;
                 break;
 
             case 'consultar_facultades':
@@ -92,10 +91,10 @@ class SqlAdminEspacioFisico extends sql {
 
                 $cadena_sql = " SELECT";
                 $cadena_sql.= " get_cod_es COD,";
-                $cadena_sql.= " get_nombre NOM";
+                //$cadena_sql.= " get_nombre NOM";
+                $cadena_sql.= " TRANSLATE(get_nombre,'ñáéíóúàèìòùãõâêîôôäëïöüçÑÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇ','naeiouaeiouaoaeiooaeioucNAEIOUAEIOUAOAEIOOAEIOUC') NOM ";                                
                 $cadena_sql.= " FROM";
                 $cadena_sql.= " getipo_espacio";
-                //$cadena_sql.= " mntge.getipo_espacio";
                 $cadena_sql.= " WHERE";
                 $cadena_sql.= " get_estado='A'";
                 break;
@@ -120,10 +119,10 @@ class SqlAdminEspacioFisico extends sql {
 
                 $cadena_sql = " SELECT";
                 $cadena_sql.= " ges_cod_sub COD,";
-                $cadena_sql.= " ges_nombre NOM";
+                //$cadena_sql.= " ges_nombre NOM";
+                $cadena_sql.= " TRANSLATE(ges_nombre,'ñáéíóúàèìòùãõâêîôôäëïöüçÑÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇ','naeiouaeiouaoaeiooaeioucNAEIOUAEIOUAOAEIOOAEIOUC') NOM ";                
                 $cadena_sql.= " FROM";
                 $cadena_sql.= " gesubtipo_espacio";
-                //$cadena_sql.= " mntge.gesubtipo_espacio";
                 $cadena_sql.= " WHERE";
                 $cadena_sql.= " ges_estado='A'";
                 if ($variable <> -1&&$variable!='') {
@@ -136,11 +135,12 @@ class SqlAdminEspacioFisico extends sql {
             case 'consultar_depEncargada':
 
                 $cadena_sql = " SELECT";
-                $cadena_sql.= " gde_nombre COD,";
-                $cadena_sql.= " gde_nombre NOM";
+                //$cadena_sql.= " gde_nombre COD,";
+                $cadena_sql.= " gde_cod COD,";
+                //$cadena_sql.= " gde_cod||'-'||gde_nombre NOM";
+                $cadena_sql.= " TRANSLATE(gde_nombre,'ñáéíóúàèìòùãõâêîôôäëïöüçÑÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇ','naeiouaeiouaoaeiooaeioucNAEIOUAEIOUAOAEIOOAEIOUC')||' ('||gde_cod||')' NOM ";
                 $cadena_sql.= " FROM";
                 $cadena_sql.= " gedep_encargada";
-                //$cadena_sql.= " mntge.gedep_encargada";
                 $cadena_sql.= " WHERE";
                 $cadena_sql.= " gde_estado='A'";
                 $cadena_sql.= " ORDER BY";
@@ -155,9 +155,9 @@ class SqlAdminEspacioFisico extends sql {
                 $cadena_sql.= " gde_tipo NOM";
                 $cadena_sql.= " FROM";
                 $cadena_sql.= " gedep_encargada";
-                //$cadena_sql.= " mntge.gedep_encargada";
                 $cadena_sql.= " WHERE";
-                $cadena_sql.= " gde_nombre='" . $variable . "'";
+                $cadena_sql.= " gde_cod='" . $variable . "'";
+                //$cadena_sql.= " gde_nombre='" . $variable . "'";
                 break;
 
             case 'existeInfo':
@@ -172,7 +172,6 @@ class SqlAdminEspacioFisico extends sql {
                 if ($datos_aux == '3')
                     $cadena_sql.= " geedificio ";
                 if ($datos_aux == '4'){
-                    //$cadena_sql.= " gesalon_2012 ";
                     $cadena_sql.= " gesalones ";
                 }                    
                 $cadena_sql.= " WHERE " . $campos . "='" . $variable . "'";
@@ -188,7 +187,6 @@ class SqlAdminEspacioFisico extends sql {
                 }if ($datos_aux == '3') {
                     $cadena_sql.= " geedificio";
                 }if ($datos_aux == '4') {
-                    //$cadena_sql.= " gesalon_2012";
                     $cadena_sql.= " gesalones";
                 }
 
@@ -221,7 +219,6 @@ class SqlAdminEspacioFisico extends sql {
 
                         if ($nom_campo == 'SAL_GDE_COD') {
                             $cadena_sql2.=", (select gde_cod from gedep_encargada where gde_nombre='" . utf8_decode($valor) . "')";
-                            //$cadena_sql2.=", (select gde_cod from mntge.gedep_encargada where gde_nombre='" . utf8_decode($valor) . "')";
                         } else if ($nom_campo == 'DEP_SED_COD') {
                             $cadena_sql2.=", (select sed_cod from gesede where sed_id='" . utf8_decode($valor) . "')";
                         } else if ($nom_campo == 'SAL_AREA') {
@@ -236,7 +233,6 @@ class SqlAdminEspacioFisico extends sql {
                 $cadena_sql.=")";
                 $cadena_sql2.=")";
                 $cadena_sql = $cadena_sql . $cadena_sql2;
-                //echo "<br> cadena sql " . $cadena_sql; //exit;
                 break;
 
             case 'listarEspacios':
@@ -402,7 +398,6 @@ class SqlAdminEspacioFisico extends sql {
 
                     if ($campos[$i]['NOM_BD'] == 'SAL_GDE_COD') {
                         $cadena_sql .= ", (SELECT max(GDE_NOMBRE) FROM GEDEP_ENCARGADA ";
-                        //$cadena_sql .= ", (SELECT GDE_NOMBRE FROM MNTGE.GEDEP_ENCARGADA ";
                         $cadena_sql .= "  WHERE GDE_COD=" . $campos[$i]['NOM_BD'];
                         $cadena_sql .= "  AND GDE_TIPO=" . $campos[$i + 1]['NOM_BD'] . ") " . $campos[$i]['NOM_BD'];
                     } else if ($campos[$i]['NOM_BD'] == 'SAL_ID_FAC') {
@@ -448,7 +443,6 @@ class SqlAdminEspacioFisico extends sql {
 
                         if ($nom_campo == 'SAL_GDE_COD') {
                             $cadena_sql .= ", (SELECT max(GDE_NOMBRE) FROM GEDEP_ENCARGADA";
-                            //$cadena_sql .= ", (SELECT GDE_NOMBRE FROM MNTGE.GEDEP_ENCARGADA";
                             $cadena_sql .= "  WHERE GDE_NOMBRE='" . $variable[$i][$nom_campo] . "') " . $nom_campo;
                         } else {
                             if ($i == 0) {
@@ -470,7 +464,6 @@ class SqlAdminEspacioFisico extends sql {
                     }
                 }
 
-                //$cadena_sql = $cadena_sql . " FROM gesalon_2012 " . $cadena_sql2;
                 $cadena_sql = $cadena_sql . " FROM gesalones " . $cadena_sql2;
 
                 break;
@@ -480,9 +473,7 @@ class SqlAdminEspacioFisico extends sql {
                 $cadena_sql = "UPDATE ";
                 $cadena_sql.= "gedep ";
                 $cadena_sql.= "SET ";
-
                 $cadena_sql2 .= "WHERE ";
-
                 $cant_campos = count($campos);
                 $flag = 0;
 
@@ -584,9 +575,7 @@ class SqlAdminEspacioFisico extends sql {
                 $cadena_sql = "UPDATE ";
                 $cadena_sql.= "geedificio ";
                 $cadena_sql.= "SET ";
-
                 $cadena_sql2 .= "WHERE ";
-
                 $cant_campos = count($campos);
                 $flag = 0;
                 $flag2 = 0;
@@ -633,12 +622,9 @@ class SqlAdminEspacioFisico extends sql {
                 $flag2 = 0;
 
                 $cadena_sql = "UPDATE ";
-                //$cadena_sql.= "gesalon_2012 ";
                 $cadena_sql.= "gesalones ";
                 $cadena_sql.= "SET ";
-
                 $cadena_sql2 .= "WHERE ";
-
                 $cant_campos = count($campos);
                 $flag = 0;
 
@@ -690,7 +676,6 @@ class SqlAdminEspacioFisico extends sql {
                 }
 
                 $cadena_sql = $cadena_sql . $cadena_sql2;
-                //echo "<br> cadena sql " . $cadena_sql; //exit;
                 break;
 
             case 'existeInfoFacultad':
@@ -728,7 +713,6 @@ class SqlAdminEspacioFisico extends sql {
                 $cadena_sql.=" sal_id_espacio,";
                 $cadena_sql.=" sal_nombre";
                 $cadena_sql.=" FROM";
-                //$cadena_sql.=" gesalon_2012";
                 $cadena_sql.=" gesalones";
                 $cadena_sql.=" WHERE sal_nombre LIKE UPPER('%" . $variable . "%')";
                 $cadena_sql.=" OR sal_id_espacio LIKE UPPER('%" . $variable . "%')";
@@ -742,7 +726,6 @@ class SqlAdminEspacioFisico extends sql {
                 $cadena_sql.=" gde_tipo NOM";
                 $cadena_sql.=" FROM";
                 $cadena_sql.=" gedep_encargada";
-                //$cadena_sql.=" mntge.gedep_encargada";
                 $cadena_sql.=" WHERE gde_nombre LIKE UPPER('%" . $variable . "%')";
                 break;
 
@@ -760,7 +743,6 @@ class SqlAdminEspacioFisico extends sql {
                 }if ($datos_aux == '3') {
                     $cadena_sql .= " geedificio SET EDI_ESTADO='I'";
                 }if ($datos_aux == '4') {
-                    //$cadena_sql .= " gesalon_2012 SET SAL_ESTADO='I'";
                     $cadena_sql .= " gesalones SET SAL_ESTADO='I'";
                 }
 
@@ -789,14 +771,11 @@ class SqlAdminEspacioFisico extends sql {
                     }
                 }
 
-                //echo "<br> cadena sql ".$cadena_sql;exit;
-
                 break;
 
             case 'listarEliminados':
 
                 $cantCampos = count($campos);
-
                 $cadena_sql = " SELECT";
 
                 for ($i = 0; $i < $cantCampos; $i++) {
@@ -883,7 +862,6 @@ class SqlAdminEspacioFisico extends sql {
                 $cadena_sql.=" hor_id_curso,";
                 $cadena_sql.=" hor_hora";
                 $cadena_sql.=" FROM";
-                //$cadena_sql.=" achorario_2012";
                 $cadena_sql.=" achorarios";
                 $cadena_sql.=" WHERE";
                 $cadena_sql.=" hor_sal_id_espacio='" . $variable[0] . "'";
