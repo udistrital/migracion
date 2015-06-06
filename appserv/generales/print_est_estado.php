@@ -9,7 +9,7 @@ $configuracion=$esta_configuracion->variable("../");
 
 $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
-$nombre = new Nombres;
+$nombre = new Nombres();
 
 $est = $_REQUEST['estado'];
 
@@ -52,7 +52,7 @@ else
 </style>
 </head>
 <body>
-<p align="center" class="Estilo6">LISTADO DE ESTUDIANTES EN ESTADO<br><? echo $nombre->rescataNombre($est); print' (';  print $est; print')'; ?><br>
+<p align="center" class="Estilo6">LISTADO DE ESTUDIANTES EN ESTADO<br><? echo $nombre->rescataNombre($est,'NombreEstado'); print' (';  print $est; print')'; ?><br>
   CON ASIGNATURAS INSCRITAS<br><br></p>
   <p align="center" class="Estilo5">Los estudiantes en los estados A y B, son los &uacute;nicos que deben tener asignaturas inscritas.</p>
 <table width="592" border="1" align="center" cellpadding="1" cellspacing="0">
