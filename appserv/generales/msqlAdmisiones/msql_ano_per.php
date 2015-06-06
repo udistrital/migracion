@@ -9,7 +9,7 @@ $configuracion=$esta_configuracion->variable("../");
 $conexion=new multiConexion();
 $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 
-$per_consulta = "SELECT ape_ano, ape_per FROM acasperiadm WHERE ape_estado='X'";
+$per_consulta = "SELECT ape_ano, ape_per FROM mntac.acasperiadm WHERE ape_estado='X'";
 
 $registro = $conexion->ejecutarSQL($configuracion,$accesoOracle,$per_consulta,"busqueda");
 

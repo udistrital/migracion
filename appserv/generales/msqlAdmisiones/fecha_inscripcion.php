@@ -8,7 +8,7 @@ $configuracion=$esta_configuracion->variable("../");
 
 $QryFecIns = "SELECT TO_CHAR(ACE_FEC_INI, 'dd/Mon/YYYY'),
 	TO_CHAR(ACE_FEC_FIN, 'dd/Mon/YYYY')
-	FROM accaleventos,acasperiadm
+	FROM mntac.accaleventos, mntac.acasperiadm
 	WHERE APE_ANO = ACE_ANIO
 	AND APE_PER = ACE_PERIODO
 	AND APE_ESTADO = 'A'

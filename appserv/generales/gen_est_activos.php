@@ -25,6 +25,10 @@ $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 <?php
 $redir = 'adm_pag_null.php';
 
+if(!isset($_REQUEST['cracod'])){
+	$_REQUEST['cracod']='';
+}
+
 if($_REQUEST['cracod'] == ""){
    $_REQUEST['cracod'] = 1;
    $_SESSION['carrera'] = 1;
@@ -34,7 +38,7 @@ else $_SESSION['carrera'] = $_REQUEST['cracod'];
 $width = 30;
 
 $nom = new Nombres;
-$NomCra = $nom->rescataNombre($_REQUEST['cracod']);
+$NomCra = $nom->rescataNombre($_REQUEST['cracod'],'NombreCarrera');
 
 $tot = new CuentaEst;
 

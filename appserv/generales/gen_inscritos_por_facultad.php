@@ -32,7 +32,7 @@ N&uacute;mero de Inscritos por Facultad</span><br><br>
 
 <?php
 $QryFac = "SELECT DISTINCT(cra_dep_cod), dep_nombre
-	FROM accra, gedep
+	FROM mntac.accra, mntge.gedep
 	WHERE dep_cod = cra_dep_cod
 	AND cra_estado = 'A'
 	AND dep_estado = 'A'
