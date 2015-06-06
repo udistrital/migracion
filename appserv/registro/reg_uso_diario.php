@@ -17,6 +17,10 @@ fu_cabezote("ACCESOS DIARIOS AL M&Oacute;DULO INSCRIPCI&Oacute;N DE ASPIRANTES")
 require_once('msql_uso_diario.php');
 
 $RowUsoDia = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryUsoDia,"busqueda");
+if(count($RowUsoDia)===0){
+	echo "<p style='text-align: center;'>No hay registros de accesos diarios al m&oacute;dulo.</p>";
+	exit;
+}
 ?>
 <html>
 <head>
@@ -64,7 +68,7 @@ Accesos Diarios al Sistema de Informaci&oacute;n<br> M&oacute;dulo Inscripci&oac
 
 </td>
 
-    <td><? require_once('reg_uso_diario_contador.php');?></td>
+    <td><?php require_once('reg_uso_diario_contador.php');?></td>
   </tr>
 </table>
 <P></P>

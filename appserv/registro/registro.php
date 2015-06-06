@@ -7,8 +7,6 @@ require_once(dir_script.'NumeroVisitas.php');
 
 fu_tipo_user(33);
 
-echo $QryNro;
-
 //echo "mmm".$Nro;
 
 if($Nro == 1){
@@ -36,7 +34,7 @@ else{
 		 $tipo=33;
 		 $tokenCondor = $miCodificador->codificar($tokenCondor);
 		 $opcion="temasys=";
-		 $variable.="gestionPassword&pagina=validarActualizacion";
+		 $variable="gestionPassword&pagina=validarActualizacion";
 		 $variable.="&usuario=".$usuario;
 		 $variable.="&tipo=".$tipo;
 		 $variable.="&token=".$tokenCondor;
