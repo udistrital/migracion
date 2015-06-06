@@ -10,11 +10,12 @@ $RowAspG = $conexion->ejecutarSQL($configuracion,$accesoOracle,$TotActivoSexG,"b
 
 $TotActSex = $RowAspG[0][0];
 
-$PoblacionActivoSexG = "SELECT DECODE(trim(eot_sexo), NULL, 'Sin', eot_sexo), COUNT(eot_sexo)
-			FROM acestotr x
-			WHERE EXISTS(SELECT * FROM acest WHERE est_cod = eot_cod AND est_estado_est IN ('A','B','H','L'))
-			GROUP BY eot_sexo
-			ORDER BY eot_sexo DESC";
+$PoblacionActivoSexG = "SELECT (CASE WHEN eot_sexo IS NULL THEN 'Sin' ELSE eot_sexo::text END),
+				COUNT(eot_sexo)
+				FROM acestotr x
+				WHERE EXISTS(SELECT * FROM acest WHERE est_cod = eot_cod AND est_estado_est IN ('A','B','H','L'))
+				GROUP BY eot_sexo
+				ORDER BY eot_sexo DESC";
 
 $RowAspSexG = $conexion->ejecutarSQL($configuracion,$accesoOracle,$PoblacionActivoSexG,"busqueda");
 

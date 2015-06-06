@@ -20,8 +20,8 @@ $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 
 <body>
 <?PHP 
-$PoblacionActivoSex = "SELECT DECODE(trim(eot_sexo), NULL, 'Sin', eot_sexo), COUNT(eot_sexo)
-		FROM acestotr x
+$PoblacionActivoSex = "SELECT (CASE WHEN eot_sexo IS NULL THEN 'Sin' ELSE eot_sexo::text END), COUNT(eot_sexo)
+		FROM mntac.acestotr x
 		WHERE EXISTS(SELECT * FROM acest WHERE est_cod = eot_cod AND est_estado_est IN ('A','B','H','L'))
 		GROUP BY eot_sexo
 		ORDER BY eot_sexo DESC";

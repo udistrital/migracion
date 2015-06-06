@@ -11,10 +11,13 @@ $RowAspG = $conexion->ejecutarSQL($configuracion,$accesoOracle,$TotActivoG,"busq
 
 $totasp = $RowAspG[0][0];
 
-$PoblacionActivoG = "SELECT DECODE(trim(eot_estrato_social),99,'Sin',NULL, 'Nulos',eot_estrato_social),COUNT(eot_estrato_social)
+$PoblacionActivoG = "SELECT 
+				(CASE WHEN eot_estrato_social= 99 THEN 'Sin' WHEN eot_estrato_social IS NULL THEN 'Nulos' ELSE eot_estrato_social::text END),
+				COUNT(eot_estrato_social)
 		FROM acestotr x
 		WHERE EXISTS(SELECT * FROM acest WHERE est_cod = eot_cod AND est_estado_est IN ('A','B','H','L'))
-		GROUP BY eot_estrato_social";
+		GROUP BY eot_estrato_social
+		ORDER BY eot_estrato_social";
 
 $RowAspG = $conexion->ejecutarSQL($configuracion,$accesoOracle,$PoblacionActivoG,"busqueda");
 

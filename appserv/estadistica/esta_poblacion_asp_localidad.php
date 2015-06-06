@@ -15,15 +15,15 @@ ob_start();
 </HEAD>
 <BODY>
 <?php
-$PoblacionAspLoc = "SELECT loc_nombre, COUNT(asp_localidad),to_number(trim(loc_nro))
-		FROM acasp, mntac.aclocalidad
+$PoblacionAspLoc = "SELECT loc_nombre, COUNT(asp_localidad),TO_NUMBER(loc_nro,'999999')
+		FROM mntac.acasp, mntac.aclocalidad
 		WHERE asp_ape_ano = $Anio
 		AND asp_ape_per = $Peri
 		AND loc_ape_ano = asp_ape_ano
 		AND loc_ape_per = asp_ape_per
 		AND loc_nro = asp_localidad
-		GROUP BY loc_nombre,to_number(trim(loc_nro))
-		ORDER BY to_number(trim(loc_nro))";
+		GROUP BY loc_nombre,TO_NUMBER(loc_nro,'999999')
+		ORDER BY TO_NUMBER(loc_nro,'999999')";
 
 $RowAspLoc = $conexion->ejecutarSQL($configuracion,$accesoOracle,$PoblacionAspLoc,"busqueda");
 

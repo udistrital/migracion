@@ -51,4 +51,5 @@ $QryEst = "SELECT dep_cod,
 	ape_per,
 	cra_nombre, 
 	estado_cod";
+
 ?>

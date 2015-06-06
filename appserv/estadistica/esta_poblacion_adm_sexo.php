@@ -19,8 +19,8 @@ $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 </head>
 <body>
 <?PHP 
-$PoblacionAdmSex = "SELECT DECODE(asp_sexo,NULL,'Sin',asp_sexo), COUNT(asp_sexo)
-		FROM acasp
+$PoblacionAdmSex = "SELECT (CASE WHEN asp_sexo IS NULL THEN 'Sin' ELSE asp_sexo::text END), COUNT(asp_sexo)
+		FROM mntac.acasp
 		WHERE asp_ape_ano = $Anio
 		AND asp_ape_per = $Peri
 		AND asp_admitido = 'A'

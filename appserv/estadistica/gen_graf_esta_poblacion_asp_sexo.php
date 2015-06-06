@@ -12,8 +12,9 @@ $RowSexSexG = $conexion->ejecutarSQL($configuracion,$accesoOracle,$totaspSexSexG
 
 $totaspSex = $RowSexSexG[0][0];
 
-$PoblacionAspSexG = "SELECT DECODE(asp_sexo,NULL,'Sin',asp_sexo), COUNT(asp_sexo)
-		FROM acasp
+$PoblacionAspSexG = "SELECT (CASE WHEN asp_sexo IS NULL THEN 'Sin' ELSE asp_sexo::text END),
+	    COUNT(asp_sexo)
+		FROM mntac.acasp
 		WHERE asp_ape_ano = $Anio
 		AND asp_ape_per = $Peri
 		GROUP BY asp_sexo

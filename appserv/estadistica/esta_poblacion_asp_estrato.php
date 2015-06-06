@@ -18,8 +18,9 @@ $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 </HEAD>
 <BODY>
 <?php
-$PoblacionAsp = "SELECT DECODE(trim(asp_estrato),99,'Sin',NULL, 'Nulos',asp_estrato), COUNT(asp_estrato)
-	FROM acasp
+$PoblacionAsp = "SELECT 
+(CASE WHEN asp_estrato= 99 THEN 'Sin' WHEN asp_estrato IS NULL THEN 'Nulos' ELSE asp_estrato::text END), COUNT(asp_estrato)
+	FROM mntac.acasp
 	WHERE asp_ape_ano = $Anio
 	AND asp_ape_per = $Peri
 	GROUP BY asp_estrato

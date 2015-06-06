@@ -4,27 +4,26 @@
 <tr>
 <?php
 $TotAspLocG = "SELECT COUNT(asp_localidad)
-		FROM acasp, aclocalidad
+		FROM mntac.acasp, mntac.aclocalidad
 		WHERE asp_ape_ano = $Anio
 		AND asp_ape_per = $Peri
 		AND loc_ape_ano = asp_ape_ano
 		AND loc_ape_per = asp_ape_per
-		AND loc_nro = asp_localidad
-		ORDER BY loc_nombre";
+		AND loc_nro = asp_localidad";
 
 $RowAspLocG = $conexion->ejecutarSQL($configuracion,$accesoOracle,$TotAspLocG,"busqueda");
 
 $TotAspLoc = $RowAspLocG[0][0];
 
-$PoblacionAspLocG = "SELECT to_number(trim(loc_nro)), COUNT(asp_localidad)
-		FROM acasp, aclocalidad
+$PoblacionAspLocG = "SELECT to_number(loc_nro,'9999999'), COUNT(asp_localidad)
+		FROM mntac.acasp, mntac.aclocalidad
 		WHERE asp_ape_ano = $Anio
 		AND asp_ape_per = $Peri
 		AND loc_ape_ano = asp_ape_ano
 		AND loc_ape_per = asp_ape_per
 		AND loc_nro = asp_localidad
-		GROUP BY to_number(trim(loc_nro))
-		ORDER BY to_number(trim(loc_nro)) ASC";
+		GROUP BY to_number(loc_nro,'9999999')
+		ORDER BY to_number(loc_nro,'9999999') ASC";
 
 $RowAspLocG = $conexion->ejecutarSQL($configuracion,$accesoOracle,$PoblacionAspLocG,"busqueda");
 

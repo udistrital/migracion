@@ -21,12 +21,14 @@ $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 <body>
 <?PHP 
 fu_cabezote("POBLACI&Oacute;N DE ESTUDIANTES ACTIVOS POR SEXO"); 
-
-$Anio = substr($_REQUEST['anoper'],0,4);
-$Peri = substr($_REQUEST['anoper'],5,1);
+//Estos valores no estaba siendo utilizados para la generación del reporte. Además de que en la petición no se enviaban. Así que opcionalmente se deshabilitaron.
+if(isset($_REQUEST['anoper'])){
+	$Anio = substr($_REQUEST['anoper'],0,4);
+	$Peri = substr($_REQUEST['anoper'],5,1);
+}
 $cont = 0;
 print'<p>&nbsp;</p><p>&nbsp;</p><table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
-<caption>POBLACI&OACUTE;N DE ESTUDIANTES ACTIVOS POR SEXO</caption>
+<caption>POBLACI&Oacute;N DE ESTUDIANTES ACTIVOS POR SEXO</caption>
   <tr>
 	<td>';
 	require_once('esta_poblacion_activa_sexo.php');

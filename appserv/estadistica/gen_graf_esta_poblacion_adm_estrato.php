@@ -4,7 +4,7 @@
 <tr>
 <?php
 $TotAdmG = "SELECT COUNT(asp_cred)
-	FROM acasp
+	FROM mntac.acasp
 	WHERE asp_ape_ano = $Anio
 	AND asp_ape_per = $Peri
 	AND asp_admitido = 'A'";
@@ -12,7 +12,8 @@ $TotAdmG = "SELECT COUNT(asp_cred)
 $RowAsp = $conexion->ejecutarSQL($configuracion,$accesoOracle,$TotAdmG,"busqueda");
 $totadm = $RowAsp[0][0];
 
-$PoblacionAdmG = "SELECT DECODE(trim(asp_estrato),99,'Sin',NULL, 'Nulos',asp_estrato),count(asp_estrato)
+$PoblacionAdmG = "SELECT (CASE WHEN asp_estrato= 99 THEN 'Sin' WHEN asp_estrato IS NULL THEN 'Nulos' ELSE asp_estrato::text END),
+		count(asp_estrato)
 		FROM acasp
 		WHERE asp_ape_ano = $Anio
 		AND asp_ape_per = $Peri

@@ -22,8 +22,6 @@ $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 <?PHP 
 fu_cabezote("POBLACI&Oacute;N DE ESTUDIANTES ACTIVOS POR ESTRATO"); 
 
-$Anio = substr($_REQUEST['anoper'],0,4);
-$Peri = substr($_REQUEST['anoper'],5,1);
 $cont = 0;
 print'<p>&nbsp;</p><p>&nbsp;</p><table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
 <caption>POBLACI&Oacute;N DE ESTUDIANTES ACTIVOS POR ESTRATO</caption>

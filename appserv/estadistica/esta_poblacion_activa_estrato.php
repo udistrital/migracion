@@ -20,7 +20,9 @@ $accesoOracle=$conexion->estableceConexion($_SESSION['usuario_nivel']);
 
 <body>
 <?PHP 
-$PoblacionActivo = "SELECT DECODE(trim(eot_estrato_social),99,'Sin',NULL, 'Nulos',eot_estrato_social),COUNT(eot_estrato_social)
+$PoblacionActivo = "SELECT
+		(CASE WHEN eot_estrato_social= 99 THEN 'Sin' WHEN eot_estrato_social IS NULL THEN 'Nulos' ELSE eot_estrato_social::text END), 
+		COUNT(eot_estrato_social)
 		FROM acestotr x
 		WHERE EXISTS(SELECT * FROM acest WHERE est_cod = eot_cod AND est_estado_est IN ('A','B','H','L'))
 		GROUP BY eot_estrato_social";

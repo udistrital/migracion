@@ -13,17 +13,19 @@ $RowAspLocG = $conexion->ejecutarSQL($configuracion,$accesoOracle,$TotAdmLocG,"b
 
 $TotAdmLoc = $RowAspLocG[0][0];
 
-$PoblacionAdmLocG = "SELECT loc_nombre, count(asp_localidad), to_number(trim(loc_nro))
-	FROM acasp, aclocalidad
-	WHERE asp_ape_ano = $Anio
-	AND asp_ape_per = $Peri
-	AND loc_ape_ano = asp_ape_ano
-	AND loc_ape_per = asp_ape_per
-	AND loc_nro = asp_localidad
-	AND asp_admitido = 'A'
-	AND loc_estado = 'A'
-	GROUP BY loc_nombre, to_number(trim(loc_nro))
-	ORDER BY to_number(trim(loc_nro))";
+$PoblacionAdmLocG = "SELECT loc_nombre, 
+		COUNT(asp_localidad), to_number(loc_nro,'9999999') 
+		FROM mntac.acasp, mntac.aclocalidad
+		WHERE asp_ape_ano = $Anio
+		AND asp_ape_per = $Peri
+		AND loc_ape_ano = asp_ape_ano
+		AND loc_ape_per = asp_ape_per
+		AND loc_nro = asp_localidad
+		AND asp_admitido = 'A'
+		AND loc_estado = 'A'
+		GROUP BY loc_nombre, to_number(loc_nro,'9999999')
+		ORDER BY to_number(loc_nro,'9999999') ASC";
+		
 
 $RowAspLocG = $conexion->ejecutarSQL($configuracion,$accesoOracle,$PoblacionAdmLocG,"busqueda");
 
