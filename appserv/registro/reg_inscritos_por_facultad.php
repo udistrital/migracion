@@ -29,7 +29,7 @@ N&uacute;mero de Inscritos por Facultad</span><br><br>
 <span class="Estilo1"><? print 'Fecha inicial: '.$FormFecIni.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Fecha final: '.$FormFecFin; ?></span>
 </div>
 <?php
-$QryFac = "SELECT unique(cra_dep_cod), dep_nombre
+$QryFac = "SELECT DISTINCT(cra_dep_cod), dep_nombre
 	FROM accra, gedep
 	WHERE dep_cod = cra_dep_cod
 	AND cra_estado = 'A'
@@ -73,6 +73,8 @@ if(!empty($_REQUEST['FacCod']))
 	{
 		echo "<script>location.replace('../err/err_sin_registros.php')</script>";
 	}
+	//El campo de $Facultad estaba vacio, por tanto se tomó de otro lado para poder transformarlo.
+	$Facultad = $RowFac[0][1];
 	print'<table width="90%" border="1" align="center" cellpadding="0" cellspacing="0" style="border-collapse:collapse" '.$EstiloTab.'>
 		<caption>'.$Facultad.'</caption>
 		<tr class="tr">
