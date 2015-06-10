@@ -1,8 +1,8 @@
 <?xml version="1.0"?><Report><ReportQuery><Format><ReportTitle>Número de estudiantes por cohorte</ReportTitle><ReportDescription>Presenta el número de estudiantes por cada cohorte del proyecto curricular.</ReportDescription><PageSize>US-Letter</PageSize><PageOrientation>Portrait</PageOrientation><TopMargin></TopMargin><BottomMargin></BottomMargin><RightMargin></RightMargin><LeftMargin></LeftMargin><pdfFont></pdfFont><pdfFontSize></pdfFontSize><PreExecuteCode>NONE</PreExecuteCode><formBetweenRows>solidline</formBetweenRows><bodyDisplay>show</bodyDisplay><graphDisplay>show</graphDisplay></Format><Datasource><SourceType>database</SourceType><SourceConnection><DatabaseType></DatabaseType><DatabaseName></DatabaseName><HostName>localhost</HostName><ServiceName></ServiceName><UserName></UserName><Password></Password></SourceConnection></Datasource><EntryForm><Query><TableSql></TableSql><WhereSql></WhereSql><GroupSql></GroupSql><RowSelection>all</RowSelection><SQL><QuerySql></QuerySql><SQLRaw>SELECT CRA,NOMBRE,PERIODO,COUNT (ESTUCOD) TOTAL FROM 
 (
  SELECT cra_cod CRA, cra_nombre NOMBRE,
-CASE WHEN character_length(cast(A.est_cod AS text))=7 THEN concat('  ',substr(cast(A.est_cod as text) ,0,3),'-',substr(cast(A.est_cod as text),3,1))
-WHEN character_length(cast(A.est_cod as text))=11 THEN concat(substr(cast(A.est_cod as text),0,5),'-',substr(cast(A.est_cod as text),5,1)) END PERIODO,
+CASE WHEN character_length(cast(A.est_cod AS text))=7 THEN concat('  ',substr(cast(A.est_cod as text) ,1,2),'-',substr(cast(A.est_cod as text),3,1))
+WHEN character_length(cast(A.est_cod as text))=11 THEN concat(substr(cast(A.est_cod as text),1,4),'-',substr(cast(A.est_cod as text),5,1)) END PERIODO,
 EST_COD ESTUCOD
 FROM acest A
 INNER JOIN accra ON cra_cod=est_cra_cod
