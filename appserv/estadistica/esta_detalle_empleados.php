@@ -9,7 +9,7 @@ if(isset($_REQUEST['t']) == 'ADM')
 	AND emp_estado_e <> 'R'
 	GROUP BY des_descripcion";
 	
-	$RowAdm = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryAdm,"busqueda");
+		$RowAdm = $conexion->ejecutarSQL($configuracion,$accesoOracle,$QryAdm,"busqueda");
 	
 	print'<table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0">
 		<caption>ADMINISTRATIVOS</caption>
