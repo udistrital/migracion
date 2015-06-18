@@ -218,7 +218,7 @@ class SqlAdminEspacioFisico extends sql {
                         $cadena_sql.= ", " . $nom_campo;
 
                         if ($nom_campo == 'SAL_GDE_COD') {
-                            $cadena_sql2.=", (select gde_cod from gedep_encargada where gde_nombre='" . utf8_decode($valor) . "')";
+                            $cadena_sql2.=", '" . utf8_decode($valor). "'";
                         } else if ($nom_campo == 'DEP_SED_COD') {
                             $cadena_sql2.=", (select sed_cod from gesede where sed_id='" . utf8_decode($valor) . "')";
                         } else if ($nom_campo == 'SAL_AREA') {
@@ -660,7 +660,7 @@ class SqlAdminEspacioFisico extends sql {
                         $flag = 1;
                         $cadena_sql.= $nom_campo . "=";
                         if ($nom_campo == 'SAL_GDE_COD') {
-                            $cadena_sql.= "(select max(gde_cod) from gedep_encargada where gde_nombre LIKE '%" . $valor_set . "%')";
+                            $cadena_sql.= "'" . utf8_decode($valor_set) . "' ";
                         } else {
                             $cadena_sql.= "'" . utf8_decode($valor_set) . "' ";
                         }
@@ -668,7 +668,7 @@ class SqlAdminEspacioFisico extends sql {
 
                         $cadena_sql.= ", " . $nom_campo . "=";
                         if ($nom_campo == 'SAL_GDE_COD') {
-                            $cadena_sql.= "(select max(gde_cod) from gedep_encargada where gde_nombre LIKE '%" . $valor_set . "%')";
+                            $cadena_sql.= "'" . utf8_decode($valor_set) . "' ";
                         } else {
                             $cadena_sql.= "'" . utf8_decode($valor_set) . "' ";
                         }
