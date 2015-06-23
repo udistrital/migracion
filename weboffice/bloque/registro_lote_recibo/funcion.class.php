@@ -27,7 +27,7 @@ class funciones_registroLoteRecibo extends funcionGeneral
 		//Crear conexion a MySQL con la cuenta por defecto
 		$this->acceso_db=$this->conectarDB($configuracion,"");
 		
-                
+		
 		$this->usuario=$this->rescatarValorSesion($configuracion, $this->acceso_db, "id_usuario");
 		$this->identificacion=$this->rescatarValorSesion($configuracion, $this->acceso_db, "identificacion");
                 $this->nivel=$this->rescatarValorSesion($configuracion, $this->acceso_db, "nivelUsuario");
@@ -254,7 +254,7 @@ ________________________________________________________________________________
 		//Obtener los proyectos curriculares de las cuales es coordinador el usuario actual
 		
 		
-                if($this->nivel==4){
+        if($this->nivel==4){
                     $carrerasCoordinador=$this->carrerasCoordinador($configuracion, $this->identificacion, $this->accesoOracle);
 		}elseif($this->nivel==110 || $this->nivel==114){
                         $proyectos =$this->validacion->consultarProyectosAsistente($this->usuario,  $this->nivel, $this->accesoOracle,$configuracion, $this->acceso_db);
@@ -489,7 +489,6 @@ ________________________________________________________________________________
 		}
 		
 		$this->solicitud["solicitud"]=$this->guardarSolicitud($configuracion);
-                //cho $this->solicitud["solicitud"]."<br>mmmm";
 		if(is_numeric($this->solicitud["solicitud"]))
 		{
 			
@@ -613,7 +612,7 @@ ________________________________________________________________________________
 			//Ej: en la plantilla Pregrados General la columna 8 equivale a la exencion 4 de la tabla exencion
 			case 1:
 				//Pregrados General
-				$idExencion = array(5 => 1, 6 => 2, 7 => 3, 8 => 4, 9 => 5 , 10 => 6, 11 => 7, 12 => 8, 13 => 9);
+				$idExencion = array(6 => 1, 7 => 2, 8 => 3, 9 => 4, 10 => 5 , 11 => 6, 12 => 7, 13 => 8, 14 => 9);
 				break;
 				
 			case 2: //Postgrados Creditos
@@ -683,12 +682,12 @@ ________________________________________________________________________________
 		
 		if($resultado==true)
 		{
-                        
+			
 			return $this->acceso_db->ultimo_insertado();
 		
 		}
 		else
-		{       echo "NOOOO"; 
+		{
 			return false;
 		
 		}
@@ -726,6 +725,9 @@ ________________________________________________________________________________
 					case 2:
 						$this->solicitud["id_concepto"]=4;
 						break;
+					case 3:
+						$this->solicitud['id_concepto']=13;
+						break;	
 				
 					default:
 						break;
@@ -733,6 +735,7 @@ ________________________________________________________________________________
 			
 				$cadena_sql=$this->sql->cadena_sql($configuracion, $this->acceso_db,"insertarConcepto", $this->solicitud);	
 				$resultado.=$this->ejecutarSQL($configuracion, $this->acceso_db, $cadena_sql ,"");
+				
 			}
 		
 			if($resultado==true)
@@ -763,15 +766,15 @@ ________________________________________________________________________________
 			break;
 			
 			case 2:
-			case 3:
-			$columnaInicial=4;
+			case 4:
+			$columnaInicial=5;
 			break;
 		
 		}
 		
 
-		//Plantillas para solo tres conceptos
-		for($j=$columnaInicial;$j<=($columnaInicial+2);$j++)
+		//Plantillas para solo tres (cuatro) conceptos
+		for($j=$columnaInicial;$j<=($columnaInicial+3);$j++)
 		{
 			if(isset($registro[$j]))
 			{
@@ -892,14 +895,9 @@ ________________________________________________________________________________
 
 //cambiar periodo
 //se adiciona para que consulte la facultad del proyecto de acuerdo a la solicitud y pueda consultar las fechas de generacion para esa facultad
-                                //error_reporting(0);
                                 $variable=array(0=>$this->solicitud["cuotaGuardar"],
                                                 1=>$registroCarrera[0][0]);
-				//$laFechaPago=$datoSolicitud->rescatarDatoSolicitud($configuracion, "fechaPagoFacultad",$variable , $this->acceso_db);
-                                $cadena_sql=$this->sql->cadena_sql($configuracion,$this->acceso_db,"fechaPagoFacultad", $this->solicitud);
-				$laFechaPago=$this->ejecutarSQL($configuracion, $this->acceso_db, $cadena_sql, "busqueda");
-                                
-                                
+				$laFechaPago=$datoSolicitud->rescatarDatoSolicitud($configuracion, "fechaPagoFacultad",$variable , $this->acceso_db);
                                 $this->solicitud["cuotaGuardar"]=$cuota;
 				$fecha=explode("/",$laFechaPago[0][1]);				
 				$dia=$fecha[0];
@@ -912,8 +910,7 @@ ________________________________________________________________________________
 				$anno=$fecha[2];
 				$this->solicitud["fechaExtraordinaria"]=strtotime($mes."/".$dia."/".$anno);
 				$cadena_sql=$this->sql->cadena_sql($configuracion,$this->acceso_db,"insertarCuota", $this->solicitud);
-				$resultado=$this->ejecutarSQL($configuracion, $this->acceso_db, $cadena_sql, "");
-                                //echo $cadena_sql."<br>"; exit;
+				$resultado=$this->ejecutarSQL($configuracion, $this->acceso_db, $cadena_sql, "");	
 				break;
 			
 			//Para postgrado se guardan las fechas que vienen en la plantilla
@@ -1112,6 +1109,7 @@ ________________________________________________________________________________
 		$encabezado="";
 		$cadena="";
 		include_once($configuracion["raiz_documento"].$configuracion["clases"]."/alerta.class.php");
+		
 		switch($tipo)
 		{
 			case "inconsistencia":

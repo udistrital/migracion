@@ -143,8 +143,8 @@ require_once("../clase/encriptar.class.php");
 	$variable.="&tiempo=300";
 	$variable=$cripto->codificar_url($variable,$configuracion);
 	$enlaceDocumentoVinculacion=$indiceAcademico.$variable;
-
-	//Enlace para evaluación Docente
+        
+        //Enlace para evaluación Docente
         include_once("crypto/Encriptador.class.php");
         $miCodificador=Encriptador::singleton();
         $usuario = $_SESSION['usuario_login'];
@@ -162,68 +162,99 @@ require_once("../clase/encriptar.class.php");
         //$variable=$cripto->codificar_url($variable,$configuracion);
         $variable=$miCodificador->codificar($variable);
         $enlaceEvaldocentes = $indiceSaraAcademica.$opcion.$variable;
+        
+        //Enlace para ver observaciones y resultados de evaluación docente
+        include_once("crypto/Encriptador.class.php");
+        $miCodificador=Encriptador::singleton();
+        $usuario = $_SESSION['usuario_login'];
+        $identificacion = $_SESSION['usuario_login'];
+        $tipo=30;
+        $indiceSaraAcademica = $configuracion["host"]."/saraacademica/index.php?";
+        $tokenCondor = "condorSara2013!";
+        $tokenCondor = $miCodificador->codificar($tokenCondor);
+        $opcion="temasys=";
+        $variable="indexEvaluacion&pagina=docentes";                                                        
+        $variable.="&usuario=".$usuario;
+        $variable.="&tipo=".$tipo;
+        $variable.="&token=".$tokenCondor;
+        $variable.="&opcionPagina=resultadosEvaluacion";
+        //$variable=$cripto->codificar_url($variable,$configuracion);
+        $variable=$miCodificador->codificar($variable);
+        $enlaceResultadosEvaldocentes = $indiceSaraAcademica.$opcion.$variable;
+        
+        //Enlace para ver la lista de clase y enviar correo electónico a estudiantes.
+        include_once("crypto/Encriptador.class.php");
+        $miCodificador=Encriptador::singleton();
+        $usuario = $_SESSION['usuario_login'];
+        $identificacion = $_SESSION['usuario_login'];
+        $tipo=30;
+        $indiceSaraAcademica = $configuracion["host"]."/saraacademica/index.php?";
+        $tokenCondor = "condorSara2013!";
+        $tokenCondor = $miCodificador->codificar($tokenCondor);
+        $opcion="temasys=";
+        $variable="indexEvaluacion&pagina=docentes";                                                        
+        $variable.="&usuario=".$usuario;
+        $variable.="&tipo=".$tipo;
+        $variable.="&token=".$tokenCondor;
+        $variable.="&opcionPagina=listaClase";
+        //$variable=$cripto->codificar_url($variable,$configuracion);
+        $variable=$miCodificador->codificar($variable);
+        $enlaceListaClase = $indiceSaraAcademica.$opcion.$variable;
+        
+        //Enlace para el cambio de contraseña
+        $usuario = $_SESSION['usuario_login'];
+        $identificacion = $_SESSION['usuario_login'];
+        $indiceSaraLaverna = $configuracion["host_adm_pwd"]."/lamasu/index.php?";
+        $tokenCondor = "condorSara2013!";
+        $tipo=30;
+        $tokenCondor = $miCodificador->codificar($tokenCondor);
+        $opcion="temasys=";
+        $variable.="gestionPassword&pagina=docentes";                                                        
+        $variable.="&usuario=".$usuario;
+        $variable.="&tipo=".$tipo;
+        $variable.="&token=".$tokenCondor;
+        $variable.="&opcionPagina=cambioPassword";
+        //$variable=$cripto->codificar_url($variable,$configuracion);
+        $variable=$miCodificador->codificar($variable);
+        $enlaceCambioPassword=$indiceSaraLaverna.$opcion.$variable;
+		
+		//enlace administrados Evaluación Docente
+		include_once("crypto/Encriptador.class.php");
+		$miCodificador=Encriptador::singleton();
+		$usuario = $_SESSION['usuario_login'];
+		$identificacion = $_SESSION['usuario_login'];
+		$tipo=30;        
+		$indiceKyron = $configuracion["host"]."/kyronFinal/index.php?";
+		$tokenCondor = "condorKyron2015!";
+		$tokenCondor = $miCodificador->codificar($tokenCondor);
+		$opcion="kyronConexion=";
+		$variable.="|pagina=docencia";                                                        
+		$variable.="|usuario=".$usuario;
+		$variable.="|tipo=".$tipo;
+		$variable.="|token=".$tokenCondor;
+		$variable.="|opcionPagina=indexEstadoCuenta";
+		//$variable=$cripto->codificar_url($variable,$configuracion);
+		$variable=$miCodificador->codificar($variable);
+		$enlaceEstadoCuenta = $indiceKyron.$opcion.$variable; 
 
-	//Enlace para el cambio de contraseña
-	$usuario = $_SESSION['usuario_login'];
-	$identificacion = $_SESSION['usuario_login'];
-	$indiceSaraPassword = $configuracion["host_adm_pwd"]."/index.php?";
-	$tokenCondor = "condorSara2013!";
-	$tipo=30;
-	$tokenCondor = $miCodificador->codificar($tokenCondor);
-	$opcion="temasys=";
-	$variable.="gestionPassword&pagina=docentes";
-	$variable.="&usuario=".$usuario;
-	$variable.="&tipo=".$tipo;
-	$variable.="&token=".$tokenCondor;
-	$variable.="&opcionPagina=cambioPassword";
-	//$variable=$cripto->codificar_url($variable,$configuracion);
-	$variable=$miCodificador->codificar($variable);
-	$enlaceCambioPassword=$indiceSaraPassword.$opcion.$variable;
-
-//Enlace para ver la lista de clase y enviar correo electónico a estudiantes.
-	include_once("crypto/Encriptador.class.php");
-	$miCodificador=Encriptador::singleton();
-	$usuario = $_SESSION['usuario_login'];
-	$identificacion = $_SESSION['usuario_login'];
-	$tipo=30;
-	$indiceSaraAcademica = $configuracion["host"]."/saraacademica/index.php?";
-	$tokenCondor = "condorSara2013!";
-	$tokenCondor = $miCodificador->codificar($tokenCondor);
-	$opcion="temasys=";
-	$variable="indexEvaluacion&pagina=docentes";
-	$variable.="&usuario=".$usuario;
-	$variable.="&tipo=".$tipo;
-	$variable.="&token=".$tokenCondor;
-	$variable.="&opcionPagina=listaClase";
-	//$variable=$cripto->codificar_url($variable,$configuracion);
-	$variable=$miCodificador->codificar($variable);
-	$enlaceListaClase = $indiceSaraAcademica.$opcion.$variable;
-
-//Enlace para evaluación Docente
-	 include_once("crypto/Encriptador.class.php");
-	$miCodificador=Encriptador::singleton();
-	$usuario = $_SESSION['usuario_login'];
-	$identificacion = $_SESSION['usuario_login'];
-	$tipo=30;
-	$indiceSaraAcademica = $configuracion["host"]."/saraacademica/index.php?";
-	$tokenCondor = "condorSara2013!";
-	$tokenCondor = $miCodificador->codificar($tokenCondor);
-	$opcion="temasys=";
-	$variable="indexEvaluacion&pagina=docentes";
-	$variable.="&usuario=".$usuario;
-	$variable.="&tipo=".$tipo;
-	$variable.="&token=".$tokenCondor;
-	$variable.="&opcionPagina=resultadosEvaluacion";
-	//$variable=$cripto->codificar_url($variable,$configuracion);
-	$variable=$miCodificador->codificar($variable);
-	$enlaceResultadosEvaldocentes = $indiceSaraAcademica.$opcion.$variable;
-
-
-// enlaces manuales
-
-$enlaceManIngNotas=$configuracion['host_soporte']."/soporte/archivos/manual_ingreso_de_notas_docentes.pdf";
-
-
+	//Enlace consulta de certificado de ingresos y retenciones
+        include_once("crypto/Encriptador.class.php");
+        $miCodificador=Encriptador::singleton();
+        $usuario = $_SESSION['usuario_login'];
+        $identificacion = $_SESSION['usuario_login'];
+        $indiceSaraLaverna = $configuracion["host_adm_pwd"]."/saraadministrativa/index.php?";
+        $tokenCondor = "s4r44dm1n1str4t1v4C0nd0r2014!";
+        $tipo=30;
+        $tokenCondor = $miCodificador->codificar($tokenCondor);
+        $opcion="temasys=";
+        $variable.="gestionPassword&pagina=certificaciones";                                                        
+        $variable.="&usuario=".$usuario;
+        $variable.="&tipo=".$tipo;
+        $variable.="&token=".$tokenCondor;
+        $variable.="&opcionPagina=gestionAdministrativos";
+        //$variable=$cripto->codificar_url($variable,$configuracion);
+        $variable=$miCodificador->codificar($variable);
+        $enlaceCertificadosIngRet=$indiceSaraLaverna.$opcion.$variable;
 ?>
 <html>
 <head>
@@ -251,8 +282,8 @@ $enlaceManIngNotas=$configuracion['host_soporte']."/soporte/archivos/manual_ingr
 
 <li class="item2"><a href="#">Plan de trabajo</a>
 <ul class="submenus">
-<li class="subitem1"><a target="principal" href="<?echo $enlaceDocentesPlanTrabajoActual?>">Registrar Periodo Actual</a></li>
-<li class="subitem1"><a target="principal"  href="<?echo $enlaceDocentesPlanTrabajoProximo?>">Registrar Periodo Pr&oacute;ximo</a></li>
+<li class="subitem1"><a target="principal" href="<?echo $enlaceDocentesPlanTrabajoActual?>">Registrar Periodo Actual!</a></li>
+<li class="subitem1"><a target="principal"  href="<?echo $enlaceDocentesPlanTrabajoProximo?>">Registrar Periodo Pr&oacute;ximo!</a></li>
 <li class="subitem1"><a href="#" class="postmenu">Reglamentaci&oacute;n</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="est_doc.pdf">Estatuto Del Profesor</a></li>
@@ -278,15 +309,15 @@ $enlaceManIngNotas=$configuracion['host_soporte']."/soporte/archivos/manual_ingr
 <li class="item5"><a href="#">Auto Evaluaci&oacute;n </a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<?PHP echo $enlaceEvaldocentes?>">Auto Evaluaci&oacute;n</a></li>
-<li class="subitem1"><a target="principal" href="doc_obsevaciones.php">Observaciones de Est.(ant. 2013-3)</a></li>
-<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceResultadosEvaldocentes?>">Observaciones.</a></li>
-
+<li class="subitem1"><a target="principal" href="doc_obsevaciones.php">Observaciones de Est.</a></li>
+<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceResultadosEvaldocentes?>">Obeservaciones Ev.</a></li>
 </ul>
 </li>
 
 <li class="item5"><a href="#">Captura de Notas</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="doc_curso.php">Lista de clase</a></li>
+<li class="subitem1"><a target="principal" href="<?echo $enlaceListaClase?>">Envío de correos</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceNotasDocentesPregrado?>">Captura notas Pregrado</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceNotasDocentesPosgrado?>">Captura notas Posgrado</a></li>
 <li class="subitem1"><a target="principal" href="doc_carga_curvac.php">Vacacionales</a></li>
@@ -296,11 +327,11 @@ $enlaceManIngNotas=$configuracion['host_soporte']."/soporte/archivos/manual_ingr
 
 <li class="item5"><a href="#">Servicios</a>
 <ul class="submenus">
-<?php /* ?><li class="subitem1"><a target="principal" href="<?PHP echo $enlaceDocencia ?>">Estado de cuenta</a></li><?php */ ?>
-<li class="subitem1"><a target="principal" href="<?echo $enlaceListaClase?>">Envío de correos</a></li>
-<li class="subitem1"><a target="principal" href="<?echo $configuracion['host_calendario_acad'];?>">Calendario Acad&eacute;mico</a></li>
+<!--<li class="subitem1"><a target="principal" href="<?PHP //echo $enlaceDocencia ?>">Estado de cuenta</a></li>-->
+<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceEstadoCuenta ?>">Estado de cuenta Docencia</a></li>
+<li class="subitem1"><a target="principal" href="<?echo $CalAcad?>">Calendario Acad&eacute;mico</a></li>
 <li class="subitem1"><a target="principal" href="doc_contacta_doc.php">Contactar docentes</a></li>
-<li class="subitem1"><a target="principal" href="<? echo $configuracion['host_derechos_pecuniarios'];?>">Derechos Pecuniarios</a></li>
+<li class="subitem1"><a target="principal" href="http://sgral.udistrital.edu.co/sgral/index.php?option=com_content&task=view&id=279&Itemid=116">Derechos Pecuniarios</a></li>
 <li class="subitem1"><a target="principal" href="../generales/estaturo_est.pdf">Estatuto estudiantil</a></li>
 <li class="subitem1"><a target="principal" href="../generales/gen_est_abhl.php">Estudiantes Activos</a></li>
 <li class="subitem1"><a target="principal" href="../generales/gen_fac_trabgrado.php">Trabajos de grado</a></li>
@@ -314,22 +345,28 @@ $enlaceManIngNotas=$configuracion['host_soporte']."/soporte/archivos/manual_ingr
 </ul>
 </li>
 
+<li class="item5">
+<a href="#">Cert. Ingresos y Ret.</a>
+<ul class="submenus">
+<li class="subitem1"><a target="principal" href="<?echo $enlaceCertificadosIngRet?>">Certificados</a></li>
+</ul>
+</li>
+
 <li class="item5"><a href="#">Biblioteca</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<?echo $enlaceAdminBiblioteca?>">Base de datos</a></li>
 </ul>
 </li>
-<li class="item2">
-<a href="#">Manuales</a>
+<li class="item2"><a href="#">Manuales</a>
 <ul class="submenus">
-<li class="subitem1"><a target="principal" href="<?php echo $enlaceManIngNotas ?>">Manual de ingreso de notas</a>
-</li>
+<li class="subitem1"><a target="principal" href="<?php echo $configuracion['host_soporte'].'/soporte/archivos/manual_vinculacion_docente_docente.pdf';?>">Manual Vinculaci&oacute;n Docente</a></li>
 </ul>
 </li>
+
 <li class="item5"><a href="#">Clave</a>
- <ul class="submenus">
- <li class="subitem1"><a target="principal" href="<?echo $enlaceCambioPassword?>">Cambiar mi clave</a></li>
- </ul>
+<ul class="submenus">
+<li class="subitem1"><a target="principal" href="<?echo $enlaceCambioPassword?>">Cambiar mi clave</a></li>
+</ul>
 </li>
 <li class=""><a target="_top" href="../conexion/salir.php"><font color="red">Cerrar Sesi&oacute;n </font></a>
 </li>
@@ -369,6 +406,73 @@ $(this).next().slideUp('fast');
 
 <!--initiate accordion-->
 <script type="text/javascript">
+
+//makeMenu('top','Datos Personales')
+	//makeMenu('sub','Actualizar','doc_actualiza_dat.php','principal')
+
+//Menu 1	
+//makeMenu('top','Plan de Trabajo')
+	//makeMenu('sub','Registrar Periodo Actual!','<?echo $enlaceDocentesPlanTrabajoActual?>','principal')
+	//makeMenu('sub','Registrar Periodo Pr&oacute;ximo!','<?echo $enlaceDocentesPlanTrabajoProximo?>','principal')
+	//makeMenu('sub','Gestionar','doc_adm_pt.php','principal')
+	//makeMenu('sub','Reglamentaci&oacute;n','','')
+	//makeMenu('sub2','Estatuto Del Profesor','est_doc.pdf','principal')
+	//makeMenu('sub2','Circular 003','doc_circular003_pt.php','principal')
+	//makeMenu('sub2','Circular 008','doc_circular008_pt.php','principal')
+
+//Menu 2
+//makeMenu('top','Asignaci&oacute;n Acad.')
+	//makeMenu('sub','Asignaturas','doc_fre_carga.php','principal')
+	
+//Menu 3
+//makeMenu('top','Consejerias')
+	// makeMenu('sub','Consejerias','<? echo $enlaceAcademicoConsejerias ?>','principal')
+
+//Menu 4    
+//makeMenu('top','Auto Evaluaci&oacute;n')
+  //makeMenu('sub','Auto Evaluaci&oacute;n','../err/valida_evadoc.php','principal')
+  //makeMenu('sub','Auto Evaluaci�n','../ev06/evaluacion.php','principal')
+  //makeMenu('sub','Obs. Eva. Actual','doc_fre_observaciones.php','principal')
+  //makeMenu('sub','Observaciones de Est.','doc_obsevaciones.php','principal')
+  //makeMenu('sub','Resultados','../informes/resultados_uni_prom_20113.pdf','principal')
+
+//Menu 5
+//makeMenu('top','Captura de Notas')
+  //makeMenu('sub','Lista de clase','doc_curso.php','principal')
+  //makeMenu('sub','Captura notas Pregrado','<?echo $enlaceNotasDocentesPregrado?>','principal')
+  //makeMenu('sub','Captura notas Posgrado','<?echo $enlaceNotasDocentesPosgrado?>','principal')
+  //makeMenu('sub','Posgrado','doc_curso_posgrado.php','principal')
+  //makeMenu('sub','Vacacionales','doc_carga_curvac.php','principal')
+ // makeMenu('sub','Posgrados Per.Ant.','doc_carga_pos.php','principal')
+ // makeMenu('sub','<center><b>REPORTES</b></center>','','')
+  //makeMenu('sub','Per&iacute;odo Anterior','','')
+  //makeMenu('sub','Notas per. Anterior','<?echo $enlaceNotasDocentesAnterior?>','principal')
+
+//Menu 6
+//makeMenu('top','Servicios')
+ // makeMenu('sub','Estado de cuenta','<?PHP echo $enlaceDocencia ?>','principal')  
+  //makeMenu('sub','Accesos a C&oacute;ndor','../generales/gen_uso_condor.php','principal')
+  //makeMenu('sub','Calendario Acad&eacute;mico','<?echo $CalAcad?>','principal')
+ // makeMenu('sub','Contactar Docentes','doc_contacta_doc.php','principal')
+  //makeMenu('sub','Derechos Pecuniarios','http://sgral.udistrital.edu.co/sgral/index.php?option=com_content&task=view&id=279&Itemid=116','principal')
+  //makeMenu('sub','Estatuto Estudiantil','../generales/estaturo_est.pdf','principal')
+  //makeMenu('sub','Estudiantes Activos','../generales/gen_est_abhl.php','principal')
+  //makeMenu('sub','Trabajos de Grado','../generales/gen_fac_trabgrado.php','principal')
+
+//Menu 7
+//makeMenu('top','Vinculaci&oacute;n Docente')         
+       //makeMenu('sub','Documentos','<?PHP echo $enlaceDocumentoVinculacion ?>','principal')
+  
+//Menu 8
+//makeMenu('top','Biblioteca')
+  //makeMenu('sub','Bases de Datos','<?echo $enlaceAdminBiblioteca?>','principal')
+
+//Menu 9
+//makeMenu('top','Clave')
+//makeMenu('sub','Cambiar mi Clave','../generales/cambiar_mi_clave.php','principal')
+
+//Menu 10
+//makeMenu('salir','Cerrar Sesi&oacute;n','../conexion/salir.php','_top','end')
 
 //Ejecucin del men
 onload=SlideMenuInit;
