@@ -9,7 +9,8 @@ $cod_consul = "SELECT est_cod,
 	   				  asi_nombre,
 	   				  ins_gr,
 	   				  INS_NOTA,
-	   				  ins_obs
+	   				  ins_obs,
+                                          (lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)
   				 FROM acest, accra, accursos, acins, acasi, acasperi
 				WHERE ins_est_cod = $estcod
 				  AND ins_asi_cod = cur_asi_cod

@@ -37,7 +37,7 @@ if(isset($_REQUEST['upd'])){
    require_once('doc_ValDoc.php');
    require_once('update_notasdef_curvac.php');
 }
-if(isset($_REQUEST['num_regs']))
+if(isset($_REQUEST['num_regs'])&&isset($resulQry))
 {
 	$notas='<div align="center"><table border="0" width="80%" cellspacing="2" cellpadding="3">
 		<tr>

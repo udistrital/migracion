@@ -35,6 +35,7 @@ $consulta = $conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"bus
 
 $as=$consulta[0][0];
 $gr=$consulta[0][2];
+$cur=$consulta[0][3];
 
 echo'<br><br><br><div align="center"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 	<tr>
@@ -51,7 +52,7 @@ echo'<br><br><br><div align="center"><table border="0" width="100%" cellspacing=
 		<td width="5%" align="right"><B>Grupo:</B></td>
 		<td width="7%" align="center">'.$consulta[0][2].'</td>
 		<td width="10%" align="right"><B>Semestre:</B></td>
-		<td width="7%" align="right">'.$consulta[0][3].'</td>
+		<td width="7%" align="right">'.$consulta[0][14].'</td>
 	</tr>
 	<tr>
 		<td width="8%" align="right"><B>Carrera:</B></td>
@@ -74,11 +75,12 @@ echo'<br><br><br><div align="center"><table border="0" width="100%" cellspacing=
 		<td width="15%" align="center">&nbsp;</td>
 	</tr>
 <?php
-$i=1;
+$i=0;
 while(isset($consulta[$i][0]))
 {
+    $j=$i+1;
 	echo'<tr>
-		<td width="5%" align="right">'.$i.'</td>
+		<td width="5%" align="right">'.$j.'</td>
 		<td width="15%" align="right">'.$consulta[$i][11].'</td>
 		<td width="60%" align="left">
 		 <a href="doc_est_semaforo.php?estcod='.$consulta[$i][11].'" onMouseOver="link();return true;" onClick="link();return true;" title="Plan de estudio">'.$consulta[$i][12].'</a></td>
@@ -106,7 +108,7 @@ while(isset($consulta[$i][0]))
 </table>
 </div>
 <?php 
-$print = "javascript:popUpWindow('print_lis_clase_curvac.php?as=$as&gr=$gr', 'yes', 0, 0, 790, 650)";
+$print = "javascript:popUpWindow('print_lis_clase_curvac.php?as=$as&gr=$gr&cur=$cur', 'yes', 0, 0, 790, 650)";
 echo'<center><br><input type="submit" value="Imprimir Listado" onClick="'.$print.'"></center>';
 ?>
 </BODY>

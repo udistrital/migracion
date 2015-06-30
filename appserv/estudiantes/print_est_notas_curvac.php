@@ -24,7 +24,7 @@ ob_start();
 fu_print_cabezote("NOTAS DEFINITIVAS CURSOS DE VACACIONES");
 
 $estcod = $_SESSION['usuario_login'];
-$carrera = $_SESSION['carrera'];
+$carrera = (isset($_SESSION['carrera'])?$_SESSION['carrera']:'');
 
 require_once(dir_script.'msql_notas_curvac.php');
 $consulta=$conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"busqueda");
@@ -67,7 +67,7 @@ while(isset($consulta[$i][0]))
 	  echo'<tr onMouseOver="this.className=\'raton_arr\'" onMouseOut="this.className=\'raton_aba\'">
 	  <td width="93" align="right">'.$consulta[$i][6].'</td>
 	  <td width="462" align="left">'.$consulta[$i][7].'</td>
-	  <td width="50" align="center">'.$consulta[$i][8].'</td>
+	  <td width="50" align="center">'.$consulta[$i][11].'</td>
 	  <td width="50" align="right">'.$consulta[$i][9].'</td>
 	  <td width="50" align="right">'.$consulta[$i][10].'</td></tr>';
 $i++;

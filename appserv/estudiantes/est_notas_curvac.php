@@ -76,7 +76,7 @@ while(isset($consulta[$i][0]))
 	  echo'<tr onMouseOver="this.className=\'raton_arr\'" onMouseOut="this.className=\'raton_aba\'">
 	  <td width="93" align="right">'.$consulta[$i][6].'</td>
 	  <td width="462" align="left">'.$consulta[$i][7].'</td>
-	  <td width="50" align="center">'.$consulta[$i][8].'</td>
+	  <td width="50" align="center">'.$consulta[$i][11].'</td>
 	  <td width="50" align="right">'.$consulta[$i][9].'</td>
 	  <td width="50" align="right">'.$consulta[$i][10].'</td></tr>';
 $i++;

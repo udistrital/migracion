@@ -40,7 +40,7 @@ echo'<br><div align="center">
 		<td width="5%" align="right"><font face="Tahoma" size="2"><B>Grupo:</B></font></td>
 		<td width="7%" align="center"><font face="Tahoma" size="2">'.$consulta[0][2].'</font></td>
 		<td width="10%" align="right"><font face="Tahoma" size="2"><B>Semestre:</B></font></td>
-		<td width="7%" align="right"><font face="Tahoma" size="2">'.$consulta[0][3].'</font></td>
+		<td width="7%" align="right"><font face="Tahoma" size="2">'.$consulta[0][14].'</font></td>
 	</tr>
 	<tr>
 		<td width="8%" align="right"><font face="Tahoma" size="2"><B>Carrera:</B></font></td>
@@ -63,11 +63,12 @@ echo'<br><div align="center">
 		<td width="15%" align="center">&nbsp;</td>
 	</tr>
 <?php
-$i=1;
+$i=0;
 while(isset($consulta[$i][0]))
 {
+        $j=$i+1;
 	echo'<tr>
-		<td width="5%" align="right"><font face="Tahoma" size="2">'.$i.'</font></td>
+		<td width="5%" align="right"><font face="Tahoma" size="2">'.$j.'</font></td>
 		<td width="15%" align="right"><font face="Tahoma" size="2">'.$consulta[$i][11].'</font></td>
 		<td width="60%" align="left"><font face="Tahoma" size="2">'.$consulta[$i][12].'</font></td>
 		<td width="5%" align="center"><font face="Tahoma" size="2">'.$consulta[$i][13].'</font></td>
@@ -85,8 +86,8 @@ while(isset($consulta[$i][0]))
 					<td width="5%" style="border: .8 dotted #000000">&nbsp;</td>
 					<td width="5%" style="border: .8 dotted #000000">&nbsp;</td>
 				</tr>
-			</table><
-		/td>
+			</table>
+                </td>
 	</tr>';
 	$i++;
 }

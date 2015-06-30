@@ -12,7 +12,10 @@ $cod_consul = "SELECT cur_asi_cod,
 	ins_cra_cod,
 	ins_est_cod,
 	est_nombre,
-	est_estado_est
+	est_estado_est,
+        CASE WHEN ins_sem=0 THEN 'Electiva'
+        WHEN ins_sem=98 THEN 'CP'
+        ELSE TO_CHAR(ins_sem,'999') END cur_semestre
 	FROM accursos,accra,acasi,acasperi,acins,acest
 	WHERE cur_asi_cod =".$_REQUEST['as']."
 	AND cur_id =".$_REQUEST['cur']."
