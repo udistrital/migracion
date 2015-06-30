@@ -43,7 +43,8 @@ class funciones_admin_consultaRecibos extends funcionGeneral
                 }elseif($this->nivel==114){
                     $this->accesoOracle=$this->conectarDB($configuracion,"secretario");
                 }else{
-                    echo "NO TIENE PERMISOS PARA ESTE MODULO";
+                    //echo "NO TIENE PERMISOS PARA ESTE MODULO";
+                    $this->accesoOracle=$this->conectarDB($configuracion,"coordinador");
                 }
 
 		$this->formulario="admin_consultaRecibos";
@@ -391,7 +392,7 @@ class funciones_admin_consultaRecibos extends funcionGeneral
                                 $cadena_clave=$cripto->decodificar_variable($configuracion["clave_envios"], $semilla);
 
 				//configuracion de cuenta de envio
-				$mail->Host     = "mail.udistrital.edu.co";
+				$mail->Host     = "200.69.103.49";
 				$mail->Mailer   = "smtp";
 				$mail->SMTPAuth = true;
 				$mail->Username = $configuracion["correo_envios"];

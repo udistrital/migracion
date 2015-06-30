@@ -40,7 +40,8 @@ class sql_registroNotasDocentes extends sql
 			case "carreras":
                                 if($variable[4]=='ANTERIOR'){
                                     $nivel="PREGRADO','EXTENSION','POSGRADO','MAESTRIA','DOCTORADO";
-                                }else{$nivel=$variable[4];}
+                                }elseif($variable[4]=='POSGRADO'){$nivel="POSGRADO','MAESTRIA','DOCTORADO";}
+                                    else{$nivel=$variable[4];}
                                 $cadena_sql=" SELECT DISTINCT cur_cra_cod";
                                 $cadena_sql.=" FROM accargas ";
                                 $cadena_sql.=" INNER JOIN achorarios ON car_hor_id=hor_id";
@@ -48,7 +49,7 @@ class sql_registroNotasDocentes extends sql
                                 $cadena_sql.=" INNER JOIN acasperi ON cur_ape_ano=ape_ano AND cur_ape_per=ape_per";
                                 $cadena_sql.=" INNER JOIN accra ON cur_cra_cod=cra_cod";
                                 $cadena_sql.=" INNER JOIN actipcra ON cra_tip_cra=tra_cod ";
-                                $cadena_sql.=" WHERE ape_estado='A'";
+                                $cadena_sql.=" WHERE ape_estado in ('A','P')";
                                 $cadena_sql.=" AND car_estado = 'A'";
                                 $cadena_sql.=" AND car_doc_nro=".$variable[0]." ";
                                 $cadena_sql.=" AND tra_nivel IN ('".$nivel."')  ";
