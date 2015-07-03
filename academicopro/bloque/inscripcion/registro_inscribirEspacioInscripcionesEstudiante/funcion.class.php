@@ -339,6 +339,8 @@ class funcion_registroInscribirEspacioInscripcionesEstudiante extends funcionGen
                 $datosEspacio=array('CREDITOS'=>$this->datosInscripcion['creditos'],
                                     'CLASIFICACION'=>$clasificacion);
                 $creditos=$this->validacion->verificarCreditosClasificacion($parametros,$espaciosInscritos,$datosEspacio,$aprobados,$this->datosEstudiante[0]['PLAN_ESTUDIO']);
+                //Consulta si existe un grupo de espacios especiales para verificar
+                $espaciosEspeciales=$this->consultarEspaciosEspeciales($this->datosEstudiante);
                 if($creditos!='ok' && $creditos==1)
                 {
                     $retorno['mensaje']="No se puede inscribir el espacio. Supera el número de creditos para la clasificación ".$clasificacion.".";
@@ -427,6 +429,46 @@ class funcion_registroInscribirEspacioInscripcionesEstudiante extends funcionGen
                         {
                             $retorno['mensaje']="No se puede inscribir el espacio Intrínseco. Su Proyecto Curricular solo le permite cursar una ".$espaciosElectiva[0]['NOMBRE_ENC'].".";
                             $this->enlaceNoAdicion($retorno);
+                        }
+                    }
+                }elseif(is_array($espaciosEspeciales)&&trim($this->datosEstudiante[0]['TIPO_ESTUDIANTE']) == 'S')
+                {//este proceso permite verificar espacios especiales
+                    $creditosEspaciosInscritosEspeciales=0;
+                    foreach ($espaciosEspeciales as $key => $value) {
+                        //para cada grupo de espacios especiales verifica el valor de creditos minimo o maximo
+                        $codigosEspacios=json_decode($espaciosEspeciales[$key]['CODIGOS'],true);
+                        $codigos=str_replace(array('[',']','"'),array('(',')',''), $espaciosEspeciales[$key]['CODIGOS']);
+                        //verifica si el espacio que va a inscribir esta entre los codigos especiales
+                        $verificar=in_array($this->datosInscripcion['codEspacio'],$codigosEspacios);
+                        if($verificar!==FALSE)
+                        {
+                            //consulta cuantos creditos aprobados tiene el estudiante entre los espacios a verificar
+                            $creditosAprobados=$this->consultarCreditosAprobadosEspacios($codigos);
+                            //verifica cuales tiene inscritos y suma los creditos
+                            if(is_array($espaciosInscritos))
+                            {
+                                foreach ($espaciosInscritos as $key2 => $espacioInscrito) {
+                                    foreach ($codigosEspacios as $clave => $codigo) {
+                                    if($espacioInscrito['CODIGO']==$codigo)
+                                            $creditosEspaciosInscritosEspeciales+=$espacioInscrito['CREDITOS'];
+                                    }
+                                }
+                            }
+                            //compara el numero de creditos inscritos y aprobados con el maximo o minimo del grupo
+                            $totalCreditosEspeciales=$creditosAprobados[0][0]+$creditosEspaciosInscritosEspeciales+$this->datosInscripcion['creditos'];
+                            //si esta definido un numero de creditos maximo y no se satisface la condicion
+                            if(isset($espaciosEspeciales[$key]['MAX_CREDITOS'])&&$totalCreditosEspeciales>$espaciosEspeciales[$key]['MAX_CREDITOS'])
+                            {
+                                $retorno['mensaje']="No se puede inscribir el espacio. Supera ".$espaciosEspeciales[$key]['MAX_CREDITOS']." créditos de ".$espaciosEspeciales[$key]['NOMBRE_GRUPO'].".";
+                                $this->enlaceNoAdicion($retorno);
+                            }//si esta definido un numero de creditos minimo y no se satisface la condicion
+                            elseif(isset($espaciosEspeciales[$key]['MIN_CREDITOS'])&&$totalCreditosEspeciales<$espaciosEspeciales[$key]['MIN_CREDITOS'])
+                                {
+                                    $retorno['mensaje']="No se puede inscribir el espacio. Debe superar ".$espaciosEspeciales[$key]['MIN_CREDITOS']." créditos de ".$espaciosEspeciales[$key]['NOMBRE_GRUPO'].".";
+                                    $this->enlaceNoAdicion($retorno);
+                            }else{
+
+                            }
                         }
                     }
                 }
@@ -751,6 +793,34 @@ class funcion_registroInscribirEspacioInscripcionesEstudiante extends funcionGen
                         'plan'=>$plan);
         $cadena_sql=$this->sql->cadena_sql("consultarElectivosEncabezado", $variables);
         return $registroEspaciosEncabezado=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql,"busqueda" );
+    }
+  
+    /**
+     * Funcion que consulta espacios académicos para verificaciones especiales por créditos
+     * @param int $codEstudiante
+     * @return array 
+     */
+    function consultarEspaciosEspeciales(){
+        $variables =array('codEstudiante'=>$this->datosEstudiante[0]['CODIGO'],
+                        'codProyecto'=>$this->datosEstudiante[0]['COD_CARRERA'],
+                        'codFacultad'=>$this->datosEstudiante[0]['NOMBRE_FACULTAD'],
+                        'codPlan'=>$this->datosEstudiante[0]['PLAN_ESTUDIO']);
+        $cadena_sql=$this->sql->cadena_sql("consultarEspaciosEspeciales", $variables);
+        return $registroEspaciosEncabezado=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql,"busqueda" );
+    }
+  
+  
+    /**
+     * Funcion que consulta los creditos aprobados en los espacios académicos para verificaciones especiales
+     * @param string $espacios
+     * @return array 
+     */
+    function consultarCreditosAprobadosEspacios($espacios){
+        $variables =array('codEstudiante'=>$this->datosEstudiante[0]['CODIGO'],
+                        'codProyecto'=>$this->datosEstudiante[0]['COD_CARRERA'],
+                        'codEspacios'=>$espacios);
+        $cadena_sql=$this->sql->cadena_sql("consultarCreditosAprobadosEspacios", $variables);
+        return $registroCreditosEspacios=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
     }
   
     

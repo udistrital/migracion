@@ -170,6 +170,27 @@ class sql_registroInscribirEspacioInscripcionesEstudiante extends sql {
                 $cadena_sql.=" AND EE.id_planEstudio =".$variable['plan'];
                 break;
 
+            case 'consultarEspaciosEspeciales':
+                $cadena_sql =" SELECT espacios_codigos CODIGOS,";
+                $cadena_sql.=" espacios_min_creditos MIN_CREDITOS,";
+                $cadena_sql.=" espacios_max_creditos MAX_CREDITOS,";
+                $cadena_sql.=" espacios_nombre_grupo NOMBRE_GRUPO";
+                $cadena_sql.=" FROM sga_verificar_espacios_creditos";
+                $cadena_sql.=" WHERE (espacios_cod_estudiante='".$variable['codEstudiante']."' OR espacios_plan='".$variable['codPlan']."' OR espacios_proyecto='".$variable['codProyecto']."' OR espacios_facultad='".$variable['codFacultad']."')"; 
+                $cadena_sql.=" AND espacios_estado=1";
+                break;
+
+            case 'consultarCreditosAprobadosEspacios':
+                $cadena_sql=" select sum(not_cred)";
+                $cadena_sql.=" from acnot";
+                $cadena_sql.=" inner join accra on cra_cod=not_cra_cod";
+                $cadena_sql.=" where not_est_cod='".$variable['codEstudiante']."'";
+                $cadena_sql.=" and not_cra_cod='".$variable['codProyecto']."'";
+                $cadena_sql.=" and not_asi_cod in ".$variable['codEspacios']."";
+                $cadena_sql.=" and not_nota>=cra_nota_aprob";
+                $cadena_sql.=" and not_est_reg='A'";
+                break;
+
         }
         return $cadena_sql;
     }
