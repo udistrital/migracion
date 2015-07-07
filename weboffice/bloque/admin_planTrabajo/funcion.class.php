@@ -54,7 +54,11 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 		{
 			$usuario=$this->identificacion;
 		}
-						
+                if($_REQUEST['tipoUser']==34&&!isset($_REQUEST['periodo']))
+                    {
+                    $this->seleccionarPeriodo($configuracion);
+                    exit;
+                    }
 		if($usuario=="")
 		{
 			echo "¡SU SESION HA EXPIRADO, INGRESE NUEVAMENTE!",
@@ -660,6 +664,62 @@ ________________________________________________________________________________
 		echo "<script>location.replace('".$indice.$variable."')</script>"; 
 		exit();
 	}
+        
+        function seleccionarPeriodo($configuracion) {
+            $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"seleccionarPeriodo","");
+            $resultAnioPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+            
+            $tab=0;
+                ?>
+                <form enctype='multipart/form-data' method='POST' action='index.php' name='<? echo $this->formulario ?>'>
+                    <table class=tablaMarco width="100%" border="0" align="center" cellpadding="4 px" cellspacing="0px" >
+                        <tr>    
+                            <td width="50%">Seleccione el per&iacute;odo para consultar</td>
+                            <td >
+                                <?
+                                    $html_perCod="<select id='nivel' tabindex='".$tab++."' size='1' name='nivel'>";
+                                    foreach ($resultAnioPer as $key => $value)
+                                    {
+                                        $html_perCod.="<option value='".$value[2]."'";
+                                        $html_perCod.=" >".$value[0]."-".$value[1]."</option>  ";
+                                    }
+                                $html_perCod.="</select>";
+                                $html_perCod.="<font color='red'> *</font>";
+                                echo $html_perCod;
+
+                                ?> 
+                            </td>
+                        </tr>
+                        <tr>    
+                            <td colspan='3'><? $this->enlaceConsultar('Continuar');?></td>
+                        </tr>
+                    </table>
+                </form>
+                
+            <?
+            
+        }
+        
+    /**
+     * Función para mostrar enlace que envia los datos para consultar informacion de estudiante
+     */
+    function enlaceConsultar($nombre)
+        {
+            ?><input type='hidden' name='formulario' value="<? echo $this->formulario ?>">
+            <input type='hidden' name='periodo' value="periodo">
+            <?
+                unset($_REQUEST['nivel']);
+                foreach ($_REQUEST as $key => $value)
+                {
+                    echo "<input type='hidden' name='".$key."' value=\"".$value."\">";
+                }
+            ?>
+              <input value="<?echo $nombre;?>" name="aceptar" tabindex='20' type="button" onclick="document.forms['<? echo $this->formulario?>'].submit()">                              
+            <?
+        }
+    
+        
+        
 		
 }
 	

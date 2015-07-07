@@ -28,6 +28,15 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.="ape_estado='".$variable[10]."'";	
 				break;
 			
+			case "seleccionarPeriodo":
+				$cadena_sql="SELECT ";
+				$cadena_sql.="ape_ano, ape_per, ape_estado ";
+				$cadena_sql.="FROM ";
+				$cadena_sql.="acasperi ";
+				$cadena_sql.="WHERE ";
+				$cadena_sql.="ape_estado in ('A','V','P')";
+				break;
+			
 			case "fechaactual":
 				$cadena_sql="SELECT ";
 				$cadena_sql.="TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) ";
@@ -68,7 +77,7 @@ class sql_registro_PlanTrabajo extends sql
   
 			case "listaFacultades":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="unique(cra_dep_cod), ";
+				$cadena_sql.="distinct(cra_dep_cod), ";
 				$cadena_sql.="dep_nombre ";
 				$cadena_sql.="FROM ";
 				$cadena_sql.="accra, gedep ";
