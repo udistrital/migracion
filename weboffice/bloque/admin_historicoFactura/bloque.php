@@ -98,6 +98,10 @@ if ($enlace)
 					$valor[2]=$periodo;
 					$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"recibosActual");
 					break;	
+				case "reciboActualEstudiante":
+					$valor[0]=$usuario;
+					$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"recibosActualEstudiante");
+					break;	
 				case "diferirMatricula":
 					$valor[0]=$usuario;
 					$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"validaFechaDiferido");
@@ -135,6 +139,10 @@ if ($enlace)
 							break;
 							
 						case "reciboActual":
+							con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$accesoOracle,$accesoGestion,$usuario,$anno,$periodo);
+                                                        con_registro_beneficiario($configuracion,$registro,$acceso_db,$accesoOracle,$accesoGestion,$usuario);
+							break;
+						case "reciboActualEstudiante":
 							con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$accesoOracle,$accesoGestion,$usuario,$anno,$periodo);
                                                         con_registro_beneficiario($configuracion,$registro,$acceso_db,$accesoOracle,$accesoGestion,$usuario);
 							break;
@@ -487,6 +495,8 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 															  $variable.="&opcion=imprimir";
 															  $variable.="&no_pagina=true";
 															  $variable.="&factura=".$registro[$contador][0];
+                                                                                                                          $variable.="&anioRecibo=".$registro[$contador][5];
+                                                                                                                          $variable.="&periodoRecibo=".$registro[$contador][6];
 															  $variable=$cripto->codificar_url($variable,$configuracion);
 															  echo $indice.$variable;		
 															  ?>">
@@ -630,11 +640,17 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
                                                                                                     <td colspan='3' class="cuadro_plano centrar">
                                                                                                        <?
                                                                                                        
-                                                                                                                        if(((isset($aceptacion[0][5])?$aceptacion[0][5]:'')==1 && $anno==$datosRegistro['anio_pago'] && $periodo==$datosRegistro['periodo_pago'] ) || $recibo_matricula<>'ok' || $registro[$contador][13]=='S' || ($anno.$periodo<>$datosRegistro['anio_pago'].$datosRegistro['periodo_pago'] )){
-                                                                                                                   
-                                                                                                                            enlacePagoEnLinea($configuracion,$registro,$contador);
-
-                                                                                                                        }else{
+                                                                                                                    if(((isset($aceptacion[0][5])?$aceptacion[0][5]:'')==1 && $anno==$datosRegistro['anio_pago'] && $periodo==$datosRegistro['periodo_pago'] ) || $recibo_matricula<>'ok' || $registro[$contador][13]=='S' || ($anno.$periodo<>$datosRegistro['anio_pago'].$datosRegistro['periodo_pago'] ))
+                                                                                                                        {   
+                                                                                                                            //nuevo-verificar recibos en tablas de bancos
+                                                                                                                            $variable= array('SECUENCIA'=>$registro[$contador][0],'ANIO'=>$registro[$contador][14]);        
+                                                                                                                            $cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $variable,"validarRecibo");
+                                                                                                                            $registroRecibo=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");
+                                                                                                                            if (isset($registroRecibo) && is_array($registroRecibo))
+                                                                                                                                { enlacePagoEnLinea($configuracion,$registro,$contador);
+                                                                                                                                }
+                                                                                                                        }
+                                                                                                                    else{
                                                                                                                                     ?>
                                                                                                                                   <a href="<?		
                                                                                                                                   $pagina = $configuracion["host"] . "/academicopro/index.php?";
@@ -654,7 +670,6 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
                                                                                                                                   </font></a>
                                                                                                                                   <?
                                                                                                                         }  
-                                                                                                         
                                                                                                        ?>
                                                                                                     </td>
                                                                                                 </tr>						
@@ -1054,6 +1069,40 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 // 			$cadena_sql.="EMA_SECUENCIA<25246 ";
 				
 			break;
+		case "recibosActualEstudiante":
+			$cadena_sql="SELECT ";
+			$cadena_sql.="ema_secuencia, ";
+			$cadena_sql.="ema_est_cod, ";
+			$cadena_sql.="ema_cra_cod, ";
+			$cadena_sql.="ema_valor, ";
+			$cadena_sql.="ema_ext, ";
+			$cadena_sql.="ema_ano, ";
+			$cadena_sql.="ema_per, ";
+			$cadena_sql.="ema_cuota, ";
+			$cadena_sql.="ema_fecha, ";
+			$cadena_sql.="ema_estado, ";
+			$cadena_sql.="TO_CHAR(EMA_FECHA_ORD, 'DD-Mon-YYYY'), ";
+			$cadena_sql.="TO_CHAR(EMA_FECHA_EXT, 'DD-Mon-YYYY'), ";
+			$cadena_sql.="EMA_IMP_RECIBO, ";
+			$cadena_sql.="ema_pago, "; //13
+			$cadena_sql.="ema_ano_pago, ";
+			$cadena_sql.="ema_per_pago ";
+			$cadena_sql.="FROM ";
+			$cadena_sql.="ACESTMAT ";
+			$cadena_sql.="INNER JOIN ACASPERI ON EMA_ANO=APE_ANO AND EMA_PER=APE_PER ";
+			$cadena_sql.="WHERE ";
+			$cadena_sql.="EMA_EST_COD = ".$valor[0]." ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="ape_estado in ('A','X','P','V') ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="EMA_ESTADO='A' ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="EMA_PAGO='N' ";
+			$cadena_sql.="ORDER BY ema_ano,ema_per,ema_cuota asc";
+// 			$cadena_sql.="AND ";
+// 			$cadena_sql.="EMA_SECUENCIA<25246 ";
+				
+			break;
 			
 		case "recibosActualEcaes":
 			$cadena_sql="SELECT ";
@@ -1118,6 +1167,7 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql.="deu_est_cod =".$valor." ";
 			$cadena_sql.="AND ";
 			$cadena_sql.="cpto_cod = deu_cpto_cod";
+			$cadena_sql.=" AND deu_estado in ('A','1','4')";/*Se adiciona250714, para deudas de laboratorios*/
 			
 			break;
 			
@@ -1216,6 +1266,26 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
                         $cadena_sql.=" AND bmm_nro_iden='".$valor['identificacion']."'";
                         break;
             
+               case "validarRecibo":
+			$cadena_sql="SELECT DISTINCT ";
+                        $cadena_sql.="IDENTIFICACION ,";
+			$cadena_sql.="CODIGO, ";
+			$cadena_sql.="SECUENCIA, ";
+			$cadena_sql.="CUOTA, ";
+			$cadena_sql.="ANO_PAGO, ";
+			$cadena_sql.="PERIODO_PAGO, ";
+			$cadena_sql.="CONCEPTO, ";
+			$cadena_sql.="DESCRIPCION, ";
+			$cadena_sql.="VALOR, ";
+			$cadena_sql.="OBSERVACION ";
+			$cadena_sql.="FROM v_recibos_pse ";
+			$cadena_sql.="WHERE ";
+			$cadena_sql.="SECUENCIA=".$valor['SECUENCIA']." ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="ANO_PAGO=".$valor['ANIO']." ";	
+                        $cadena_sql.="ORDER BY CONCEPTO ASC ";	
+         
+			break;      
          
 		default:
 			$cadena_sql="";
@@ -1316,13 +1386,15 @@ function enlacePagoEnLinea($configuracion,$registro,$contador){
                         echo "<font color='red'>Para PAGAR EN LINEA este recibo, primero debe pagar el recibo correspondiente a la <b>cuota No. ".$reciboanterior."</b><br></font>";
                 }
                 else{
+                    
                         $fecha_hoy = strtotime('now');
 
                         $fecha_ord = str_replace('/', '-', $registro[$contador][10]);
                         $fecha_ord = strtotime($fecha_ord);
 
                         $fecha_extra = str_replace('/', '-', $registro[$contador][11]);
-                        $fecha_extra = strtotime($fecha_extra);
+                        $fecha_extra = strtotime ( '+1 day' ,strtotime($fecha_extra));
+                        
                         if($fecha_hoy <= $fecha_ord || $fecha_hoy <= $fecha_extra){
                         ?><a href="<?	echo $indiceAcademico.$variable;?>">
                           <img border="0" alt="PAGO EN LÍNEA" src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]."/BotonPSE.jpg"?>" />

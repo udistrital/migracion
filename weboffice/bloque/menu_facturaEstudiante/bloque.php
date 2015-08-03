@@ -100,7 +100,7 @@ if($registro)
 						<a href="<?		
 							$variable="pagina=adminPago";
 							//Codigo del Estudiante
-							$variable.="&opcion=reciboActual&usuario=".$_REQUEST['usuario']."&tipoUser=".$_REQUEST['tipoUser'];
+							$variable.="&opcion=reciboActualEstudiante&usuario=".$_REQUEST['usuario']."&tipoUser=".$_REQUEST['tipoUser'];
 							$variable=$cripto->codificar_url($variable,$configuracion);
 							echo $indice.$variable;		
 							?>"> Recibo actual</a>
@@ -129,7 +129,7 @@ if($registro)
 							$identificacion = $_REQUEST['usuario'];
 							$modulo = $_REQUEST['tipoUser'];
 							
-							$indiceSara = $configuracion["host"]."/serviciosacademicos/index.php?";
+							$indiceSara = $configuracion["host_redireccion_funcionario"]."/serviciosacademicos/index.php?";
 							$tokenCondor = "condorSara2014";
 							$tokenCondor = $miCodificadorServiciosAcademicos->codificar($tokenCondor);
 							$opcion = 'datos=';
