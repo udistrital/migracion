@@ -225,7 +225,8 @@ class sql_admin_consejeriasConsultaEstudiante extends sql {	//@ Método que crea
                 $cadena_sql.="cur_par5 NOTA5, ";
                 $cadena_sql.="cur_par6 NOTA6, ";
                 $cadena_sql.="cur_lab NOTA_LABORATORIO, ";
-                $cadena_sql.="cur_exa NOTA_EXAMEN ";
+                $cadena_sql.="cur_exa NOTA_EXAMEN, ";
+                $cadena_sql.="cur_hab NOTA_HAB ";
                 $cadena_sql.=" from accursos ";
                 $cadena_sql.=" where cur_asi_cod='".$variable[0]."'";
                 $cadena_sql.=" and cur_id='".$variable[1]."'";
@@ -495,8 +496,33 @@ class sql_admin_consejeriasConsultaEstudiante extends sql {	//@ Método que crea
                 $cadena_sql.=" WHERE est_nro_iden= ".$variable;
                 $cadena_sql.=" AND est_estado_est = 'E'";
                 $cadena_sql.=" ORDER BY CODIGO desc";
-           
                 break;
+            
+            //se adiciona para consultar clasificaciones de espacios academicos creditos--08/07/2015
+            case 'clasificacion':   
+                $cadena_sql =" SELECT id_clasificacion CODIGO_CLASIF, ";
+                $cadena_sql.=" clasificacion_abrev ABREV_CLASIF, ";
+                $cadena_sql.=" clasificacion_nombre NOMBRE_CLASIF ";
+                $cadena_sql.=" FROM ".$this->configuracion['prefijo']."espacio_clasificacion ";
+                break;
+            
+            case 'creditosPlan':
+
+                $cadena_sql="SELECT parametro_creditosPlan, parametros_OB, parametros_OC, parametros_EI, parametros_EE, parametros_CP ";
+                $cadena_sql.="FROM ".$this->configuracion['prefijo']."parametro_plan_estudio ";
+                $cadena_sql.="WHERE parametro_idPlanEstudio=".$variable;
+                break;
+            
+            case 'espaciosAprobados':
+
+                $cadena_sql="SELECT not_asi_cod, not_cra_cod, not_cred, not_cea_cod";
+                $cadena_sql.=" FROM acnot";
+                $cadena_sql.=" WHERE not_est_cod =".$variable['codEstudiante']." ";
+                $cadena_sql.=" AND not_cra_cod= ".$variable['codProyecto']." ";
+                $cadena_sql.=" AND not_nota >= (select cra_nota_aprob from accra where cra_cod =".$variable['codProyecto']." )";
+                $cadena_sql.=" AND not_est_reg like '%A%'";
+
+                break;            
             
         }#Cierre de switch
         return $cadena_sql;

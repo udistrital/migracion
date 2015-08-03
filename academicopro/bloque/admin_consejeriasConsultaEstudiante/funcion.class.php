@@ -199,6 +199,12 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
           }
           $this->mostrarEnacabezadoNotasDefinitivas();
           $this->mostrarNotasDefinitivas($this->espaciosCursados);
+          // Agregada 08/07/2015 para presentar tabla de porcentajes de creditos.
+        if (trim($this->datosEstudiante['MODALIDAD']) == 'S' && trim($this->datosEstudiante['NIVEL'])=='PREGRADO')
+          {
+             $this->mostrarTablaPorcentajes();
+          }
+          
     } else {
 ?>
       <table class="contenidotabla centrar">
@@ -511,6 +517,7 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
               <th class='sigma cuadro_plano centrar'>Nota 6</th>
               <th class='sigma cuadro_plano centrar'>Nota Lab</th>
               <th class='sigma cuadro_plano centrar'>Nota Examen</th>
+              <th class='sigma cuadro_plano centrar'>Habil</th>
               <th class='sigma cuadro_plano centrar'>Acumulado</th>
 
             </tr>
@@ -552,7 +559,7 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
 
             <?
             //arreglo con los nombres de las claves del arreglo $resultado_porcentaje y $resultado_notas
-            $notas=array('NOTA1','NOTA2','NOTA3','NOTA4','NOTA5','NOTA6','NOTA_LABORATORIO','NOTA_EXAMEN');                       
+            $notas=array('NOTA1','NOTA2','NOTA3','NOTA4','NOTA5','NOTA6','NOTA_LABORATORIO','NOTA_EXAMEN','NOTA_HAB');                       
 
             for($n=0;$n<count($notas);$n++){?>
 
@@ -840,7 +847,14 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
         
         ?>
             </table><?
-        exit;
+        //$this->detallarNotas($resultado_notas); se deja comentada porque se sacó de esta funcion pero no se estaba mostrando.
+
+    }
+    /*
+     * Presenta detalle de las notas. Se encontraba interno en la funcion mostrarNotasDefinitivas pero se saca y se coloca en una nueva funcion.
+     * Dentro de mostrarNotasDefinitivas no se estaba usando, ya que antes de presentarlo existia un exit.
+     */
+    function detallarNotas($resultado_notas) {
       if (count($resultado_notas) > 1) {
     ?><table class='sigma' width='95%' align=center border='0'><?
         for ($i = 0; $i < count($resultado_notas); $i++) {
@@ -903,8 +917,7 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
         }
     ?></table><?
       }
-
-
+        
     }
 
     function calcularCreditos($registroGrupo) {
@@ -1897,6 +1910,252 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
         $html .="</table>";
         $html .="</center><br><br>";
         echo $html;
+    }
+    
+ /**
+   * Funcion que muestra tabla con totales y porcentajes de créditos del estudiante. Agregada 08/07/2015
+   * @param <array> $datosEstudiante
+   * @return <array>
+   */
+  function porcentajeParametros() {
+        $OBEst=$OCEst=$EIEst=$EEEst=$CPEst=$totalCreditosEst=0;
+        $planEstudiante=  $this->datosEstudiante['PENSUM'];
+
+        $cadena_sql=$this->sql->cadena_sql("creditosPlan",$planEstudiante);
+        $registroCreditosGeneral=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql,"busqueda" );
+
+        $totalCreditos= $registroCreditosGeneral[0][0];
+        $OB= $registroCreditosGeneral[0][1];
+        $OC= $registroCreditosGeneral[0][2];
+        $EI= $registroCreditosGeneral[0][3];
+        $EE= $registroCreditosGeneral[0][4];
+        $CP= $registroCreditosGeneral[0][5];
+        $datos=array('codEstudiante'=>  $this->datosEstudiante['CODIGO'],
+                     'codProyecto'=>  $this->datosEstudiante['CODIGO_CRA']               
+                    );
+        $cadena_sql=$this->sql->cadena_sql("espaciosAprobados",$datos);
+        $registroEspaciosAprobados = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+
+        $numeroAprobados=count($registroEspaciosAprobados);
+        for($i=0;$i<$numeroAprobados;$i++)
+        {
+            $idEspacio= $registroEspaciosAprobados[$i][0];
+            $variables=array($idEspacio, $planEstudiante);
+
+            switch((isset($registroEspaciosAprobados[$i][3])?$registroEspaciosAprobados[$i][3]:''))
+            {
+                case 1:
+                        $OBEst=$OBEst+$registroEspaciosAprobados[$i][2];
+                    break;
+
+                case 2:
+                        $OCEst=$OCEst+$registroEspaciosAprobados[$i][2];
+                    break;
+
+                case 3:
+                        $EIEst=$EIEst+$registroEspaciosAprobados[$i][2];
+                    break;
+
+                case 4:
+                        $EEEst=$EEEst+$registroEspaciosAprobados[$i][2];
+                    break;
+                
+                case 5:
+                        $CPEst=$CPEst+$registroEspaciosAprobados[$i][2];
+                    break;
+
+                case '':
+                        $totalCreditosEst=$totalCreditosEst+0;
+                    break;
+
+                 }
+            }      
+      
+        $OBEst=$OBEst+$CPEst;
+        $totalCreditosEst=$OBEst+$OCEst+$EIEst+$EEEst;
+
+        if($totalCreditos==0){$porcentajeCursado=0;}
+        else{$porcentajeCursado=$totalCreditosEst*100/$totalCreditos;}
+        if($OB==0){$porcentajeOBCursado=0;}
+        else{$porcentajeOBCursado=$OBEst*100/$OB;}
+        if($OC==0){$porcentajeOCCursado=0;}
+        else{$porcentajeOCCursado=$OCEst*100/$OC;}
+        if($EI==0){$porcentajeEICursado=0;}
+        else{$porcentajeEICursado=$EIEst*100/$EI;}
+        if($EE==0){$porcentajeEECursado=0;}
+        else{$porcentajeEECursado=$EEEst*100/$EE;}
+        
+        $columnas[]=$columna1=15;
+        $columnas[]=$columna2=16;
+        $columnas[]=$columna3=16;
+        $columnas[]=$columna4=16;
+        $columnas[]=$columna5=37;
+        
+        if($totalCreditos>0)
+        {
+            $vista="
+            <div class='fechas' ><b>Cr&eacute;ditos Ac&aacute;demicos</b></div>
+            <table class='contenidotablaCreditos' align='center' width='100%' cellspacing='0' >
+                    <tr>
+                          <th class='creditos centrar' width='".$columna1."%'>Clasificaci&oacute;n</th>
+                          <th class='creditos centrar' width='".$columna2."%'>Total</th>
+                          <th class='creditos centrar' width='".$columna3."%'>Aprobados</th>
+                          <th class='creditos centrar' width='".$columna4."%'>Por Aprobar</th>
+                          <th class='creditos centrar' width='".$columna5."%'>% Cursado</th>
+                      </tr></table>";
+
+            $vistaOB=  $this->armarFilasPorcentajes($columnas, 'OB', $OB, $OBEst, $porcentajeOBCursado,'5471ac');
+            $vistaOC=  $this->armarFilasPorcentajes($columnas, 'OC', $OC, $OCEst, $porcentajeOCCursado,'6b8fd4');
+            $vistaEI=  $this->armarFilasPorcentajes($columnas, 'EI', $EI, $EIEst, $porcentajeEICursado,'238387');
+            $vistaEE=  $this->armarFilasPorcentajes($columnas, 'EE', $EE, $EEEst, $porcentajeEECursado,'61b7bc');
+            $vistaTotal=  $this->armarFilasPorcentajes($columnas, 'Total', $totalCreditos, $totalCreditosEst, $porcentajeCursado,'b1232d');
+        }
+        else {
+            $vista="
+            <table class='contenidotablaCreditos' align='center' width='100%' cellspacing='0' >
+                 <tr>
+                      <td class='cuadro_plano centrar texto_negrita' colspan='6'>El Proyecto Curricular no ha definido los rangos de cr&eacute;ditos<br>para el plan de estudios
+                      </td>
+                 </tr>
+                 <tr>
+                      <td class='bloquelateralayuda cuadro_plano centrar texto_negrita'  width='".$columna1."%'>Clasificaci&oacute;n
+                      </td>
+                      <td class='bloquelateralayuda cuadro_plano centrar texto_negrita'  width='".$columna2."%'>Total
+                      </td>
+                      <td class='bloquelateralayuda cuadro_plano centrar texto_negrita'  width='".$columna3."%'>Aprobados
+                      </td>
+                      <td class='bloquelateralayuda cuadro_plano centrar texto_negrita'  width='".$columna4."%'>Por Aprobar
+                      </td>
+                      <td class='bloquelateralayuda cuadro_plano centrar texto_negrita'  width='".$columna5."%'>% Cursado
+                      </td>
+                   </tr>
+                   </table>";
+
+            $vistaOB="<table align='center' width='100%' cellspacing='0' cellpadding='2' >
+                                <tr>
+                                <td class='bloquelateralayuda cuadro_plano centrar'  width='".$columna1."%'>-
+                                </td>
+                                <td class='bloquelateralayuda cuadro_plano centrar'  width='".$columna2."%'>-
+                                </td>
+                                <td class='bloquelateralayuda cuadro_plano centrar'  width='".$columna3."%'>-
+                                </td>
+                                <td class='bloquelateralayuda cuadro_plano centrar'  width='".$columna4."%'>-
+                                </td>
+                                <td class='bloquelateralayuda cuadro_plano centrar' bgcolor='#fffcea' width='".$columna5."%'> 0%
+                                </td>
+                                </tr>
+                           </table>";
+                             }
+
+        return array($vista, $vistaOB, $vistaOC, $vistaEI, $vistaEE, $vistaTotal);
+
+    }    
+    
+    /**
+     * Presenta la tabla de procentajes de espacios cursados para estudiantes de creditos. Agregada 08/07/2015
+     * @param type $encabezado 
+     */ 
+    function mostrarTablaPorcentajes() {
+        $this->clasificaciones=$this->consultarClasificaciones(); 
+        $codEstudiante=$this->usuario;
+        list($valor1,$valor2,$valor3,$valor4,$valor5,$valor6)=$this->porcentajeParametros();
+         ?>
+               <div class="tablet">
+                   <div class='tablaCreditos'>
+                                    <?
+                                    echo $valor1;
+                                    echo $valor2;
+                                    echo $valor3;
+                                    echo $valor4;
+                                    echo $valor5;
+                                    echo $valor6;
+                                    ?>
+                            <?$this->mostrar_convenciones_clasificacion();?>
+                   </div>
+               </div> <?       
+    }
+    
+    /**
+     *Funcion que muestra las convenciones de los espacios de los estudiantes de créditos. Agregada 08/07/2015
+     */
+     function mostrar_convenciones_clasificacion(){
+    ?>
+
+    <div class="contenedor_abreviaturas">
+        <div class="tablaClasificaciones" align="left">
+            <div class="observaciones" ><b>CONVENCIONES</b></div>
+                <div>
+                    <div class="abreviatura"><b>Abreviatura</b></div>
+                    <div class="nombre"><b>Nombre</b></div>
+                </div>
+                <?
+                if(is_array($this->clasificaciones)){
+                foreach ($this->clasificaciones as $clasificacion)
+                {
+                ?>
+                <div>
+                    <div class="abreviatura" style="font-size:11px;text-align: center;"><?echo $clasificacion['ABREV_CLASIF']?></div>
+                    <div style="font-size:11px;text-align: center;"><?echo $clasificacion['NOMBRE_CLASIF']?></div>
+                </div>
+                <?
+                }}
+                ?>
+        </div>
+    </div>
+            <?
+    }//fin funcion mostrar_convenciones_clasificacion    
+    
+    /*
+     * Consulta las clasificaciones de espacios académicos de creditos. Agregada 08/07/2015
+     */
+    function consultarClasificaciones() {
+        $cadena_sql=$this->sql->cadena_sql("clasificacion",'');
+        $resultado_clasificacion=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql, "busqueda");
+        return $resultado_clasificacion;
+    }
+    
+    /*
+     * Funcion que arma cada fila donde se muestra el porcentaje de creditos por clasificacion. Agregada 08/07/2015
+     * 
+     */
+    function armarFilasPorcentajes($columnas,$tipoEspacios,$porcentajePlan,$porcentajeEst,$porcentajeCursado,$color) {
+        $columna1=$columnas[0];
+        $columna2=$columnas[1];
+        $columna3=$columnas[2];
+        $columna4=$columnas[3];
+        $columna5=$columnas[4];
+        
+            $vista="<table class='contenidotablaCreditos' align='center' width='100%' cellspacing='0' >
+                   <tr>
+                      <td class='centrar' width='".$columna1."%'>".$tipoEspacios."</td>
+                      <td class='centrar' width='".$columna2."%'>".$porcentajePlan."</td>
+                      <td class='centrar' width='".$columna3."%'>".$porcentajeEst."</td>
+                      <td class='centrar' width='".$columna4."%'>".$Faltan=$porcentajePlan-$porcentajeEst."</td>
+                      <td class='centrar' width='".$columna5."%'>";
+            if($porcentajeCursado==0)
+            {
+                $vista.="
+                       <table align='center' width='100%' cellspacing='0'>
+                        <td width='100%' class='porcentajes' colspan='2'> 0%</td>
+                       </table>";
+                $porcentajeEst=0;
+            }else if($porcentajeCursado>=100)
+                {
+                    $vista.="
+                           <table align='center' width='100%' cellspacing='0'>
+                                <td width='100%' class='sigma centrar' colspan='2' bgcolor='#".$color."'> ".round($porcentajeCursado,1)."%</td>
+                           </table>";
+            }else if($porcentajeCursado>0 AND $porcentajeCursado<100)
+                {
+                    $vista.="<table align='center' width='100%' cellspacing='0'>
+                           <td width='".$porcentajeCursado."%' class='sigma centrar' bgcolor='#".$color."'> ".round($porcentajeCursado,1)."%</td>
+                           <td class='porcentajes' width='".$Total=100-$porcentajeCursado."%'></td>
+                           </table>";
+            }
+            $vista.="</td>
+                        </tr></table>";
+            return $vista;
+        
     }
     
     function consultarEgresado() {
