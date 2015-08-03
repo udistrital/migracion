@@ -196,10 +196,10 @@ function multiplesCarreras($registro, $total, $variable)
             <td class='cuadro_plano' width="80%" colspan='3'>Seleccione el período para consultar...
             <?
                 $html_perCod="<select id='periodoCargar' tabindex='".$tab++."' size='1' name='periodoCargar'>";
-                $html_perCod.="<option value='".$this->periodo[0]['ANIO']."-".$this->periodo[0]['PERIODO']."'";
-                $html_perCod.=" >".$this->periodo[0]['ANIO']."-".$this->periodo[0]['PERIODO']."</option>  ";          
-                $html_perCod.="<option value='".$this->periodo[1]['ANIO']."-".$this->periodo[1]['PERIODO']."'";
-                $html_perCod.=" >".$this->periodo[1]['ANIO']."-".$this->periodo[1]['PERIODO']."</option>  ";          
+                foreach ($this->periodo as $key => $periodo) {
+                    $html_perCod.="<option value='".$periodo['ANIO']."-".$periodo['PERIODO']."'";
+                    $html_perCod.=" >".$periodo['ANIO']."-".$periodo['PERIODO']."</option>  ";          
+                }
                 $html_perCod.="</select>";
                 echo $html_perCod;
             ?> 

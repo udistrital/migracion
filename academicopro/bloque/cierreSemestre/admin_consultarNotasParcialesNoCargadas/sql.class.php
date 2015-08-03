@@ -66,9 +66,10 @@ class sql_adminConsultarNotasParcialesNoCargadas extends sql
                                 $cadena_sql=" SELECT DISTINCT ape_ano ANIO, ";
                                 $cadena_sql.=" ape_per PERIODO, ";
                                 $cadena_sql.=" ape_estado ESTADO ";
-                                $cadena_sql.="  FROM acasperi ";
-                                $cadena_sql.=" WHERE ape_estado IN ('A','P')";
-                                $cadena_sql.=" ORDER BY ape_estado  DESC";
+                                $cadena_sql.=" FROM acasperi";
+                                $cadena_sql.=" WHERE ape_estado IN ('A','P','I')";
+                                $cadena_sql.=" ORDER BY ape_ano desc,ape_per desc";
+                                $cadena_sql.=" LIMIT 4";
                         break;
 
                         case "consultarNotasNoCargadas":
