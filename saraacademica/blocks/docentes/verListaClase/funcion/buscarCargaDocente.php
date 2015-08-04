@@ -29,7 +29,7 @@ if (!$esteRecursoBDORA) {
     exit;
 }
 
-$cadena_sql = $this->sql->cadena_sql("buscarCargaDocenteHistorico", $variable);
+echo $cadena_sql = $this->sql->cadena_sql("buscarCargaDocenteHistorico", $variable);exit;
 $registroCarrerasDocente = $esteRecursoBDORA->ejecutarAcceso($cadena_sql, "busqueda");
 
 if(is_array($registroCarrerasDocente))

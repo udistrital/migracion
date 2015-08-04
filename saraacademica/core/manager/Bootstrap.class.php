@@ -259,7 +259,7 @@ class Bootstrap{
 				$variable.="&".$clave."=".$val;
 			}
 		}
-		
+                
 		echo "Redireccionando....";
 
 		$variable=substr($variable,1);

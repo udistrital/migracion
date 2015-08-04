@@ -13,12 +13,14 @@ if (!isset($GLOBALS["autorizado"])) {
      * @todo En entornos de producción la clave debe codificarse utilizando un objeto de la clase Codificador
      */
     $variable["clave"] = $this->miConfigurador->fabricaConexiones->crypto->codificarClave($_REQUEST["clave"]);
-
-     
+    /*$clave="change_my_secret";
+     $variable["clave"] = $this->miConfigurador->fabricaConexiones->crypto->codificarClave($clave);
+     echo $variable["clave"];
+     exit;*/
     /* $conexion="aplicativo";
       $esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion); */
     
-    //No se para qué es eto
+    //Ya se para qué es eto
     $conexion = "saraacademica";
     $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
                                         
