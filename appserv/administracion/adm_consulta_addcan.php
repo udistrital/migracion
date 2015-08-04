@@ -68,7 +68,7 @@ if(is_numeric($_REQUEST['estcod'])){
 	}
 	print'</table><p>&nbsp;</p>';
 }
-if($_REQUEST['all'])
+if(isset($_REQUEST['all']))
 {
 	$Qrylog = "SELECT CLO_CLA_CODIGO,
 		EST_NOMBRE, 
@@ -77,7 +77,7 @@ if($_REQUEST['all'])
 		to_char(CLO_FECHA, 'DD-Mon-YYYY'),
 		CLO_HORA,
 		CLO_URL,
-		decode(CLO_TRANSACCION, 'AD', 'Adicion', 'CG','Cambio de grupo', 'BO', 'Cancelacion', CLO_TRANSACCION), 
+		(CASE WHEN CLO_TRANSACCION= 'AD' THEN 'Adicion' WHEN CLO_TRANSACCION= 'CG' THEN 'Cambio de grupo' WHEN CLO_TRANSACCION= 'BO' THEN 'Cancelacion' ELSE CLO_TRANSACCION::text END),
 		CLO_ESTADO 
 		FROM accondorlog,acest
 		WHERE CLO_CLA_CODIGO = EST_COD

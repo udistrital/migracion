@@ -21,4 +21,5 @@ $consulta.="AND ";
 $consulta.="DOC_ESTADO_CIVIL = TEC_CODIGO ";
 $consulta.="AND ";
 $consulta.="DOC_ESTADO = 'A'";
+//echo $consulta."<br>";
 ?>

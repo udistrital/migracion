@@ -1,4 +1,5 @@
 <?PHP
+/*
 session_name($usuarios_sesion);
 session_start();
 
@@ -32,4 +33,5 @@ OCIBindByName($ins_usu, ":bfecha", $hoy);
 OCIBindByName($ins_usu, ":bmaq", $_SERVER['REMOTE_ADDR']);
 OCIExecute($ins_usu) or die(Ora_ErrorCode());
 OCICommit($oci_conecta);
+*/
 ?>

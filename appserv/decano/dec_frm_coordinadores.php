@@ -1,4 +1,4 @@
-<?php
+<?PHP
 print'<html>
 <head>
 <title>Coordinadores</title>
@@ -8,7 +8,7 @@ print'<html>
   <frame name="inferior" scrolling="auto" src="dec_lis_coor_nula.php" noresize>
   <noframes>
   <body>
-  <p>Esta p√°gina usa marcos, pero su explorador no los admite.</p>
+  <p>Esta p·gina usa marcos, pero su explorador no los admite.</p>
   </body>
   </noframes>
 </frameset>

@@ -29,7 +29,6 @@ fu_tipo_user(51);
 	$estcod = $_SESSION['usuario_login'];
 
 	require_once(dir_script.'msql_notaspar_est.php');
-        
         $registro=$conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"busqueda");
         //verifica registro de notas parciales del periodo actual, si no existe consulta del periodo anterior
         if(!$registro){

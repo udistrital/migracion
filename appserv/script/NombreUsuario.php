@@ -8,6 +8,8 @@ if($nivel == 51){
 	$registro1 =$conexion->ejecutarSQL($configuracion,$accesoOracle,$QryNombre,"busqueda");
 	$Nombre =  $registro1[0][0];
 	$Email  = $registro1[0][1];		
+	
+	//$_SESSION['carrera'] = $RowNombre[0][2];
 	$_SESSION['carrera'] = isset($RowNombre[0][2]) ? ($RowNombre[0][2]):NULL;
 }
 elseif($nivel == 4 || $nivel == 16 || $nivel == 30){

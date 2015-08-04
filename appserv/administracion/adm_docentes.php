@@ -33,7 +33,7 @@ $b_deltbl='<IMG SRC='.dir_img.'b_deltbl.png alt="Borrar" border="0">';
 
 if(!isset($_REQUEST['R1'])){ ?>
   <p>&nbsp;</p>
-  <FORM NAME='doc' method="post" ACTION="<?PHP echo $PHP_SELF?>">
+  <FORM NAME='doc' method="post" ACTION="<?PHP echo $_SERVER['PHP_SELF']?>">
    <table width="700" border="1" align="center" cellpadding="0" cellspacing="0" bordercolorlight="#DCDCB6" bordercolordark="#C0C080">
    <caption><span class="Estilo11">CRITERIOS DE ORDENAMIENTO Y BUSQUEDA DE DOCENTES</span>
    </caption>
@@ -77,7 +77,7 @@ if(!isset($_REQUEST['R1'])){ ?>
 </table>
   </FORM><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <?php
-fu_pie();
+
 }
 else{
 	 $R1 = $_REQUEST['R1'];
@@ -136,8 +136,7 @@ else{
 				<td align="left">'.$row[$i][2].'</td>
 				<td align="center">'.$row[$i][3].'</td>
 				<td align="center">'.$row[$i][4].'</td>
-				<!-- <td width="25" align="center"><a href="adm_actualiza_doc.php?codigo='.OCIResult($consulta, 1).'">'.$b_edit.'</a></td>
-				<td width="25" align="center"><a href="msql_borra_geclaves.php?codigo='.OCIResult($consulta, 1).'&tipo='.OCIResult($consulta, 4).'">'.$b_deltbl.'</a></td> --> </tr>';
+				</tr>';
 				$i++;
 			}
 	echo'</table></center></div><br><br>';

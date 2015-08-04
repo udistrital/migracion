@@ -8,6 +8,4 @@ $qry_coor = "SELECT cra_cod, cra_abrev, doc_nro_iden,
 	AND cra_emp_nro_iden = doc_nro_iden
 	AND doc_estado = 'A'
 	ORDER BY 1 ASC";
-
-
 ?>

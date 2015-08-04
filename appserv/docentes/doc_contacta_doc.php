@@ -16,7 +16,7 @@ fu_tipo_user(30);
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>Envio de correos en grupo</title>
+<title>Envio de corres en grupo</title>
 <META http-equiv="Page-Enter" content="revealTrans(Duration=0.6,Transition=24)">
 <META http-equiv="Page-Exit" content="revealTrans(Duration=0.6,Transition=2)">
 <link href="../script/estilo.css" rel="stylesheet" type="text/css">

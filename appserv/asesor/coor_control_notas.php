@@ -47,7 +47,7 @@ if($_REQUEST['cracod']){
 			FROM v_acinsnotpar,acasi
 			WHERE asi_cod = inp_asi_cod
 			AND inp_cra_cod = ".$_REQUEST['cracod']." ORDER BY 2,3";
-	//echo $cod_consul;
+	
 	 $consulta = $conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"busqueda");
 	 
 	 if(!is_array($consulta))

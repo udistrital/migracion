@@ -6,7 +6,7 @@ $GLOBALS['DEBUG_MODE'] = 1;// CHANGE TO 0 TO TURN OFF DEBUG MODE
 require_once("clase/config.class.php");
 require_once("clase/encriptar.class.php");
 $esta_configuracion=new config();
-$configuracion=$esta_configuracion->variable(""); 
+$configuracion=$esta_configuracion->variable("");
 $cripto=new encriptar();
 $indiceMoodle="https://condor.udistrital.edu.co/moodle/index.php?";
         $variable="";

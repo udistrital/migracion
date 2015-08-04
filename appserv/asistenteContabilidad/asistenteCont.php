@@ -7,33 +7,7 @@ fu_tipo_user(109);
 ob_start();
 
 $pmenu = 'aco_pag_menu.php';
-
-if($configuracion['activar_caduca_pwd']=='S')
-		{ include_once("../clase/crypto/Encriptador.class.php");
-		 $miCodificador=Encriptador::singleton();
-		 $usuario = $_SESSION['usuario_login'];
-		 $identificacion = $_SESSION['usuario_login'];
-		 $indiceSaraPassword = $configuracion["host_adm_pwd"]."/index.php?";
-		 $tokenCondor = "condorSara2013!";
-		 $tipo=109;
-		 $tokenCondor = $miCodificador->codificar($tokenCondor);
-		 $opcion="temasys=";
-		 $variable.="gestionPassword&pagina=validarActualizacion";
-		 $variable.="&usuario=".$usuario;
-		 $variable.="&tipo=".$tipo;
-		 $variable.="&token=".$tokenCondor;
-		 $variable.="&opcionPagina=validaActualizacion";
-		 //$variable=$cripto->codificar_url($variable,$configuracion);
-		 $variable=$miCodificador->codificar($variable);
-		 $enlaceCambioPassword=$indiceSaraPassword.$opcion.$variable;
-		 $pagpal=$indiceSaraPassword.$opcion.$variable;
-		
-		}  
-	else
-		{
-			$pagpal = 'aco_pag_principal.php';
-		}
-
+$pagpal = 'aco_pag_principal.php';
 ?>
 <html>
 <head>

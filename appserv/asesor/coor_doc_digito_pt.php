@@ -57,7 +57,7 @@ if($_REQUEST['cracod']){
 				mntac.fua_horas_plan_trabajo(".$_REQUEST['cracod'].",doc_nro_iden) total,      
 				doc_celular celular,
 				doc_email email,
-				NULL
+				null::numeric
 			
 			FROM acasperi,accra,acdocente,accargas,achorarios,accursos
 			WHERE ape_estado = 'A'

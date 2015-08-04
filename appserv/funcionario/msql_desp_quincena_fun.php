@@ -1,14 +1,14 @@
 <?PHP
-$quincena = "SELECT decode(par_quincena
-	,1,'Primera'
-	,2,'Segunda'
-	,3,'Mes'
-	,4,'Intereses a la Cesantia'
-	,5,'Prima Semestral'
-	,6,'Prima de Vacaciones'
-	,7,'Sueldo de Vacaciones'
-	,8,'Prima de Navidad'
-	,0,'Retroactivo'),
+$quincena = "SELECT (
+CASE WHEN par_quincena  = 1 THEN 'Primera'  
+    WHEN par_quincena  = 2 THEN 'Segunda'  
+    WHEN par_quincena  = 3 THEN 'Mes'  
+    WHEN par_quincena  = 4 THEN 'Intereses a la Cesantia'  
+    WHEN par_quincena  = 5 THEN 'Prima Semestral'  
+    WHEN par_quincena  = 6 THEN 'Prima de Vacaciones'  
+    WHEN par_quincena  = 7 THEN 'Sueldo de Vacaciones'  
+    WHEN par_quincena  = 8 THEN 'Prima de Navidad'  
+    WHEN par_quincena  = 0 THEN 'Retroactivo' END),
 	mes_nombre
 	FROM mntpe.peparam, gemes
 	WHERE par_mes = mes_cod";

@@ -16,10 +16,10 @@ function genera_clave($num){
         $clave .= $con[mt_rand(0,count($con)-1)];
 		//$clave .= $nro[mt_rand(0,count($nro)-2)]; 
     }
-    $clave = ereg_replace ("q","qu",$clave); 
-    $clave = ereg_replace ("quu","que",$clave); 
-    $clave = ereg_replace ("yi","ya",$clave); 
-    $clave = ereg_replace ("iy","ay",$clave); 
+    $clave = preg_replace ("q","qu",$clave); 
+    $clave = preg_replace ("quu","que",$clave); 
+    $clave = preg_replace ("yi","ya",$clave); 
+    $clave = preg_replace ("iy","ay",$clave); 
     $clave = substr($clave,0,$num); 
     return $clave; 
 }

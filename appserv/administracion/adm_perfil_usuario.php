@@ -19,7 +19,7 @@ $url = explode("?",$_SERVER['HTTP_REFERER']);
 $redir = $url[0];
 
 //Creación del nuevo perfil
-if($_REQUEST['perf'])
+if(isset($_REQUEST['perf']))
 {
 	$tipo="SELECT 'S' FROM geclaves
 	WHERE CLA_CODIGO  = ".$_SESSION['A']."
@@ -74,9 +74,12 @@ if($_REQUEST['perf'])
 <p></p><br><br>
 <?PHP
 //Consulta los perfiles del usuario
-if($_REQUEST["usuario"] == "") $_REQUEST["usuario"] = $_REQUEST["u"];
 
-if($_REQUEST["usuario"] != "")
+if(isset($_REQUEST["usuario"]) && $_REQUEST["usuario"] == ""){
+	$_REQUEST["usuario"] = $_REQUEST["u"];
+}
+
+if(isset($_REQUEST["usuario"]) &&  $_REQUEST["usuario"] != "")
 {
 	if(!is_numeric($_REQUEST['usuario']))
 	{

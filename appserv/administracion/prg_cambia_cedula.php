@@ -14,7 +14,7 @@ fu_tipo_user(20);
 $url = explode("?",$_SERVER['HTTP_REFERER']);
 $redir = $url[0];
 
-$UpdDoc = "BEGIN Pck_Pr_Actualiza_Docente.Pra_Nro_iden(".$_REQUEST['CedInCor'].",".$_REQUEST['CedCor']."); END;";
+$UpdDoc = "BEGIN PERFORM Pra_Nro_iden(".$_REQUEST['CedInCor'].",".$_REQUEST['CedCor']."); END;";
 
 $registro=$conexion->ejecutarSQL($configuracion,$accesoOracle,$UpdDoc,"busqueda");
 

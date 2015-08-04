@@ -150,7 +150,6 @@ class dbConexion
                                     //$registro[0]['usuario']=trim($this->cripto->decodificar_variable($registro[0]['usuario'],$this->Semilla));
                                     $registro[0][6]=trim($this->cripto->decodificar_variable($registro[0][6],$this->Semilla));
                                     //$registro[0]['password']=trim($this->cripto->decodificar_variable($registro[0]['password'],$this->Semilla));
-                                        
 				return new $dbms($registro);
 				}
 				else

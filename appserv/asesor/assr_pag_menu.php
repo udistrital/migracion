@@ -148,24 +148,12 @@ $enlaceConsultarPlanEstudio=$indiceAcademico.$variable;
 <li class="subitem1"><a target="principal" href="../estadistica/index_poblacion_activa_sexo.php">Poblaci&oacute;n por Sexo</a></li>
 </ul>
 </li>
-
-
 <li class="item5">
 <a href="#">Docentes</a>
 <ul class="submenus">
-<li class="subitem1"><a target="principal" href="coor_doc_digito_pt.php">Informaci&oacute;n Docentes</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlacePlanTrabajo1?>">Ver Planes de trabajo</a></li>
-<li class="subitem1"><a target="principal" href="<?echo $enlaceReportesPlanesTrabajo?>">Consolidado Plan trabajo</a></li>
 </ul>
 </li>
-
-<li class="item5">
-<a href="#">Proveedores</a>
-<ul class="submenus">
-<li class="subitem1"><a target="principal" href="<?echo $enlaceConsultaProveedores;?>">Consulta de Proveedores</a></li>
-</ul>
-</li>
-
 <li class="item5">
 <a href="#">Servicios</a>
 <ul class="submenus">
@@ -180,7 +168,6 @@ $enlaceConsultarPlanEstudio=$indiceAcademico.$variable;
 <li class="item5">
 <a href="#">Estad&iacute;sticas</a>
 <ul class="submenus">
-<li class="subitem1"><a target="principal" href="../estadistica/esta_uso_condor.php">Accesos a C&oacute;ndor</a></li>
 <li class="subitem1"><a target="principal" href="../estadistica/index_desercion.php">Deserci&oacute;n</a></li>
 <li class="subitem1"><a target="principal" href="../estadistica/index_tot_empleados.php">Funcionarios</a></li>
 <li class="subitem1"><a target="principal" href="../estadistica/esta_tot_proyectos.php">Proy. Curriculares</a></li>

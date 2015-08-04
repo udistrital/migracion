@@ -19,11 +19,11 @@ fu_tipo_user(83);
 
 
 $estcod = $_SESSION['usuario_login'];
-//Funci�n que nos retorna S o N dependiendo si el estudiante ya tiene preinscripci�n.
+//Función que nos retorna S o N dependiendo si el estudiante ya tiene preinscripción.
 $cod_consul= "SELECT ";
 $cod_consul.= "mntac.fua_realizo_preins($estcod) ";
 $cod_consul.= "FROM dual";
-//Ejecuta la funci�n
+//Ejecuta la función
 
 	$conexion=new multiConexion();
 	//$accesoOracle=$conexion->estableceConexion($configuracion,$_SESSION['usuario_nivel']);
@@ -53,7 +53,7 @@ $cod_consul.= "FROM dual";
 		}  
 	else
 		{
-			$pagpal = 'secacademico_pag_principal.php';//aqui debo colocar la p�gina
+			$pagpal = 'secacademico_pag_principal.php';//aqui debo colocar la página
 		}
 	
 

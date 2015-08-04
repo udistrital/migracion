@@ -26,7 +26,7 @@
 class pagina
 {
 	
-
+    public $html_pagina;
 	function pagina($configuracion)
 	{
 		
@@ -214,7 +214,7 @@ class pagina
 				
 				if(!isset($_REQUEST["no_pagina"]))
 				{
-					$this->html_pagina.='<html>';
+					$this->html_pagina='<html>';
 					$this->html_pagina.="<head>\n";
 					$this->html_pagina.="<title>".$configuracion['titulo']."</title>\n";
 					$this->html_pagina.="<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />\n";

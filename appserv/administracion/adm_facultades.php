@@ -22,7 +22,7 @@ fu_tipo_user(20);
 <?php
 fu_cabezote("FACULTADES");
 
-$QryFac = "SELECT unique(cra_dep_cod), dep_nombre
+$QryFac = "SELECT DISTINCT(cra_dep_cod), dep_nombre
 	FROM accra, gedep
 	WHERE dep_cod = cra_dep_cod
 	AND cra_estado = 'A'

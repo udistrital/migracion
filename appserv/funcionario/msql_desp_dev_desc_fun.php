@@ -6,15 +6,15 @@ $devengos = "SELECT liq_emp_cod,
 	con_nombre,
 	liq_valor,
 	liq_dias,
-	decode(liq_tq_cod ,1,'Primera'
-	,2,'Segunda'
-	,3,'Mes'
-	,4,'Intereses a la Cesantia'
-	,5,'Prima Semestral'
-	,6,'Prima de Vacaciones'
-	,7,'Sueldo de Vacaciones'
-	,8,'Prima de Navidad'
-	,0,'Retroactivo'),
+	(CASE WHEN liq_tq_cod  = 1 THEN 'Primera'  
+	WHEN liq_tq_cod  = 2 THEN 'Segunda'  
+	WHEN liq_tq_cod  = 3 THEN 'Mes'  
+	WHEN liq_tq_cod  = 4 THEN 'Intereses a la Cesantia'  
+	WHEN liq_tq_cod  = 5 THEN 'Prima Semestral'  
+	WHEN liq_tq_cod  = 6 THEN 'Prima de Vacaciones'  
+	WHEN liq_tq_cod  = 7 THEN 'Sueldo de Vacaciones'  
+	WHEN liq_tq_cod  = 8 THEN 'Prima de Navidad'  
+	WHEN liq_tq_cod  = 0 THEN 'Retroactivo' END),
 	initcap(mes_nombre),
 	liq_ano
 	FROM mntpe.prliquid, mntpe.prcon, gemes
@@ -45,7 +45,7 @@ $descto = "SELECT liq_emp_cod,
         ELSE con_nombre
         END) con_nombre,
 	liq_valor,
-	decode(liq_cuotas,0,' ',999,' ',liq_cuotas)
+	(CASE WHEN liq_cuotas = 0 THEN ' ' WHEN liq_cuotas = 999 THEN ' ' END)
 	FROM mntpe.prliquid, mntpe.prcon
 	WHERE liq_emp_cod = ".$_SESSION["fun_cod"]."
 	AND liq_ano = '".$_REQUEST['anio']."'

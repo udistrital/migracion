@@ -269,7 +269,6 @@ class pgsql
 		$this->cadena_sql.= "'".$evento."'," ;
 		$this->cadena_sql.= "'".time()."'" ;
 		$this->cadena_sql.=")";
-		//echo $this->cadena_sql;
 	 	$this->ejecutar_acceso_db($this->cadena_sql); 
 		unset($this->db_sel);
 		return TRUE;	
@@ -301,7 +300,8 @@ class pgsql
 	
 	function ejecutarAcceso($cadena_sql,$tipo) 
 	{       
-                
+		//@todo borrar esto
+
 		if(!is_resource($this->enlace))
 		{
 			return FALSE;
@@ -378,7 +378,6 @@ class pgsql
 		else
 		{
 			unset($this->registro);
-			//echo "<br/>".$cadena_sql;
 			$this->error =pg_last_error($this->enlace);
 			return 0;
 		}             
@@ -443,7 +442,6 @@ class pgsql
 		
 		for($contador=0;$contador<$this->instrucciones;$contador++)
 		{
-			/*echo $insert[$contador];*/
 			$acceso=$this->ejecutar_acceso_db($insert[$contador]);
 		
 			if(!$acceso)
@@ -452,7 +450,6 @@ class pgsql
 				for($contador_2=0;$contador_2<$this->instrucciones;$contador_2++)
 				{
 					@$acceso=$this->ejecutar_acceso_db($delete[$contador_2]);
-					/*echo $delete[$contador_2]."<br>";*/
 					}
 				return FALSE;
 			

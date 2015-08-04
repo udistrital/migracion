@@ -8,7 +8,6 @@ require_once("../clase/encriptar.class.php");
 
 $esta_configuracion=new config();
 $configuracion=$esta_configuracion->variable("../"); 
-
 $cripto=new encriptar();
 fu_tipo_user(83);
 $conexion=new multiConexion();
@@ -138,7 +137,6 @@ ob_start();
         $variable.="&aplicacion=Condor";
         $variable=$cripto->codificar_url($variable,$configuracion);
         $enlaceGenerarActaGrado=$indiceAcademico.$variable;
-
                 
          //Registro de estudiantes a grado
         $variable="pagina=admin_inscripcionGraduando";

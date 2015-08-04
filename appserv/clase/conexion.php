@@ -2,8 +2,6 @@
 require_once("../clase/config.class.php");
 require_once("../clase/funcionGeneral.class.php");
 
-//echo "hola";
-
 $esta_configuracion=new config();
 $configuracion=$esta_configuracion->variable("../"); 
 
@@ -11,10 +9,12 @@ $configuracion=$esta_configuracion->variable("../");
 $conexion=new funcionGeneral();
 
 $oci_conecta=$conexion->conectarDB($configuracion,"default");
-$oci_logueo=$conexion->conectarDB($configuracion,"logueo");
+
+/*$oci_logueo=$conexion->conectarDB($configuracion,"logueo");*/
+
 //echo $oci_conecta;
 
-if($oci_conecta || $oci_logueo)
+if($oci_conecta)
 {
 	//inclue('interno.php');
 	if(!isset($_SESSION['usuario_nivel']))
@@ -29,6 +29,6 @@ else
 	exit;
 }
 // Deshabilitar todo reporte de errores
-error_reporting(0);
+error_reporting(-1);
 
 ?>

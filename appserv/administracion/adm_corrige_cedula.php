@@ -55,7 +55,7 @@ fu_cabezote("CORRECCI&Oacute;N DE DOCUMENTO DE IDENTIDAD");
 </form>
 <?PHP
 
-if($_REQUEST['uRl']==1)
+if(isset($_REQUEST['uRl']) && $_REQUEST['uRl']==1)
 {
 	if($_REQUEST['doc_incorrecto'] == "" || $_REQUEST['doc_correcto'] == "")
 	{
@@ -79,6 +79,7 @@ if($_REQUEST['uRl']==1)
 	{
 		$botonSi = '<input type="submit" name="Submit" value=" Si " class="button" '.$evento_boton.' enabled>';
 		$NombreDoc = '<b>'.$DNombre.'</b>';
+		$msj='';
 	}
 		print'<br><br><br><table width="400" border="1" align="center" style="border-collapse:collapse">
 	<caption>'.$msj.'</caption>

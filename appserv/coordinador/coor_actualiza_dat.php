@@ -35,9 +35,12 @@ function seleccion(){
 fu_cabezote("ACTUALIZACI&Oacute;N DE DATOS");
 
 $cedula = $_SESSION['usuario_login'];
-$carrera = $_SESSION['carrera'];
+if(isset($_SESSION['carrera']))
+{    
+    $carrera = $_SESSION['carrera'];
+}
 //Actualiza datos
-if($_REQUEST['actualizar']) {
+if(isset($_REQUEST['actualizar'])) {
    require_once(dir_script.'msql_actualiza_datos_doc.php');
 }
 //Edita los datos

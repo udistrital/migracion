@@ -2,8 +2,6 @@
 require_once("../clase/config.class.php");
 require_once("../clase/funcionGeneral.class.php");
 
-//echo "hola";
-
 $esta_configuracion=new config();
 $configuracion=$esta_configuracion->variable("../"); 
 
