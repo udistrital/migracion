@@ -145,6 +145,6 @@ echo $this->miFormulario->formulario("fin");
 <div id="pie">
     Universidad Distrital Francisco Jos&eacute; de Caldas <br>
     Oficina Asesora de Sistemas 2013. Todos los derechos reservados.<br>
-    Carrera 8 N. 40-78 Piso 1 / Teléfonos 3238400 - 3239300 Ext. 1112 -1113.<br>
+    Carrera 8 N. 40-78 Piso 1 / Teléfonos 3238400 - 3239300 Ext. 1112 -1113. ESATMOS EN FORM LOGIN<br>
     <a href="mailto:computo@udistrital.edu.co" class="enlace">computo@udistrital.edu.co</a>
 </div>

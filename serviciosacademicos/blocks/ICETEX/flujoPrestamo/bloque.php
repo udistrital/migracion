@@ -73,7 +73,6 @@ if (class_exists ( 'BloqueflujoPrestamo' ) === false) {
 			} else {
 				
 				if (! isset ( $_REQUEST ['action'] )) {
-					
 					$this->miFrontera->setSql ( $this->miSql );
 					$this->miFrontera->setFuncion ( $this->miFuncion );
 					$this->miFrontera->setLenguaje ( $this->miLenguaje );

@@ -49,6 +49,7 @@ if(!isset($GLOBALS["autorizado"]))
 				break;
 				
 		case "validarEstudiantesActivos":
+                 
 				$nuevoArray = array();
 				foreach ($_REQUEST as $idx => $val){
 					if($idx!="datos"&&$idx!="pagina"&&$idx!="opcion")
@@ -60,7 +61,7 @@ if(!isset($GLOBALS["autorizado"]))
 				$variable.="&pagina=validarEstudiantes";
 				$variable.="&redireccionar=true";
 				$variable.="&tiempo=".time();
-				
+			
 				break;
 				
 		case "administrarDeudas":

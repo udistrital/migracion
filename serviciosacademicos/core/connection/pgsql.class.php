@@ -301,6 +301,7 @@ class pgsql implements Conector
 	private function ejecutar_acceso_db($cadena_sql)
 	{
 
+		echo $cadena_sql;
 		if(!pg_query($this->enlace,$cadena_sql))
 		{
 			$this->error= pg_last_error($this->enlace);

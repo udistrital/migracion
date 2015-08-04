@@ -5,6 +5,7 @@ if(!isset($GLOBALS["autorizado"]))
 	exit;
 }else{
 	
+   
 	//1. Verificar que el usuario esté registrado en el sistema
 				$variable = array();
 				$variable["usuario"]=$_REQUEST["usuario"];
@@ -25,10 +26,8 @@ if(!isset($GLOBALS["autorizado"]))
 		$cadena_sql=$this->sql->cadena_sql("buscarUsuarioOracle",$variable);
                  
 		$registro=$esteRecursoDB->ejecutarAcceso($cadena_sql,"busqueda");
-		
-		
-		
-		if($registro){
+	
+                       		if($registro){
 				//Crea sesion de Usuario
 					$miSesion =  Sesion::singleton();
 					$estaSesion=$miSesion->crearSesion($variable["usuario"]);
@@ -36,6 +35,7 @@ if(!isset($GLOBALS["autorizado"]))
 						//Redirigir a la página principal del usuario
 						$_REQUEST['sessionId'] = $miSesion->sesionId;
 						
+                                                //redirecciona con el id del usuario activo
 						$this->funcion->redireccionar($_REQUEST["opcionPagina"],$registro[0]);
 						return true;
 						

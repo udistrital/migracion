@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if(!isset($GLOBALS["autorizado"]))
 {
 	include("../index.php");
@@ -68,8 +68,8 @@ class FuncionflujoPrestamo
 	
 	function validateDate($date)
 	{
-		$d = DateTime::createFromFormat('j/m/y', $date);
-        return $d && $d->format('j/m/y') == $date;
+		$d = \DateTime::createFromFormat('d/m/y', $date);
+            return $d && $d->format('d/m/y') == $date;
 	}
 
 	function mostrarTabla()
@@ -331,7 +331,6 @@ class FuncionflujoPrestamo
 							$this->cancelarCreditoEstudiante();
 							break;
 					case "editarDeudas":
-						
 								if($_REQUEST['metodo']=='operacion'||$_REQUEST['metodo']=='interfaz'||!isset($_REQUEST['metodo'])){
 									$this->consultarUsuario();
 								}elseif($_REQUEST['metodo']=='nuevo'){									
