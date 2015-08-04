@@ -202,7 +202,7 @@ class SqlgestionPassword extends sql {
                                 $cadena_sql.="estado_activo='S' ";
                                 break;
                 }
-
+                //echo 'mmm'.$cadena_sql.'<br>';
 		return $cadena_sql;
 
 	}

@@ -13,7 +13,7 @@ $variable['usuario_id']=$_REQUEST['nombreUsuario'];
 
 $cadena_sql = $this->sql->cadena_sql("buscarUsuario", $variable);
 $registro = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-//echo $cadena_sql."<br>";
+//echo "SSS".$cadena_sql."<br>";
 $cuenta=count($registro);
 
 if(is_array($registro))
