@@ -91,6 +91,8 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
         /**
          * Intancia para crear la conexion ORACLE
          */
+        
+        echo $this->nivel;
         if($this->nivel==80){//soporte
             $this->accesoOracle = $this->conectarDB($configuracion, 'soporteoas');
         }elseif($this->nivel==4||$this->nivel==28){//coordinador

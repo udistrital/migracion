@@ -31,13 +31,13 @@ class sql_adminCierreSemestre extends sql
                                 $cadena_sql.=" cra_abrev NOMBRE, ";
                                 $cadena_sql.=" tra_nivel NIVEL,";
                                 $cadena_sql.=" dep_nombre FACULTAD,";
-                                $cadena_sql.=" (SELECT to_char(ace_fec_fin)";
+                                $cadena_sql.=" (SELECT to_char(ace_fec_fin,'YYYY/MM/DD HH24:MI:SS')";
                                 $cadena_sql.=" FROM accaleventos";
                                 $cadena_sql.=" INNER JOIN acperiodocierre ON ace_anio=pec_ano";
                                 $cadena_sql.=" AND ace_periodo=pec_periodo";
                                 $cadena_sql.=" AND ace_cra_cod=pec_cra_cod";
-                                $cadena_sql.=" WHERE ace_cra_cod=cra_cod";
-                                $cadena_sql.=" AND ace_cod_evento=73 AND pec_estado='A') FECHA";
+                                $cadena_sql.=" WHERE ";
+                                $cadena_sql.=" ace_cod_evento=73 AND pec_estado='A') FECHA";
                                 $cadena_sql.=" FROM";
                                 $cadena_sql.=" ACCRA ";
                                 $cadena_sql.=" INNER JOIN actipcra ON cra_tip_cra=tra_cod";

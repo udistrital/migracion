@@ -97,6 +97,8 @@ class sql_mensajeCoordinador extends sql
                     $cadena_sql.=" WHERE men_cod_emisor=".$variable['codUsuario'];
                     $cadena_sql.=" ORDER BY men_fecha desc, menrecept_cod_receptor";
 
+                    //echo $cadena_sql;exit;
+
                 break;
                          
               //Oracle
@@ -105,6 +107,7 @@ class sql_mensajeCoordinador extends sql
                     $cadena_sql="SELECT est_nombre NOMBRE";
                     $cadena_sql.=" FROM acest";
                     $cadena_sql.=" WHERE est_cod=".$variable['codigo'];
+                    //echo $cadena_sql;exit;
 
                 break;
 

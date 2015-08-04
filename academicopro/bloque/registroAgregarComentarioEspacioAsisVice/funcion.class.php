@@ -59,7 +59,8 @@ class funcion_registroAgregarComentarioEspacioAsisVice extends funcionGeneral {
         $nombreEspacio=$_REQUEST['nombreEspacio'];
 
         $variables=array($codEspacio,$planEstudio,$nivel,$creditos,$htd,$htc,$hta,$clasificacion,$nombreEspacio);
-
+        $codProyecto = (isset($codProyecto)?$codProyecto:'');
+        $nombreProyecto = (isset($nombreProyecto)?$nombreProyecto:'');
         $this->encabezadoModulo($configuracion, $planEstudio, $codProyecto, $nombreProyecto);
 
         $this->agregarComentario($configuracion,$variables);

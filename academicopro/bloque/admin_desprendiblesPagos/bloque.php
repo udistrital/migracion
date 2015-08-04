@@ -18,7 +18,7 @@
 if(!isset($GLOBALS["autorizado"]))
 {
 	include("../index.php");
-	exit;		
+	exit;
 }
 
 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/bloque.class.php");

@@ -51,7 +51,7 @@ if ($acceso_db->probar_conexion()==TRUE)
 	}
 	else
 	{
-		
+		$acceso = $_REQUEST["tipoUser"];
 		switch($_REQUEST["modulo"])
 		{
 			case "Coordinador":

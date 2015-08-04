@@ -81,5 +81,8 @@ class funcion_adminBiblioteca extends funcionGeneral
                </div> <?exit;
 
         }
+        
+
+
 }
 ?>

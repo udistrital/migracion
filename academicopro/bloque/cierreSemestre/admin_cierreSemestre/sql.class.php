@@ -67,7 +67,7 @@ class sql_adminCierreSemestre extends sql
      
                             case "fechaactual":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="TO_CHAR(current_timestamp, 'YYYYmmddhh24mmss') FECHA  ";
+				$cadena_sql.="TO_CHAR(SYSDATE, 'YYYYmmddhh24mmss') FECHA  ";
 				$cadena_sql.="FROM ";
 				$cadena_sql.="dual";
 				break;

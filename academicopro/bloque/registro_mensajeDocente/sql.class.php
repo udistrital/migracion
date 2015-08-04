@@ -131,7 +131,7 @@ class sql_registroMensajeDocente extends sql
                 $cadena_sql.= $variable['tipoEmisor'].',';
                 $cadena_sql.= $variable['codigoEmisor'].',';
                 $cadena_sql.=" 'A',";
-                $cadena_sql.=" current_timestamp";
+                $cadena_sql.=" SYSDATE";
                 $cadena_sql.=" )";
 
                 break;

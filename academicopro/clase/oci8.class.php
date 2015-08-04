@@ -320,7 +320,6 @@ class oci8
 		{
 			return FALSE;
 		}
-		//echo $cadena_sql.'<br><br>';
                 $cadenaParser = OCIParse($this->enlace,$cadena_sql);
                 $busqueda=OCIExecute($cadenaParser);
                 if($busqueda!==TRUE)
@@ -342,14 +341,12 @@ class oci8
                         //cuenta el numero de registros del arreglo $this->registro
                         $this->conteo=count($this->registro);
                           }
-			//echo $this->conteo;
 			@OCIFreeCursor($cadenaParser);
 			return $this->conteo;
 		}
 		else
 		{
 			$this->error =oci_error();
-			//echo $this->error();
 			return 0;
 		}
 	}// Fin del método registro_db
@@ -411,7 +408,6 @@ class oci8
 		
 		for($contador=0;$contador<$this->instrucciones;$contador++)
 		{
-			/*echo $insert[$contador];*/
 			$acceso=$this->ejecutar_acceso_db($insert[$contador]);
 		
 			if(!$acceso)
@@ -420,7 +416,6 @@ class oci8
 				for($contador_2=0;$contador_2<$this->instrucciones;$contador_2++)
 				{
 					@$acceso=$this->ejecutar_acceso_db($delete[$contador_2]);
-					/*echo $delete[$contador_2]."<br>";*/
 					}
 				return FALSE;
 			

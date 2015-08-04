@@ -76,12 +76,12 @@ class funcion_adminHorarioEstudiantesHoras extends funcionGeneral {
 
             //busca los grupos y el horario inscrito por el estudinate
 
-            $this->cadena_sql = $this->sql->cadena_sql( "consultaGrupo", $registroEstudiante); 
+            $this->cadena_sql = $this->sql->cadena_sql( "consultaGrupo", $registroEstudiante);
             $registroGrupo = $this->accesoOracle->ejecutarAcceso($this->cadena_sql, "busqueda");
             
             //verificamos si no existe horario para el periodo actual busca periodo anterior
             if(!$registroGrupo){
-                $this->cadena_sql = $this->sql->cadena_sql( "consultaGrupoPerAnterior", $registroEstudiante); 
+                $this->cadena_sql = $this->sql->cadena_sql( "consultaGrupoPerAnterior", $registroEstudiante);
                 $registroGrupo = $this->accesoOracle->ejecutarAcceso($this->cadena_sql, "busqueda"); 
             
             }
@@ -159,7 +159,7 @@ class funcion_adminHorarioEstudiantesHoras extends funcionGeneral {
                 $variables['ANIO'] = $resultado_grupos[$j]['ANIO'];  //clasificacion
                 $variables['PERIODO'] = $resultado_grupos[$j]['PERIODO'];  //clasificacion
                 //busca el horario de cada grupo, pasar codigo del EA, codigo de carrera y grupo
-                $this->cadena_sql = $this->sql->cadena_sql( "horario_grupos", $variables);
+                $this->cadena_sql = $this->sql->cadena_sql( "horario_grupos", $variables); //echo $this->cadena_sql;
                 $resultado_horarios = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $this->cadena_sql, "busqueda"); 
                 ?>
                 <tr>
@@ -184,6 +184,7 @@ class funcion_adminHorarioEstudiantesHoras extends funcionGeneral {
                     ?><td class='cuadro_plano centrar'><?
                     //Recorre el arreglo del resultado de los horarios
                     for ($k = 0; $k < count($resultado_horarios); $k++) {
+                        //var_dump($resultado_horarios[$k]['DIA']);exit;
                         if ($resultado_horarios[$k]['HORA'] == $i && $resultado_horarios[$k]['HORA'] == (isset($resultado_horarios[$k + 1]['HORA']) ? $resultado_horarios[$k + 1]['HORA'] : '') && (isset($resultado_horarios[$k + 1]['DIA']) ? $resultado_horarios[$k + 1]['DIA'] : '') == ($resultado_horarios[$k]['DIA'] + 1) && (isset($resultado_horarios[$k + 1]['ID_SALON']) ? $resultado_horarios[$k + 1]['ID_SALON'] : '') == ($resultado_horarios[$k]['ID_SALON'])) {
                             $l = $k;
                             while ($resultado_horarios[$k]['HORA'] == $i && $resultado_horarios[$k]['HORA'] == (isset($resultado_horarios[$k + 1]['HORA']) ? $resultado_horarios[$k + 1]['HORA'] : '') && (isset($resultado_horarios[$k + 1]['DIA']) ? $resultado_horarios[$k + 1]['DIA'] : '') == ($resultado_horarios[$k]['DIA'] + 1) && (isset($resultado_horarios[$k + 1]['ID_SALON']) ? $resultado_horarios[$k + 1]['ID_SALON'] : '') == ($resultado_horarios[$k]['ID_SALON'])) {

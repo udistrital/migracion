@@ -274,6 +274,7 @@ class bloque_registroBloqueEstudiantes extends bloque
 // @ Crear un objeto bloque especifico
 
 $esteBloque=new bloque_registroBloqueEstudiantes($configuracion);
+//echo $_REQUEST['action'];
 if(!isset($_REQUEST['action']))
 {
 	$esteBloque->html();
