@@ -34,7 +34,7 @@ if (!isset($GLOBALS["autorizado"])) {
         $resultado = $miSesion->setValorSesion('tipo', $_REQUEST["tipo"]);
         $registro[0]["resultado"]=$resultado;
         $registro[0]["sesionID"] = $estaSesion;
-
+        
         //Redirigir a la página principal del usuario
         $this->funcion->redireccionar($_REQUEST["opcionPagina"], $registro[0]);
         return true;
