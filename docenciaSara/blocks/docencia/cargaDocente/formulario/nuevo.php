@@ -9,9 +9,7 @@ if(!isset($GLOBALS["autorizado"])) {
  * 
  *  La ruta absoluta del bloque está definida en $this->ruta
  */
-
-
-$esteBloque=$this->miConfigurador->getVariableConfiguracion("esteBloque");
+    $esteBloque=$this->miConfigurador->getVariableConfiguracion("esteBloque");
 
 $nombreFormulario=$esteBloque["nombre"];
 

@@ -9,6 +9,7 @@ if(!isset($GLOBALS["autorizado"])) {
 $variable['coordinador'] = 32768047;
 $tab=1;
 
+
 //---------------Inicio Formulario (<form>)--------------------------------
 $atributos["id"]=$nombreFormulario;
 $atributos["tipoFormulario"]="multipart/form-data";

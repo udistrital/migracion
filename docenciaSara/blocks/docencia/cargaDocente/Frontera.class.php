@@ -61,8 +61,7 @@ class FronteraCargaDocente{
 			$accion=$_REQUEST['opcion'];
 
 
-
-			switch($accion){
+                        switch($accion){
 				case "verificar":
 					include_once($this->ruta."/formulario/verificar.php");
 					break;

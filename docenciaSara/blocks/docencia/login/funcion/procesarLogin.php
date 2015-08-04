@@ -6,8 +6,7 @@ if(!isset($GLOBALS["autorizado"]))
 }else{
 
 	//1. Verificar que el usuario esté registrado en el sistema
-	
-		$variable["usuario"]=$_REQUEST["usuario"];
+                $variable["usuario"]=$_REQUEST["usuario"];
 		
 		/**
 		 * @todo En entornos de producción la clave debe codificarse utilizando un objeto de la clase Codificador
@@ -17,7 +16,7 @@ if(!isset($GLOBALS["autorizado"]))
 
 		/*$conexion="aplicativo";
 		 $esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);*/
-
+                
 		$conexion="docente";                
 		$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
                  

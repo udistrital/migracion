@@ -7,8 +7,7 @@ if(!isset($GLOBALS["autorizado"]))
 
 	//1. Verificar que el usuario esté registrado en el sistema
        
-	
-		$variable["usuario"]=$_REQUEST["usuario"];
+                $variable["usuario"]=$_REQUEST["usuario"];
                 $variable["modulo"]=$_REQUEST["modulo"];
 		
 		/*$conexion="aplicativo";
@@ -35,7 +34,7 @@ if(!isset($GLOBALS["autorizado"]))
                 }
 
 		// Redirigir a la página de inicio con mensaje de error en usuario/clave
-		$this->funcion->redireccionar("paginaPrincipal");
+		//$this->funcion->redireccionar("paginaPrincipal");
 
 	}
 

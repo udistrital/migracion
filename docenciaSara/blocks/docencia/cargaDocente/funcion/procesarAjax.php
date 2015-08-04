@@ -183,7 +183,7 @@ switch($_REQUEST["funcion"]){
                         if(!$registroVerificaCrucePlan)
                         {
                         $cadena_sqlInsertar = $this->sql->cadena_sql("guardarCargaCurso", $arregloAsignacion);
-                        echo $cadena_sqlInsertar; exit;
+                        
                         $registro=$esteRecursoDB->ejecutarAcceso($cadena_sqlInsertar,"accion");
                         }else{
                             $mensajeCruce.="No se puede agregar por cruce de Plan de trabajo (".$registroVerificaCrucePlan[0][0]." - ".$registroVerificaCrucePlan[0][1].")\n";
@@ -251,7 +251,7 @@ switch($_REQUEST["funcion"]){
                                     {
                                         $cadena_sql = $this->sql->cadena_sql("inhabilitarCarga", $arregloAsignacion);
                                         $registro=$esteRecursoDB->ejecutarAcceso($cadena_sql,"accion");
-                                        echo $cadena_sql; exit;
+                                       
                                     }
                                 unset($registroVerifica);    
                             }
@@ -282,7 +282,7 @@ switch($_REQUEST["funcion"]){
                                             if(!$registroVerificaCrucePlan)
                                             {
                                             $cadena_sql = $this->sql->cadena_sql("guardarCargaCursoModificar", $arregloAsignacion);
-                                            echo $cadena_sql; exit;
+                                            
                                             $registro=$esteRecursoDB->ejecutarAcceso($cadena_sql,"accion");
                                                 
                                             }else{
@@ -302,11 +302,11 @@ switch($_REQUEST["funcion"]){
             break; 
             
             case "#respuestaEliminarCurso":
-            
+                
                 //Verificamos el curso al que se desea asignar
                 $arregloHorasSeleccionadas = json_decode(stripslashes($_REQUEST['horasSeleccionadas']));
                 $arregloHorasNoSeleccionadas = json_decode(stripslashes($_REQUEST['horasNoSeleccionadas']));
-                
+                var_dump($arregloHorasSeleccionadas);
                 $arregloHorasNoSeleccionadasArreglo = get_object_vars($arregloHorasNoSeleccionadas); 
                 
                 if(is_array($arregloHorasNoSeleccionadasArreglo))
@@ -325,7 +325,7 @@ switch($_REQUEST["funcion"]){
                                     {
                                         $cadena_sql = $this->sql->cadena_sql("inhabilitarCarga", $arregloAsignacion);
                                         $registro=$esteRecursoDB->ejecutarAcceso($cadena_sql,"accion");
-                                        echo $cadena_sql; exit;
+                                        
                                     }
                                 unset($registroVerifica);    
                             }
@@ -345,7 +345,7 @@ switch($_REQUEST["funcion"]){
                         {
                             $cadena_sql = $this->sql->cadena_sql("inhabilitarCarga", $arregloAsignacion);
                             $registro=$esteRecursoDB->ejecutarAcceso($cadena_sql,"accion");
-                            echo $cadena_sql; exit;
+                            
                         }
                         unset($registroVerifica);
                 }

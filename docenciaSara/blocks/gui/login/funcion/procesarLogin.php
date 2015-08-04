@@ -7,7 +7,7 @@ if(!isset($GLOBALS["autorizado"]))
 
 	//1. Verificar que el usuario esté registrado en el sistema
 	
-
+                echo "MMM";
 	
 		$variable["usuario"]=$_REQUEST["usuario"];
 		

@@ -89,8 +89,7 @@ if(class_exists('BloqueCargaDocente') === false){
 		public function bloque(){
 
 				
-
-			if(isset($_REQUEST['botonCancelar'])&&$_REQUEST['botonCancelar']=="true"){
+                        if(isset($_REQUEST['botonCancelar'])&&$_REQUEST['botonCancelar']=="true"){
 				$this->miFuncion->redireccionar("paginaPrincipal");
 			}else{
 					
