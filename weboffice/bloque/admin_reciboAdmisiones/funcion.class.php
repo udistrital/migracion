@@ -598,7 +598,8 @@ class funciones_adminAdmisiones extends funcionGeneral
 															<input type='hidden' name='periodo' value='<? echo $valor[2] ?>'>
 															<input type='hidden' name='action' value='<? echo $this->formulario ?>'>
 															<input type='hidden' name='modificar' value='grabar'>
-															<input value="Modificar" name="aceptar" tabindex='<? echo $tab++ ?>' type="submit" onclick="if(<? echo $this->verificar; ?>){document.forms['<? echo $this->formulario?>'].submit()}else{false}"/><br>
+															
+															<input value="Modificar" name="aceptar" tabindex='' type="submit" onclick="if(<? echo $this->verificar=isset($this->verificar)?$this->verificar:''; ?>){document.forms['<? echo $this->formulario?>'].submit()}else{false}"/><br>
 														</td>
 														<!--td align="center">
 															<input type='hidden' name='nivel' value='<? //echo $valor[4]?>'>
@@ -722,7 +723,7 @@ ________________________________________________________________________________
 	function verificarUsuario()
 	{
 		//Verificar existencia del usuario 
-		$configuracion=$configuracion?$_REQUEST['item']:'';
+		$configuracion=isset($configuracion)?$configuracion:'';
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "datosUsuarios",$this->usuario);
 		$unUsuario=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		

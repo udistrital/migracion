@@ -43,7 +43,7 @@ class funciones_admin_consultasAsesor extends funcionGeneral
 	}
 	
 	//Formulario para generar la consulta de los datos básicos de los estudiantes, ya sea por código, cédula o nombre.
-	function consultaDatosBasicosEstudiantes($configuracion, $accesoOracle,$acceso_db)
+	function consultaDatosBasicosEstudiantes($configuracion, $accesoOracle='',$acceso_db='')
 	{
 		?>
 		<script>
@@ -168,7 +168,7 @@ class funciones_admin_consultasAsesor extends funcionGeneral
 	}
 
 	//Rescata los datos básicos del estudiante
-	function rescatarDatos($configuracion, $accesoOracle,$acceso_db)
+	function rescatarDatos($configuracion, $accesoOracle='',$acceso_db='')
 	{
 		unset($valor);
 		$valor[0]=$_REQUEST['codigo'];
@@ -230,7 +230,7 @@ class funciones_admin_consultasAsesor extends funcionGeneral
 								</td>  
 							</tr>
 						<?
-						for($i=0; $i<=count($resultado); $i++)
+						for($i=0; $i<count($resultado); $i++)
 						{
 							?>
 							<tr>

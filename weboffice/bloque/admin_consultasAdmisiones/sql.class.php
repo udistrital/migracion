@@ -47,13 +47,13 @@ class sql_admin_consultasAdmisiones extends sql
 				$cadena_sql.="FROM ACASPERIADM, ACCRA, ACTIPINS, ACASPW a, ACASP B ";
 				$cadena_sql.="WHERE APE_ESTADO = 'X' ";
 				$cadena_sql.="AND CRA_COD = a.ASP_CRA_COD ";  
-				$cadena_sql.="AND TI_COD = decode(B.ASP_TI_COD,null,a.ASP_TI_COD,B.ASP_TI_COD) ";
+				$cadena_sql.="AND TI_COD = CASE WHEN B.ASP_TI_COD is NULL THEN a.ASP_TI_COD ELSE B.ASP_TI_COD END ";				
 				$cadena_sql.="AND a.ASP_CRED = '".$variable[0]."' ";
 				$cadena_sql.="AND APE_ANO = a.ASP_APE_ANO ";
 				$cadena_sql.="AND APE_PER = a.ASP_APE_PER ";
-				$cadena_sql.="AND a.ASP_APE_ANO = B.ASP_APE_ANO (+) ";
-				$cadena_sql.="AND a.ASP_APE_PER = B.ASP_APE_PER (+) ";
-				$cadena_sql.="and a.ASP_CRED = B.ASP_CRED (+)";
+				$cadena_sql.="AND a.ASP_APE_ANO = B.ASP_APE_ANO ";
+				$cadena_sql.="AND a.ASP_APE_PER = B.ASP_APE_PER ";
+				$cadena_sql.="and a.ASP_CRED = B.ASP_CRED ";
 				break;
 			
 			 default:

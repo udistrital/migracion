@@ -102,7 +102,7 @@
 				
 				
 				$crud->armarCrud($configuracion,'false','true','false','false');
-			
+                                //var_dump($crud->armarCrud($configuracion));
 			}else{
 			
 				$resultado=$funcion->ejecutarSQL($configuracion, $this->acceso, $cadena_sql,"busqueda");

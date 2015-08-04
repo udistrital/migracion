@@ -252,9 +252,7 @@ class sql_adminSolicitudCoordinador extends sql
 				
 			case "secuencia":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="seq_matricula.NEXTVAL ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="dual ";
+				$cadena_sql.="NEXTVAL('seq_matricula') ";
 				break;
 				
 			case "actualizarSolicitud":
@@ -334,9 +332,9 @@ class sql_adminSolicitudCoordinador extends sql
 				$cadena_sql.=$variable[4].", ";
 				$cadena_sql.=$variable[5].", ";
 				$cadena_sql.=$variable[6].", ";
-				$cadena_sql.="TO_DATE(".$variable[7].",'yyyymmdd'), ";
-				$cadena_sql.="TO_DATE(".$variable[8].",'yyyymmdd'), ";
-				$cadena_sql.="SYSDATE, ";
+				$cadena_sql.="TO_DATE('".$variable[7]."','yyyymmdd'), ";
+				$cadena_sql.="TO_DATE('".$variable[8]."','yyyymmdd'), ";
+				$cadena_sql.="current_date, ";
 				$cadena_sql.="'A', ";
 				$cadena_sql.=$variable[9].", ";
 				$cadena_sql.="1, ";
@@ -407,9 +405,9 @@ class sql_adminSolicitudCoordinador extends sql
 				$cadena_sql.=$variable["anno"].", ";
 				$cadena_sql.=$variable["periodo"].", ";
 				$cadena_sql.=$variable["cuota"].", ";
-				$cadena_sql.="SYSDATE, ";
+				$cadena_sql.="current_date, ";
 				$cadena_sql.="'A', ";
-				$cadena_sql.="seq_matricula.NEXTVAL,";
+				$cadena_sql.="NEXTVAL('seq_matricula'),";
 				$cadena_sql.=$variable["fechaOrdinaria"].", ";
 				$cadena_sql.=$variable["fechaExtraordinaria"]." ";
 				$cadena_sql.=")";
@@ -445,9 +443,7 @@ class sql_adminSolicitudCoordinador extends sql
 
 			case "verificaCalendario":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="fua_fecha_recibo(".$variable.") ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="DUAL ";
+				$cadena_sql.="fua_fecha_recibo('".$variable."') ";
 				break;	
                             
 			case "reciboEstudiante":
@@ -494,8 +490,8 @@ class sql_adminSolicitudCoordinador extends sql
 				$cadena_sql.="ema_per, ";
 				$cadena_sql.="ema_secuencia, ";
 				$cadena_sql.="ema_cuota, ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(ema_fecha_ord,'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(ema_fecha_ext,'YYYYMMDD')), ";
+				$cadena_sql.="TO_CHAR(ema_fecha_ord,'YYYYMMDD'), ";
+				$cadena_sql.="TO_CHAR(ema_fecha_ext,'YYYYMMDD'), ";
 				$cadena_sql.="ema_pago, ";
 				$cadena_sql.="ema_ano_pago, ";
 				$cadena_sql.="ema_per_pago, ";
@@ -515,6 +511,7 @@ class sql_adminSolicitudCoordinador extends sql
 				$cadena_sql="";
 				break;
 		}
+                //echo $cadena_sql."<br><br>";
 		return $cadena_sql;
 	}
 	

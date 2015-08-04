@@ -37,6 +37,7 @@ if(!isset($GLOBALS["autorizado"]))
 
 $acceso_db=new dbms($configuracion);
 $enlace=$acceso_db->conectar_db();
+
 if (is_resource($enlace))
 {
 	if(isset($_REQUEST["codigo"]))

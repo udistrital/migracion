@@ -176,6 +176,7 @@ class sql_adminSolicitud extends sql
                                 $cadena_sql.=" AND men_fecha_fin >= date_format(now(),'%Y%m%d%H%i%s')";
                                 $cadena_sql.=" AND men_estado= 1";
                                 $cadena_sql.=" AND (estudiante_codigo='".$variable['codEstudiante']."' OR estudiante_proyecto='".$variable['codProyecto']."' OR estudiante_facultad='".$variable['codFacultad']."')";
+    //$cadena_sql="SELECT `men_info`,`men_dependencia` FROM `backoffice_mensaje_estudiantes` WHERE `men_fecha_inicio`<date_format(now(),'%Y%m%d%H%i%s') and `men_fecha_fin`>= date_format(now(),'%Y%m%d%H%i%s')";
                         
                         break;
 

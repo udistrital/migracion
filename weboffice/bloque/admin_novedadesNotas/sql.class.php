@@ -278,7 +278,7 @@ class sql_panelPrincipal extends sql
 				$cadena_sql.=isset($variable['grupo'])?"'".$variable['grupo']."',":"'',";
 				$cadena_sql.=isset($variable['obs'])?"'".$variable['obs']."',":"'',";
 				$cadena_sql.=isset($variable['com'])?"'".$variable['com']."',":"'',";
-				$cadena_sql.="SYSDATE,"; //11
+				$cadena_sql.="CURRENT_TIMESTAMP,"; //11
 				$cadena_sql.=isset($variable['creditos'])?"'".$variable['creditos']."',":"'',";
 				$cadena_sql.=isset($variable['hteoricas'])?"'".$variable['hteoricas']."',":"'',";
 				$cadena_sql.=isset($variable['hpracticas'])?"'".$variable['hpracticas']."',":"'',";
@@ -306,7 +306,7 @@ class sql_panelPrincipal extends sql
 				$cadena_sql.="lau_terminal) values( ";
 				$cadena_sql.="'ACNOT', ";
 				$cadena_sql.="'TABLE', ";
-				$cadena_sql.="SYSDATE, ";
+				$cadena_sql.="CURRENT_TIMESTAMP, ";
 				$cadena_sql.="'".$variable['operacion']."', ";
 				$cadena_sql.="'".$variable['usuario']."', ";
 				$cadena_sql.="'".(isset($variable['campo'])?$variable['campo']:'')."', ";

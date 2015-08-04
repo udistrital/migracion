@@ -46,7 +46,6 @@ class autenticacion
 			$cadena_sql.="WHERE ";
 			$cadena_sql.="nombre='".$nombre."' ";
 			$cadena_sql.="LIMIT 1";
-			
 			$acceso_db->registro_db($cadena_sql,0);
 			$registro=$acceso_db->obtener_registro_db();
 			$total=$acceso_db->obtener_conteo_db();
@@ -60,7 +59,6 @@ class autenticacion
 				$pagina_nivel=$registro[0][0];
 				
 			}
-			
 			$nueva_sesion=new sesiones($configuracion);
 			$nueva_sesion->especificar_enlace($enlace);
 			$nueva_sesion->especificar_nivel($pagina_nivel);

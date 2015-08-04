@@ -99,7 +99,7 @@ class bloqueAdminSolicitud extends bloque
 					if($nivel==4){
                                             $cadena_sql=$this->sql->cadena_sql($this->configuracion,$conexion,"carreraCoordinador",$id_usuario);
                                             $registro=$this->funcion->ejecutarSQL($this->configuracion, $conexion, $cadena_sql, $tipo);
-                                        
+                                            
                                         }elseif($nivel==110 || $nivel==114){
                                             $accesoOracle=$this->funcion->conectarDB($this->configuracion,"asistente");
                                             $conexion=$accesoOracle;
@@ -146,12 +146,13 @@ class bloqueAdminSolicitud extends bloque
 		}
 		else
 		{
-			$this->funcion->reciboBloqueado($this->configuracion);	
+                    
+                    $this->funcion->reciboBloqueado($this->configuracion,isset($registro)?$registro:'', isset($total)?$total:'');	
 		
 		}
 		$accesoOracle=$this->funcion->conectarDB($this->configuracion,"oracle");
 		$this->funcion->desbloquearRecibos($this->configuracion,$accesoOracle);
-		
+		//echo $accesoOracle."<br>";
 	}
 	
 	

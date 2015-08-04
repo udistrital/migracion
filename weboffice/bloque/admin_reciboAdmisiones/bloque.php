@@ -73,7 +73,8 @@ class bloque_adminAdmisiones extends bloque
 				}
 			}
 			else
-			{
+			{	
+				$conexion=isset($conexion)?$conexion:'';
 				$accion="nuevo";
 				$this->funcion->nuevoRegistro($configuracion,$conexion);
 			}

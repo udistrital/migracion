@@ -678,7 +678,7 @@ public function procesarCrud($configuracion){
 					$cadenaSql.=" ORDER BY  $sidx  $sord";
 				}
 				
-				$cadenaSql.=" )A ) ";
+				$cadenaSql.=" ) A ) AS B ";
 				
 				if(!isset($_REQUEST['generarxls'])){
 					$cadenaSql.=" WHERE ORDEN BETWEEN ".(($this->page)*1-1)*(($limit)*1+1)." AND ".((($this->page)*1-1)*(($limit)*1+1)+(($limit)*1))."";

@@ -63,5 +63,4 @@ if(!isset($configuracion["instalado"]))
 
 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/pagina.class.php");	
 $la_pagina=new pagina($configuracion);
-
 ?>

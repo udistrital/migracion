@@ -50,10 +50,10 @@ class bloque_admin_consultasAdmisiones extends bloque
 				switch($accion)
 				{
 					case "consultaDatosAspirantes":
-						$this->funcion->consultaDatosAspirantes($configuracion, $accesoOracle,$acceso_db);
+						$this->funcion->consultaDatosAspirantes($configuracion);
 						break;
 					case "mostrarDatos":
-						$this->funcion->rescatarDatos($configuracion, $accesoOracle,$acceso_db);
+						$this->funcion->rescatarDatos($configuracion);
 						break;
 				}
 			}

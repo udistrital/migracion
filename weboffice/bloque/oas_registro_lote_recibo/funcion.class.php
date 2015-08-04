@@ -23,7 +23,7 @@ class funciones_registroLoteRecibo extends funcionGeneral
 		$this->sql=$sql;
 		
 		//Crear conexion a ORACLE
-		$this->accesoOracle=$this->conectarDB($configuracion,"oracle");
+		$this->accesoOracle=$this->conectarDB($configuracion,"coordinador");
 		
 		
 		//Crear conexion a MySQL con la cuenta por defecto
@@ -127,7 +127,7 @@ ________________________________________________________________________________
 
 	function cargarArchivoLote($configuracion)
 	{
-		echo "<br>*2 Entro en la funcion cargarArchivoLote*  //funcion.class.php line 130";
+		//echo "<br>*2 Entro en la funcion cargarArchivoLote*  //funcion.class.php line 130";
 		
 		$parametro["directorio"]=$configuracion['raiz_documento']."/documento/solicitudes/";
 		$parametro["nombreCampo"]="archivo";
@@ -138,8 +138,9 @@ ________________________________________________________________________________
 		//Si la carga tuvo exito guardar los datos 
 		if(is_array($resultado))
 		{	
-			echo "<br>*3 El archivo se cargo al servidor*  //funcion.class.php line 141";
-			if($this->identificacion==0)
+			//echo "<br>*3 El archivo se cargo al servidor*  //funcion.class.php line 141";
+				
+			if($this->identificacion>0)
 			{
 				echo "<br>*4 El identificador de usuario es diferente de 0*  //funcion.class.php line 144";
 				$resultado["id_usuario"]=$this->identificacion;
@@ -164,7 +165,7 @@ ________________________________________________________________________________
 	//Metodo para guardar el contenido del archivo en una matriz 
 	function leerArchivoLote($configuracion,$archivo)
 	{
-		echo "<br>*6 Entro en funcion leerArchivoLote*  //funcion.class.php line 167";
+		//echo "<br>*6 Entro en funcion leerArchivoLote*  //funcion.class.php line 167";
 		
 		require_once ($configuracion["raiz_documento"].$configuracion["clases"]."/reader.class.php");
 		$data=new Spreadsheet_Excel_Reader();
@@ -1051,12 +1052,8 @@ ________________________________________________________________________________
 	
 	
 	
-	
-	
-	
 	function mensajeErrorCarga($configuracion, $tipo, $valor="")
 	{
-	
 		$encabezado="";
 		$cadena="";
 		include_once($configuracion["raiz_documento"].$configuracion["clases"]."/alerta.class.php");

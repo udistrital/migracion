@@ -41,7 +41,9 @@ class sql_registroLoteRecibo extends sql
 				$cadena_sql.="`cuota`, ";
 				$cadena_sql.="`id_carrera`, ";
 				$cadena_sql.="`tipoPlantilla`, ";
-				$cadena_sql.="`unidad` ";
+				$cadena_sql.="`unidad`, ";
+                $cadena_sql.="`secuencia`, ";
+                $cadena_sql.="`observacion` ";
 				$cadena_sql.=") ";
 				$cadena_sql.="VALUES ";
 				$cadena_sql.="( ";
@@ -54,7 +56,16 @@ class sql_registroLoteRecibo extends sql
 				$cadena_sql.="'".$variable['cuota']."', ";
 				$cadena_sql.="'".$variable['carrera']."', ";
 				$cadena_sql.="'".$variable['plantilla']."', ";
-				$cadena_sql.="'".$variable['unidad']."' ";
+				if(isset($variable['unidad']))
+				{		
+					$cadena_sql.="".$variable['unidad'].", ";
+				}
+				else 
+				{
+					$cadena_sql.="'0', ";
+				}		
+                $cadena_sql.="0, ";
+                $cadena_sql.="'' ";
 				$cadena_sql.=")";
 				break;
 			

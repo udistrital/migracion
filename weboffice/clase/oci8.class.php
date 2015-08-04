@@ -218,22 +218,17 @@ class oci8
 	 */
 	function conectar_db()
 	{
-		/*echo "<br>Usuario:".$this->usuario;
-		echo "<br>Clave:".$this->clave;
-		echo "<br>Db:".$this->db;*/
 		putenv("NLS_LANG=AMERICAN_AMERICA.AL32UTF8");    //copiar esta lina en la funcion de la clase oci8
 		$this->enlace=oci_pconnect($this->usuario, $this->clave, $this->db);
 		
 		if($this->enlace)
 		{
 			return $this->enlace;	
-			//echo "ok";				
 						
 		}
 		else
 		{
 			$this->error =oci_error();
-			//echo "paila";	
 		}
 	} // Fin del método conectar_db
 
@@ -331,7 +326,6 @@ class oci8
 		{
 			return FALSE;
 		}
-		//echo "Ejemplo: ".$cadena_sql."<br>";
 		$cadenaParser = OCIParse($this->enlace,$cadena_sql);
 
 		$busqueda=OCIExecute($cadenaParser);
@@ -356,12 +350,9 @@ class oci8
 				
 							
 				//$this->registro[$j][$un_campo] = $salida[$j][$un_campo];
-				//echo $this->registro[$j][$un_campo];
-				
 			}
 			
 			$this->conteo=$j--;
-			//echo $this->conteo;
 			@OCIFreeCursor($cadenaParser);
 			return $this->conteo;
 		}
@@ -427,7 +418,6 @@ class oci8
 		
 		for($contador=0;$contador<$this->instrucciones;$contador++)
 		{
-			/*echo $insert[$contador];*/
 			$acceso=$this->ejecutar_acceso_db($insert[$contador]);
 		
 			if(!$acceso)
@@ -436,7 +426,6 @@ class oci8
 				for($contador_2=0;$contador_2<$this->instrucciones;$contador_2++)
 				{
 					@$acceso=$this->ejecutar_acceso_db($delete[$contador_2]);
-					/*echo $delete[$contador_2]."<br>";*/
 					}
 				return FALSE;
 			

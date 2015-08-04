@@ -44,7 +44,8 @@ class bloque_adminIntensidadHoraria extends bloque
 		if(isset($_REQUEST['opcion']))
 		{
 			$accion=$_REQUEST['opcion'];
-			
+			$accesoOracle=isset($accesoOracle)?$accesoOracle:'';
+			$acceso_db=isset($acceso_db)?$acceso_db:'';
 			switch($accion)
 			{
 				case "actualizaIntensidad":

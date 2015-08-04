@@ -21,7 +21,7 @@ public $accesoMoodle;
         $this->formulario="adminNotasOas";
         
         $this->cripto=new encriptar();
-	$this->tema=$tema;
+	//$this->tema=$tema;
 	
         /**
          * Intancia para crear la conexion ORACLE

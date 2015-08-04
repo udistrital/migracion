@@ -653,6 +653,14 @@ ________________________________________________________________________________
 				$variable="pagina=registro_plan_trabajo";
 				$variable.="&nivel=".$valor[10];
 				break;
+			case "periodo":
+				$variable="pagina=registro_plan_trabajo";
+                                unset($_REQUEST['pagina']);
+                                foreach ($_REQUEST as $key => $value) {
+                                    $variable.="&".$key."=".$value;
+                                }
+                                echo $variable;exit;
+				break;
 			case "registroExitoso":
 				$variable="pagina=registro_plan_trabajo";
 				$variable.="&opcion=nuevoRegistro";

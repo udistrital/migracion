@@ -43,9 +43,9 @@ class funciones_adminSolicitud extends funcionGeneral
 		
 		unset($valor);
 		$valor[0]=$_REQUEST['estudiante'];
-		$valor[1]=$ano;
-		$valor[2]=$per;
-		$valor[3]=$_REQUEST['carrera'];
+		$valor[1]=isset($ano)?$ano:'';
+		$valor[2]=isset($per)?$per:'';
+		$valor[3]=isset($_REQUEST['carrera'])?$_REQUEST['carrera']:'';
 			
 		$this->redireccionarInscripcion($configuracion, "bloqueadoEstudiante",$valor);
 	}
@@ -181,7 +181,7 @@ ________________________________________________________________________________
 				default:
 					break;
 			}
-			$registro=$this->ejecutarSQL($configuracion, $conexion, $cadena_sql, "busqueda");
+			$registro=$this->ejecutarSQL($configuracion, $conexion, isset($cadena_sql)?$cadena_sql:'', "busqueda");
 			if(is_array($registro))
 			{
 				//Obtener el total de registros
@@ -402,7 +402,7 @@ ________________________________________________________________________________
 		$cripto=new encriptar();
 		
 		//Conexion ORACLE
-		$conexion=$this->conectarDB($configuracion,"oracle");
+                $conexion=$this->conectarDB($configuracion,"oracle");
 		?><table width="100%" align="center" border="0" cellpadding="10" cellspacing="0" >
 			<tbody>
 				<tr>
@@ -476,6 +476,7 @@ ________________________________________________________________________________
 		{
 			foreach($_REQUEST as $clave => $valor) 
 			{
+                                
 				if(substr($clave,0,strlen("codDesbloquear"))=="codDesbloquear")
 				{
 					
@@ -487,7 +488,7 @@ ________________________________________________________________________________
 					//echo $cadena_sql."aw<br>";
 					
 					
-				};
+				}
 				
 				
 				

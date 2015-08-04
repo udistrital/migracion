@@ -1222,7 +1222,7 @@ function cargarArchivoLote($configuracion, $enlace,$acceso_db)
 		return $resultado;
 	}
 	
-	/* Para tareas de depuracion
+	// Para tareas de depuracion
 	
 	if(isset($subir->log["resultado"]))
 	{
@@ -1237,7 +1237,7 @@ function cargarArchivoLote($configuracion, $enlace,$acceso_db)
 			
 		}
 	}
-	*/
+	
 	
 	return $resultado;
 

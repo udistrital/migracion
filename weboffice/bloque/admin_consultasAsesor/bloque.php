@@ -30,11 +30,13 @@ include_once("sql.class.php");
 //Clase
 class bloque_admin_consultasAsesor extends bloque
 {
+	private $configuracion;
 
 	 public function __construct($configuracion)
 	{
  		$this->sql=new sql_admin_consultasAsesor();
  		$this->funcion=new funciones_admin_consultasAsesor($configuracion, $this->sql);
+ 		$this->configuracion=$configuracion;
  		
 	}
 	
@@ -50,17 +52,17 @@ class bloque_admin_consultasAsesor extends bloque
 				switch($accion)
 				{
 					case "consultaDatosEstudiantes":
-						$this->funcion->consultaDatosBasicosEstudiantes($configuracion, $accesoOracle,$acceso_db);
+						$this->funcion->consultaDatosBasicosEstudiantes($configuracion );
 						break;
 					case "mostrarDatos":
-						$this->funcion->rescatarDatos($configuracion, $accesoOracle,$acceso_db);
+						$this->funcion->rescatarDatos($configuracion);
 						break;
 				}
 			}
 			else
 			{
 				$accion="nuevo";
-				$this->funcion->consultaDatosBasicosEstudiantes($configuracion, $accesoOracle,$acceso_db);
+				$this->funcion->consultaDatosBasicosEstudiantes($configuracion);
 			}
 		}
 		else

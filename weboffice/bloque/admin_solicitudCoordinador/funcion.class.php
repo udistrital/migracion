@@ -210,10 +210,10 @@ ________________________________________________________________________________
 					else
 					{
 						//Posgrados
-                                                //verificamos si tiene exencion de la secretaria de educacion 
-                                                if($porcentaje["sed"]>0){
-                                                    $valorMatriculaNeto=round($valorMatriculaNeto*(1-($porcentaje["sed"])/100));
-                                                }
+                        //verificamos si tiene exencion de la secretaria de educacion 
+                        if($porcentaje["sed"]>0){
+                               $valorMatriculaNeto=round($valorMatriculaNeto*(1-($porcentaje["sed"])/100));
+                         }
 						//Aplicar intereses
 						switch($contador)
 						{
@@ -263,8 +263,30 @@ ________________________________________________________________________________
 						
 						//7.C. Insertar Cuota en ACESTMAT						
 						$parametro[1]=$registroEstudiante[0][3];
-						$parametro[2]=$valorCuota;
-						$parametro[3]=$valorCuotaExtra;
+						
+						$concepto=$this->conceptosPago($configuracion, $variable[1]);
+							
+						$i=0;
+					
+						while (isset($concepto[$i]["codigo"]))
+						{
+							if($concepto[$i]["codigo"]==13)
+							{
+								$codConcepto=$concepto[$i]["codigo"];
+							}
+							$i++;
+						}
+						if(isset($codConcepto)==13)
+						{	
+							$parametro[2]=0;
+							$parametro[3]=0;
+						}
+						else 
+						{
+							$parametro[2]=$valorCuota;
+							$parametro[3]=$valorCuotaExtra;
+						}	
+						
 						$parametro[4]=$this->datosBasico["anno"];
 						$parametro[5]=$this->datosBasico["periodo"];
 						$parametro[6]=$contador+1;
@@ -321,9 +343,8 @@ ________________________________________________________________________________
   					{
   						return false;
   					}
- 					
-					
-					//5. Calcular Conceptos
+ 					unset($parametro);
+  					//5. Calcular Conceptos
 					$concepto=$this->conceptosPago($configuracion, $variable[1]);
 					
 					$j=0;
@@ -333,9 +354,10 @@ ________________________________________________________________________________
 					$carnet=0;
 					$seguro=0;
 					$valorOtrosConceptos=0;
+					$vacacional=0;
 					
 					while (isset($concepto[$j]["codigo"])) 
-					{
+					{	
 						if($concepto[$j]["codigo"]==2)
 						{
 							$seguro=$concepto[$j]["valor"];
@@ -348,27 +370,41 @@ ________________________________________________________________________________
 						{
 							$sistematizacion=$concepto[$j]["valor"];
 						}
+						elseif($concepto[$j]["codigo"]==13)
+						{
+							$vacacional=$concepto[$j]["valor"]; 
+							$codConcepto=$concepto[$j]["codigo"];
+						}
 						
 						$parametro[0]=$this->datosBasico["anno"];
 						$parametro[1]=$estaSecuencia;
 						$parametro[2]="23"; //TODO Rescatar el codigo directamente de la base de datos
 						$parametro[3]=$concepto[$j]["codigo"];
 						
-						
 						if($concepto[$j]["codigo"]==1)
 						{
-							$parametro[4]=$valorCuota;
+							if($codConcepto==13)
+							{
+								$parametro[4]=0;
+							}
+							else 
+							{
+								$parametro[4]=$valorCuota;
+							}
+							
 						}
 						else
 						{
 							$parametro[4]=$concepto[$j]["valor"];
-							if($j==1)
+							
+							
+							/*if($j==1)
 							{
-								$valorOtrosConceptos+=$concepto[$j]["valor"];
-							}
-						
+								$parametro[4]=$concepto[$j]["valor"];
+								//$valorOtrosConceptos+=$concepto[$j]["valor"];
+							}*/
+							
 						}
-						
 						//8. Insertar datos en ACREFEST
 						
 						if($contador==0)
@@ -385,7 +421,6 @@ ________________________________________________________________________________
 						$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "");
 						$j++;
 					}
-					
 					//9. Crear cadena para CONSIGA
 					//9.A. Crear Cadena
 					//Crear una entrada al archivo plano
@@ -431,6 +466,7 @@ ________________________________________________________________________________
 					$consiga[17]="OCCIDENTE";
 					$consiga[18]="230-81461-8";
 					$consiga[19]=$contador+1;
+					$consiga[20]=$vacacional;
 						
 					$cadenaConsiga="";	
 					foreach($consiga as $clave => $valor)
@@ -455,11 +491,10 @@ ________________________________________________________________________________
 					$cadena_sql=$this->sql->cadena_sql($configuracion,$this->acceso_db,"actualizarSolicitud",$parametro);
  					$resultado=$this->ejecutarSQL($configuracion, $this->acceso_db, $cadena_sql, "");
  					
- 					
- 					
+ 			 					
 					
 				}
-				return true;
+				return true; 
 			}
 		}
 		else
@@ -753,6 +788,10 @@ ________________________________________________________________________________
 						{
 							$losConceptos.="+".$concepto[$j]["nombre"];
 						}
+						if($concepto[$j]["codigo"]==13)
+						{
+								$codConcepto=$concepto[$j]["codigo"];
+						}
 						$j++;
 					}
 					
@@ -762,11 +801,11 @@ ________________________________________________________________________________
 					//Valor Neto a Pagar de matricula 
 					$valorMatriculaNeto=round($valorMatriculaBruto*(1-($porcentaje["exencion"]+$porcentaje["certificado"])/100));
 					
-                                        //verificamos si tiene descuento por pago de la secretaria de educacion
-                                        if($porcentaje["sed"]>0){
-                                            $valorMatriculaNeto=round($valorMatriculaNeto*(1-($porcentaje["sed"])/100));
+                    //verificamos si tiene descuento por pago de la secretaria de educacion
+                     if($porcentaje["sed"]>0){
+                     $valorMatriculaNeto=round($valorMatriculaNeto*(1-($porcentaje["sed"])/100));
 					}
-					if(is_array($registroVerificaPago))
+					if(is_array($registroVerificaPago) && $losConceptos!='+VACACIONAL')
 					{
 						?><table class='tablaMarco'>
 							<tr class='bloquecentralcuerpo'>
@@ -902,10 +941,18 @@ ________________________________________________________________________________
 							<? echo $porcentaje["observacion"]; ?>
 							</td>
 							<td class='cuadro_plano centrar fondoImportante'>
-							<? echo money_format('$ %!.0i', $valorMatriculaNeto).$losConceptos;
-								
-								
-								?>
+							<?
+							//Verificamos que el concepto no sea curso vacacional, si es, le pone valor matrícula 0
+							//ECHO $codConcepto;
+							if($losConceptos!='+VACACIONAL')
+							{	 
+								echo money_format('$ %!.0i', $valorMatriculaNeto).$losConceptos;
+							}
+							else 
+							{
+								echo money_format('$ %!.0i', 0).$losConceptos;
+							}
+							?>
 							
 							</td>
 							<td class='cuadro_plano centrar'>
@@ -1033,7 +1080,7 @@ ________________________________________________________________________________
 							//Rescatar los conceptos
 							
 							$concepto= $this->conceptosPago($configuracion, $registro[$contadorRegistros][0]);
-                                                        $i=0;
+                            $i=0;
 							$j=0;
 							$losConceptos="";					
 							while (isset($concepto[$j]["codigo"])) 
@@ -1052,9 +1099,9 @@ ________________________________________________________________________________
 							$valorMatriculaNeto=round($valorMatriculaBruto*(1-($porcentaje["exencion"]+$porcentaje["certificado"])/100));
 							
 							//verificamos si tiene descuento por pago de la secretaria de educacion
-                                                        if($porcentaje["sed"]>0){
-                                                            $valorMatriculaNeto=round($valorMatriculaNeto*(1-($porcentaje["sed"])/100));
-                                                        }
+                            if($porcentaje["sed"]>0){
+                                 $valorMatriculaNeto=round($valorMatriculaNeto*(1-($porcentaje["sed"])/100));
+                            }
 							
 							?><table class='tablaMarco'>
 								<tr class='bloquecentralcuerpo'>
@@ -1301,8 +1348,13 @@ ________________________________________________________________________________
 				//Si el concepto es 1 (matricula) se descarta
 				if($registroConcepto[$j][1]>1)
 				{
-					//Si el concepto es 2 (seguro) el valor se toma directamente
+					//Si el concepto es 2 (seguro) el valor se toma directamente de la tabla referenciaPago de weboffice
 					if($registroConcepto[$j][1]==2)
+					{
+						$concepto[$j]["valor"]=$registroConcepto[$j][3];
+					}
+					//Si el concepto es 13 (vacacional) el valor se toma directamente
+					elseif($registroConcepto[$j][1]==13)
 					{
 						$concepto[$j]["valor"]=$registroConcepto[$j][3];
 					}

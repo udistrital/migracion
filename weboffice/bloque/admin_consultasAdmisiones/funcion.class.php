@@ -43,7 +43,7 @@ class funciones_admin_consultasAdmisiones extends funcionGeneral
 	}
 	
 	//Formulario para generar la consulta de los datos básicos de los estudiantes, ya sea por código, cédula o nombre.
-	function consultaDatosAspirantes($configuracion, $accesoOracle,$acceso_db)
+	function consultaDatosAspirantes($configuracion)
 	{
 		include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.class.php");
 		?>
@@ -82,7 +82,7 @@ class funciones_admin_consultasAdmisiones extends funcionGeneral
 	}
 
 	//Rescata los datos básicos del estudiante
-	function rescatarDatos($configuracion, $accesoOracle,$acceso_db)
+	function rescatarDatos($configuracion)
 	{
 		unset($valor);
 		$valor[0]=$_REQUEST['credencial'];

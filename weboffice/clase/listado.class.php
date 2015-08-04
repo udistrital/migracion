@@ -5,7 +5,7 @@
 /*--------------------------------------------------------------------------------------------------------------------------
 * @name          listado.class.php
 * @author        Karen Palacios
-* @revision      Última revisión 18 de marzo de 2010
+* @revision      ï¿½ltima revisiï¿½n 18 de marzo de 2010
 /*--------------------------------------------------------------------------------------------------------------------------
 * @subpackage		
 * @package		clase
@@ -25,7 +25,7 @@ class listado extends funcionGeneral
 	var $newlabel;	
 	
 	 public function __construct($configuracion)
-	{
+	{       error_reporting(0);
 		$this->pagina;
 		$this->setHojaActual($_REQUEST['hoja']);
 		$this->setOrden($_REQUEST['orden']);
@@ -193,7 +193,7 @@ class listado extends funcionGeneral
 						$cadena_sql.=$this->getTabla().$this->getRelacion('tablas')." WHERE 1=1 ";
 						$cadena_sql.=$this->getRelacion('relaciones')." ";
 						$cadena_sql.=$this->getFiltro()." ";
-						$cadena_sql.=") ";
+						$cadena_sql.=") as consulta ";
 						$cadena_sql.=$limites;
 						
 							//echo "<br>cadena= ".$cadena_sql;	

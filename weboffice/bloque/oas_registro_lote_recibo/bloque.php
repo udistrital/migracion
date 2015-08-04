@@ -50,13 +50,13 @@ class bloqueRegistroLoteRecibo extends bloque
 	function action($configuracion)
 	{
 		
-		echo "<br>*1 Entro al action //bloque.php line 53*";
+		//echo "<br>*1 Entro al action //bloque.php line 53*";
 		//Cargar la plantilla y registrarla en la base de datos
 		$resultado=$this->funcion->cargarArchivoLote($configuracion);
 		
 		if(is_array($resultado))
 		{	
-			echo "<br>*5 La insercion del archivo en solicitud lote fue exitosa*  //bloque.php line 59";
+			//echo "<br>*5 La insercion del archivo en solicitud lote fue exitosa*  //bloque.php line 59";
 			
 			$valor[0]=$resultado["nombreArchivo"];
 			$valor[1]=$resultado["nombreInterno"];
@@ -64,20 +64,20 @@ class bloqueRegistroLoteRecibo extends bloque
 			
 			if($datos!=false)
 			{
-				echo "<br>*7 Retorno los valores delas celdas*  //bloque.php line 67";
+				//echo "<br>*7 Retorno los valores delas celdas*  //bloque.php line 67";
 				$columnas=$datos->sheets[0]['numCols']; 
 				
 				//Se revisa que las columnas leidas correspondan a las que tiene cada una de la plantillas.
 				//Para el caso de postgrado 26
 				//Para el caso de pregrado 13
-				echo "<br>*8 Numero de Columnas= $columnas*  //bloque.php line 73";
+				//echo "<br>*8 Numero de Columnas= $columnas*  //bloque.php line 73";
 				
 				if($columnas==28||$columnas==13)
 				{
 					$resultado=$this->funcion->verificarLote($valor, $datos, $datos->sheets[0]['cells'][1][1], $configuracion,$this->funcion->acceso_db);
 					if($resultado==false)
 					{
-						echo "<br>*9 El resultado de verificarlote fue false*  //bloque.php line 80";
+						//echo "<br>*9 El resultado de verificarlote fue false*  //bloque.php line 80";
 						$this->funcion->mensajeErrorCarga($configuracion, "inconsistencia", $valor);
 					}
 					

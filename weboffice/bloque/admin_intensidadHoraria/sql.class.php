@@ -20,7 +20,6 @@ class sql_adminIntensidadHoraria extends sql
 		switch($opcion)
 		{
 			case "datosUsuarios":
-				//En ORACLE
 				$cadena_sql="SELECT ";
 				$cadena_sql.="emp_cod, ";
 				$cadena_sql.="emp_nombre ";
@@ -31,8 +30,11 @@ class sql_adminIntensidadHoraria extends sql
 				break;
 			
 			case "actualizaNotas":
-				//Oracle
+				if(is_numeric($variable[0])){
 				$cadena_sql="BEGIN ACTUALIZANOTAS_EST(".$variable[0]."); END; ";
+				}else{
+					$cadena_sql='';
+				}
 				break;
 			
 			default:

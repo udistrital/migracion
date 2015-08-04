@@ -123,7 +123,7 @@ $cripto=new encriptar();
 						<hr class="hr_division">							
 						</td>
 					</tr>
-					<tr class="bloquelateralcuerpo">
+					<!--tr class="bloquelateralcuerpo">
 						<td>
 							<a href="<?		
 							$variable="pagina=admin_recibo";
@@ -135,7 +135,7 @@ $cripto=new encriptar();
 							?>"> Hist&oacute;rico</a>
 						</td>
 					</tr>
-					<!--tr class="bloquelateralcuerpo">
+					<tr class="bloquelateralcuerpo">
 						<td>
 						<a href="<?		
 							$variable="pagina=verificar_pago";
