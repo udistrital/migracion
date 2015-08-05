@@ -110,7 +110,7 @@ class sql_adminEspaciosHorarios extends sql {
 				$cadena_sql.=" AND cur_ape_ano=" . $variable[4];
 				$cadena_sql.=" AND cur_ape_per=" . $variable[5];
 				
-				$cadena_sql.=" ORDER BY 1,2,3"; echo $cadena_sql;
+				$cadena_sql.=" ORDER BY 1,2,3";
 				
 				/*
 				
@@ -196,7 +196,6 @@ class sql_adminEspaciosHorarios extends sql {
 				$cadena_sql .= "and cur_cra_cod = '" . $variable [1] . "' and cur_asi_cod ='" . $variable [2] . "' ";
 				$cadena_sql .= "and cur_nro ='" . $variable [3] . "' ";
 				// $cadena_sql.="and cur_nro_cupo >= cur_nro_ins";
-				// echo $cadena_sql;exit;
 				break;
 			
 			case 'registroEvento' :
@@ -216,7 +215,6 @@ class sql_adminEspaciosHorarios extends sql {
 				
 				break;
 		}
-		//echo $cadena_sql."<br>";
 		return $cadena_sql;
 	}
 }
