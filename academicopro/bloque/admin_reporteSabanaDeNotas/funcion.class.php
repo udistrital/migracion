@@ -5,6 +5,8 @@
 /*--------------------------------------------------------------------------------------------------------------------------
  0.0.0.1    Maritza Callejas    11/06/2013
  0.0.0.2    Maritza Callejas    01/10/2013
+ 0.0.0.3    Maritza Callejas    28/01/2015  Impresión de líneas - formato
+ 0.0.0.4    Milton Parra        13/08/2015  Ajustes para impresion y registro de generacion
 ---------------------------------------------------------------------------------------------------------------------------*/
 
 if(!isset($GLOBALS["autorizado"]))
@@ -367,7 +369,7 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
 //                                                                            'afectado'=>$datos_estudiante['CODIGO']);
 //
 //                                                    $this->procedimientos->registrarEvento($variablesRegistro);
-                                                    $this->generarPDF($documento,$encabezado,$pie_pagina,$codEstudiante);
+                                                    $this->generarPDF($documento,$encabezado,$pie_pagina,$codEstudiante,$datos_estudiante);
                                             }else{
                                                 $mensaje_resultado .= "<br>El estudiante con código ".$codEstudiante." no tiene Notas registradas";
                                             
@@ -525,17 +527,21 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
          * @return string 
          */
         function armarDocumento($proyecto,$datos_estudiante,$notas,$electivas,$tipo){
-            $html =$this->armarNotasEstudiante($notas,$datos_estudiante['IND_CRED'],$tipo);
+            $html='<table  cellspacing="0">';
+            $html .=$this->armarNotasEstudiante($notas,$datos_estudiante['IND_CRED'],$tipo);
             if(is_array($electivas)){
                 $html .=$this->armarElectivasEstudiante($electivas,$datos_estudiante['IND_CRED'],$tipo);
             }
-            $html .=$this->armarMensajeNotaAprobatoria($proyecto[0]['NOTA_APROBATORIA']);
-            $html .=$this->armarMensajeFinalSabanaNotas();
+            $html .=$this->armarMensajeNotaAprobatoria($proyecto[0]['NOTA_APROBATORIA'],$datos_estudiante['IND_CRED']);
+            if($tipo!=1){
+                $html .=$this->armarMensajeFinalSabanaNotas($datos_estudiante['IND_CRED']);
+            }
+            $html .="</table>";
             return $html;
         }
         
         /**
-         * Función para armar el html con los datos del estudiante
+         * Función para armar el html con los datos del estudiante para el PDF
          * @param <array> $datos_estudiante
          * @param <array> $proyecto
          * @return string 
@@ -545,61 +551,103 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
             $html='<div class="datos">';
             $html.='<table border="0" cellpadding="0"  cellpadding="0">';
             $html.='<tr >';
-            $html.='<td class="columna1">&nbsp; </td>';
+            $html.='<td class="columnaTitulo1"><b> NOMBRE:</b></td>';
             $html.='<td class="columnaNombre"> ';
-            $html.='    <div class="datos">';
-            if($tipo==1){
-                $html.='<b> &nbsp;NOMBRE :</b>';
-            }        
-            $html.=$datos_estudiante['NOMBRE'].'</div>';
-            $html.='    <div class="datos">';
-            if($tipo==1){
-                $html.='<b> &nbsp;PROYECTO :</b>';
-            }
-            $html.=$proyecto[0]['NOMBRE'].'</div>';
+            $html.=$datos_estudiante['NOMBRE'];
             $html.='</td>';
-            
+            $html.='<td class="columnaTitulo2"> <b> IDENTIFICACIÓN:</b></td>';
             $html.='<td class="columnaIdentificacion"> ';
-            $html.='    <div class="datos">';
-            if($tipo==1){
-                $html.='<b> &nbsp;IDEN. :</b>';
-            }
-            $html.=$datos_estudiante['DOCUMENTO'].'</div>';
-            $html.='    <div class="datos">';
-            if($tipo==1){
-                $html.='<b> &nbsp;C&Oacute;DIGO :</b>';
-            }
-            $html.=$datos_estudiante['CODIGO'].'</div>';
+            $html.=$datos_estudiante['DOCUMENTO'];
             $html.='</td>';
-            
+            $html.='<td class="columnaTitulo3"> <b> PROMEDIO:</b></td>';
             $html.='<td class="columnaPromedio"> ';
-            $html.='    <div class="datos">';
-            if($tipo==1){
-                $html.='<b> &nbsp;PROMEDIO :</b>';
-            }
-            $html.=number_format($datos_estudiante['PROMEDIO'],2).'</div>';
-            if($tipo==1){
-                $html.='    <div class="datos">';
-                $html.='<b> &nbsp;FECHA :</b>';
-            }else{
-                $html.='    <div class="datosPequeno">';
-            }
-            $html.=date('d/m/Y').'</div>';
+            $html.=number_format($datos_estudiante['PROMEDIO'],2);
             $html.='</td>';
             $html.='</tr>';
+            
+            $html.='<tr>';
+            $html.='<td class="columnaTitulo1"> <b> PROYECTO:</b></td>';
+            $html.='<td class="columnaNombre"> ';
+            $html.=$proyecto[0]['NOMBRE'];
+            $html.='</td>';
+            $html.='<td class="columnaTitulo2"> <b> C&Oacute;DIGO:</b></td>';
+            $html.='<td class="columnaIdentificacion"> ';
+            $html.=$datos_estudiante['CODIGO'];
+            $html.='</td>';
+            $html.='<td class="columnaTitulo3"> <b> FECHA:</b></td>';
+            $html.='<td class="columnaPromedio"> ';
+            $html.=date('d/m/Y');
+            $html.='</td>';
+            $html.='</tr>';
+            
             if($tipo==1){
             $html.='<tr >';
-            $html.='<td class="columna1">&nbsp; </td>';
-            $html.='<td colspan="3">';
-            $html.='<div class="datos"><b>FACULTAD CORRESPONDIENTE: </b>'.$secretario[0]['FACULTAD'];
-            $html.='<br><b>NOMBRE SECRETARIO ACAD&Eacute;MICO DE LA FACULTAD: </b>'.$secretario[0]['NOMBRE'].'</div><br>';
+                $html.='<td colspan="6">';
+                $html.='<div class="datos"><b>FACULTAD CORRESPONDIENTE: </b>'.$secretario[0]['FACULTAD'].'</div><br>';
             $html.='</td>';
             $html.='</tr>';
+                $html.='<tr >';
+                $html.='<td colspan="6">';
+                $html.='<div class="datos"><b>NOMBRE SECRETARIO ACAD&Eacute;MICO DE LA FACULTAD: </b>'.$secretario[0]['NOMBRE'].'<br><br></div>';
+                $html.='</td>';
+                $html.='</tr>';
             }
             $html.='</table>';
             $html.='</div>';
+            if(trim($datos_estudiante['IND_CRED'])=='S') {
+                    $estilo = "encabezadoNombreCreditos";
+                    $columnas=3;
+            }else{
+                    $estilo = "encabezadoNombre";
+                    $columnas=2;
+                }
+                if($tipo==1){
+                    $html.='<br>';
+                    $html.='<br>';
+                    $html.='<br>';
+                    $html.='<br>';
+                    $html.='<br>';
+                }else{
+                    $html.='<table  cellspacing="0">';
+                    $html.='<tr><td><td class="bordeEncabezadoNotas"></tr>';
+                    $html.='<tr>';
+                    $html.='<td align="center"  class="bordeSupIzquierdo" colspan="'.$columnas.'" > <div class "rounded">ESPACIO ACAD&Eacute;MICO</div></td>';
+                    $html.='<td align="center" class="bordeSuperior" colspan="3"> INT.</td>';
+                    $html.='<td align="center"  class="bordeSupDerecho" colspan="2"> CALIFICACIÓN</td>';
+                    $html.='</tr>';
+            
+                    $html.='<tr>';
+                    $html.='<td align="center"  class="encabezadoCodigo" rowspan="2"> CODIGO</td>';
+                    $html.='<td  align="center" class="'.$estilo.'" rowspan="2"> NOMBRE</td>';
+                    if(trim($datos_estudiante['IND_CRED'])=='S') {
+                        $html.='<td class="encabezadoCreditos" rowspan="2"> CREDITOS</td>';
+                    }
+                    $html.='<td align="center" class="encabezadoHoras" colspan="3"> HORAS</td>';
+                    $html.='<td align="center"  class="encabezadoNumero" rowspan="2"> N&Uacute;MERO</td>';
+                    $html.='<td align="center"  class="encabezadoLetras" rowspan="2"> LETRAS</td>';
+                    $html.='</tr>';
+                    $html.='<tr>';
+                    $html.='<td align="center" class="encabezadoHTD" > HTD</td>';
+                    $html.='<td align="center" class="encabezadoHTC" > HTC</td>';
+                    $html.='<td align="center" class="encabezadoHTA" > HTA</td>';
+                    $html.='</tr>';
                         
+                    $html.='<tr>';
+                    $html.='<td class="columnaCodigo">&nbsp; </td>';
+                    $html.='<td class="niveles1" >&nbsp;</td>';
+                    if(trim($datos_estudiante['IND_CRED'])=='S') {
+                        $html.='<td class="columnaCreditos"> &nbsp;</td>';
+                    }
+                    $html.='<td class="columnaTD">&nbsp; </td>';
+                    $html.='<td class="columnaTC">&nbsp; </td>';
+                    $html.='<td class="columnaTA">&nbsp; </td>';
+                    $html.='<td class="columnaNota">&nbsp; </td>';
+                    $html.='<td class="columnaNotaLetras">&nbsp; </td>';
+                    $html.='</tr>';                 
+                    $html.='</table>';
           
+                }
+                
 
             return $html;
         }
@@ -616,36 +664,51 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
             setlocale(LC_ALL,"es_ES");
             if(trim($estudiante_creditos)=='S') {
                     $estilo = "columnaNombreEspacioCreditos";
-                    $columnas=7;
+                    $columnas=3;
             }else{
                     $estilo = "columnaNombreEspacio";
-                    $columnas=6;
+                    $columnas=2;
                 }
-            $html='<div class="notas" >';
-            $html.='<table width=100%>';
-            //valida si se genera el html
+
             if($tipo==1){
-                    $html.='<br>';
-                    $html.='<br>';
-                    $html.='<br>';
                     $html.='<tr>';
-                    $html.='<td align="center"> CODIGO</td>';
-                    $html.='<td  align="center"> ESPACIO</td>';
+                    $html.='<td align="center"  class="bordeSupIzquierdo" colspan="'.$columnas.'" > <div class "rounded">ESPACIO ACAD&Eacute;MICO</div></td>';
+                    $html.='<td align="center" class="bordeSuperior" colspan="3"> INT.</td>';
+                    $html.='<td align="center"  class="bordeSupDerecho" colspan="2"> CALIFICACIÓN</td>';
+                    $html.='</tr>';
+
+                    $html.='<tr>';
+                    $html.='<td align="center"  class="encabezadoCodigo" rowspan="2"> CODIGO</td>';
+                    $html.='<td  align="center" class="'.$estilo.'" rowspan="2"> NOMBRE</td>';
                     if(trim($estudiante_creditos)=='S') {
-                        $html.='<td class="columnaCreditos"> CREDITOS</td>';
+                        $html.='<td class="encabezadoCreditos" rowspan="2"> CREDITOS</td>';
                     }
-                    $html.='<td align="center"> HTD</td>';
-                    $html.='<td align="center"> HTC</td>';
-                    $html.='<td align="center"> HTA</td>';
-                    $html.='<td align="center" colspan="2"> NOTA</td>';
+                    $html.='<td align="center" class="encabezadoHoras" colspan="3"> HORAS</td>';
+                    $html.='<td align="center"  class="encabezadoNumero" rowspan="2"> N&Uacute;MERO</td>';
+                    $html.='<td align="center"  class="encabezadoLetras" rowspan="2"> LETRAS</td>';
+                    $html.='</tr>';
+                    $html.='<tr>';
+                    $html.='<td align="center" class="encabezadoHTD" > HTD</td>';
+                    $html.='<td align="center" class="encabezadoHTC" > HTC</td>';
+                    $html.='<td align="center" class="encabezadoHTA" > HTA</td>';
                     $html.='</tr>';
 
             }
+            
             foreach ($notas as $key => $nota) {
                     if($notas[$key]['NOT_SEM']<>(isset($notas[$key-1]['NOT_SEM'])?$notas[$key-1]['NOT_SEM']:'')){
+
                         $html.='<tr>';
                         $html.='<td class="columnaCodigo">&nbsp; </td>';
-                        $html.='<td class="niveles" colspan="'.$columnas.'">NIVEL '.$nota['NOT_SEM'].' </td>';
+                        $html.='<td class="niveles" >NIVEL '.$nota['NOT_SEM'].' </td>';
+                        if(trim($estudiante_creditos)=='S') {
+                            $html.='<td class="columnaCreditos"> &nbsp;</td>';
+                        }
+                        $html.='<td class="columnaTD">&nbsp; </td>';
+                        $html.='<td class="columnaTC">&nbsp; </td>';
+                        $html.='<td class="columnaTA">&nbsp; </td>';
+                        $html.='<td class="columnaNota">&nbsp; </td>';
+                        $html.='<td class="columnaNotaLetras">&nbsp; </td>';
                         $html.='</tr>';
 
                     }
@@ -677,9 +740,6 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
                     $html.='</tr>';
 
             }
-            
-            $html.='</table>';
-            $html.='</div>';
             return $html;
         }
         
@@ -701,11 +761,17 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
                 }
                 
             if(is_array($notasElectivas)){
-                    $html='<div class="notas">';
-                    $html.='<table width=100%>';
-                    $html.='<tr>';
+                    $html='<tr>';
                     $html.='<td  class="columnaCodigo">&nbsp; </td>';
-                    $html.='<td  class="niveles" colspan="'.$columnas.'">ELECTIVAS </td>';
+                    $html.='<td  class="niveles" >ELECTIVAS </td>';
+                    if(trim($estudiante_creditos)=='S') {
+                        $html.='<td class="columnaCreditos"> &nbsp;</td>';
+                    }
+                    $html.='<td class="columnaTD">&nbsp; </td>';
+                    $html.='<td class="columnaTC">&nbsp; </td>';
+                    $html.='<td class="columnaTA">&nbsp; </td>';
+                    $html.='<td class="columnaNota">&nbsp; </td>';
+                    $html.='<td class="columnaNotaLetras">&nbsp; </td>';
                     $html.='</tr>';
                     //valida si se genera el html
                     if($tipo==1){
@@ -752,8 +818,6 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
                             $html.='</tr>';
 
                     }
-                    $html.='</table>';
-                    $html.='</div>';
             }
             
             return $html;
@@ -764,19 +828,23 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
          * @param type $nota_aprobatoria
          * @return string 
          */
-        function armarMensajeNotaAprobatoria($nota_aprobatoria){
+        function armarMensajeNotaAprobatoria($nota_aprobatoria,$estudiante_creditos){
             $nota_aprobatoria = (double)$nota_aprobatoria;
             if($nota_aprobatoria>10){
                 $nota_aprobatoria = ($nota_aprobatoria/10);
             }
-            $html='<div >';
-            $html.='<table>';
-            $html.='<tr>';
+            $html='<tr>';
             $html.='<td  class="columnaCodigo">&nbsp; </td>';
             $html.='<td class="columnaMensaje"> Las notas van de 0.0 a 5.0, Nota m&iacute;nima aprobatoria: '.number_format($nota_aprobatoria, 1).'</td>';
+            if(trim($estudiante_creditos)=='S') {
+                $html.='<td class="columnaCreditos"> &nbsp;</td>';
+            }
+            $html.='<td class="columnaTD">&nbsp; </td>';
+            $html.='<td class="columnaTC">&nbsp; </td>';
+            $html.='<td class="columnaTA">&nbsp; </td>';
+            $html.='<td class="columnaNota">&nbsp; </td>';
+            $html.='<td class="columnaNotaLetras">&nbsp; </td>';
             $html.='</tr>';
-            $html.='</table>';
-            $html.='</div>';
             return $html;
         }
         
@@ -784,15 +852,31 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
          * Función para armar el html para el mesaje de finalización de la sabana de notas
          * @return string 
          */
-        function armarMensajeFinalSabanaNotas(){
-            $html='<div >';
-            $html.='<table>';
-            $html.='<tr>';
+        function armarMensajeFinalSabanaNotas($estudiante_creditos){
+            $html='<tr>';
             $html.='<td  class="columnaCodigo">&nbsp; </td>';
-            $html.='<td class="columnaMensaje"> Aqui termina este certificado de notas </td>';
+            $html.='<td class="columnaMensaje"> Aqu&iacute; termina este certificado de notas </td>';
+            if(trim($estudiante_creditos)=='S') {
+                $html.='<td class="columnaCreditos"> &nbsp;</td>';
+            }
+            $html.='<td class="columnaTD">&nbsp; </td>';
+            $html.='<td class="columnaTC">&nbsp; </td>';
+            $html.='<td class="columnaTA">&nbsp; </td>';
+            $html.='<td class="columnaNota">&nbsp; </td>';
+            $html.='<td class="columnaNotaLetras">&nbsp; </td>';
             $html.='</tr>';
-            $html.='</table>';
-            $html.='</div>';
+            $html.='<tr>';
+            $html.='<td  class="celdaFinal">&nbsp; </td>';
+            $html.='<td class="celdaFinal"> &nbsp; </td>';
+            if(trim($estudiante_creditos)=='S') {
+                $html.='<td class="celdaFinal"> &nbsp;</td>';
+            }
+            $html.='<td class="celdaFinal">&nbsp; </td>';
+            $html.='<td class="celdaFinal">&nbsp; </td>';
+            $html.='<td class="celdaFinal">&nbsp; </td>';
+            $html.='<td class="celdaFinal">&nbsp; </td>';
+            $html.='<td class="celdaFinal">&nbsp; </td>';
+            $html.='</tr>';
             return $html;
         }
         
@@ -802,23 +886,29 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
          * @param string $pie_pagina
          * @param int $cod_estudiante 
          */
-        function generarPDF($doc_html,$encabezado, $pie_pagina,$cod_estudiante){
+        function generarPDF($doc_html,$encabezado, $pie_pagina,$cod_estudiante,$datosRegistro){
             //rescatamos valores para correr las margenes
             $espacioSuperior = (isset($_REQUEST['espacioSuperior'])?$_REQUEST['espacioSuperior']:0);
             $espacioIzquierda = (isset($_REQUEST['espacioIzquierda'])?$_REQUEST['espacioIzquierda']:0);
-            //calculamos las demas margenes del pdf
+            //calculamos las demas margenes del pdf, la distancia desde el borde de la hoja a cada parte del PDF
+            //Margen superior
             $margenEncabezado   = 19 + $espacioSuperior;
-            $margenIzquierda    = 1 + $espacioIzquierda;
-            $margenDerecha      = 7 - $espacioIzquierda;
-            $margenSuperior     = 47 + $espacioSuperior;
+            //Margen izquierda de todo el documento
+            $margenIzquierda    = 4 + $espacioIzquierda;
+            //Margen derecha detodo el documento
+            $margenDerecha      = 5 - $espacioIzquierda;
+            //Margen superior del cuadro grande de notas
+            $margenSuperior     = 32 + $margenEncabezado;
+            //Margen inferior del cuadro de notas grande
             $margenInferior     = 25 - $espacioSuperior;
+            //Margen firma secretario
             $margenPiePagina    = 8 - $espacioSuperior;
             $this->mpdf=new mPDF('','LETTER',16,'ARIAL',$margenIzquierda,$margenDerecha,$margenSuperior,$margenInferior,$margenEncabezado,$margenPiePagina);
+            //inicia la hoja
             $this->mpdf->AddPage();
             $ruta_estilo = $this->configuracion["raiz_documento"].$this->configuracion["bloques"]."/admin_reporteSabanaDeNotas/clase/estilos_pdf.css";
             //establecemos el archivo de estilos
             $stylesheet =file_get_contents($ruta_estilo);  
-
             $this->mpdf->WriteHTML($stylesheet,1);
             //colocamos el html para el encabezado de pagina
             $this->mpdf->SetHTMLHeader($encabezado,'O',true);
@@ -826,10 +916,11 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
             $this->mpdf->setHTMLFooter($pie_pagina) ;
             //colocamos el html para el documento
             $this->mpdf->WriteHTML($doc_html); 
+            $ruta_imagen = $this->configuracion["raiz_documento"]."/grafico/fondo_notas.png";
             //establecemos el nombre del archivo
             $nombre_archivo = "sabana_de_notas_".$cod_estudiante;
+            $registrarDatosSabanaOficial=$this->registrarDatosSabanaOficial($datosRegistro);
             $this->mpdf->Output($nombre_archivo.'.pdf','D');
-            echo "<br>dsgsdf";
             echo "<script languaje='javascript' type='text/javascript'>window.close();</script>";exit;
              
         }
@@ -910,9 +1001,10 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
             $html= '<div class="pie">';
             $html.= '<table>';
             $html.= '<tr>';
-            $html.= '<td class="columnaDiseno">&nbsp;</td>';
+            $html.= '<td class="columnaNumHoja"></td>';
+            $html.= '<td class="columnaHojas">{PAGENO} de {nbpg}</td>';
             $html.= '<td class="columnaMarca">'.$marca.'</td>';
-            $html.= '<td class="columnaSecretario"><br><br><br><br>'.$secretario.'</td>';
+            $html.= '<td class="columnaSecretario">'.$secretario.'</td>';
             $html.= '</tr>';
             $html.= '</table>';
             $html.= '</div>';
@@ -931,6 +1023,7 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
             <?
             echo "<br><b>Nota:</b>Por favor verifique los datos antes de generar el documento.<br><br>";
             echo $encabezado;
+            echo "<br><br>";
             echo $documento;
             
         }
@@ -1114,5 +1207,29 @@ class funcion_reporteSabanaDeNotas extends funcionGeneral
             echo $enlace;
 				
     }
+    
+    function registrarDatosSabanaOficial($datosRegistro)
+    {
+        $registro=array('usuario'=>$this->usuario,
+                        'fecha'=>date('YmdHis'),
+                        'tiempo'=>time(),
+                        'codigo'=>$datosRegistro['CODIGO'],
+                        'documento'=>$datosRegistro['DOCUMENTO'],
+                        'nombre'=>$datosRegistro['NOMBRE'],
+                        'marca'=>$datosRegistro['MARCA'],
+                        );
+        //verifica si el registro ya existe para la sabana de notas generada
+        //se comenta esta parte para que registre cada vez que se genera una sabana
+/*        $cadena_sql=$this->sql->cadena_sql($this->configuracion,$this->accesoGestion,"consultarRegistroSabana", $registro);
+        $resultadoRegistro=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql,"busqueda");
+        //si el registro no existe lo registra
+        if (!is_array($resultadoRegistro))
+        {*/
+            $cadena_sql=$this->sql->cadena_sql($this->configuracion,$this->accesoGestion,"registrarGeneraSabanaOficial", $registro);
+            $resultadoRegistro=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql,"");
+        /*}*/
+        return $resultadoRegistro;
+
+}
 }
 ?>

@@ -4,6 +4,7 @@
 ---------------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------
  0.0.0.1    Maritza Callejas    11/06/2013
+ 0.0.0.2    Milton Parra        12/08/2015      Se adicionan consultas para registrar la generacion de cada sabana
 ---------------------------------------------------------------------------------------------------------------------------*/
 
 if(!isset($GLOBALS["autorizado"])) {
@@ -131,6 +132,39 @@ class sql_reporteSabanaDeNotas extends sql {	//@ Método que crea las sentencias
                 $cadena_sql.=" ORDER BY CODIGO desc";
 
                 break;
+
+            case 'consultarRegistroSabana':
+                $cadena_sql=" SELECT id_sabana,";
+                $cadena_sql.=" sab_usuario,";
+                $cadena_sql.=" sab_fecha,";
+                $cadena_sql.=" sab_codigo_estudiante,";
+                $cadena_sql.=" sab_doc_estudiante,";
+                $cadena_sql.=" sab_nombre_estudiante,";
+                $cadena_sql.=" sab_marca";
+                $cadena_sql.=" FROM sga_genera_sabana_oficial";
+                $cadena_sql.=" WHERE sab_codigo_estudiante='".$variable['codigo']."'";
+                $cadena_sql.=" AND sab_marca='".$variable['marca']."'";
+                break;
+                
+            case 'registrarGeneraSabanaOficial':
+                $cadena_sql=" INSERT INTO sga_genera_sabana_oficial (";
+                $cadena_sql.=" sab_usuario,";
+                $cadena_sql.=" sab_fecha,";
+                $cadena_sql.=" sab_timestamp,";
+                $cadena_sql.=" sab_codigo_estudiante,";
+                $cadena_sql.=" sab_doc_estudiante,";
+                $cadena_sql.=" sab_nombre_estudiante,";
+                $cadena_sql.=" sab_marca)";
+                $cadena_sql.=" VALUES (";
+                $cadena_sql.="  '".$variable['usuario']."'";
+                $cadena_sql.=" ,'".$variable['fecha']."'";
+                $cadena_sql.=" ,'".$variable['tiempo']."'";
+                $cadena_sql.=" ,'".$variable['codigo']."'";
+                $cadena_sql.=" ,'".$variable['documento']."'";
+                $cadena_sql.=" ,'".$variable['nombre']."'";
+                $cadena_sql.=" ,'".$variable['marca']."')";
+                break;
+                
       
         }
 

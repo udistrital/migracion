@@ -1,7 +1,8 @@
-.notas
-{
+/*El tamanio del encabezado se obtiene sumando el total de pixeles de la clase de cada linea:
+primera linea=columnaTitulo1+columnaNombre+columnaTitulo2+columnaIdentificacion+columnaTitulo3+columnaPromedio
+*/
     
-}
+
 .pie
 {
     width: 100%;
@@ -18,134 +19,351 @@
 {
     font-size: 14px;
     padding-left:60px;
+    border-left: 1px solid #000;
+
+}
+.niveles1
+{
+    font-size: 14px;
+    height: 1px;
+    border-left: 1px solid #000;
 }
 .columnaCodigo
 {
     font-size: 12px;
     text-align:center;
-    width: 88px;
-    padding-left:30px;
+    width: 93px;
+    border-left: 1px solid #000;
+    border-spacing:0;
+             
 }
+
 .columnaNombreEspacioCreditos
 {
     font-size: 12px;
     text-align:left;
-    width: 398px;
-    padding-left:30px;
+    width: 395px;
+    padding-left:10px;
+    border-left: 1px solid #000;
+    
 }
 .columnaNombreEspacio
 {
     font-size: 12px;
     text-align:left;
-    width: 438px;
-    padding-left:30px;
+    width: 439px;
+    padding-left:10px;
+    border-left: 1px solid #000;
+    
 }
 .columnaCreditos
 {
     font-size: 12px;
     text-align:center;
-    width: 40px;
+    width: 44px;
+    border-left: 1px solid #000;
+    
 }
 .columnaTD
 {
     font-size: 12px;
     text-align:center;
-    width: 20px;
+    width: 27px;
+    border-left: 1px solid #000;
+    
 }
 .columnaTC
 {
     font-size: 12px;
     text-align:center;
-    width: 20px;
+    width: 27px;
+    border-left: 1px solid #000;
+    
 }
 .columnaTA
 {
     font-size: 12px;
     text-align:center;
-    width: 20px;
+    width: 27px;
+    border-left: 1px solid #000;
+    
 }
 .columnaNota
 {
     font-size: 12px;
     text-align:center;
-    width: 34px;
+    width: 37px;
+    border-left: 1px solid #000;
+    
 }
 .columnaNotaLetras
 {
-    font-size: 13px;
+    font-size: 12px;
     text-align:center;
+    width: 108px;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
     
-   
 }
 .columnaMensaje
 {
     font-size: 14px;
     text-align:left;
-    width: 580px;
     padding-left:18px;
+    border-left: 1px solid #000;
+
+}
+.celdaFinal
+{
+    border-top: 1px solid #000;
+
 }
 /*estilos encabezado*/
-.tablaEncabezado
+.encabezadoNotas
 {
+    font-size: 10px;
+    font-weight: bold;
+    text-align:center;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
  
 }
+.encabezadoCodigo
+{
+    font-size: 10px;
+    font-weight: bold;
+    text-align:center;
+    width: 93px;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
 
+}
+.encabezadoNombre
+{
+    font-size: 10px;
+    font-weight: bold;
+    text-align:center;
+    width: 439px;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+        
+}
+.encabezadoNombreCreditos
+{
+    font-size: 10px;
+    font-weight: bold;
+    text-align:center;
+    width: 395px;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+        
+}
+.encabezadoLetras
+{
+    font-size: 10px;
+    font-weight: bold;
+    text-align:center;
+    width: 108px;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+    
+}
+.encabezadoNumero
+{
+    font-size: 8px;
+    font-weight: bold;
+    text-align:center;
+    width: 37px;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    letter-spacing: -0.1em
+
+}
+.encabezadoHoras
+{
+    font-size: 8px;
+    font-weight: bold;
+    text-align:center;
+    width: 81px;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    
+    
+}
+.encabezadoCreditos
+{
+    font-size: 8px;
+    font-weight: bold;
+    text-align:center;
+    width: 44px;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    letter-spacing: -0.1em
+    
+}
+.encabezadoHTD
+{
+    font-size: 8px;
+    font-weight: bold;
+    text-align:center;
+    width: 27px;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+
+}
+.encabezadoHTC
+{
+    font-size: 8px;
+    font-weight: bold;
+    text-align:center;
+    width: 27px;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    
+}
+.encabezadoHTA
+{
+    font-size: 8px;
+    font-weight: bold;
+    text-align:center;
+    width: 27px;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    
+}
+.bordeSupIzquierdo
+{
+    font-size: 10px;
+    font-weight: bold;
+    text-align:center;
+    width: 532px;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+
+}
+
+.bordeSupDerecho
+{
+    font-size: 10px;
+    font-weight: bold;
+    text-align:center;
+    width: 145px;
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+
+}
+.bordeSuperior
+{
+    font-size: 10px;
+    font-weight: bold;
+    text-align:center;
+    width: 81px;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+
+}
 .columna1
 {
-    height: 15px;
-    width: 52px;
+    height: 20px;
+}
+.bordeEncabezadoNotas
+{
+    height: 13px;
+}
+.columnaTitulo1
+{
+    
+    text-align:left;
+    font-size: 10px;
+    width: 67px;
+}
+.columnaTitulo2
+{
+    
+    text-align:left;
+    font-size: 10px;
+    width: 75px;
+    text-align:right;
+
+}
+.columnaTitulo3
+{
+    
+    text-align:left;
+    font-size: 10px;
+    width: 58px;
+    text-align:right;
 }
 .columnaNombre
 {
     
     text-align:left;
-    font-size: 16px;
-    width: 508px;
+    font-size: 12px;
+    width: 348px;
     height: 15px;
-    padding-left:10px;
+    padding-left:5px;
 }
 .columnaIdentificacion
 {
     
     text-align:left;
-    font-size: 16px;
-    width: 187px;
+    font-size: 14px;
+    width: 105px;
 }
 .columnaPromedio
 {
     
     text-align:left;
-    font-size: 15px;
-    width: 70px;
+    font-size: 14px;
+    width: 65px;
     padding-left:5px;
 }
 /*estilos pie de pagina*/
-.columnaDiseno
+.columnaNumHoja
 {
     text-align:center;
-    width: 210px;
+    font-size: 10px;
+    width: 100px;
+}
+.columnaHojas
+{
+    text-align:center;
+    font-size: 10px;
+    width: 120px;
 }
 .columnaMarca
 {
     text-align:left;
     font-size: 14px;
-    width: 340px;
+    width: 220px;
 }
 .columnaSecretario
 {
     text-align:center;
     font-size: 12px;
-    width: 230px;
+    width: 300px;
+    border-top: 1px solid #000;
 }
 
 
 .datos
 {
    
-    height:15px;
+    height:13px;
     display:inline-block;
     text-align:left;
-    font-size: 15px;
+    font-size: 14px;
 }
 .datosPequeno
 {
@@ -153,5 +371,5 @@
     height:15px;
     display:inline-block;
     text-align:left;
-    font-size: 14px;
+    font-size: 15px;
 }
