@@ -1,0 +1,318 @@
+<?php
+/**
+ * SQL sql_registro
+ *
+ * Descripción
+ *
+ * @package nombrePaquete
+ * @subpackage nombreSubpaquete
+ * @author Luis Fernando Torres
+ * @version 0.0.0.1
+ * Fecha: 26/02/2013
+ */
+/**
+ * Verifica si la variable global existe para poder navegar en el sistema
+ *
+ * @global boolean Permite navegar en el sistema
+ */
+if (!isset($GLOBALS["autorizado"])) {
+    include("../index.php");
+    exit;
+}
+
+include_once($configuracion["raiz_documento"] . $configuracion["clases"] . "/sql.class.php");
+
+/**
+ * Clase sql_registro
+ *
+ * Esta clase se encarga de crear las sentencias sql para el bloque adminInscripcionCoordinador
+ *
+ * @package InscripcionCoordinadorPorGrupo
+ * @subpackage Consulta
+ */
+class sql_registroAplicarReglamentoVacacionales extends sql
+{
+  public $configuracion;
+
+
+  function __construct($configuracion){
+    $this->configuracion=$configuracion;
+  }
+
+    /**
+     * Funcion que arma la cadena sql
+     * 
+     * @param string $tipo Nombre de la cadena sql
+     * @param type $variable contiene pasan los parámetros que se pasan a la cadena sql
+     * @return string retorna la cadena sql
+     */
+    function cadena_sql($tipo,$variable=""){
+
+        switch($tipo)
+        {
+
+             //Oracle
+            case 'consultarEstudiantes':
+                $cadena_sql=" SELECT distinct est_cod CODIGO,";
+                $cadena_sql.=" est_cra_cod COD_PROYECTO,";
+                $cadena_sql.=" est_nombre NOMBRE,";
+                $cadena_sql.=" EST_ESTADO_EST ESTADO,";
+                $cadena_sql.=" EST_ESTADO ESTADO_SOLO,";
+                $cadena_sql.=" EST_PEN_NRO COD_PLAN,";
+                $cadena_sql.=" EST_IND_CRED TIPO,";
+                $cadena_sql.=" fa_promedio_nota(est_cod)*100 PROMEDIO,";
+                $cadena_sql.=" est_acuerdo ACUERDO";
+                $cadena_sql.=" FROM acest";
+                $cadena_sql.=" inner join accra on cra_cod=est_cra_cod";
+                $cadena_sql.=" inner join acins on ins_est_cod=est_cod";
+                $cadena_sql.=" inner join accursos on cur_id=ins_gr";
+                $cadena_sql.=" WHERE ins_ano=".$variable['ano'];
+                $cadena_sql.=" AND ins_per=".$variable['periodo'];
+                $cadena_sql.=" AND cur_cra_cod=".$variable['proyecto'];
+                $cadena_sql.=" AND est_estado_est in ('A','B','J','V','H','T')";
+                $cadena_sql.=" ORDER BY est_cra_cod,est_cod";
+                    
+            break;
+            
+            
+             case 'consultarEstudiantesReglamento':
+                $cadena_sql="SELECT distinct";
+                $cadena_sql.=" reg_est_cod COD_ESTUDIANTE,";
+                $cadena_sql.=" reg_promedio PROMEDIO,";
+                $cadena_sql.=" est_acuerdo ACUERDO,";
+                $cadena_sql.=" reg_asi_3 HISTORICO,";
+                $cadena_sql.=" est_estado_est ESTADO,";
+                $cadena_sql.=" reg_reglamento REGLAMENTO,";
+                $cadena_sql.=" est_cra_cod COD_PROYECTO";
+                $cadena_sql.=" FROM";
+                $cadena_sql.=" reglamento";
+                $cadena_sql.=" inner join acest ON reg_est_cod = est_cod";
+                $cadena_sql.=" inner join acins on ins_est_cod=est_cod";
+                $cadena_sql.=" inner join accra on cra_cod=est_cra_cod";
+                $cadena_sql.=" inner join accursos on cur_id=ins_gr";
+                $cadena_sql.=" WHERE ins_ano=".$variable['ano'];
+                $cadena_sql.=" AND ins_per=".$variable['periodo'];
+                $cadena_sql.=" AND cur_cra_cod=".$variable['proyecto'];
+                $cadena_sql.=" AND est_estado_est in ('A','B','J','V','H','T')";
+                $cadena_sql.=" AND reg_estado = 'A'";
+                $cadena_sql.=" AND reg_ano = '".$variable['ano']."'";
+                $cadena_sql.=" AND reg_per = '".$variable['periodoAnt']."'";
+                $cadena_sql.=" ORDER BY reg_est_cod";
+                break;
+
+            case 'consultarEstudiantesReglamentoenPrueba':
+
+                $cadena_sql=" SELECT distinct ";
+                $cadena_sql.=" reg_est_cod COD_ESTUDIANTE,";
+                $cadena_sql.=" coalesce(reg_promedio,0) PROMEDIO,";
+                $cadena_sql.=" reg_motivo MOTIVO,";
+                $cadena_sql.=" reg_ano::text||reg_per::text ANIOPERIODO,";
+                $cadena_sql.=" reg_asi_3 HISTORICO,";
+                $cadena_sql.=" reg_reglamento REGLAMENTO ";
+                $cadena_sql.=" FROM";
+                $cadena_sql.=" reglamento";
+                $cadena_sql.=" INNER JOIN ACINS ON REG_EST_COD=INS_EST_COD";
+                $cadena_sql.=" INNER JOIN ACCURSOS ON CUR_ID=INS_GR";
+                $cadena_sql.=" WHERE reg_estado = 'A'";
+                $cadena_sql.=" AND cur_ape_ano=".$variable['ano'];
+                $cadena_sql.=" and cur_ape_per=".$variable['periodo'];
+                $cadena_sql.=" and cur_cra_cod=".$variable['proyecto'];
+                $cadena_sql.=" AND reg_per in (1,3)";
+//                $cadena_sql.=" AND reg_est_cod='20072020014'";
+//                $cadena_sql.=" AND reg_promedio IS NOT NULL";
+                break;
+			   
+            case 'consultarPruebas007':
+                $cadena_sql="SELECT";
+                $cadena_sql.=" reg_est_cod COD_ESTUDIANTE,";
+                $cadena_sql.=" reg_motivo MOTIVO,";
+                $cadena_sql.=" reg_ano::text||reg_per::text ANIOPERIODO,";
+                $cadena_sql.=" reg_asi_3 HISTORICO,";
+                $cadena_sql.=" reg_reglamento REGLAMENTO";                
+                $cadena_sql.=" FROM";
+                $cadena_sql.=" reglamento ";
+                $cadena_sql.=" WHERE";
+                $cadena_sql.=" reg_estado = 'A'";
+                $cadena_sql.=" AND reg_est_cod = '".$variable."'";
+                $cadena_sql.=" AND reg_per in (1,3)";
+                $cadena_sql.=" ORDER BY ANIOPERIODO";
+                break;
+			   
+            case 'consultarNotas':
+                $cadena_sql=" SELECT distinct";
+                $cadena_sql.=" not_est_cod COD_ESTUDIANTE,";
+                $cadena_sql.=" not_asi_cod COD_ASIGNATURA,";
+                $cadena_sql.=" not_nota NOTA,";
+                $cadena_sql.=" not_ano::text||not_per::text ANIOPERIODO,";
+                $cadena_sql.=" not_ano NOTA_ANIO,";
+                $cadena_sql.=" not_per NOTA_PERIODO, ";
+                $cadena_sql.=" not_cra_cod COD_PROYECTO ";
+                $cadena_sql.=" FROM acnot";
+                $cadena_sql.=" INNER JOIN acins ON ins_est_cod=not_est_cod and ins_cra_cod=not_cra_cod";
+                $cadena_sql.=" INNER JOIN accursos ON cur_id=ins_gr";
+                $cadena_sql.=" INNER JOIN accra on cra_cod=not_cra_cod";
+                $cadena_sql.=" WHERE cur_ape_ano=".$variable['ano'];
+                $cadena_sql.=" and cur_ape_per=".$variable['periodo'];
+                $cadena_sql.=" and cur_cra_cod=".$variable['proyecto'];
+                $cadena_sql.=" AND not_est_reg='A'";
+                $cadena_sql.=" AND not_nota<cra_nota_aprob";
+                $cadena_sql.=" AND not_obs not in (10,11,19)";
+                $cadena_sql.=" order by not_est_cod, not_asi_cod,not_ano,not_per";
+                break;
+
+            case 'consultarAprobadasVacacionales':
+                $cadena_sql="SELECT";
+                $cadena_sql.=" not_asi_cod COD_ASIGNATURA";
+                $cadena_sql.=" FROM";
+                $cadena_sql.=" acnot ";
+                $cadena_sql.=" WHERE not_est_cod =".$variable['codEstudiante'];
+                $cadena_sql.=" AND not_est_reg='A'";
+                $cadena_sql.=" AND (not_nota>=(select cra_nota_aprob from accra where cra_cod=not_cra_cod) or not_obs=19)";
+                $cadena_sql.=" AND not_ano=".$variable['anio'];
+                $cadena_sql.=" AND not_per=".$variable['periodo'];
+                break;
+
+            case 'actualizarPromedioReglamento':
+                $cadena_sql="UPDATE";
+                $cadena_sql.=" reglamento";
+                $cadena_sql.=" SET reg_promedio=".$variable['promedio']."";
+                $cadena_sql.=" WHERE reg_ano=".$variable['ano']."";
+                $cadena_sql.=" AND reg_per=".$variable['periodo']."";
+                $cadena_sql.=" AND reg_est_cod=".$variable['codEstudiante']."";
+                $cadena_sql.=" AND reg_cra_cod=".$variable['codProyecto']."";
+                break;
+
+            case 'actualizarReglamento':
+                $cadena_sql="UPDATE";
+                $cadena_sql.=" reglamento";
+                $cadena_sql.=" SET reg_motivo=".$variable['motivo'].",";
+                $cadena_sql.=" reg_veces=".$variable['numVecesPerdidos'].",";
+                $cadena_sql.=" reg_asi_3=".$variable['espaciosTercerar'].",";
+                $cadena_sql.=" reg_causal_exclusion=".$variable['causal'].",";
+                $cadena_sql.=" reg_reglamento='".$variable['reglamento']."',";
+                $cadena_sql.=" reg_porcentaje_plan='".$variable['porcentaje']."',";
+                $cadena_sql.=" reg_promedio='".$variable['promedio']."',";
+                $cadena_sql.=" reg_espacio_veces='".$variable['espacios_perdidos']."'";
+                $cadena_sql.=" WHERE reg_ano='".$variable['anio']."'";
+                $cadena_sql.=" AND reg_per='".$variable['periodo']."'";
+                $cadena_sql.=" AND reg_est_cod='".$variable['estudiante']."'";
+                $cadena_sql.=" AND reg_cra_cod='".$variable['proyecto']."'";
+                break;
+
+            case 'actualizarCausal':
+                $cadena_sql="UPDATE";
+                $cadena_sql.=" reglamento";
+                $cadena_sql.=" SET reg_causal_exclusion='".$variable['causal']."'";
+                $cadena_sql.=" WHERE reg_ano='".$variable['anio']."'";
+                $cadena_sql.=" AND reg_per='".$variable['periodo']."'";
+                $cadena_sql.=" AND reg_est_cod='".$variable['estudiante']."'";
+                $cadena_sql.=" AND reg_cra_cod='".$variable['proyecto']."'";
+                break;
+
+            case 'actualizarEstadoEstudiante':
+                $cadena_sql="UPDATE";
+                $cadena_sql.=" acest";
+                $cadena_sql.=" SET est_estado_est='".$variable['estado']."'";
+                $cadena_sql.=" WHERE est_cra_cod='".$variable['proyecto']."'";
+                $cadena_sql.=" AND est_cod='".$variable['estudiante']."'";
+                break;
+
+            case 'insertarInicioEvento':
+                $cadena_sql=" INSERT";
+                $cadena_sql.=" INTO ACCALEVENTOS";
+                $cadena_sql.=" (";
+                $cadena_sql.=" ACE_COD_EVENTO,";
+                $cadena_sql.=" ACE_CRA_COD,";
+                $cadena_sql.=" ACE_FEC_INI,";
+                $cadena_sql.=" ACE_TIP_CRA,";
+                $cadena_sql.=" ACE_DEP_COD,";
+                $cadena_sql.=" ACE_ANIO,";
+                $cadena_sql.=" ACE_PERIODO,";
+                $cadena_sql.=" ACE_ESTADO,";
+                $cadena_sql.=" ACE_HABILITAR_EX";
+                $cadena_sql.=" )";
+                $cadena_sql.=" VALUES";
+                $cadena_sql.=" (";
+                $cadena_sql.=" ".$variable['evento'].",";
+                $cadena_sql.=" ".$variable['proyecto'].",";
+                $cadena_sql.=" CURRENT_TIMESTAMP,";
+                $cadena_sql.=" ".$variable['tipo_proyecto'].",";
+                $cadena_sql.=" (SELECT cra_dep_cod FROM accra WHERE cra_cod=".$variable['proyecto']."),";
+                $cadena_sql.=" ".$variable['anio'].",";
+                $cadena_sql.=" ".$variable['periodo'].",";
+                $cadena_sql.=" 'A',";
+                $cadena_sql.=" 'N'";
+                $cadena_sql.=" )";
+                break;
+        
+            case 'insertarFinEvento':
+                $cadena_sql=" UPDATE ACCALEVENTOS";
+                $cadena_sql.=" SET ACE_FEC_FIN=CURRENT_TIMESTAMP";
+                $cadena_sql.=" WHERE";
+                $cadena_sql.=" ACE_COD_EVENTO=".$variable['evento'];
+                $cadena_sql.=" AND ACE_CRA_COD=".$variable['proyecto'];
+                $cadena_sql.=" AND ACE_ANIO=".$variable['anio'];
+                $cadena_sql.=" AND ACE_PERIODO=".$variable['periodo'];
+                break;			
+            
+            case 'consultarProyectosCierre':
+                $cadena_sql="select distinct est_cra_cod PROYECTO";
+                $cadena_sql.=" from acesthis";
+                $cadena_sql.=" where est_ano=".$variable['anio'];
+                $cadena_sql.=" and est_per=".$variable['periodo'];
+                break;
+            
+            case 'consultarPorcentajePlan':
+                $cadena_sql=" SELECT DISTINCT est_cra_cod PROYECTO,";
+                $cadena_sql.=" est_pen_nro PLAN,";
+                $cadena_sql.=" est_ind_cred TIPO_ESTUDIANTE,";
+                $cadena_sql.=" plan_creditos CREDITOS_PLAN,";
+                $cadena_sql.=" coalesce(sum(not_cred),0) CREDITOS_ESTUDIANTE,";
+                $cadena_sql.=" coalesce(count(not_asi_cod),0) ESPACIOS_ESTUDIANTE";
+                $cadena_sql.=" FROM acnot";
+                $cadena_sql.=" INNER JOIN acest ON est_cod=not_est_cod";
+                $cadena_sql.=" AND est_cra_cod=not_cra_cod";
+                $cadena_sql.=" LEFT OUTER JOIN acplanestudio ON est_cra_cod=plan_cra_cod";
+                $cadena_sql.=" AND est_pen_nro=plan_pen_nro";
+                $cadena_sql.=" WHERE not_est_cod=".$variable['codEstudiante'];
+                $cadena_sql.=" AND trim(not_est_reg)='A'";
+                $cadena_sql.=" AND (not_nota>=(SELECT cra_nota_aprob FROM accra WHERE cra_cod=not_cra_cod)";
+                $cadena_sql.=" OR not_obs IN (19,22,24))";
+                $cadena_sql.=" AND not_ano::text||not_per::text<'20113'";
+                $cadena_sql.=" GROUP BY est_cra_cod,est_pen_nro,est_ind_cred,plan_creditos";
+                break;
+
+            case 'consultarPorcentajeTotalPlan':
+                $cadena_sql=" SELECT DISTINCT est_cra_cod PROYECTO,";
+                $cadena_sql.=" est_pen_nro PLAN,";
+                $cadena_sql.=" est_ind_cred TIPO_ESTUDIANTE,";
+                $cadena_sql.=" plan_creditos CREDITOS_PLAN,";
+                $cadena_sql.=" coalesce(sum(not_cred),0) CREDITOS_ESTUDIANTE,";
+                $cadena_sql.=" coalesce(count(not_asi_cod),0) ESPACIOS_ESTUDIANTE";
+                $cadena_sql.=" FROM acnot";
+                $cadena_sql.=" INNER JOIN acest ON est_cod=not_est_cod";
+                $cadena_sql.=" AND est_cra_cod=not_cra_cod";
+                $cadena_sql.=" LEFT OUTER JOIN acplanestudio ON est_cra_cod=plan_cra_cod";
+                $cadena_sql.=" AND est_pen_nro=plan_pen_nro";
+                $cadena_sql.=" WHERE not_est_cod=".$variable['codEstudiante'];
+                $cadena_sql.=" AND trim(not_est_reg)='A'";
+                $cadena_sql.=" AND (not_nota>=(SELECT cra_nota_aprob FROM accra WHERE cra_cod=not_cra_cod)";
+                $cadena_sql.=" OR not_obs IN (19,22,24))";
+                $cadena_sql.=" GROUP BY est_cra_cod,est_pen_nro,est_ind_cred,plan_creditos";
+                break;
+
+                        
+             case 'consultarTipoProyecto':
+                 $cadena_sql="SELECT cra_tip_cra TIPO,";
+                 $cadena_sql.=" tra_nivel NIVEL";
+                 $cadena_sql.=" FROM accra";
+                 $cadena_sql.=" INNER JOIN actipcra on cra_tip_cra=tra_cod";
+                 $cadena_sql.=" WHERE cra_cod=".$variable;
+                 break;
+
+
+       }
+	return $cadena_sql;
+   }
+}
+?>
