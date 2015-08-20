@@ -1655,7 +1655,7 @@ ________________________________________________________________________________
 		$valor[0]=$usuario;
                 $calendario='';
 								
-		$confec = "SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'yyyymmdd')) FROM dual";
+		$confec = "SELECT cast(TO_CHAR(CURRENT_TIMESTAMP,'YYYYMMDD') as numeric)";
 		@$rows=$this->ejecutarSQL($configuracion, $this->accesoOracle, $confec, "busqueda");
 		$valor[9] =$rows[0][0];
 		$valor[10]=$_REQUEST['nivel'];

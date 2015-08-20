@@ -368,8 +368,8 @@ class sql_registro_PlanTrabajo extends sql
                             
 			case "validaFechas":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(ACE_FEC_INI,'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(ACE_FEC_FIN,'YYYYMMDD')), ";
+				$cadena_sql.="cast(TO_CHAR(ACE_FEC_INI,'YYYYMMDD') as numeric), ";
+				$cadena_sql.="cast(TO_CHAR(ACE_FEC_FIN,'YYYYMMDD') as numeric), ";
 				$cadena_sql.="TO_CHAR(ACE_FEC_FIN,'dd-Mon-yy'), ";
                                 $cadena_sql.="ACE_HABILITAR_EX ";
 				$cadena_sql.="FROM ";
@@ -393,8 +393,8 @@ class sql_registro_PlanTrabajo extends sql
                             
 			case "validaFechasPersonalizada":
 				$cadena_sql="SELECT ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(ACX_FECHA_INI,'YYYYMMDD')), ";
-				$cadena_sql.="TO_NUMBER(TO_CHAR(ACX_FECHA_FIN,'YYYYMMDD')), ";
+				$cadena_sql.="cast(TO_CHAR(ACX_FECHA_INI,'YYYYMMDD') as numeric), ";
+				$cadena_sql.="cast(TO_CHAR(ACX_FECHA_FIN,'YYYYMMDD') as numeric), ";
 				$cadena_sql.="TO_CHAR(ACX_FECHA_FIN,'dd-Mon-yy') ";
 				$cadena_sql.="FROM ";
 				$cadena_sql.="acexevento,acasperi ";
@@ -411,13 +411,13 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.="AND ";
 				$cadena_sql.="ACX_ESTADO = 'A' ";
                                 $cadena_sql.="AND ";
-				$cadena_sql.="'".$variable[9]."' BETWEEN TO_NUMBER(TO_CHAR(ACX_FECHA_INI, 'yyyymmdd')) AND TO_NUMBER(TO_CHAR(ACX_FECHA_FIN, 'yyyymmdd')) ";
+				$cadena_sql.="'".$variable[9]."' BETWEEN cast(TO_CHAR(ACX_FECHA_INI, 'yyyymmdd') as numeric) AND cast(TO_CHAR(ACX_FECHA_FIN, 'yyyymmdd') as numeric) ";
 				$cadena_sql.="ORDER BY 2 DESC ";
                                 break;
                             
                         case "validaFechasDocentePlanta":
-                                $cadena_sql=" SELECT TO_NUMBER(TO_CHAR(ACE_FEC_INI,'YYYYMMDD')),";
-                                $cadena_sql.=" TO_NUMBER(TO_CHAR(ACE_FEC_FIN,'YYYYMMDD')),";
+                                $cadena_sql=" SELECT cast(TO_CHAR(ACE_FEC_INI,'YYYYMMDD') as numeric),";
+                                $cadena_sql.=" cast(TO_CHAR(ACE_FEC_FIN,'YYYYMMDD') as numeric),";
                                 $cadena_sql.=" TO_CHAR(ACE_FEC_FIN,'dd-Mon-yy'),";
                                 $cadena_sql.=" emp_nro_iden,";
                                 $cadena_sql.=" emp_dep_cod";
@@ -431,6 +431,12 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.=" and ace_periodo=ape_per";
                                 $cadena_sql.=" and ace_cod_evento=41";
                                 $cadena_sql.=" and ace_dep_cod=emp_dep_cod";
+                                $cadena_sql.=" and emp_nro_iden not in (select car_doc_nro from accursos";
+                                $cadena_sql.=" inner join achorarios on hor_id_curso=cur_id";
+                                $cadena_sql.=" inner join accargas on car_hor_id=hor_id";
+                                $cadena_sql.=" inner join acasperi on ape_ano=cur_ape_ano and ape_per=cur_ape_per";
+                                $cadena_sql.=" where ape_estado='".$variable[10]."'";
+                                $cadena_sql.=" and car_doc_nro=emp_nro_iden)";
                                 $cadena_sql.=" order by ace_fec_fin desc";
 				break;
                             
