@@ -468,6 +468,19 @@ require_once("../clase/encriptar.class.php");
 	$variable=$cripto->codificar_url($variable,$configuracion);
 	$enlaceReciboDerechosPecuniarios=$indiceAcademico.$variable;
 
+
+        $variable="pagina=admin_cierreVacacionales";
+	$variable.="&usuario=".$_SESSION['usuario_login'];
+	$variable.="&action=loginCondor";
+	$variable.="&opcion=inicio";
+	$variable.="&tipoUser=4";
+	$variable.="&nivel=V";
+	$variable.="&modulo=Coordinador";
+	$variable.="&aplicacion=Condor";
+	$variable.="&tiempo=300";
+	$variable=$cripto->codificar_url($variable,$configuracion);
+	$enlaceCierreVacacionales=$indiceAcademico.$variable;
+        
 ?>
 <html>
 <head>
@@ -648,6 +661,7 @@ require_once("../clase/encriptar.class.php");
 <a href="#">Cierre Semestre</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<?PHP echo $enlaceCierre ?>">Cerrar Semestre</a></li>
+<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceCierreVacacionales ?>">Cerrar Vacacionales</a></li>
 <li class="subitem1"><a target="principal" href="<?PHP echo $enlaceNotasNoCierre ?>">Cargar Notas</a></li>
 </ul>
 </li>
