@@ -29,12 +29,15 @@ class sql_registro_PlanTrabajo extends sql
 				break;
 			
 			case "seleccionarPeriodo":
-				$cadena_sql="SELECT ";
-				$cadena_sql.="ape_ano, ape_per, ape_estado ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="acasperi ";
-				$cadena_sql.="WHERE ";
-				$cadena_sql.="ape_estado in ('A','V','P')";
+                                $cadena_sql=" SELECT";
+                                $cadena_sql.=" P.ano, P.per from (";
+                                $cadena_sql.=" SELECT DISTINCT dpt_ape_ano ano, dpt_ape_per per FROM acdocplantrabajo";
+                                $cadena_sql.=" UNION";
+                                $cadena_sql.=" SELECT DISTINCT car_ape_ano ano, car_ape_per per FROM accargahis";
+                                $cadena_sql.=" UNION";
+                                $cadena_sql.=" SELECT DISTINCT cur_ape_ano ano, cur_ape_per per FROM accursos";
+                                $cadena_sql.=" ) AS P";
+                                $cadena_sql.=" ORDER BY P.ano desc, P.per desc";
 				break;
 			
 			case "fechaactual":
@@ -99,7 +102,8 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.=" INNER JOIN accargas ON hor_id=car_hor_id";
                                 $cadena_sql.=" INNER JOIN accra ON cra_cod = cur_cra_cod";
                                 $cadena_sql.=" INNER JOIN acdocente ON car_doc_nro = doc_nro_iden";
-                                $cadena_sql.=" WHERE ape_estado = '".$variable[10]."' ";
+                                $cadena_sql.=" WHERE ape_ano = '".$variable[1]."' ";
+                                $cadena_sql.=" AND ape_per = ".$variable[2]." ";
                                 $cadena_sql.=" AND cra_cod = ".$variable[3]." ";
                                 $cadena_sql.=" AND car_estado = 'A'";
                                 $cadena_sql.=" AND hor_estado='A'";
@@ -262,8 +266,9 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.=" FROM accargas";
                                 $cadena_sql.=" INNER JOIN achorarios ON car_hor_id=hor_id";
                                 $cadena_sql.=" INNER JOIN accursos ON cur_id=hor_id_curso";
-                                $cadena_sql.=" INNER JOIN acasperi ON cur_ape_ano=ape_ano AND cur_ape_per=ape_per";
-                                $cadena_sql.=" WHERE ape_estado='".$variable[10]."'";
+                                //$cadena_sql.=" INNER JOIN acasperi ON cur_ape_ano=ape_ano AND cur_ape_per=ape_per";
+                                $cadena_sql.=" WHERE cur_ape_ano='".$variable[1]."'";
+                                $cadena_sql.=" AND cur_ape_per=".$variable[2]."";
                                 $cadena_sql.=" AND car_doc_nro=".$variable[4]."";
                                 $cadena_sql.=" AND car_estado='A'";
                                 $cadena_sql.=" AND hor_estado='A'";
@@ -272,8 +277,9 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.=" GROUP BY car_tip_vin) carga,";
                                 $cadena_sql.=" (SELECT count(dpt_hora) numactividades";
                                 $cadena_sql.=" from acdocplantrabajo";
-                                $cadena_sql.=" INNER JOIN acasperi ON ape_ano=dpt_ape_ano AND ape_per=dpt_ape_per";
-                                $cadena_sql.=" WHERE ape_estado='".$variable[10]."'";
+                                //$cadena_sql.=" INNER JOIN acasperi ON ape_ano=dpt_ape_ano AND ape_per=dpt_ape_per";
+                                $cadena_sql.=" WHERE dpt_ape_ano='".$variable[1]."'";
+                                $cadena_sql.=" AND dpt_ape_per=".$variable[2]."";
                                 $cadena_sql.=" AND dpt_doc_nro_iden=".$variable[4]."";
                                 $cadena_sql.=" AND dpt_estado='A'";
                                 $cadena_sql.=" AND dpt_tvi_cod=actipvin.tvi_cod) actividades";
@@ -288,18 +294,19 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql=" SELECT DISTINCT cur_asi_cod, asi_nombre from accargas";
                                 $cadena_sql.=" INNER JOIN achorarios ON hor_id=car_hor_id";
                                 $cadena_sql.=" INNER JOIN accursos ON cur_id=hor_id_curso";
-                                $cadena_sql.=" INNER JOIN acasperi ON ape_ano=cur_ape_ano AND ape_per=cur_ape_per";
+                                //$cadena_sql.=" INNER JOIN acasperi ON ape_ano=cur_ape_ano AND ape_per=cur_ape_per";
                                 $cadena_sql.=" INNER JOIN acasi ON asi_cod=cur_asi_cod";
                                 $cadena_sql.=" WHERE car_doc_nro=".$variable[4]."";
-                                $cadena_sql.=" AND ape_estado='".$variable[10]."'";
+                                $cadena_sql.=" AND cur_ape_ano='".$variable[1]."'";
+                                $cadena_sql.=" AND cur_ape_per=".$variable[2]."";
                                 break;
 		
 			case "totalPorActividad":
 				$cadena_sql="SELECT COUNT(DPT_HORA) ";
-				$cadena_sql.="FROM acdocplantrabajo,acasperi ";
-				$cadena_sql.="WHERE APE_ANO = DPT_APE_ANO ";
-				$cadena_sql.="AND APE_PER = DPT_APE_PER ";
-				$cadena_sql.="AND APE_ESTADO = '".$variable[10]."' ";
+				$cadena_sql.="FROM acdocplantrabajo ";
+				$cadena_sql.="WHERE DPT_APE_ANO='".$variable[1]."'";
+				$cadena_sql.="AND DPT_APE_PER='".$variable[2]."'";
+//				$cadena_sql.="AND APE_ESTADO = '".$variable[10]."' ";
 				$cadena_sql.="AND DPT_DOC_NRO_IDEN = ".$variable[0]." ";
 				$cadena_sql.="AND DPT_DAC_COD = ".$variable[5]." ";
 				$cadena_sql.="AND DPT_ESTADO = 'A' ";

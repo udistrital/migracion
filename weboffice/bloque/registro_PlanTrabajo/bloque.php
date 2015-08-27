@@ -51,29 +51,36 @@ class bloque_registro_PlanTrabajo extends bloque
 				switch($accion)
 				{
 					case "dignotasPregrado":
+                                            //echo "A";exit;
 						$this->funcion->digitarNotasPregrado($this->configuracion, $accesoOracle,$acceso_db);
 						break;
 					case "actividades":
+                                            //Esta opcion permite regsitrar una actividad.
 						$this->funcion->registroActividades($this->configuracion);
 						break;
 					case "nuevoRegistro":
+                                            //esta opcion se utiliza cuando se envia formulario para registrar una actividad
 						$this->funcion->registrarPlanTrabajo($this->configuracion);
 						break;
 					case "mensajes":
+                                            //Presenta mensajes de error
 						$this->funcion->mensajesErrores($this->configuracion);
 						break;
 					case "reportes":
+                                            //esta opcion se utiliza para consultar el plan e imprimirlo
 						$this->funcion->reportes($this->configuracion);
 						break;
 					case "borrar":
+                                            //Esta opcion se utiliza para enviar datos de borrado de una actividad
 						$this->funcion->borrarActividades($this->configuracion);
 						break;
 				}
 			}
 			else
 			{
-				$accion="nuevo";
-				$this->funcion->registrarPlanTrabajo($this->configuracion);
+                            //esta opcion se utiliza para registrar plan de trabajo. Es la opcion por defecto.
+                            $accion="nuevo";
+                            $this->funcion->registrarPlanTrabajo($this->configuracion);
 			}
 		}
 		else
@@ -96,23 +103,27 @@ class bloque_registro_PlanTrabajo extends bloque
 		{
 			if(isset($_REQUEST["opcion"]) && !isset($_REQUEST["borrar"]) && !isset($_REQUEST["grabobs"]) && !isset($_REQUEST["modbobs"]))
 			{
-				$valor[10]=$_REQUEST['nivel'];
-				$this->funcion->guardarPlanTrabajo($this->configuracion);
+                            //a traves de esta opcion se guarda el registro nuevo
+                            $valor[10]=$_REQUEST['nivel'];
+                            $this->funcion->guardarPlanTrabajo($this->configuracion);
 			}
 			if(!isset($_REQUEST["opcion"]) && isset($_REQUEST["borrar"]) && !isset($_REQUEST["grabobs"]) && !isset($_REQUEST["modbobs"]))
 			{
-				$valor[10]=$_REQUEST['nivel'];
-				$this->funcion->eliminarActividad($this->configuracion);
+                            //a traves de esta opcion se elimina el registro
+                            $valor[10]=$_REQUEST['nivel'];
+                            $this->funcion->eliminarActividad($this->configuracion);
 			}
 			if(!isset($_REQUEST["opcion"]) && !isset($_REQUEST["borrar"]) && isset($_REQUEST["grabobs"]) && !isset($_REQUEST["modbobs"]))
 			{
-				$valor[10]=$_REQUEST['nivel'];
-				$this->funcion->grabarObservacion($this->configuracion);
+                            //a traves de esta opcion se inserta el registro de observacion
+                            $valor[10]=$_REQUEST['nivel'];
+                            $this->funcion->grabarObservacion($this->configuracion);
 			}
 			if(!isset($_REQUEST["opcion"]) && !isset($_REQUEST["borrar"]) && !isset($_REQUEST["grabobs"]) && isset($_REQUEST["modbobs"]))
 			{
-				$valor[10]=$_REQUEST['nivel'];
-				$this->funcion->ModificarObservacion($this->configuracion);
+                            //a traves de esta opcion se modifica el regsitro de observacion
+                            $valor[10]=$_REQUEST['nivel'];
+                            $this->funcion->ModificarObservacion($this->configuracion);
 			}
 		}
 		else

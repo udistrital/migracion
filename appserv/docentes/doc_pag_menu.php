@@ -282,8 +282,7 @@ require_once("../clase/encriptar.class.php");
 
 <li class="item2"><a href="#">Plan de trabajo</a>
 <ul class="submenus">
-<li class="subitem1"><a target="principal" href="<?echo $enlaceDocentesPlanTrabajoActual?>">Registrar Periodo Actual!</a></li>
-<li class="subitem1"><a target="principal"  href="<?echo $enlaceDocentesPlanTrabajoProximo?>">Registrar Periodo Pr&oacute;ximo!</a></li>
+<li class="subitem1"><a target="principal" href="<?echo $enlaceDocentesPlanTrabajoActual?>">Consultar y Registrar</a></li>
 <li class="subitem1"><a href="#" class="postmenu">Reglamentaci&oacute;n</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="est_doc.pdf">Estatuto Del Profesor</a></li>

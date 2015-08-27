@@ -64,14 +64,9 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 			echo "¡SU SESION HA EXPIRADO, INGRESE NUEVAMENTE!",
 			EXIT;
 		}
-
-		$estado=$_REQUEST['nivel'];
-		$valor[10]=$estado;
-
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"anioper",$valor);
-		$resultAnioPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		$ano=$resultAnioPer[0][0];
-		$per=$resultAnioPer[0][1];
+                $periodo=  explode('-', $_REQUEST['periodo']);
+		$ano=$periodo[0];
+		$per=$periodo[1];
 		
 		$valor[0]=$usuario;
 		$valor[1]=$ano;
@@ -138,7 +133,6 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 										$variable.="&ano=".$valor[1];
 										$variable.="&per=".$valor[2];
 										$variable.="&depCod=".$valor[3];
-										$variable.="&nivel=".$valor[10];
 										$variable.="&nomcra=".$valor[4];
 										//$variable.="&no_pagina=true";
 										$variable=$cripto->codificar_url($variable,$configuracion);
@@ -177,13 +171,11 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 			echo "¡SU SESION HA EXPIRADO, INGRESE NUEVAMENTE!",
 			EXIT;
 		}
-		$estado=$_REQUEST['nivel'];
-		$valor[10]=$estado;
+//		$estado=$_REQUEST['nivel'];
+//		$valor[10]=$estado;
 		
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"anioper",$valor);
-		$resultAnioPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		$ano=$resultAnioPer[0][0];
-		$per=$resultAnioPer[0][1];
+		$ano=$_REQUEST['ano'];
+		$per=$_REQUEST['per'];
 		
 		$valor[0]=$usuario;
 		$valor[1]=$ano;
@@ -286,7 +278,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 										$variable.="&ano=".$valor[1];
 										$variable.="&per=".$valor[2];
 										$variable.="&carrera=".$valor[3];
-										$variable.="&nivel=".$valor[10];
+										//$variable.="&nivel=".$valor[10];
 										$variable.="&nomcra=".$valor[4];
 										//$variable.="&no_pagina=true";
 										$variable=$cripto->codificar_url($variable,$configuracion);
@@ -327,7 +319,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 			EXIT;
 		}
 		$valor[0]=$usuario;
-		$valor[10]=$_REQUEST['nivel'];
+//		$valor[10]=$_REQUEST['nivel'];
 		$valor[3]=$_REQUEST['carrera'];
 		$valor[4]=$_REQUEST['nomcra'];
 		$valor[1]=$_REQUEST['ano'];
@@ -410,7 +402,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 											$variable.="&ano=".$valor[1];
 											$variable.="&per=".$valor[2];
 											$variable.="&carrera=".$valor[3];
-											$variable.="&nivel=".$valor[10];
+											//$variable.="&nivel=".$valor[10];
 											//$variable.="&no_pagina=true";
 											$variable=$cripto->codificar_url($variable,$configuracion);
 											echo $indice.$variable."'";
@@ -559,15 +551,11 @@ ________________________________________________________________________________
 		}
 		$valor[0]=$usuario;
 								
-		$confec = "SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'yyyymmdd')) FROM dual";
-		@$rows=$this->ejecutarSQL($configuracion, $this->accesoOracle, $confec, "busqueda");
-		$valor[9] =$rows[0][0];
-		$valor[10]=$_REQUEST['nivel'];
+                $date=date('Ymd');
+		$valor[9] =$date;
 						
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"anioper",$valor);
-		$resultAnioPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		$ano=$resultAnioPer[0][0];
-		$per=$resultAnioPer[0][1];
+		$ano=$_REQUEST['ano'];
+		$per=$_REQUEST['periodo'];
 		
 		$qryFechas=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "validaFechas",$valor);
 		@$calendario=$this->ejecutarSQL($configuracion, $this->accesoOracle, $qryFechas, "busqueda");
@@ -595,7 +583,9 @@ ________________________________________________________________________________
 										 echo "<a href='";
 										$variable="pagina=registro_plan_trabajo";
 										$variable.="&opcion=reportes";
-										$variable.="&nivel=".$valor[10];
+										//$variable.="&nivel=".$valor[10];
+										$variable.="&ano=".$ano;
+										$variable.="&per=".$per;
 										//$variable.="&no_pagina=true";
 										$variable=$cripto->codificar_url($variable,$configuracion);
 										echo $indice.$variable."'";
@@ -607,7 +597,9 @@ ________________________________________________________________________________
 									echo "<a href='";
 										$variable="pagina=registro_plan_trabajo";
 										$variable.="&opcion=reportes";
-										$variable.="&nivel=".$valor[10];
+										$variable.="&ano=".$ano;
+										$variable.="&per=".$per;
+										//$variable.="&nivel=".$valor[10];
 										$variable=$cripto->codificar_url($variable,$configuracion);
 										echo $indice.$variable."'";
 										echo "title='Haga Click aqu&iacute; para imprimir el reporte'><b>IMPRIMIR</b></a>";
@@ -685,10 +677,10 @@ ________________________________________________________________________________
                             <td width="50%">Seleccione el per&iacute;odo para consultar</td>
                             <td >
                                 <?
-                                    $html_perCod="<select id='nivel' tabindex='".$tab++."' size='1' name='nivel'>";
+                                    $html_perCod="<select id='periodo' tabindex='".$tab++."' size='1' name='periodo'>";
                                     foreach ($resultAnioPer as $key => $value)
                                     {
-                                        $html_perCod.="<option value='".$value[2]."'";
+                                        $html_perCod.="<option value='".$value[0]."-".$value[1]."'";
                                         $html_perCod.=" >".$value[0]."-".$value[1]."</option>  ";
                                     }
                                 $html_perCod.="</select>";
@@ -714,7 +706,6 @@ ________________________________________________________________________________
     function enlaceConsultar($nombre)
         {
             ?><input type='hidden' name='formulario' value="<? echo $this->formulario ?>">
-            <input type='hidden' name='periodo' value="periodo">
             <?
                 unset($_REQUEST['nivel']);
                 foreach ($_REQUEST as $key => $value)

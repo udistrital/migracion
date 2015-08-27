@@ -89,28 +89,28 @@ class bloque_registro_PlanTrabajo extends bloque
 		{
 			if(isset($_REQUEST["opcion"]) && !isset($_REQUEST["borrar"]) && !isset($_REQUEST["grabobs"]) && !isset($_REQUEST["modbobs"]))
 			{
-				$valor[10]=$_REQUEST['nivel'];
+				$valor[10]=(isset($_REQUEST['nivel'])?$_REQUEST['nivel']:'');
 				$this->funcion->guardarPlanTrabajo($this->configuracion, $accesoOracle,$acceso_db);
 			}
 			if(!isset($_REQUEST["opcion"]) && isset($_REQUEST["borrar"]) && !isset($_REQUEST["grabobs"]) && !isset($_REQUEST["modbobs"]))
 			{
-				$valor[10]=$_REQUEST['nivel'];
+				$valor[10]=(isset($_REQUEST['nivel'])?$_REQUEST['nivel']:'');
 				$this->funcion->eliminarActividad($this->configuracion, $accesoOracle,$acceso_db);
 			}
 			if(!isset($_REQUEST["opcion"]) && !isset($_REQUEST["borrar"]) && isset($_REQUEST["grabobs"]) && !isset($_REQUEST["modbobs"]))
 			{
-				$valor[10]=$_REQUEST['nivel'];
+				$valor[10]=(isset($_REQUEST['nivel'])?$_REQUEST['nivel']:'');
 				$this->funcion->grabarObservacion($this->configuracion, $accesoOracle,$acceso_db);
 			}
 			if(!isset($_REQUEST["opcion"]) && !isset($_REQUEST["borrar"]) && !isset($_REQUEST["grabobs"]) && isset($_REQUEST["modbobs"]))
 			{
-				$valor[10]=$_REQUEST['nivel'];
+				$valor[10]=(isset($_REQUEST['nivel'])?$_REQUEST['nivel']:'');
 				$this->funcion->ModificarObservacion($this->configuracion, $accesoOracle,$acceso_db);
 			}
 		}
 		else
 		{
-			$valor[10]=$_REQUEST['nivel'];
+			$valor[10]=(isset($_REQUEST['nivel'])?$_REQUEST['nivel']:'');
 			$this->funcion->redireccionarInscripcion($this->configuracion, "formgrado",$valor);	
 		}
 		

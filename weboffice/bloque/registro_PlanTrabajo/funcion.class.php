@@ -58,10 +58,8 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 			echo "¡IMPOSIBLE RESCATAR EL USUARIO, SU SESION HA EXPIRADO, INGRESE NUEVAMENTE!",
 			EXIT;
 		}
-		$calendario=$this->validaCalendario('',$configuracion);
-		//$observaciones=$this->notasobservaciones();guardarNotas
-		
-		$estado=$_REQUEST['nivel'];
+
+                $estado='A';//$_REQUEST['nivel'];
 		$valor[10]=$estado;
 
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"anioper",$valor);
@@ -73,10 +71,29 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 		$valor[1]=$ano;
 		$valor[2]=$per;
 					
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechaactual",'');
-		$rowfechoy=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		$fechahoy = $rowfechoy[0][0];
-				
+		$fechahoy = date('Ymd');
+                if(!isset($_REQUEST['periodo']))
+                {
+                    $periodo=$this->seleccionarPerìodo($configuracion,$ano.'-'.$per);
+                    exit;
+                }elseif($_REQUEST['periodo']==$ano."-".$per)
+                {
+                    $_REQUEST['ano']=$ano;
+                    $_REQUEST['per']=$per;
+                    $calendario=$this->validaCalendario('',$configuracion);
+                }else
+                    {
+                        $periodo=  explode('-', $_REQUEST['periodo']);
+                        $_REQUEST['ano']=$periodo[0];
+                        $_REQUEST['per']=$periodo[1];
+                        $this->reportes($configuracion);
+                        exit;
+                    }
+
+                
+		//$observaciones=$this->notasobservaciones();guardarNotas
+		
+
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"datosUsuario",$valor);
 		$datosusuario=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		
@@ -177,122 +194,214 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 											?>
 										</thead>
 										<?
+                                                                                    $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"cargalectiva",$valor);
+                                                                                    $registrocarga=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                                                                                    $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"cargaactividades",$valor);
+                                                                                    $registroactividad=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 										
 										for ($i=0; $i<=$cuentahoras-1; $i++)
 										{
-											echo '<tr>
-												<td class="cuadro_plano centrar">'
-													.$registrohora[$i][1].
-												'</td>';
+                                                                                    echo '<tr>
+                                                                                            <td class="cuadro_plano centrar">'
+                                                                                                    .$registrohora[$i][1].
+                                                                                            '</td>';
 												$j=0;
-												while(isset($registrodia[$j][0]))
-												{
-													$valor[0]=$usuario;
-													$valor[1]=$ano;
-													$valor[2]=$per;
-													$valor[3]=$registrodia[$j][0];
-													$valor[4]=$registrohora[$i][0];
-													$valor[10]=$estado;
-													
-													$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"cargalectiva",$valor);
-													$registrocarga=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-													$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"cargaactividades",$valor);
-													$registroactividad=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-													
-													$title_cargaLectiva= 'Lectiva: '. $registrocarga[0][5].'<br>Sede: '.$registrocarga[0][8].'<br> Sal&oacute;n: '.$registrocarga[0][10].'<br> Vinculaci&oacute;n: '.$registrocarga[0][11];
-													$title_actividad= 'Actividad: '. $registroactividad[0][3].'<br>Sede: '.$registroactividad[0][8].'<br> Sal&oacute;n: '.$registroactividad[0][9].'<br> Vinculaci&oacute;n: '.$registroactividad[0][17];
-													$title_celdaVacia= 'D&iacute;a: '. $registrodia[$j][1].'<br>Hora: '.$registrohora[$i][1];
-													
-													if(is_array($registrocarga))
-													{
-														?>
-														<td class="cuadro_planito centrar" onmouseover="toolTip('<BR><?echo $title_cargaLectiva;?>&nbsp;&nbsp;&nbsp;',this)" >
-														<div class="centrar">
-															<span id="toolTipBox" width="300" ></span>
-														</div>
-														<?
-														echo '* '.$registrocarga[0][4].'<br>
-														* <b>'.$registrocarga[0][9].'</b><br>
-														* '.$registrocarga[0][10].'<br>
-														* '.$registrocarga[0][12].'
-														</td>';
-														
-													}
-													elseif(is_array($registroactividad))
-													{
-														include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
-														include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
-																														
-														setlocale(LC_MONETARY, 'en_US');
-														$indice=$configuracion["host"].$configuracion["site"]."/index.php?";
-														$cripto=new encriptar();
-														?>
-														<td class="cuadro_planito centrar" onmouseover="toolTip('<BR><?echo $title_actividad;?>&nbsp;&nbsp;&nbsp;',this)" >
-														<div class="centrar">
-															<span id="toolTipBox" width="300" ></span>
-														</div>
-														<?
-														echo '* '.$registroactividad[0][4].'<br>
-														* <strong>'.$registroactividad[0][7].'</strong><br>
-														* '.$registroactividad[0][9].'<br>
-														* '.$registroactividad[0][18];
-															echo "<a href='";
-															$variable="pagina=registro_plan_trabajo";
-															$variable.="&opcion=borrar";
-															$variable.="&usuario=".$valor[0];
-															$variable.="&ano=".$valor[1];
-															$variable.="&per=".$valor[2];
-															$variable.="&dia=".$valor[3];
-															$variable.="&hora=".$valor[4];
-															$variable.="&nivel=".$valor[10];
-															//$variable.="&no_pagina=true";
-															$variable=$cripto->codificar_url($variable,$configuracion);
-															echo $indice.$variable."'";
-															echo "title='Haga Click aqu&iacute; para eliminar esta actividad.'>";
-															?>
-															<center><img src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]?>/boton_borrar.png" border="0"></center>
-															</a>
-														
-														</td><?
-													}
-													else
-													{
-														include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
-														include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
-																														
-														setlocale(LC_MONETARY, 'en_US');
-														$indice=$configuracion["host"].$configuracion["site"]."/index.php?";
-														$cripto=new encriptar();
-																												
-														?>
-														<td class="cuadro_planito centrar" onmouseover="toolTip('<BR><?echo $title_celdaVacia;?>&nbsp;&nbsp;&nbsp;',this)" >
-														<div class="centrar">
-															<span id="toolTipBox" width="300" ></span>
-														</div>
-														<?
-															
-															echo "<a href='";
-															$variable="pagina=registro_plan_trabajo";
-															$variable.="&opcion=actividades";
-															$variable.="&usuario=".$valor[0];
-															$variable.="&ano=".$valor[1];
-															$variable.="&per=".$valor[2];
-															$variable.="&dia=".$valor[3];
-															$variable.="&hora=".$valor[4];
-															$variable.="&nivel=".$valor[10];
-															//$variable.="&no_pagina=true";
-															$variable=$cripto->codificar_url($variable,$configuracion);
-															echo $indice.$variable."'";
-															echo "title='".(isset($texto_ayuda)?$texto_ayuda:'')."'>";
-															?>
-															<center><img src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]?>/registrar.png" border="0"></center>
-															</a>
-														</td>
-														<?
-													}
-												$j++;
-												}
-											echo '</tr>';
+                                                                                    while(isset($registrodia[$j][0]))
+                                                                                    {
+                                                                                        $celdaCarga=0;
+                                                                                        $celdaActividad=0;
+
+                                                                                            if(is_array($registrocarga))
+                                                                                            {
+                                                                                                foreach ($registrocarga as $key => $carga) {
+                                                                                                    if($carga[13]==$registrodia[$j][0] && $carga[14]==$registrohora[$i][0])
+                                                                                                    {
+                                                                                                        $title_cargaLectiva= 'Lectiva: '. $carga[5].'<br>Sede: '.$carga[8].'<br> Sal&oacute;n: '.$carga[10].'<br> Vinculaci&oacute;n: '.$carga[11];
+                                                                                                        ?>
+                                                                                                        <td class="cuadro_planito centrar" onmouseover="toolTip('<BR><?echo $title_cargaLectiva;?>&nbsp;&nbsp;&nbsp;',this)" >
+                                                                                                        <div class="centrar">
+                                                                                                                <span id="toolTipBox" width="300" ></span>
+                                                                                                        </div>
+                                                                                                        <?
+                                                                                                        echo '* '.$carga[4].'<br>
+                                                                                                        * <b>'.$carga[9].'</b><br>
+                                                                                                        * '.$carga[10].'<br>
+                                                                                                        * '.$carga[12].'
+                                                                                                        </td>';
+                                                                                                        $celdaCarga=1;
+                                                                                                        break;
+                                                                                                    }
+                                                                                                }
+                                                                                                 if($celdaCarga==0&&is_array($registroactividad))
+                                                                                                        {
+                                                                                                     foreach ($registroactividad as $key => $actividad) {
+                                                                                                         if($actividad[13]==$registrodia[$j][0] && $actividad[14]==$registrohora[$i][0])
+                                                                                                         {
+                                                                                                             $title_actividad= 'Actividad: '. $actividad[3].'<br>Sede: '.$actividad[8].'<br> Sal&oacute;n: '.$actividad[9].'<br> Vinculaci&oacute;n: '.$actividad[17];
+                                                                                                                include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
+                                                                                                                include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
+
+                                                                                                                setlocale(LC_MONETARY, 'en_US');
+                                                                                                                $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
+                                                                                                                $cripto=new encriptar();
+                                                                                                                ?>
+                                                                                                                <td class="cuadro_planito centrar" onmouseover="toolTip('<BR><?echo $title_actividad;?>&nbsp;&nbsp;&nbsp;',this)" >
+                                                                                                                <div class="centrar">
+                                                                                                                        <span id="toolTipBox" width="300" ></span>
+                                                                                                                </div>
+                                                                                                                <?
+                                                                                                                echo '* '.$actividad[4].'<br>
+                                                                                                                * <strong>'.$actividad[7].'</strong><br>
+                                                                                                                * '.$actividad[9].'<br>
+                                                                                                                * '.$actividad[18];
+                                                                                                                        echo "<a href='";
+                                                                                                                        $variable="pagina=registro_plan_trabajo";
+                                                                                                                        $variable.="&opcion=borrar";
+                                                                                                                        $variable.="&usuario=".$valor[0];
+                                                                                                                        $variable.="&ano=".$valor[1];
+                                                                                                                        $variable.="&per=".$valor[2];
+                                                                                                                        $variable.="&dia=".$registrodia[$j][0];
+                                                                                                                        $variable.="&hora=".$registrohora[$i][0];
+                                                                                                                        $variable.="&nivel=".$valor[10];
+                                                                                                                        //$variable.="&no_pagina=true";
+                                                                                                                        $variable=$cripto->codificar_url($variable,$configuracion);
+                                                                                                                        echo $indice.$variable."'";
+                                                                                                                        echo "title='Haga Click aqu&iacute; para eliminar esta actividad.'>";
+                                                                                                                        ?>
+                                                                                                                        <center><img src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]?>/boton_borrar.png" border="0"></center>
+                                                                                                                        </a>
+
+                                                                                                                </td><?
+                                                                                                                $celdaActividad=1;
+                                                                                                                break;
+                                                                                                         }
+
+                                                                                                     }
+                                                                                                        }if($celdaCarga==0&&$celdaActividad==0)
+                                                                                                        {
+                                                                                                            $title_celdaVacia= 'D&iacute;a: '. $registrodia[$j][1].'<br>Hora: '.$registrohora[$i][1];
+                                                                                                                include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
+                                                                                                                include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
+
+                                                                                                                setlocale(LC_MONETARY, 'en_US');
+                                                                                                                $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
+                                                                                                                $cripto=new encriptar();
+
+                                                                                                                ?>
+                                                                                                                <td class="cuadro_planito centrar" onmouseover="toolTip('<BR><?echo $title_celdaVacia;?>&nbsp;&nbsp;&nbsp;',this)" >
+                                                                                                                <div class="centrar">
+                                                                                                                        <span id="toolTipBox" width="300" ></span>
+                                                                                                                </div>
+                                                                                                                <?
+
+                                                                                                                        echo "<a href='";
+                                                                                                                        $variable="pagina=registro_plan_trabajo";
+                                                                                                                        $variable.="&opcion=actividades";
+                                                                                                                        $variable.="&usuario=".$valor[0];
+                                                                                                                        $variable.="&ano=".$valor[1];
+                                                                                                                        $variable.="&per=".$valor[2];
+                                                                                                                        $variable.="&dia=".$registrodia[$j][0];
+                                                                                                                        $variable.="&hora=".$registrohora[$i][0];
+                                                                                                                        $variable.="&nivel=".$valor[10];
+                                                                                                                        //$variable.="&no_pagina=true";
+                                                                                                                        $variable=$cripto->codificar_url($variable,$configuracion);
+                                                                                                                        echo $indice.$variable."'";
+                                                                                                                        echo "title='".(isset($texto_ayuda)?$texto_ayuda:'')."'>";
+                                                                                                                        ?>
+                                                                                                                        <center><img src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]?>/registrar.png" border="0"></center>
+                                                                                                                        </a>
+                                                                                                                </td>
+                                                                                                                <?
+                                                                                                        }
+
+
+
+
+                                                                                            }
+                                                                                                 elseif(is_array($registroactividad))
+                                                                                                        {
+                                                                                                     foreach ($registroactividad as $key => $actividad) {
+                                                                                                         if($actividad[13]==$registrodia[$j][0] && $actividad[14]==$registrohora[$i][0])
+                                                                                                         {
+                                                                                                             $title_actividad= 'Actividad: '. $actividad[3].'<br>Sede: '.$actividad[8].'<br> Sal&oacute;n: '.$actividad[9].'<br> Vinculaci&oacute;n: '.$actividad[17];
+                                                                                                                include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
+                                                                                                                include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
+
+                                                                                                                setlocale(LC_MONETARY, 'en_US');
+                                                                                                                $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
+                                                                                                                $cripto=new encriptar();
+                                                                                                                ?>
+                                                                                                                <td class="cuadro_planito centrar" onmouseover="toolTip('<BR><?echo $title_actividad;?>&nbsp;&nbsp;&nbsp;',this)" >
+                                                                                                                <div class="centrar">
+                                                                                                                        <span id="toolTipBox" width="300" ></span>
+                                                                                                                </div>
+                                                                                                                <?
+                                                                                                                echo '* '.$actividad[4].'<br>
+                                                                                                                * <strong>'.$actividad[7].'</strong><br>
+                                                                                                                * '.$actividad[9].'<br>
+                                                                                                                * '.$actividad[18];
+                                                                                                                        echo "<a href='";
+                                                                                                                        $variable="pagina=registro_plan_trabajo";
+                                                                                                                        $variable.="&opcion=borrar";
+                                                                                                                        $variable.="&usuario=".$valor[0];
+                                                                                                                        $variable.="&ano=".$valor[1];
+                                                                                                                        $variable.="&per=".$valor[2];
+                                                                                                                        $variable.="&dia=".$registrodia[$j][0];
+                                                                                                                        $variable.="&hora=".$registrohora[$i][0];
+                                                                                                                        $variable.="&nivel=".$valor[10];
+                                                                                                                        //$variable.="&no_pagina=true";
+                                                                                                                        $variable=$cripto->codificar_url($variable,$configuracion);
+                                                                                                                        echo $indice.$variable."'";
+                                                                                                                        echo "title='Haga Click aqu&iacute; para eliminar esta actividad.'>";
+                                                                                                                        ?>
+                                                                                                                        <center><img src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]?>/boton_borrar.png" border="0"></center>
+                                                                                                                        </a>
+
+                                                                                                                </td><?
+                                                                                                                $celdaActividad=1;
+                                                                                                                break;
+                                                                                                         }
+
+                                                                                                     }
+                                                                                                        }else
+                                                                                                        {
+                                                                                                            $title_celdaVacia= 'D&iacute;a: '. $registrodia[$j][1].'<br>Hora: '.$registrohora[$i][1];
+                                                                                                                include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
+                                                                                                                include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
+
+                                                                                                                setlocale(LC_MONETARY, 'en_US');
+                                                                                                                $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
+                                                                                                                $cripto=new encriptar();
+
+                                                                                                                ?>
+                                                                                                                <td class="cuadro_planito centrar" onmouseover="toolTip('<BR><?echo $title_celdaVacia;?>&nbsp;&nbsp;&nbsp;',this)" >
+                                                                                                                <div class="centrar">
+                                                                                                                        <span id="toolTipBox" width="300" ></span>
+                                                                                                                </div>
+                                                                                                                <?
+
+                                                                                                                        echo "<a href='";
+                                                                                                                        $variable="pagina=registro_plan_trabajo";
+                                                                                                                        $variable.="&opcion=actividades";
+                                                                                                                        $variable.="&usuario=".$valor[0];
+                                                                                                                        $variable.="&ano=".$valor[1];
+                                                                                                                        $variable.="&per=".$valor[2];
+                                                                                                                        $variable.="&dia=".$registrodia[$j][0];
+                                                                                                                        $variable.="&hora=".$registrohora[$i][0];
+                                                                                                                        $variable.="&nivel=".$valor[10];
+                                                                                                                        //$variable.="&no_pagina=true";
+                                                                                                                        $variable=$cripto->codificar_url($variable,$configuracion);
+                                                                                                                        echo $indice.$variable."'";
+                                                                                                                        echo "title='".(isset($texto_ayuda)?$texto_ayuda:'')."'>";
+                                                                                                                        ?>
+                                                                                                                        <center><img src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]?>/registrar.png" border="0"></center>
+                                                                                                                        </a>
+                                                                                                                </td>
+                                                                                                                <?
+                                                                                                        }
+                                                                                    $j++;
+                                                                                    }
+                                                                                    echo '</tr>';
 										}
 											
 										?>
@@ -392,6 +501,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 																	<input type='hidden' name='anio' value='<? echo $valor[1] ?>'>
 																	<input type='hidden' name='nivel' value='<? echo $valor[10] ?>'>
 																	<input type='hidden' name='per' value='<? echo $valor[2] ?>'>
+																	<input type='hidden' name='periodo' value='<? echo $valor[1].'-'.$valor[2] ?>'>
 																	<?
 																	if(!is_array($registroObs))
 																	{
@@ -433,6 +543,8 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 											$variable.="&opcion=reportes";
 											$variable.="&nivel=".$valor[10];
 											$variable.="&usuario=".$valor[0];
+											$variable.="&ano=".$valor[1];
+											$variable.="&per=".$valor[2];
 											//$variable.="&no_pagina=true";
 											$variable=$cripto->codificar_url($variable,$configuracion);
 											echo $indice.$variable."'";
@@ -456,6 +568,59 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 		<?
 	}
 	
+        
+        function seleccionarPerìodo($configuracion,$anoper) {
+            $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"seleccionarPeriodo","");
+            $resultAnioPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+            
+            $tab=0;
+                ?>
+                <form enctype='multipart/form-data' method='POST' action='index.php' name='<? echo $this->formulario ?>'>
+                    <table class=tablaMarco width="100%" border="0" align="center" cellpadding="4 px" cellspacing="0px" >
+                        <tr>    
+                            <td width="50%">Seleccione el per&iacute;odo para consultar</td>
+                            <td >
+                                <?
+                                    $html_perCod="<select id='periodo' tabindex='".$tab++."' size='1' name='periodo'>";
+                                    foreach ($resultAnioPer as $key => $value)
+                                    {
+                                        $html_perCod.="<option value='".$value[0]."-".$value[1]."'";
+                                        if($anoper==$value[0]."-".$value[1])$html_perCod.=" selected";
+                                        $html_perCod.=" >".$value[0]."-".$value[1]."</option>  ";
+                                    }
+                                $html_perCod.="</select>";
+                                $html_perCod.="<font color='red'> *</font>";
+                                echo $html_perCod;
+
+                                ?> 
+                            </td>
+                        </tr>
+                        <tr>    
+                            <td colspan='3'><? $this->enlaceConsultar('Continuar');?></td>
+                        </tr>
+                    </table>
+                </form>
+                
+            <?
+            
+        }
+
+        
+    function enlaceConsultar($nombre)
+        {
+            ?><input type='hidden' name='formulario' value="<? echo $this->formulario ?>">
+            <?
+                unset($_REQUEST['nivel'],$_REQUEST['xajax']);
+                foreach ($_REQUEST as $key => $value)
+                {
+                    echo "<input type='hidden' name='".$key."' value=\"".$value."\">";
+                }
+            ?>
+              <input value="<?echo $nombre;?>" name="aceptar" tabindex='20' type="button" onclick="document.forms['<? echo $this->formulario?>'].submit()">                              
+            <?
+        }
+        
+        
 	//Muestra el formulario donde se seleccionan las actividades, sedes, salones y tipo de vinculación.
 	function registroActividades($configuracion)
 	{
@@ -500,10 +665,7 @@ document.<? echo $this->formulario?>.reset();
 		$valor[1]=$ano;
 		$valor[2]=$per;
 			
-		
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechaactual",'');
-		$rowfechoy=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		$fechahoy = $rowfechoy[0][0];
+		$fechahoy = date('Ymd');
 				
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"datosUsuario",$valor);
 		$datosusuario=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -752,6 +914,7 @@ document.<? echo $this->formulario?>.reset();
 												<input type='hidden' name='dia' value='<? echo $valor[3] ?>'>
 												<input type='hidden' name='hora' value='<? echo $valor[4] ?>'>
 												<input type='hidden' name='nivel' value='<? echo $valor[10] ?>'>
+												<input type='hidden' name='periodo' value='<? echo $valor[1].'-'.$valor[2] ?>'>
 												<input type='hidden' name='action' value='<? echo $this->formulario ?>'>
 												<input type='hidden' name='opcion' value='grabar'>
 												<input value="Grabar" name="aceptar" tabindex='<? echo $tab++ ?>' type="submit" /><br>
@@ -951,12 +1114,10 @@ document.<? echo $this->formulario?>.reset();
 		
 		
 		
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"cargaactividades",$valor);
+		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"cargaactividadesBorrar",$valor);
 		$registroactividad=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechaactual",'');
-		$rowfechoy=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		$fechahoy = $rowfechoy[0][0];
+		$fechahoy = date('Ymd');
 				
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"datosUsuario",$valor);
 		$datosusuario=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -1112,6 +1273,7 @@ document.<? echo $this->formulario?>.reset();
 												<input type='hidden' name='dia' value='<? echo $valor[3] ?>'>
 												<input type='hidden' name='hora' value='<? echo $valor[4] ?>'>
 												<input type='hidden' name='nivel' value='<? echo $valor[10] ?>'>
+												<input type='hidden' name='periodo' value='<? echo $valor[1].'-'.$valor[2] ?>'>
 												<input type='hidden' name='action' value='<? echo $this->formulario ?>'>
 												<input type='hidden' name='borrar' value='borrar'>
 												<input value="Borrar" name="borrar" tabindex='<? echo $tab++ ?>' type="submit" /><br>
@@ -1230,19 +1392,20 @@ document.<? echo $this->formulario?>.reset();
 		//$calendario=$this->validaCalendario($variable,$configuracion);
 		//$observaciones=$this->notasobservaciones();guardarNotas
 		
-		$valor[10]=$_REQUEST['nivel'];
+		$valor[10]='A';
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"anioper",$valor);
 		$resultAnioPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		$ano=$resultAnioPer[0][0];
-		$per=$resultAnioPer[0][1];
+                $anoActual=$resultAnioPer[0][0];
+                $perActual=$resultAnioPer[0][1];
+
+		$ano=$_REQUEST['ano'];
+		$per=$_REQUEST['per'];
 		
 		$valor[0]=$_REQUEST['usuario'];
 		$valor[1]=$ano;
 		$valor[2]=$per;
 		
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechaactual",'');
-		$rowfechoy=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		$fechahoy = $rowfechoy[0][0];
+		$fechahoy = date('Ymd');
 				
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"datosUsuario",$valor);
 		$datosusuario=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -1321,7 +1484,7 @@ document.<? echo $this->formulario?>.reset();
 							<td align="center">
 								
 									<legend>
-										Carga Aced&eacute;mica y Actividades
+										Carga Acad&eacute;mica y Actividades
 									</legend>
 									<table class="contenidotabla">
 										<tr class="cuadro_color">
@@ -1336,75 +1499,80 @@ document.<? echo $this->formulario?>.reset();
 											?>
 										</tr>
 										<?
+                                                                                if($ano.$per==$anoActual.$perActual)
+                                                                                {
+                                                                                    $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"cargalectiva",$valor);
+                                                                                    $registrocarga=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                                                                                    $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"cargaactividades",$valor);
+                                                                                    $registroactividad=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                                                                                }else
+                                                                                    {
+                                                                                        $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"cargalectivaAnterior",$valor);
+                                                                                        $registrocarga=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                                                                                        $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"cargaactividadesAnterior",$valor);
+                                                                                        $registroactividad=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                                                                                    }
 										
 										for ($i=0; $i<=$cuentahoras-1; $i++)
 										{
-											echo '<tr>
-												<td class="cuadro_plano centrar">'
+                                                                                    echo '<tr>
+                                                                                            <td class="cuadro_plano centrar">'
 													.$registrohora[$i][1].
-												'</td>';
-												$j=0;
-												while(isset($registrodia[$j][0]))
+                                                                                            '</td>';
+                                                                                            $j=0;
+                                                                                            while(isset($registrodia[$j][0]))
+                                                                                            {
+                                                                                                $celdaCarga=0;
+                                                                                                $celdaActividad=0;
+												if(is_array($registrocarga))
 												{
-													$valor[0]=$_REQUEST['usuario'];
-													$valor[1]=$ano;
-													$valor[2]=$per;
-													$valor[3]=$registrodia[$j][0];
-													$valor[4]=$registrohora[$i][0];
-													$valo[10]=$_REQUEST['nivel'];
-													
-													$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"cargalectiva",$valor);
-													$registrocarga=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-													$texto_ayuda=$registrodia[$j][1].' '.$registrohora[$i][1];
-													
-													$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"cargaactividades",$valor);
-													$registroactividad=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-													
-													$title_cargaLectiva= '* Lectiva: '. $registrocarga[0][5].'<br>* Sede: '.$registrocarga[0][8].'<br>* Sal&oacute;n: '.$registrocarga[0][10].'<br>* Vinculaci&oacute;n: '.$registrocarga[0][11];
-													$title_actividad= '* Actividad: '. $registroactividad[0][3].'<br>* Sede: '.$registroactividad[0][8].'<br>* Sal&oacute;n: '.$registroactividad[0][9].'<br>* Vinculaci&oacute;n: '.$registroactividad[0][17];
-													$title_celdaVacia= '* D&iacute;a: '. $registrodia[$j][1].'<br>* Hora: '.$registrohora[$i][1];
-													
-													if(is_array($registrocarga))
-													{
+                                                                                                    foreach ($registrocarga as $key => $carga) {
+                                                                                                        if($carga[13]==$registrodia[$j][0] && $carga[14]==$registrohora[$i][0])
+                                                                                                        {
+                                                                                                            $title_cargaLectiva= 'Lectiva: '. $carga[5].'<br>Sede: '.$carga[8].'<br> Sal&oacute;n: '.$carga[10].'<br> Vinculaci&oacute;n: '.$carga[11];
 														?>
 														<td class="cuadro_planito centrar" style="background-color:LemonChiffon" onmouseover="toolTip('<BR><?echo $title_cargaLectiva;?>&nbsp;&nbsp;&nbsp;',this)" >
 														<div class="centrar">
 															<span id="toolTipBox" width="300" ></span>
 														</div>
 														<?
-														echo '* '.$registrocarga[0][4].'<br>
-														* <b>'.$registrocarga[0][9].'</b><br>
-														* '.$registrocarga[0][10].'<br>
-														* '.$registrocarga[0][12].'
+														echo '* '.$carga[4].'<br>
+														* <b>'.$carga[9].'</b><br>
+														* '.$carga[10].'<br>
+														* '.$carga[12].'
 														</td>';
-														
-													}
-													elseif(is_array($registroactividad))
-													{
-														include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
-														include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
-																														
-														setlocale(LC_MONETARY, 'en_US');
-														$indice=$configuracion["host"].$configuracion["site"]."/index.php?";
-														$cripto=new encriptar();
-														
+                                                                                                                $celdaCarga=1;
+                                                                                                                break;
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                                if($celdaCarga==0&&is_array($registroactividad))
+                                                                                                    {
+                                                                                                     foreach ($registroactividad as $key => $actividad) {
+                                                                                                         if($actividad[13]==$registrodia[$j][0] && $actividad[14]==$registrohora[$i][0])
+                                                                                                         {
+                                                                                                             $title_actividad= 'Actividad: '. $actividad[3].'<br>Sede: '.$actividad[8].'<br> Sal&oacute;n: '.$actividad[9].'<br> Vinculaci&oacute;n: '.$actividad[17];
 														?>
 														<td class="cuadro_planito centrar" style="background-color:#e0f5ff" onmouseover="toolTip('<BR><?echo $title_actividad;?>&nbsp;&nbsp;&nbsp;',this)" >
 														<div class="centrar">
 															<span id="toolTipBox" width="300" ></span>
 														</div>
 														<?
-														echo '* '.$registroactividad[0][3].'<br>
-														* <strong>'.$registroactividad[0][7].'</strong><br>
-														* '.$registroactividad[0][9]. '<br>
-														* '.$registroactividad[0][18];
+														echo '* '.$actividad[3].'<br>
+														* <strong>'.$actividad[7].'</strong><br>
+														* '.$actividad[9]. '<br>
+														* '.$actividad[18];
 														echo '</td>';
+                                                                                                                $celdaActividad=1;
+                                                                                                                break;                                                                                                                
+                                                                                                         }
+                                                                                                     }
 													}
-													else
+													if($celdaCarga==0 && $celdaActividad==0)
 													{
 														echo '<td class="cuadro_plano centrar">
 														</td>';
-													}
+                                                                                                        }else{}
 												$j++;
 												}
 											echo '</tr>';
@@ -1426,8 +1594,18 @@ document.<? echo $this->formulario?>.reset();
 												Carga Lectiva
 											</legend>
 											<?
+
+                                                                                if($ano.$per==$anoActual.$perActual)
+                                                                                {
 											$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "cuentaActividad",$valor);
 											$QryHor=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                                                                                }else
+                                                                                    {
+                                                                                        $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "cuentaActividadAnterior",$valor);
+											$QryHor=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                                                                                    }                                                                                        
+                                                                                        
+
 											$i=0;
 											while(isset($QryHor[$i][0]))
 											{
@@ -1655,11 +1833,11 @@ ________________________________________________________________________________
 		$valor[0]=$usuario;
                 $calendario='';
 								
-		$confec = "SELECT cast(TO_CHAR(CURRENT_TIMESTAMP,'YYYYMMDD') as numeric)";
-		@$rows=$this->ejecutarSQL($configuracion, $this->accesoOracle, $confec, "busqueda");
-		$valor[9] =$rows[0][0];
-		$valor[10]=$_REQUEST['nivel'];
-                						
+                $date=date('Ymd');
+		$valor[9] =$date;
+		$valor[10]='A';//$_REQUEST['nivel'];
+                $valor[1]=$_REQUEST['ano'];
+                $valor[2]=$_REQUEST['per'];
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"anioper",$valor);
 		$resultAnioPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		$ano=$resultAnioPer[0][0];
@@ -1720,6 +1898,8 @@ ________________________________________________________________________________
 										$variable.="&opcion=reportes";
 										$variable.="&nivel=".$valor[10];
 										$variable.="&usuario=".$valor[0];
+										$variable.="&ano=".$ano;
+										$variable.="&per=".$per;
 										//$variable.="&no_pagina=true";
 										$variable=$cripto->codificar_url($variable,$configuracion);
 										echo $indice.$variable."'";
@@ -1733,6 +1913,8 @@ ________________________________________________________________________________
 										$variable.="&opcion=reportes";
 										$variable.="&nivel=".$valor[10];
 										$variable.="&usuario=".$valor[0];
+										$variable.="&ano=".$ano;
+										$variable.="&per=".$per;
 										$variable=$cripto->codificar_url($variable,$configuracion);
 										echo $indice.$variable."'";
 										echo "title='Haga Click aqu&iacute; para imprimir el reporte'><b>IMPRIMIR</b></a>";
@@ -1773,15 +1955,18 @@ ________________________________________________________________________________
 				$variable.="&valor=".$valor[1];
 				$variable.="&clave=".$valor[2];
 				$variable.="&nivel=".$valor[10];
+				$variable.="&periodo=".$_REQUEST['periodo'];
 				break;
 			case "formgrado":
 				$variable="pagina=registro_plan_trabajo";
 				$variable.="&nivel=".$valor[10];
+				$variable.="&periodo=".$_REQUEST['periodo'];
 				break;
 			case "registroExitoso":
 				$variable="pagina=registro_plan_trabajo";
 				$variable.="&opcion=nuevoRegistro";
 				$variable.="&nivel=".$valor[10];
+				$variable.="&periodo=".$_REQUEST['periodo'];
 				break;
 							
 		}
