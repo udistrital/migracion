@@ -434,6 +434,18 @@ $enlaceCargarArchivoGrados=$indiceAcademico.$variable;
 	$variable.="&modulo=soporte";
 	$variable=$cripto->codificar_url($variable,$configuracion);
 	$enlaceGenerarRecibosEspeciales=$indiceAcademico.$variable;
+        
+//Actualizar datos estudiantes acuerdo 004
+        $variable="pagina=registro_actualizarDatos004";
+        $variable.="&usuario=".$_SESSION['usuario_login'];        
+        $variable.="&tipoUser=80";
+        $variable.="&opcion=seleccionarOpcion";
+        $variable.="&modulo=soporte";
+        $variable.="&aplicacion=Condor";
+        $variable=$cripto->codificar_url($variable,$configuracion);
+        $enlaceAcademicoActualizar004=$indiceAcademico.$variable;	
+
+        
 
 ?>
 <html>
@@ -460,6 +472,7 @@ $enlaceCargarArchivoGrados=$indiceAcademico.$variable;
 <li class="subitem1"><a target="principal" href="<?echo $enlaceHistoricoRecibosPago;?>">Hist&oacute;rico Recibos de Pago</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceAcademicoRecalcularEstado?>">Recalcular Reglamento</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceValidarEstudiantes?>">Validar Estudiantes Activos</a></li>
+<li class="subitem1"><a target="principal" href="<?echo $enlaceAcademicoActualizar004?>">Actualizar datos est. 004</a></li>
 
 </ul>
 </li>
