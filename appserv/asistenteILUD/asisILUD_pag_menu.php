@@ -42,6 +42,17 @@ $variable=$miCodificador->codificar($variable);
 $enlaceCambioPassword=$indiceSaraPassword.$opcion.$variable;
 
 
+          //Consejerias, consulta estado academico del estudiante e historia académica
+        $variable="pagina=admin_consejeriaEstudianteSoporte";
+	$variable.="&usuario=".$_SESSION['usuario_login'];
+        $variable.="&tipoUser=119";
+        $variable.="&opcion=verEstudiante";
+	$variable.="&aplicacion=Condor";
+	$variable.="&modulo=soporte";
+        $variable=$cripto->codificar_url($variable,$configuracion);
+	$enlaceConsejeriaEstudiante=$indiceAcademico.$variable;    
+
+
 ?>
 <html>
 <head>
@@ -60,6 +71,13 @@ $enlaceCambioPassword=$indiceSaraPassword.$opcion.$variable;
 <link href="../estilo/menu.css" rel="stylesheet" type="text/css">
 
 <ul class="menu">
+
+<li class="item1">
+<a href="#">Estudiantes</a>
+<ul class="submenus">
+<li class="subitem1"><a target="principal" href="<?echo $enlaceConsejeriaEstudiante;?>">Historia Acad&eacute;mica</a></li>
+</ul>
+</li>
 
 <li class=""><a href="#">Reportes</a>
 <ul class="submenus">
