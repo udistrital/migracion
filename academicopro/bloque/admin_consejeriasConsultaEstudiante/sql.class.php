@@ -65,6 +65,11 @@ class sql_admin_consejeriasConsultaEstudiante extends sql {	//@ Método que crea
                 $cadena_sql.=" AND est_cod = '".$variable['codEstudiante']."' ";
                 break;      
             
+            case 'consultarEstadosActivos':
+                $cadena_sql=" select estado_cod";
+                $cadena_sql.=" from acestado";
+                $cadena_sql.=" where estado_activo='S'";
+                break;
 
             case 'consultarDatosDocente':
                 $cadena_sql="SELECT ";
@@ -364,7 +369,11 @@ class sql_admin_consejeriasConsultaEstudiante extends sql {	//@ Método que crea
                 $cadena_sql.=" REG_INDICE_ATRASO,";
                 $cadena_sql.=" REG_EDAD_INGRESO,";
                 $cadena_sql.=" REG_NUM_SEMESTRES_INGRESO,";
-                $cadena_sql.=" REG_INDICE_RIESGO";
+                $cadena_sql.=" REG_INDICE_RIESGO,";
+                $cadena_sql.=" REG_PORCENTAJE_PLAN,";
+                $cadena_sql.=" REG_NUM_MATRICULAS,";
+                $cadena_sql.=" REG_RENOVACIONES_004,";
+                $cadena_sql.=" REG_MATRICULAS_004";
                 $cadena_sql.=" FROM reglamento ";
                 $cadena_sql.=" WHERE REG_EST_COD= ".$variable;
                 $cadena_sql.=" AND REG_ESTADO= 'A'";

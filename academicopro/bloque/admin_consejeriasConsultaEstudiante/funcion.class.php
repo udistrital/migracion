@@ -141,9 +141,9 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
                     exit;
                 }
             }
-          $this->mostrarDatosEstudiante();
-          
           $reglamentoEstudiante = $this->consultarReglamentoEstudiante($this->datosEstudiante['CODIGO']); 
+
+          $this->mostrarDatosEstudiante($reglamentoEstudiante);
           
           $this->espaciosCursados=  $this->buscarNotasDefinitivas();
           $notaAprobatoria=$this->consultarNotaAprobatoria();
@@ -243,7 +243,7 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
     /**
      * 
      */
-    function mostrarDatosEstudiante() {
+    function mostrarDatosEstudiante($reglamento) {
 
     $this->buscarPeriodoActivo();
       ?>
@@ -258,7 +258,7 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
                   <td>
                     <table width="100%"  cellspacing="1 px" cellpadding="1px" border="0px">
                       <tr>
-                        <td style="border:0px" rowspan="14" colspan="6">
+                        <td style="border:0px" rowspan="15" colspan="6">
 
 
                           <?
@@ -350,7 +350,33 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
                   <td class='cuadro_plano' style="border:0px">Acuerdo: </td>
                   <td class='cuadro_plano' style="border:0px"><? if(isset($this->datosEstudiante['ACUERDO'])){echo substr($this->datosEstudiante['ACUERDO'], -3)." de ".substr($this->datosEstudiante['ACUERDO'],0,4);}else{} ?></td>
                 </tr>
-                 <? } ?>
+                <?if (isset($this->datosEstudiante['ACUERDO']) && $this->datosEstudiante['ACUERDO']==2011004 && $this->nivel!=121 && $this->datosEstudiante['ESTADO']!='E')
+                {?>
+                <tr>
+                  <td class='cuadro_plano' style="border:0px">Renovaciones Pendientes: </td>
+                <?                
+                    $registroReglamento=end($reglamento);
+                    if (!isset($registroReglamento['REG_RENOVACIONES_004'])||($registroReglamento['REG_RENOVACIONES_004']==0 && ($registroReglamento['REG_PORCENTAJE_PLAN']==0||$registroReglamento['REG_NUM_MATRICULAS']==0)))
+                    {
+                        ?>
+                        <td class='cuadro_plano' style="border:0px">No se ha podido establecer el número de renovaciones pendientes. Consulte con su Proyecto Curricular.</td>
+                        <?
+                    }else
+                    {
+                        $estados=$this->consultarEstadosActivos();
+                        $numRenovaciones=$registroReglamento['REG_RENOVACIONES_004']-$registroReglamento['REG_MATRICULAS_004'];
+                        foreach ($estados as $key => $estadoActivo) {
+                            if ($this->datosEstudiante['ESTADO']==$estadoActivo['ESTADO_COD']){$numRenovaciones--;break;}
+                        }if($numRenovaciones<0)$numRenovaciones=0;//si el numero de renovaciones es negativo, presenta 0
+                        ?>
+                    <td class='cuadro_plano' style="border:0px"><?echo $numRenovaciones;?></td>
+                        <?
+                    }
+                            ?>
+                </tr>
+                <? }
+                
+                  } ?>
                 <tr>
                   <td class='cuadro_plano' style="border:0px">Valor Matrícula: </td>
                   <td class='cuadro_plano' style="border:0px"><? echo (isset($this->datosEstudiante['VALOR_MATRICULA'])?$this->datosEstudiante['VALOR_MATRICULA']:'')?></td>
@@ -2112,6 +2138,15 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
         $cadena_sql=$this->sql->cadena_sql("clasificacion",'');
         $resultado_clasificacion=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql, "busqueda");
         return $resultado_clasificacion;
+    }
+    
+    /*
+     * Consulta los estados de los estudiantes que están activos
+     */
+    function consultarEstadosActivos() {
+        $cadena_sql=$this->sql->cadena_sql("consultarEstadosActivos",'');
+        $resultado_estados=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+        return $resultado_estados;
     }
     
     /*

@@ -56,7 +56,8 @@ class sql_admin_consejeriasDocente extends sql {	//@ Método que crea las senten
                 $cadena_sql.=" est_nombre NOMBRE, ";
                 $cadena_sql.=" est_estado_est ESTADO, ";
                 $cadena_sql.=" estado_descripcion ESTADO_DESCRIPCION, ";
-                $cadena_sql.=" est_ind_cred MODALIDAD ";//creditos/horas
+                $cadena_sql.=" est_ind_cred MODALIDAD, ";//creditos/horas
+                $cadena_sql.=" fa_promedio_nota(eco_est_cod) PROMEDIO ";//creditos/horas
                 $cadena_sql.=" FROM acestudianteconsejero ";
                 $cadena_sql.=" INNER JOIN acest ON est_cod= eco_est_cod ";
                 $cadena_sql.=" INNER JOIN acestado ON estado_cod= est_estado_est ";
@@ -67,23 +68,6 @@ class sql_admin_consejeriasDocente extends sql {	//@ Método que crea las senten
                 //echo $cadena_sql;
                 break;
         
-            case 'buscarPromedioEstudiante':
-
-                $cadena_sql="SELECT fa_promedio_nota('".$variable['codigo']."') PROMEDIO";                
-
-                //echo $cadena_sql;
-                break;
-            
-            case 'buscarSemestresReglamento':
-
-                $cadena_sql="SELECT reg_ano ANO,";
-                $cadena_sql.=" reg_per PERIODO,";
-                $cadena_sql.=" reg_motivo MOTIVO_PRUEBA";
-                $cadena_sql.=" FROM reglamento";
-                $cadena_sql.=" WHERE reg_est_cod =".$variable['codigo'];
-                $cadena_sql.=" ORDER BY reg_ano DESC,reg_per DESC" ;                
-                break;
-            
             case 'periodoActual':
 
                 $cadena_sql="SELECT ape_ano ANO,";

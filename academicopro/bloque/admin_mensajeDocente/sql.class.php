@@ -76,7 +76,7 @@ class sql_mensajesDocente extends sql
                     $cadena_sql.=" menrecept_estado ESTADO_MENSAJE,";
                     $cadena_sql.=" men_tip_emisor TIPO_EMISOR,";
                     $cadena_sql.=" men_cod_emisor CODIGO_EMISOR,";
-                    $cadena_sql.=" to_char(men_fecha, 'DD/month/YYYY HH24:MI','nls_date_language=spanish') FECHA";
+                    $cadena_sql.=" to_char(men_fecha, 'DDMMYYYYHH24MI') FECHA";
                     $cadena_sql.=" FROM acmenreceptor";
                     $cadena_sql.=" INNER JOIN acmensaje on menrecept_cod_mensaje=men_codigo";
                     $cadena_sql.=" WHERE menrecept_cod_receptor=".$variable['codUsuario'];
@@ -91,7 +91,7 @@ class sql_mensajesDocente extends sql
                     $cadena_sql.=" men_contenido CONTENIDO,";
                     $cadena_sql.=" menrecept_tip_receptor TIPO_RECEPTOR,";
                     $cadena_sql.=" menrecept_cod_receptor CODIGO_RECEPTOR,";
-                    $cadena_sql.=" to_char(men_fecha, 'DD/month/YYYY HH24:MI','nls_date_language=spanish') FECHA";
+                    $cadena_sql.=" to_char(men_fecha, 'DDMMYYYYHH24MI') FECHA";
                     $cadena_sql.=" FROM acmenreceptor";
                     $cadena_sql.=" INNER JOIN acmensaje on menrecept_cod_mensaje=men_codigo";
                     $cadena_sql.=" WHERE men_cod_emisor=".$variable['codUsuario'];

@@ -58,10 +58,10 @@ class funcion_mensajesDocente extends funcionGeneral
 	function __construct($configuracion) {
 
             $this->configuracion=$configuracion;
-            $this->codProyecto=$_REQUEST['codProyecto'];
-            $this->planEstudio=$_REQUEST['planEstudio'];
-            $this->codEspacio=$_REQUEST['codEspacio'];
-            $this->grupo=$_REQUEST['grupo'];
+            $this->codProyecto=(isset($_REQUEST['codProyecto'])?$_REQUEST['codProyecto']:'');
+            $this->planEstudio=(isset($_REQUEST['planEstudio'])?$_REQUEST['planEstudio']:'');
+            $this->codEspacio=(isset($_REQUEST['codEspacio'])?$_REQUEST['codEspacio']:'');
+            $this->grupo=(isset($_REQUEST['grupo'])?$_REQUEST['grupo']:'');
 	    /**
              * Incluye la clase encriptar.class.php
              *
@@ -204,7 +204,7 @@ class funcion_mensajesDocente extends funcionGeneral
          */
         function buscarMensajesRecibidos() {
           
-              $variablesMensaje = array(codUsuario => $this->usuario);
+              $variablesMensaje = array('codUsuario' => $this->usuario);
 
               $cadena_sql = $this->sql->cadena_sql("buscarMensajesRecibidos", $variablesMensaje);
               $arreglo_mensaje = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -217,7 +217,7 @@ class funcion_mensajesDocente extends funcionGeneral
          */
         function buscarMensajesEnviados() {
 
-              $variablesMensaje = array(codUsuario => $this->usuario);
+              $variablesMensaje = array('codUsuario' => $this->usuario);
 
               $cadena_sql = $this->sql->cadena_sql("buscarMensajesEnviados", $variablesMensaje);//echo $cadena_sql;exit;
               $arreglo_mensaje = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -334,7 +334,7 @@ class funcion_mensajesDocente extends funcionGeneral
         function buscarNombreEstudiante($codigo) {
 
 
-                  $variablesEstudiante = array(codigo => $codigo);
+                  $variablesEstudiante = array('codigo' => $codigo);
 
                   $cadena_sql = $this->sql->cadena_sql("buscarNombreEstudiante", $variablesEstudiante);
                   $nombre_Estudiante = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -350,7 +350,7 @@ class funcion_mensajesDocente extends funcionGeneral
          */
         function buscarNombreDocente($documento) {
 
-              $variablesDocente = array(documento => $documento);
+              $variablesDocente = array('documento' => $documento);
 
               $cadena_sql = $this->sql->cadena_sql("buscarNombreDocente", $variablesDocente);
               $arreglo_Docente = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -381,7 +381,6 @@ class funcion_mensajesDocente extends funcionGeneral
             $variable.="&tipoEmisor=".$datosMensaje['TIPO_EMISOR'];
             $variable.="&estadoMensaje=".$datosMensaje['ESTADO_MENSAJE'];
             $variable= $this->cripto->codificar_url($variable, $this->configuracion);
-          
                 ?>
               <tr class="cuadro_color" style="cursor:pointer <?if($datosMensaje['ESTADO_MENSAJE']==1){echo ';font-weight: bold';} ?>" onclick="location='<?echo $pagina.$variable?>'">
                        <td colspan="1"><?echo $datosMensaje['CODIGO_EMISOR']?></td>
@@ -395,12 +394,19 @@ class funcion_mensajesDocente extends funcionGeneral
                          ?>
                        </td>
                        <td colspan="4"><?echo $datosMensaje['ASUNTO']?></td>
-                       <td colspan="1"><?echo $datosMensaje['FECHA']?></td>
+                       <td colspan="1"><?echo $this->convertirFecha($datosMensaje['FECHA']);?></td>
                        
               </tr>
 
        <?
 
+        }
+        
+        function convertirFecha($fecha) {
+            $mes=array('0','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
+            $fechaMensaje=substr($fecha,0,2)."/".$mes[trim(substr($fecha,2,2),0)]."/".substr($fecha,4,4)." ".substr($fecha,8,2).":".substr($fecha,10,2);
+            return $fechaMensaje;
+            
         }
 
         /**
@@ -439,7 +445,7 @@ class funcion_mensajesDocente extends funcionGeneral
                          ?>
                        </td>
                        <td colspan="4"><?echo $datosMensaje['ASUNTO']?></td>
-                       <td colspan="1"><?echo $datosMensaje['FECHA']?></td>
+                       <td colspan="1"><?echo $this->convertirFecha($datosMensaje['FECHA']);?></td>
        
                                  
                     </tr>                       

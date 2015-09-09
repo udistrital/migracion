@@ -128,7 +128,19 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
      *Presenta encabezado de lista de estudiantes por riesgo 
      */
     function consultarEstudiantes() {
-     
+        if(!isset($this->codProyecto))
+        {
+            ?>
+                <table class="contenidotabla centrar">
+                    <tr class="sigma">
+                        <td class="sigma_a centrar">
+                            NO TIENE PROYECTOS ASOCIADOS PARA CONSEJERIAS
+                        </td>
+                    </tr>
+                </table>
+            <?
+            exit;
+        }
         $codDocente = $this->usuario;//numero de documento del docente
         $nivelDocente = $this->nivel;
         
@@ -194,10 +206,6 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
             <tr>
                 <th class="sigma centrar" colspan="8">
                 </th>
-                <th class="sigma centrar" colspan="1">
-                    Riesgo <img src="<? echo $this->configuracion['site'] . $this->configuracion['grafico'] ?>/filtro_tabla.png" width="10" height="12" border="0">
-<!--                    Riesgo <img src="<? echo $this->configuracion['site'] . $this->configuracion['grafico'] ?>/filtro_tabla.png" width="10" height="12" border="0">-->
-                </th>
             </tr>
             <tr>
                 <th class="sigma centrar" colspan="1">
@@ -226,33 +234,6 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
                 <th class="sigma centrar" colspan="1">
                   Modalidad
                 </th>
-                <th class="sigma centrar" colspan="1">
-                    <table class="contenidotabla centrar" border="0">
-                        <tr>
-
-                          <?$nombreEnlace=array('','Muy<br>Alto','Alto','Medio','Bajo','Muy<br>Bajo');
-
-                          for($a=1;$a<count($nombreEnlace);$a++){?>
-                            <th class="sigma centrar">
-                                    <u>
-                                    <?
-                                    echo $nombreEnlace[$a]
-                                    /**
-                                        $pagina = $this->configuracion["host"] . $this->configuracion["site"] . "/index.php?";
-                                        $variable = "pagina=admin_consejeriasDocente";
-                                        $variable.="&opcion=verEstudiantes";
-                                        $variable.="&filtro=".$a;
-                                        $variable.="&codProyecto=".$this->codProyecto;
-                                        $variable= $this->cripto->codificar_url($variable, $this->configuracion);
-                                    */?>
-<!--                                        <a href="<?= $pagina.$variable?>"><?echo $nombreEnlace[$a]?></a>-->
-                                    </u>
-                            </th>
-                            <?}?>
-   
-                        </tr>
-                    </table>
-                </th>
             </tr>
             <?
         
@@ -266,9 +247,10 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
      */
     function mostrar_registro_estudiante($estudiante, $docente){
 
-                    $motivoPrueba=  $this->buscarMotivoPrueba($estudiante);
-                    $riesgo=$this->reglasConsejerias->calcularRiesgo($motivoPrueba);
-                    $riesgo=explode(';', $riesgo);      
+                    //Las siguientes líneas se comentan porque ya no se presentan los circulos de riesgo.
+                    //$motivoPrueba=  $this->buscarMotivoPrueba($estudiante);
+                    //$riesgo=$this->reglasConsejerias->calcularRiesgo($motivoPrueba);
+                    //$riesgo=explode(';', $riesgo);      
                     
                     $pagina = $this->configuracion["host"] . $this->configuracion["site"] . "/index.php?";
                     $variable = "pagina=admin_consejeriasConsultaEstudiante";
@@ -277,7 +259,7 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
                     $variable.="&codProyecto=".$this->codProyecto;
                     $variable.="&codEstudiante=" . $estudiante['CODIGO'];
                     $variable.="&codDocente=" .$docente;
-                    $variable.="&motivoPrueba=" .(isset($riesgo[1])?$riesgo[1]:'');                  
+                    //$variable.="&motivoPrueba=" .(isset($riesgo[1])?$riesgo[1]:'');                  
                     $variable.="&datoBusqueda=" .$estudiante['CODIGO'];
                     $variable.="&tipoBusqueda=codigo";
 
@@ -292,8 +274,8 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
                     <td class="cuadro_plano centrar" width=10% colspan="1"><a href="<? echo $pagina . $variable ?>"><? echo $estudiante['CODIGO'] ?></a></td>
                     <td class="cuadro_plano" width=30% colspan="2"><a href="<? echo $pagina . $variable ?>"><? echo $estudiante['NOMBRE'] ?></a></td>
                     <td class="cuadro_plano" width=25% colspan="2"><a href="<? echo $pagina . $variable ?>"><? echo "<b>".$estudiante['ESTADO'].": </b> ".$estudiante['ESTADO_DESCRIPCION'] ?></a></td>
-                    <?$promedio=  $this->buscarPromedioEstudiante($estudiante['CODIGO'])?>
-                    <td class="cuadro_plano centrar" width=5% colspan="1"><a href="<? echo $pagina . $variable ?>"><? echo $promedio['PROMEDIO']?></a></td>
+                    <?$promedio=$estudiante['PROMEDIO']?>
+                    <td class="cuadro_plano centrar" width=5% colspan="1"><a href="<? echo $pagina . $variable ?>"><? echo $promedio;?></a></td>
                     <td class="cuadro_plano centrar" width=5% colspan="1">
                         <a href="<? echo $pagina . $variable ?>">
                           <?                                          
@@ -304,67 +286,10 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
                           ?>
                         </a>
                     </td>
-                    <td class="cuadro_plano centrar" width=30% colspan="1">
-                        <table class="contenidotabla centrar">
-                            <tr>
-                              <?
-                              for($columna=1;$columna<=5;$columna++){
-                                ?>
-                                <td class="centrar" width="20%">
-                                  <?
-
-                                  $this->mostrar_circulo_riesgo($riesgo,$columna, $pagina, $variable);//riesgo, nro de columna, pagina, parametros enlace
-
-                                  ?>
-                                </td>
-                                <?}?>
-                            </tr>
-                        </table>
-                    </td>
                     </tr>
             <?
         }
 
-    function mostrar_circulo_riesgo($riesgo, $nroColumna, $pagina, $variable) {
-        
-                    switch ($nroColumna) {
-                      case 1:
-                           $imagen='nivel_rojo.png';
-                           break;
-                      case 2:
-                           $imagen='nivel_naranja.png';
-                           break;
-                      case 3:
-                           $imagen='nivel_amarillo.png';
-                           break;
-                      case 4:
-                           $imagen='nivel_amarillo_limon.png';
-                           break;
-                      case 5:
-                           $imagen='nivel_verde.png';
-                           break;
-                      default:$imagen='nivel_blanco';
-                        break;
-                      }
-
-
-            if($riesgo[0]==$nroColumna){
-
-              ?>
-                      <a href="<? echo $pagina . $variable ?>" onmouseover="toolTip('<?echo $riesgo[1]?>', this)">
-                        <img src="<? echo $this->configuracion['site'] . $this->configuracion['grafico'] ?>/<?echo $imagen?>" width="25" height="25" border="0">
-                      </a>
-                      <div align="right">
-                        <span id="toolTipBox" width="150"></span>
-                      </div>
-                    <?
-                  }
-            else
-                  {
-                    echo '<img src="'.$this->configuracion['site'] . $this->configuracion['grafico'].'/nivel_blanco.png" width="25" height="25" border="0">';
-                  }
-
-        }
 
     function buscarEstudiantesAsociados() {
       
@@ -415,31 +340,6 @@ class funcion_admin_consejeriasDocente extends funcionGeneral {
 
     }
 
-    function buscarMotivoPrueba($estudiante) {
-        
-            $variables = array(
-                                'codigo' => $estudiante['CODIGO']
-            );
-          
-          //Buscar el ultimo semestre con registro de reglamento
-          $cadena_sql = $this->sql->cadena_sql("buscarSemestresReglamento", $variables);
-          $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-
-          return $resultado[0]['MOTIVO_PRUEBA'];        
-        
-    }
-    
-    function buscarPromedioEstudiante($codigo){
-        
-            $variables = array(
-                                'codigo' => $codigo
-            );
-
-          $cadena_sql = $this->sql->cadena_sql("buscarPromedioEstudiante", $variables);
-          $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");          
-          return $resultado[0];
-        
-    }
 
 }
 ?>
