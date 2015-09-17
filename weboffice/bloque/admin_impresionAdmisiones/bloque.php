@@ -7,12 +7,14 @@
 */
 /****************************************************************************
 * @name          bloque.php 
-* @revision      ultima revision 17 de noviembre de 2010
+* @revision      ultima revision 17 de septiembre de 2015
 *****************************************************************************
 * @subpackage   admin_recibo
 * @package	bloques
 * @copyright    
-* @version      0.4
+* @version      0.5
+* @Actualizaci√≥n      	17/09/2015
+* @author 		Milton Parra
 * @link		N/D
 * @description  Bloque principal para la administracion de recibos de estudiantes de primer semestre
 *
@@ -74,6 +76,15 @@ if(isset($_REQUEST["credencial"]))
 	$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"recibosActualCred");
 	$registro=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");
 	//echo "mmm".$cadena_sql;
+}
+
+if(isset($_REQUEST["factura"]))
+{
+	$valor[4]=$_REQUEST["factura"];
+        $valor[1]=$_REQUEST['anioRecibo'];
+	$valor[2]=$_REQUEST['periodoRecibo'];
+	$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"recibosActualSecuecia");
+	$registro=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");
 }
 
 if(!is_array($registro))
@@ -155,15 +166,23 @@ function con_registro_recibo($configuracion,$registro,$campos,$tema,$acceso_db,$
 		$anno=$anoperiodo[0][0];
 		$periodo=$anoperiodo[0][1];
 				
-		//Si la secuencia esta registrada en ACREFEST entonces calculamos el pago basados en dicha informacion
-		//echo $codigoConsecutivo."<br>";
-		$valor[0]=$codigoConsecutivo;//esta consulta hay que modificarla
-		$valor[1]=$anno;
-		$valor[2]=$periodo;
-		$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"conceptosActual");
-		$registroConceptos=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");	
-		
-		//echo $cadena_sql;
+		if(isset($_REQUEST['factura']))
+                {
+                    $valor[0]=$_REQUEST['factura'];
+                    $valor[1]=$_REQUEST['anioRecibo'];
+                    $valor[2]=$_REQUEST['periodoRecibo'];
+                    $cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"conceptosActual");
+                    $registroConceptos=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");	
+                }else
+                    {
+                        //Si la secuencia esta registrada en ACREFEST entonces calculamos el pago basados en dicha informacion
+                        //echo $codigoConsecutivo."<br>";
+                        $valor[0]=$codigoConsecutivo;//esta consulta hay que modificarla
+                        $valor[1]=$anno;
+                        $valor[2]=$periodo;
+                        $cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"conceptosActual");
+                        $registroConceptos=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");	
+                    }
 		
 		if(is_array($registroConceptos))
 		{	
@@ -194,9 +213,13 @@ function con_registro_recibo($configuracion,$registro,$campos,$tema,$acceso_db,$
 		else
 		{
 			//Si es la primera cuota
+			if(!isset($registro[$i][7]))$registro[$i][7]=1;
+                        //calcula valor matricula ordinaria
 			if($registro[$i][7]==1)
 			{
-				$valorSeguro=5300;
+                                $cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"consultar_valor_seguro");
+                                $valor_seguro=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");	
+				$valorSeguro=$valor_seguro[0][0];
 				$valorPagar=$valorMatricula+$valorSeguro;
 			}
 			else
@@ -207,7 +230,7 @@ function con_registro_recibo($configuracion,$registro,$campos,$tema,$acceso_db,$
 			}
 			
 			//Calcular matricula extraordinario
-			
+                        
 			if($registro[$i][7]==1)
 			{
 				$valorPagarExtra=$valorMatriculaExtra+$valorSeguro;
@@ -217,7 +240,7 @@ function con_registro_recibo($configuracion,$registro,$campos,$tema,$acceso_db,$
 				$valorPagarExtra=$valorMatriculaExtra;
 			}
 		}
-		
+
 		
 		//Valores para el Codigo de Barras
 		$codigoEstudianteI=str_repeat("0",(12-strlen($codigoEstudiante))).$codigoEstudiante;	//12 Digitos
@@ -522,6 +545,57 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			//$cadena_sql.="EMA_IMP_RECIBO=0";	
 			//echo $cadena_sql;
 			break;   
+		 case "recibosActualSecuecia":	
+			$cadena_sql="SELECT ";
+			$cadena_sql.="ama_secuencia, ";
+			$cadena_sql.="ead_cod, ";
+			$cadena_sql.="ama_cra_cod, ";
+			$cadena_sql.="ama_valor, ";
+			$cadena_sql.="ama_ext, ";
+			$cadena_sql.="ama_ano, ";
+			$cadena_sql.="ama_per, ";
+			$cadena_sql.="ama_cuota, ";
+			$cadena_sql.="TO_CHAR(AMA_FECHA, 'YYYYMMDD'), ";
+			$cadena_sql.="ama_estado, ";
+			$cadena_sql.="TO_CHAR(AMA_FECHA_ORD, 'YYYYMMDD'), ";
+			$cadena_sql.="TO_CHAR(AMA_FECHA_EXT, 'YYYYMMDD'), ";
+			$cadena_sql.="asp_nro_iden, ";
+			$cadena_sql.="(LTRIM(RTRIM(ASP_APELLIDO)))||' '||(LTRIM(RTRIM(ASP_NOMBRE))) nombre, ";
+			$cadena_sql.="cra_abrev, ";
+			$cadena_sql.="ama_asp_cred ";
+			$cadena_sql.="FROM ";
+			$cadena_sql.="ACADMMAT, ";
+			$cadena_sql.="ACASP, ";
+			$cadena_sql.="ACCRA, ";
+			$cadena_sql.="ACESTADM ";
+			$cadena_sql.="WHERE ";
+			//$cadena_sql.="AMA_CRA_COD = ".$valor[0]." ";
+			//$cadena_sql.="AND ";
+			$cadena_sql.="ASP_APE_ANO = ".$valor[1]." ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="ASP_APE_PER = ".$valor[2]." ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="AMA_ANO = ".$valor[1]." ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="AMA_PER = ".$valor[2]." ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="AMA_ESTADO='A' ";	
+			$cadena_sql.="AND ";
+			$cadena_sql.="AMA_SECUENCIA = '".$valor[4]."' ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="ama_asp_cred = asp_cred ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="ama_cra_cod = cra_cod ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="ead_asp_ano=asp_ape_ano ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="ead_asp_per=asp_ape_per ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="ead_asp_cred=asp_cred ";
+			//$cadena_sql.="AND ";
+			//$cadena_sql.="EMA_IMP_RECIBO=0";	
+			//echo $cadena_sql;
+			break;   
 
 		case "conceptosActual":
 			$cadena_sql="SELECT ";
@@ -613,7 +687,13 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			//$cadena_sql.="LIMIT 1 ";
 			break;
 			
-		
+                    case 'consultar_valor_seguro':
+                       $cadena_sql=" SELECT vlr_seguro ";
+                       $cadena_sql.=" FROM acvlrscs ";
+                       $cadena_sql.=" WHERE vlr_ano= ".$valor[1];
+                       $cadena_sql.=" AND vlr_per=".$valor[2];
+                       break;
+            
 		default:
 			$cadena_sql="";
 			break;
@@ -680,7 +760,7 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		$pdf->Ln(3);
 		$pdf->Cell(15,4,"",0);
 		//Francsico Jose de Caldas
-		$pdf->Cell(40,4,"Francisco JosÈ de Caldas",0);		
+		$pdf->Cell(40,4,"Francisco Jose de Caldas",0);		
 		$pdf->Ln(1);
 		$pdf->Cell(70,4,"",0);
 		//Comprobante de Pago
@@ -701,7 +781,7 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		//Nombre
 		$pdf->Cell(76,4,"Nombre del Estudiante",0);
 		//Codigo Estudiante
-		$pdf->Cell(26,4,"CÛdigo",0);
+		$pdf->Cell(26,4,"Codigo",0);
 		//Documento
 		$pdf->Cell(45,4,"Doc. Identidad",0);
 		//Carrera
@@ -725,11 +805,11 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		//Tipo Pago
 		$pdf->Cell(35,4,"Pago",0);
 		//Fecha 1
-		$pdf->Cell(50,4,"Fecha LÌmite",0);
+		$pdf->Cell(50,4,"Fecha Limite",0);
 		//Pago Ordinario
 		$pdf->Cell(50,4,"TOTAL A PAGAR",0);
 		//Fecaha expedicion
-		$pdf->Cell(40,4,"Fecha de ExpediciÛn");
+		$pdf->Cell(40,4,"Fecha de Expedicion");
 		//Periodo
 		$pdf->Cell(30,4,"Periodo");		
 		$pdf->Ln(5);
@@ -758,7 +838,7 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		//Referencia
 		$pdf->Cell(18,4,"Ref.",0);
 		//Fecha expedicion
-		$pdf->Cell(28,4,"DescripciÛn");
+		$pdf->Cell(28,4,"Descripcion");
 		//Periodo
 		$pdf->Cell(20,4,"Valor");
 		$pdf->Ln(5);
@@ -778,7 +858,7 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 			//Espacio
 			$pdf->Cell(5,4,"",0);
 			//Descripcion
-			$pdf->Cell(24,4,"MatrÌcula",0);
+			$pdf->Cell(24,4,"Matricula",0);
 			//Valor
 			$pdf->Cell(20,4,money_format('$ %(!.0i',$valor[19]),0,0,'R');
 			
@@ -796,8 +876,8 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 			$pdf->Cell(24,4,"Seguro",0);
 
 			
-			
-			//Valor
+
+                        //Valor
 			if($valor[16]==1)
 			{
 				$pdf->Cell(20,4,money_format('$ %(!.0i',$valor[17]),0,0,'R');
@@ -887,12 +967,12 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		//Tipo Pago
 		$pdf->Cell(35,4,"Pago",0);
 		//Fecha 1
-		$pdf->Cell(50,4,"Fecha LÌmite",0);
+		$pdf->Cell(50,4,"Fecha Limite",0);
 		//Pago Ordinario
 		$pdf->Cell(48,4,"TOTAL A PAGAR",0);
 		$pdf->SetFont('Arial','',8);
 		//Encabezado Observacion
-		$pdf->Cell(60,4,"Pago ˙nicamente en efectivo",0);
+		$pdf->Cell(60,4,"Pago unicamente en efectivo",0);
 				
 		//Valores
 		$pdf->Ln(5);
@@ -943,7 +1023,7 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		$pdf->Ln(3);
 		$pdf->Cell(15,4,"",0);
 		//Francsico Jose de Caldas
-		$pdf->Cell(40,4,"Francisco JosÈ de Caldas",0);		
+		$pdf->Cell(40,4,"Francisco Jose de Caldas",0);		
 		$pdf->Ln(1);
 		$pdf->Cell(70,4,"",0);
 		//Comprobante de Pago
@@ -966,7 +1046,7 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		//Nombre
 		$pdf->Cell(76,4,"Nombre del Estudiante",0);
 		//Codigo Estudiante
-		$pdf->Cell(26,4,"CÛdigo",0);
+		$pdf->Cell(26,4,"Codigo",0);
 		//Documento
 		$pdf->Cell(45,4,"Doc. Identidad",0);
 		//Carrera
@@ -989,12 +1069,12 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		$pdf->Ln(5);
 		$pdf->Cell(33,4,"Referencia",0);
 		//Fecha expedicion
-		$pdf->Cell(62,4,"DescripciÛn");
+		$pdf->Cell(62,4,"Descripcion");
 		//Periodo
 		$pdf->Cell(45,4,"Valor");
 		
 		//Fecha expedicion
-		$pdf->Cell(40,4,"Fecha de ExpediciÛn");
+		$pdf->Cell(40,4,"Fecha de Expedicion");
 		//Periodo
 		$pdf->Cell(30,4,"Periodo");		
 		
@@ -1015,7 +1095,7 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 			//Numero
 			$pdf->Cell(10,4,"001",0);
 			//Descripcion
-			$pdf->Cell(60,4,"MatrÌcula",0);
+			$pdf->Cell(60,4,"Matricula",0);
 			//Valor
 			$pdf->Cell(50,4,money_format('$ %(!.0i',$valor[19]),0,0,'R');
 			//Espacio
@@ -1124,7 +1204,7 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 					}
 					else
 					{
-						$pdf->Cell(30,4,"PAGO ⁄NICAMENTE EFECTIVO",0);
+						$pdf->Cell(30,4,"PAGO UNICAMENTE EFECTIVO",0);
 						
 					}
 				}
@@ -1173,7 +1253,7 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		//Pago Extraordinario
 		$pdf->Cell(48,4,money_format('$ %!.0i',$valor[11]),0);
 				
-		$pdf->Cell(60,4,"  - PAGO ⁄NICAMENTE EFECTIVO",0);
+		$pdf->Cell(60,4,"  - PAGO UNICAMENTE EFECTIVO",0);
 				
 		//Pie del Recibo
 		$pdf->SetFont('Arial','',8);	

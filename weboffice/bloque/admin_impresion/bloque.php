@@ -607,7 +607,7 @@ function prepararPDF($configuracion,$pdf, $valor,$pago="",$tipo="",$conceptos=""
 		$pdf->Ln(3);
 		$pdf->Cell(15,4,"",0);
 		//Francsico Jose de Caldas
-		$pdf->Cell(40,4,"Francisco Jose de Caldas",0);		
+		$pdf->Cell(40,4,"Francisco Jose de Caldas",0);
 		$pdf->Ln(1);
 		$pdf->Cell(70,4,"",0);
 		//Comprobante de Pago

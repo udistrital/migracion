@@ -9,8 +9,11 @@
  * @package recibos
  * @subpackage admin_consultarHistoricoRecibos
  * @author Maritza Callejas
- * @version 0.0.0.1
+ * @version 0.0.0.2
  * Fecha: 25/06/2013
+ * @Actualización      	17/09/2015
+ * @author 		Milton Parra
+
  */
 /**
  * Verifica si la variable global existe para poder navegar en el sistema
@@ -45,6 +48,7 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
 
   public $configuracion;
   public $accesoOracle;
+  public $valorSeguro;
 
   /**
      * Método constructor que crea el objeto sql de la clase funcion_adminConsultarHistoricoRecibos
@@ -92,7 +96,6 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
          * Intancia para crear la conexion ORACLE
          */
         
-        echo $this->nivel;
         if($this->nivel==80){//soporte
             $this->accesoOracle = $this->conectarDB($configuracion, 'soporteoas');
         }elseif($this->nivel==4||$this->nivel==28){//coordinador
@@ -404,7 +407,9 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
         $indice_weboffice=$this->configuracion["host"]."/weboffice/index.php?";	
 	foreach ($recibos as $key => $recibo) {
             
-                $variable="pagina=imprimirFactura";
+                if($recibo['PRIMER_SEMESTRE']==0)
+                    {
+                    $variable="pagina=imprimirFactura";
                 $variable.="&action=loginCondor";
                 $variable.="&modulo=imprimirFactura";
                 $variable.="&tipoUser=80";
@@ -416,11 +421,35 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
                 $variable.="&periodoRecibo=".$recibo['PERIODO'];
                 $variable.="&usuario=".$this->usuario;
                 
+                }
+                else
+                    {
+                $variable="pagina=imprimirFacturaAdm";
+                $variable.="&action=loginCondor";
+                $variable.="&modulo=imprimirFacturaAdm";
+                $variable.="&tipoUser=80";
+                $variable.="&nivel=80";
+                $variable.="&opcion=imprimir";
+                $variable.="&no_pagina=true";
+                $variable.="&factura=".$recibo['SECUENCIA'];
+                $variable.="&anioRecibo=".$recibo['ANIO'];
+                $variable.="&periodoRecibo=".$recibo['PERIODO'];
+                $variable.="&periodo=A";
+                $variable.="&usuario=".$this->usuario;
+
+                    }
+                
                 $variable=$this->cripto->codificar_url($variable,$this->configuracion);
-                $conceptos= $this->consultaConceptosRecibos($recibo['SECUENCIA'], $recibo['ANIO']);
-                $valor_seguro = $this->buscarValorConcepto($conceptos,2);
+                if($recibo['PRIMER_SEMESTRE']==0)
+                {                
+                    $conceptos= $this->consultaConceptosRecibos($recibo['SECUENCIA'], $recibo['ANIO']);
+                }else
+                    {
+                        $conceptos= $this->consultaConceptosPrimerRecibos($recibo['SECUENCIA'], $recibo['ANIO']);
+                    }
+                $this->valorSeguro = $this->buscarValorConcepto($conceptos,2);
                 if(!$conceptos && $recibo['CUOTA']==1){
-                    $valor_seguro = $this->consultaValorSeguro($recibo['ANIO'],$recibo['PERIODO']);
+                    $this->valorSeguro = $this->consultaValorSeguro($recibo['ANIO'],$recibo['PERIODO']);
                 }
                 $valor_carnet = $this->buscarValorConcepto($conceptos,3);
                 $valor_sistematizacion = $this->buscarValorConcepto($conceptos,4);
@@ -430,9 +459,10 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
                 
                 $html .="<tr>";
                 $html .="<td class='cuadro_plano centrar'>".$recibo['ANIO']."-".$recibo['PERIODO'] ."</td>";
+                $html .="<td class='cuadro_plano centrar'>".$recibo['ANIO_PAGO']."-".$recibo['PERIODO_PAGO'] ."</td>";
                 $html .="<td class='cuadro_plano centrar'>".$recibo['SECUENCIA']."</td>";
                 $html .="<td class='cuadro_plano centrar'>$".number_format($recibo['VALOR_ORD'])."</td>";
-                $html .="<td class='cuadro_plano centrar'>$".number_format($valor_seguro)."</td>";
+                $html .="<td class='cuadro_plano centrar'>$".number_format($this->valorSeguro)."</td>";
                 $html .="<td class='cuadro_plano centrar'>$".number_format($valor_carnet)."</td>";
                 $html .="<td class='cuadro_plano centrar'>$".number_format($valor_sistematizacion)."</td>";
                 $html .="<td class='cuadro_plano centrar'>$".number_format($valor_total_ord)."</td>";
@@ -468,6 +498,7 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
         $html .="<thead>";
         $html .="<tr class='sigma '>";
         $html .="   <th>Per&iacute;odo</th>";
+        $html .="   <th>Per&iacute;odo Pago</th>";
         $html .="   <th>Secuencia</th>";
         $html .="   <th>Matr&iacute;cula</th>";
         $html .="   <th>Seguro</th>";
@@ -502,6 +533,19 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
           return $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
     }
     
+     /**
+     * busca los datos de los conceptos de un recibo de primer semestre
+     * @param int $codSecuencia,
+     * @param int $anio
+     * @return type 
+     */
+    function consultaConceptosPrimerRecibos($codSecuencia,$anio) {
+            $datos= array(  'secuencia'=>$codSecuencia,
+                            'anio'=>$anio);
+          $cadena_sql = $this->sql->cadena_sql("consultar_conceptos_primer_recibo", $datos);
+          return $resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+    }
+    
     /**
      * Función para obtener el valor total del recibo por pago ordinario
      * @param type $codSecuencia
@@ -518,7 +562,7 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
             }
         }else{
             if($cuota==1){
-                $valorSeguro = $this->consultaValorSeguro($anio,$periodo);
+                $valorSeguro = $this->valorSeguro;
             }else{
                 $valorSeguro = 0;
             }
@@ -544,7 +588,7 @@ class funcion_adminConsultarHistoricoRecibos extends funcionGeneral {
             }
         }else{
             if($cuota==1){
-                $valorSeguro = $this->consultaValorSeguro($anio,$periodo);
+                $valorSeguro = $this->valorSeguro;
             }else{
                 $valorSeguro = 0;
             }

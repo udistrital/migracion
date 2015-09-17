@@ -14,19 +14,21 @@
 loginCondor.action.php 
 
 Paulo Cesar Coronado
-Copyright (C) 2001-2005
+Copyright (C) 2001-2015
 
-Última revisión 14 de marzo de 2011
+Última revisión 17 de septiembre de 2015
 
 ******************************************************************************
 * @subpackage   
 * @package	formulario
 * @copyright    
-* @version      0.2
+* @version      0.3
 * @author      	Paulo Cesar Coronado
 * @link		N/D
 * @Actualización      	14/03/2011
 * @author 		Jesús Neira Guio
+* @Actualización      	17/09/2015
+* @author 		Milton Parra
 * 
 *
 * Script de procesamiento del formulario de autenticacion de usuarios
@@ -55,8 +57,8 @@ if ($acceso_db->probar_conexion()==TRUE)
 	}
 	else
 	{
-		
-		switch($_REQUEST["modulo"])
+
+            switch($_REQUEST["modulo"])
 		{
 			case "matriculaEstudiante":
 				$acceso=9;
@@ -150,13 +152,16 @@ if ($acceso_db->probar_conexion()==TRUE)
                         case "imprimirFactura":
                                 $acceso=83006;
                         break;
+                        case "imprimirFacturaAdm":
+                                $acceso=83007;
+                        break;
                         case "AsistenteContabilidad":
                                 $acceso=109;
                         break;
 		}
 	}
-	
-	$esta_sesion=$nueva_sesion->numero_sesion();
+
+        $esta_sesion=$nueva_sesion->numero_sesion();
 	if (strlen($esta_sesion) != 32) 
 	{
 		$nueva_sesion->especificar_usuario($usuario);
@@ -190,7 +195,6 @@ if ($acceso_db->probar_conexion()==TRUE)
 			$cadena_sql.="WHERE ";
 			$cadena_sql.="CRA_EMP_NRO_IDEN=".$usuario;
 			
-			//echo $cadena_sql;exit;
 			$accesoOracle->registro_db($cadena_sql,0);
 			$registro=$accesoOracle->obtener_registro_db();
                         }elseif($tipo==110 || $tipo==114){
@@ -246,13 +250,13 @@ if ($acceso_db->probar_conexion()==TRUE)
 	$cadena_sql.="AND ";
 	$cadena_sql.=$configuracion["prefijo"]."subsistema.id_pagina=".$configuracion["prefijo"]."pagina.id_pagina ";			
 	$cadena_sql.="LIMIT 1";
-	
+
 	$campos=$acceso_db->registro_db($cadena_sql,0);
 	
 	if($campos>0)
 	{
 		$registro=$acceso_db->obtener_registro_db();
-                  
+                
 		$tipopagina= isset($_REQUEST["tipopagina"])?$_REQUEST["tipopagina"]:'';
 		if(!isset($_REQUEST['tipopagina'])){
 			$tipopagina="pagina";
@@ -281,7 +285,6 @@ if ($acceso_db->probar_conexion()==TRUE)
 	
 	$variable=$cripto->codificar_url($variable,$configuracion);
 
-	//echo $pagina.$variable;
 	echo "<script>location.replace('".$pagina.$variable."')</script>";     	
 		
 }
