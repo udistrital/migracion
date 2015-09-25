@@ -791,13 +791,13 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		$pdf->SetFont('Arial','B',8);
 		$pdf->Ln(5);
 		//Nombre
-		$pdf->Cell(73,4,$valor[3],0);
+		$pdf->Cell(73,4,UTF8_DECODE($valor[3]),0);
 		//Codigo Estudiante
 		$pdf->Cell(32,4,$valor[4],0);
 		//Documento
 		$pdf->Cell(29,4,$valor[5],0);
 		//Carrera
-		$pdf->Cell(30,4,$valor[6],0);		
+		$pdf->Cell(30,4,UTF8_DECODE($valor[6]),0);		
 		//Encabezado
 		$pdf->SetTextColor(50, 50, 50);
 		$pdf->SetFont('Arial','B',9);
@@ -1056,13 +1056,13 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		$pdf->SetFont('Arial','B',8);
 		$pdf->Ln(5);
 		//Nombre
-		$pdf->Cell(73,4,$valor[3],0);
+		$pdf->Cell(73,4,UTF8_DECODE($valor[3]),0);
 		//Codigo Estudiante
 		$pdf->Cell(32,4,$valor[4],0);
 		//Documento
 		$pdf->Cell(33,4,$valor[5],0);
 		//Carrera
-		$pdf->Cell(30,4,$valor[6],0);		
+		$pdf->Cell(30,4,UTF8_DECODE($valor[6]),0);		
 		//Encabezado
 		$pdf->SetTextColor(50, 50, 50);
 		$pdf->SetFont('Arial','B',9);
