@@ -84,15 +84,44 @@ class sql_registro extends sql
                 $cadena_sql.=" IN (SELECT MAX(CONCAT(C.reg_ano,C.reg_per))";
                 $cadena_sql.=" FROM reglamento C";
                 $cadena_sql.=" WHERE C.reg_est_cod = B.reg_est_cod";
-                $cadena_sql.=" AND reg_estado='A' and reg_est_cod in (20122180066,20122180222,20122185022,20032005039,20032015116))";
-                $cadena_sql.=" AND B.reg_renovaciones_004=0";
+                $cadena_sql.=" AND reg_estado='A')";
+                $cadena_sql.=" AND (B.REG_RENOVACIONES_004=0 or B.REG_RENOVACIONES_004 is null)";
                 $cadena_sql.=" AND reg_porcentaje_plan=0";
                 $cadena_sql.=" AND est_acuerdo='2011004'";
                 $cadena_sql.=" AND tra_nivel='PREGRADO'";
-                $cadena_sql.=" AND reg_estado='A' and reg_est_cod in (20122180066,20122180222,20122185022,20032005039,20032015116)";
+                $cadena_sql.=" AND reg_estado='A'";
                 $cadena_sql.=" AND est_estado_est not in ('E')";
                 $cadena_sql.=" AND CONCAT(B.reg_ano,B.reg_per)::integer>20121";
-                //$cadena_sql.=" ORDER BY reg_est_cod";
+                $cadena_sql.=" ORDER BY reg_est_cod";
+                break;
+
+                case 'consultarEstudiantesReporte':
+                $cadena_sql=" SELECT reg_cra_cod COD_PROYECTO,";
+                $cadena_sql.=" reg_est_cod COD_ESTUDIANTE,";
+                $cadena_sql.=" est_nombre NOMBRE,";
+                $cadena_sql.=" reg_ano ANO,";
+                $cadena_sql.=" reg_per PERIODO,";
+                $cadena_sql.=" est_acuerdo ACUERDO,";
+                $cadena_sql.=" reg_porcentaje_plan PORCENTAJE_PLAN,";
+                $cadena_sql.=" reg_porcentaje_004 PORCENTAJE_004,";
+                $cadena_sql.=" reg_num_matriculas MATRICULAS,";
+                $cadena_sql.=" reg_matriculas_004 MATRICULAS_004,";
+                $cadena_sql.=" reg_renovaciones_004 RENOVACIONES_004";
+                $cadena_sql.=" FROM reglamento B";
+                $cadena_sql.=" INNER JOIN acest ON est_cod=reg_est_cod";
+                $cadena_sql.=" INNER JOIN accra ON cra_cod=est_cra_cod";
+                $cadena_sql.=" INNER JOIN actipcra ON tra_cod=cra_tip_cra";
+                $cadena_sql.=" WHERE CONCAT(B.reg_ano,B.reg_per)";
+                $cadena_sql.=" IN (SELECT MAX(CONCAT(C.reg_ano,C.reg_per))";
+                $cadena_sql.=" FROM reglamento C";
+                $cadena_sql.=" WHERE C.reg_est_cod = B.reg_est_cod";
+                $cadena_sql.=" AND reg_estado='A')";
+                $cadena_sql.=" AND est_acuerdo='2011004'";
+                $cadena_sql.=" AND tra_nivel='PREGRADO'";
+                $cadena_sql.=" AND reg_estado='A'";
+                $cadena_sql.=" AND est_estado_est not in ('E')";
+                $cadena_sql.=" AND CONCAT(B.reg_ano,B.reg_per)::integer>20121";
+                $cadena_sql.=" ORDER BY reg_est_cod";
                 break;
 
              case 'consultarEstudianteRecalcularReglamento':
@@ -270,6 +299,17 @@ class sql_registro extends sql
                 $cadena_sql.=" OR not_obs IN (19,22,24))";
                 $cadena_sql.=" AND not_ano::text||not_per::text<'20113'";
                 $cadena_sql.=" GROUP BY est_cra_cod,est_pen_nro,est_ind_cred,plan_creditos";
+                break;
+            
+            case 'consultarCreditosPlan':
+                $cadena_sql=" SELECT DISTINCT est_cra_cod PROYECTO,";
+                $cadena_sql.=" est_pen_nro PLAN,";
+                $cadena_sql.=" est_ind_cred TIPO_ESTUDIANTE,";
+                $cadena_sql.=" plan_creditos CREDITOS_PLAN";
+                $cadena_sql.=" FROM acest ";
+                $cadena_sql.=" LEFT OUTER JOIN acplanestudio ON est_cra_cod=plan_cra_cod";
+                $cadena_sql.=" AND est_pen_nro=plan_pen_nro";
+                $cadena_sql.=" WHERE est_cod=".$variable['codEstudiante'];
                 break;
 
             case 'consultarPorcentajeTotalPlan':

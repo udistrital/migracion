@@ -55,6 +55,7 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
     public $porcentaje004;
     public $renovaciones004;
     public $matriculas004;
+    public $estudiantes;
 
 
 
@@ -160,6 +161,7 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
 
 		//consulta los estudiantes que se encuentran registrados en la tabla de reglamento del proyecto
         	$estudiantes=$this->consultarEstudiantesReglamento();
+                $this->estudiantes=$estudiantes;
 		//ejecuta proceso por cada estudiante
                 $a=0;
 		if(!is_array($estudiantes))
@@ -185,9 +187,8 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
                             $this->procesarEstudiante($valor);
 			}	
                     }
-                    echo "<br>CONTADOR<br>".$this->contador;exit;
-                //vuelve al formulario de cierre
-                $this->volverFormularioCierre();
+                //presenta reporte de proceso ejecutado
+                $this->presentarReporteProceso();
 
 		return true;
 	}
@@ -253,6 +254,16 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
 		return $resultado;
 	}
 
+    /**
+    * funcion que rescata el mas reciente registro de los estudiantes de la tabla reglamento con los datos de renovaciones
+    */	
+	function consultarEstudiantesReporte(){
+		//$variables=array();    
+		$cadena_sql=$this->sql->cadena_sql('consultarEstudiantesReporte','');
+		$resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda");
+		return $resultado;
+	}
+
 	/**
          * Función que actualiza el registro de reglamento de un estudiante con el numero de espacios perdidos, espacios que ha visto por tercera vez
          * y motivo de la prueba academica
@@ -266,19 +277,19 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
                                     'anio'=>  $this->anio,
                                     'periodo'=>$this->periodo,
                                     'estudiante'=>$this->codigoEstudiante,
-                                    'porcentaje'=>$this->porcentaje,
+                                    'porcentaje'=>(int)$this->porcentaje,
                                     'matriculas'=>$this->numMatriculas,
                                     'porcentaje004'=>$this->porcentaje004,
                                     'matriculas004'=>$this->matriculas004,
                                     'renovaciones004'=>$this->renovaciones004
                         );
                 foreach ($variables as $key => $value) {
-                    if($value==''&&$value!=0)
+                    if($value==''&&$value!==0)
                     {
                         $variables[$key]='null';
                     }
                 }
-		$cadena_sql=$this->sql->cadena_sql('actualizarReglamento',$variables);
+                $cadena_sql=$this->sql->cadena_sql('actualizarReglamento',$variables);
 		$resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"");
 		
 		return true;
@@ -341,11 +352,18 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
                 $numRenovaciones=$this->consultarTablaPermanencia($porcentaje,$tipoProyecto,$this->acuerdoEstudiante);
             }else
                 {
-                    $numRenovaciones='';
+                    $numRenovaciones=0;
                 }
                 unset ($porcentaje);
             $this->matriculas004=$numMatriculas;
-            $this->renovaciones004=$numRenovaciones;
+            $creditosPlan=$this->consultarCreditosPlan($this->codigoEstudiante);
+            if(!isset($creditosPlan[0]['CREDITOS_PLAN']))
+            {
+                $this->renovaciones004='';
+            }else{
+                $this->renovaciones004=$numRenovaciones;
+            }
+            
             if(is_numeric($numRenovaciones)&&$numMatriculas<$numRenovaciones)
             {
                 return "ok";
@@ -410,7 +428,7 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
                     if(strlen($this->codigoEstudiante)>10&&substr($this->codigoEstudiante, -11,5)>=20112)
                     {
                         $porcentaje=0;
-                    }else{$porcentaje='';}
+                    }else{$porcentaje=0;}
                 }
                 return $porcentaje;
 	}
@@ -429,14 +447,42 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
       /**
        * Funcion que permite regresar al formulario de inicio de Cierre de semestre
        */
-        function volverFormularioCierre() {
-                $pagina=  $this->configuracion["host"].  $this->configuracion["site"]."/index.php?";          
+        function presentarReporteProceso() {
+            $estudiantesProcesados=$this->consultarEstudiantesReporte();
+            foreach ($estudiantesProcesados as $key => $todos) {
+                foreach ($this->estudiantes as $key => $procesado) {
+                    if($todos['COD_ESTUDIANTE']==$procesado['COD_ESTUDIANTE'])
+                    {
+                        $estudiantesReporte[]=$todos;
+                    }
+                }
+            }
+            
+            if(is_array($estudiantesReporte))
+            {
+                $this->mostrarReporteResultadoProceso($estudiantesReporte);
+            }else
+                {
+                ?>
+                    <table class="tablaBase centrar" width='80%' border='0' align='center' cellpadding='4 px' cellspacing='0px' >
+                        <tr>
+                            <td class="<?echo $clase;?>" width="100%" colspan="2">
+                                <strong><br>NO SE PROCESARON ESTUDIANTES<br></strong> 
+                            </td>
+                        </tr>
+                    </table>
+                <?
+                }            
+            
+            /*    $pagina=  $this->configuracion["host"].  $this->configuracion["site"]."/index.php?";          
 		$variable="&pagina=registro_actualizarDatos004";
 		$variable.="&opcion=consultarProyecto";
 		$variable.="&codProyecto=".$this->proyecto;
 		$variable= $this->cripto->codificar_url($variable,$this->configuracion);
 		echo "<script>location.replace('".$pagina.$variable."')</script>";
                 exit;
+             * */
+             
       }
       
         /**
@@ -597,6 +643,17 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
         function consultarPorcentajePlan($codEstudiante) {
             $variable=array('codEstudiante'=>$codEstudiante);
             $cadena_sql=$this->sql->cadena_sql('consultarPorcentajePlan',$variable);
+            $resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda");
+            return $resultado;
+            
+        }
+        
+        /**
+         * Permite consultar si hay numero de creditos o espacios para el plan de estudios del estudiante
+         */
+        function consultarCreditosPlan($codEstudiante) {
+            $variable=array('codEstudiante'=>$codEstudiante);
+            $cadena_sql=$this->sql->cadena_sql('consultarCreditosPlan',$variable);
             $resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda");
             return $resultado;
             
@@ -864,18 +921,17 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
         $html .= "<thead>";
         $html .= "<tr>"; 
         $html .= "<td style='font-size: 9pt;'>No.</td>"; 
-        $html .= "<td style='font-size: 9pt;'>Código Estudiante</td>"; 
+        $html .= "<td style='font-size: 9pt;'>Cód. Proyecto</td>"; 
+        $html .= "<td style='font-size: 9pt;'>Código Estudiante</td>";
         $html .= "<td style='font-size: 9pt;'>Nombre Estudiante</td>";
-        $html .= "<td style='font-size: 9pt;'>Estado Anterior</td>";
-        $html .= "<td style='font-size: 9pt;'>Estado Actual</td>";
+        $html .= "<td style='font-size: 9pt;'>Año</td>";
+        $html .= "<td style='font-size: 9pt;'>Período</td>";
         $html .= "<td style='font-size: 9pt;'>Acuerdo</td>";
-        $html .= "<td style='font-size: 9pt;'>Motivo Prueba</td>";
-        $html .= "<td style='font-size: 9pt;'>Num. Esp. Acad. Reprob.</td>";
-        $html .= "<td style='font-size: 9pt;'>Máx. veces esp. reproba.</td>";
-        $html .= "<td style='font-size: 9pt;'>Promedio</td>";
-        $html .= "<td style='font-size: 9pt;'>Causal Exclusi&oacute;n</td>";
-        $html .= "<td style='font-size: 9pt;'>% Plan Aprobado</td>";
-        $html .= "<td style='font-size: 9pt;'>Esp. Acad. Reprob. y veces (Prueba)</td>";        
+        $html .= "<td style='font-size: 9pt;'>% plan</td>";
+        $html .= "<td style='font-size: 9pt;'>% plan 004</td>";
+        $html .= "<td style='font-size: 9pt;'>Matrículas</td>";
+        $html .= "<td style='font-size: 9pt;'>Matrículas 004</td>";
+        $html .= "<td style='font-size: 9pt;'>Renovaciones</td>";
         $html .= "</tr>";
         $html .= "</thead>";
         $html .= "<tbody>";
@@ -886,18 +942,7 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
             foreach ($estudiante as $key2=>$obs_estudiante) {
                 if (!is_numeric($key2))
                 {
-                    if($key2=='ESPACIOS_REPROBADOS'&&!is_numeric($obs_estudiante))
-                    {
-                        $html.="<td style='font-size: 10pt;'>";
-                        $espacios=json_decode($obs_estudiante);
-                        foreach ($espacios as $key => $value) {
-                            $html.=$key.":".$value."<br>";
-                        }
-                        $html.="</td>";
-                    }
-                    else{
-                            $html.="<td style='font-size: 10pt;'>".$obs_estudiante."</td>";
-                        }
+                    $html.="<td style='font-size: 10pt;'>".$obs_estudiante."</td>";
                 }
             }
             $html .= "</tr>";
@@ -906,29 +951,6 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
         
         $html .= "</table>";
         echo $html;
-        if(is_array($this->estudantesNoProcesados))
-        {
-            echo "<h1>Estudiantes no Procesados</h1>";
-            $html = "<table id='tabla'>";
-            $html .= "<thead>";
-            $html .= "<tr>"; 
-            $html .= "<td style='font-size: 9pt;'>No.</td>"; 
-            $html .= "<td style='font-size: 9pt;'>Código Estudiante</td>"; 
-            $html .= "</tr>";
-            $html .= "</thead>";
-            $html .= "<tbody>";
-            foreach ($this->estudantesNoProcesados as $key => $estudiante) {
-                    $id=$key+1;
-                $html .= "<tr>";
-                $html .= "<td style='font-size: 10pt;'>".$id."</td>";
-                $html .= "<td style='font-size: 10pt;'>".$estudiante."</td>";
-                $html .= "</tr>";
-            }
-            $html .= "</tbody>";
-
-            $html .= "</table>";
-            echo $html;
-        }
     }
 }
 ?>
