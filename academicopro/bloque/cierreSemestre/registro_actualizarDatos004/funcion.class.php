@@ -29,7 +29,7 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/procedi
  *
  * descripcion
  * 
- * @package InscripcionCoordinadorPorGrupo
+ * @package cierreSemestre
  * @subpackage Consulta
  */
 class funcion_registroactualizarDatos004 extends funcionGeneral
@@ -129,12 +129,9 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
           echo "finalizo";exit;
           
       }
-    /**
-    * funcion inicializadora para actualizarDatos004
-    */
-    function actualizarDatos004(){
+      
+      function barraProgreso() {
         ?>            
-        
             <head>
                 <script language="javascript">
                 //Creo una función que imprimira en la hoja el valor del porcentanje asi como el relleno de la barra de progreso
@@ -157,8 +154,13 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
                   <div id="getProgressBarFill"></div>
                 </div>
             </body><?            
-		
-
+      }
+      
+    /**
+    * funcion inicializadora para actualizarDatos004
+    */
+    function actualizarDatos004(){
+        $this->barraProgreso();
 		//consulta los estudiantes que se encuentran registrados en la tabla de reglamento del proyecto
         	$estudiantes=$this->consultarEstudiantesReglamento();
                 $this->estudiantes=$estudiantes;
@@ -290,7 +292,7 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
                     }
                 }
                 $cadena_sql=$this->sql->cadena_sql('actualizarReglamento',$variables);
-		$resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"");
+		//$resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"");
 		
 		return true;
 	}
@@ -492,10 +494,6 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
         function seleccionarOpcion() {
             $this->crearInicioSeccion('Seleccione la opci&oacute;n para actualizar datos de estudiantes de acuerdo 004');
             $arregloBotones=array(array('boton'=>'',
-                                    'action'=>'cierreSemestre/admin_recalcularEstadoEstudiante',
-                                    'opcion'=>'mostrarFormulario',
-                                    'nombreBoton'=>'Listado'),
-                                    array('boton'=>'',
                                     'action'=>'cierreSemestre/registro_actualizarDatos004',
                                     'opcion'=>'opcionEstudiante',
                                     'nombreBoton'=>'Estudiante'),
@@ -593,7 +591,7 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
                 </tr>
                 <tr align="center">
                   <td class="centrar" colspan="4">
-                    <input type="button" name="Cargar Datos" value="Recalcular Datos" onclick="if(<? echo $this->verificar2; ?>){document.forms['<? echo $this->formulario2?>'].submit()}else{false}">
+                    <input type="button" name="Cargar Datos" value="Actualizar datos Estudiante" onclick="if(<? echo $this->verificar2; ?>){document.forms['<? echo $this->formulario2?>'].submit()}else{false}">
                   </td>
                 </tr>
               </form>
@@ -602,15 +600,30 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
         }
         
         /**
-         * Funcion que permite recalcular el estado para un solo estudiante y presenta el reporte del proceso
+         * Funcion que permite actualiza los datos para un solo estudiante y presenta el reporte del proceso
          * Miltn Parra 28/01/2014
          */
         function recalcularUnEstudiante()
         {
+            $this->barraProgreso();
             $codEstudiante=$_REQUEST['codEstudiante'];
-            $this->recalcularEstudiante($codEstudiante);
-            $estudiantes=array($codEstudiante);
-            $this->generarReporte($estudiantes);
+            $this->estudiantes=$this->verificarAcuerdo004($codEstudiante);
+            if (!is_array($this->estudiantes))
+            {
+                echo "El estudiante no está acogido al acuerdo 004.";exit;
+            }
+            else{
+                    echo "<script>callprogress('100','1','1')</script>"; //llamo a la función JS(JavaScript) para actualizar el progreso
+                    flush(); //con esta funcion hago que se muestre el resultado de inmediato y no espere a terminar todo el bucle
+                    ob_flush();
+                    usleep (300);                            
+                    $this->procesarEstudiante($this->estudiantes[0]);
+                }	
+                    
+                //presenta reporte de proceso ejecutado
+                $this->presentarReporteProceso();
+
+		return true;                
         }
 
         
@@ -637,6 +650,12 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
             return $resultado;
             
         }
+        
+        function verificarAcuerdo004($codEstudiante) {
+            $cadena_sql=$this->sql->cadena_sql('consultarAcuerdo004',$codEstudiante);
+            $resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda");
+            return $resultado;
+        }        
         /**
          * Permite consultar el total de espacios o creditos aprobados por el estudiante y el total de su plan de estudios hasta 2011-3
          */
