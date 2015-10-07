@@ -165,7 +165,7 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
         	$estudiantes=$this->consultarEstudiantesReglamento();
                 $this->estudiantes=$estudiantes;
 		//ejecuta proceso por cada estudiante
-                $a=0;
+                $a=1;
 		if(!is_array($estudiantes))
                 {
                     echo "<script>callprogress(100,0,0)</script>"; //llamo a la función JS(JavaScript) para actualizar el progreso
@@ -281,7 +281,7 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
                                     'estudiante'=>$this->codigoEstudiante,
                                     'porcentaje'=>(int)$this->porcentaje,
                                     'matriculas'=>$this->numMatriculas,
-                                    'porcentaje004'=>$this->porcentaje004,
+                                    'porcentaje004'=>(int)$this->porcentaje004,
                                     'matriculas004'=>$this->matriculas004,
                                     'renovaciones004'=>$this->renovaciones004
                         );
@@ -292,7 +292,7 @@ class funcion_registroactualizarDatos004 extends funcionGeneral
                     }
                 }
                 $cadena_sql=$this->sql->cadena_sql('actualizarReglamento',$variables);
-		//$resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"");
+		$resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"");
 		
 		return true;
 	}

@@ -127,11 +127,11 @@ class sql_registro extends sql
                 $cadena_sql.=" reg_ano ANO,";
                 $cadena_sql.=" reg_per PERIODO,";
                 $cadena_sql.=" est_acuerdo ACUERDO,";
-                $cadena_sql.=" reg_porcentaje_plan PORCENTAJE_PLAN,";
-                $cadena_sql.=" reg_porcentaje_004 PORCENTAJE_004,";
-                $cadena_sql.=" reg_num_matriculas MATRICULAS,";
-                $cadena_sql.=" reg_matriculas_004 MATRICULAS_004,";
-                $cadena_sql.=" reg_renovaciones_004 RENOVACIONES_004";
+                $cadena_sql.=" coalesce(cast(reg_porcentaje_plan as text),'N/D') PORCENTAJE_PLAN,";
+                $cadena_sql.=" coalesce(cast(reg_porcentaje_004 as text),'N/D') PORCENTAJE_004,";
+                $cadena_sql.=" coalesce(cast(reg_num_matriculas as text),'N/D') MATRICULAS,";
+                $cadena_sql.=" coalesce(cast(reg_matriculas_004 as text),'N/D') MATRICULAS_004,";
+                $cadena_sql.=" coalesce(cast(reg_renovaciones_004 as text),'N/D') RENOVACIONES_004";
                 $cadena_sql.=" FROM reglamento B";
                 $cadena_sql.=" INNER JOIN acest ON est_cod=reg_est_cod";
                 $cadena_sql.=" INNER JOIN accra ON cra_cod=est_cra_cod";

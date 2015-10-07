@@ -53,7 +53,8 @@ class sql_admin_consejeriasConsultaEstudiante extends sql {	//@ Método que crea
                 $cadena_sql.=" TO_CHAR(eot_fecha_grado_secundaria, 'yyyymmdd') FEC_GRADO, ";
                 $cadena_sql.=" est_nro_iden IDENTIFICACION, ";
                 $cadena_sql.=" emb_valor_matricula VALOR_MATRICULA, ";
-                $cadena_sql.=" TO_CHAR(eot_fecha_nac, 'yyyy-mm-dd') FEC_NACIMIENTO_MOSTRAR ";
+                $cadena_sql.=" TO_CHAR(eot_fecha_nac, 'yyyy-mm-dd') FEC_NACIMIENTO_MOSTRAR, ";
+                $cadena_sql.=" est_fallecido FALLECIDO ";
                 $cadena_sql.=" FROM acest";
                 $cadena_sql.=" INNER JOIN acestado on est_estado_est= estado_cod ";
                 $cadena_sql.=" INNER JOIN accra on est_cra_cod= cra_cod ";

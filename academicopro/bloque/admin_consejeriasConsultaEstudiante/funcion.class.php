@@ -167,10 +167,12 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
           //mostrar valores de modelos bienestar
           $valores_rendimiento_academico = $this->buscarValoresRendimientoAcademico($reglamentoEstudiante);
           $valores_riesgo_academico = $this->buscarValoresRiesgoAcademico($reglamentoEstudiante);
-          $this->mostrarResultadosModelos($valores_rendimiento_academico,$valores_riesgo_academico);
           
           //mostrar reglamento
           if($this->datosEstudiante['NIVEL']=='PREGRADO'){
+              if($this->datosEstudiante['ESTADO']!='E'){
+                $this->mostrarResultadosModelos($valores_rendimiento_academico,$valores_riesgo_academico);
+              }
                 $this->mostrarReglamentoEstudiante($reglamentoEstudiante,$this->datosEstudiante['ESTADO']);
           }
           //mostrar espacios perdidos
@@ -285,7 +287,7 @@ class funcion_admin_consejeriasConsultaEstudiante extends funcionGeneral {
                           ?>                         
                         </td>
                         <td class='cuadro_plano' style="border:0px">Nombre: </td>
-                        <td class='cuadro_plano' style="border:0px"><? echo $this->datosEstudiante['NOMBRE'] ?></td>
+                        <td class='cuadro_plano' style="border:0px"><? echo $this->datosEstudiante['NOMBRE'];if($this->datosEstudiante['FALLECIDO']=='S'){echo " (Fallecido)";} ?></td>
                         <td class="cuadro_plano" style="border:0px" rowspan="2" colspan="6">
 <?
 ?>
