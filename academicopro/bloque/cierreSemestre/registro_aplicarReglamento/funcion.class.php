@@ -387,7 +387,7 @@ class funcion_registroAplicarReglamento extends funcionGeneral
                                                     'registro'=>$this->anio.",".$this->periodo.", anterior:".$registroEstudiante['ESTADO'].", actual:".$this->estadoEstudiante,
                                                     'afectado'=>$this->codigoEstudiante);
                             $this->procedimientos->registrarEvento($datosRegistro);                          
-                        }
+                        }//se debe adicionar una parte para que actualice el registro a los estudiantes de acuerdo 004 que no quedaron en prueba
 		$this->contador++;
 		return true;
 	}

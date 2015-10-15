@@ -1,4 +1,13 @@
 <?php
+if(isset($_REQUEST['as']))
+{
+    $_SESSION["A"]=$_REQUEST['as'];
+}
+if(isset($_REQUEST["gr"]))
+{
+    $_SESSION["G"]=$_REQUEST["gr"];
+}
+
 $cod_consulta = "SELECT distinct doc_nro_iden eca_nro_iden, 
 		(doc_nombre||' '||doc_apellido) eca_nombre, 
 		cur_ape_ano,
@@ -19,6 +28,8 @@ $cod_consulta = "SELECT distinct doc_nro_iden eca_nro_iden,
 		cur_par4,
 		ins_nota_par5, 
 		cur_par5,
+		ins_nota_par6, 
+		cur_par6,
 		ins_nota_exa, 
 		cur_exa, 
 		ins_nota_lab, 

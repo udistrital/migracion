@@ -64,7 +64,6 @@ while(isset($ExeCarga[$i][0]))
 $i++;
 }
 ?>
-<tr><td colspan="8" align="right" style="font-size:9px">Dise&ntilde;&oacute;: Oficina Asesora de Sistemas</td></tr>
 </table>
 <table width="100%" border="0" align="center"><tr><td align="right" style="font-family:Tahoma;font-size:10px">Lease: C&oacute;digo de Asignatura - Grupo / Sal&oacute;n <br/> Sede / Edificio</td></tr></table>
 <p></p>

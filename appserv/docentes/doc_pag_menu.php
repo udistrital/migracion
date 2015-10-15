@@ -242,7 +242,7 @@ require_once("../clase/encriptar.class.php");
         $miCodificador=Encriptador::singleton();
         $usuario = $_SESSION['usuario_login'];
         $identificacion = $_SESSION['usuario_login'];
-        $indiceSaraLaverna = $configuracion["host_adm_pwd"]."/saraadministrativa/index.php?";
+        $indiceSaraLaverna = $configuracion["host"]."/saraadministrativa/index.php?";
         $tokenCondor = "s4r44dm1n1str4t1v4C0nd0r2014!";
         $tipo=30;
         $tokenCondor = $miCodificador->codificar($tokenCondor);
@@ -293,12 +293,6 @@ require_once("../clase/encriptar.class.php");
 </li>
 </li>
 
-<li class=""><a href="#">Asignaci&oacute;n Acad.</a>
-<ul class="submenus">
-<li class="subitem1"><a target="principal" href="doc_fre_carga.php">Asignaturas </a></li>
-</ul>
-</li>
-
 <li class=""><a href="#">Consejerias </a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<? echo $enlaceAcademicoConsejerias ?>">Consejerias </a></li>
@@ -313,12 +307,11 @@ require_once("../clase/encriptar.class.php");
 </ul>
 </li>
 
-<li class="item5"><a href="#">Captura de Notas</a>
+<li class="item5"><a href="#">Mis asignaturas</a>
 <ul class="submenus">
-<li class="subitem1"><a target="principal" href="doc_curso.php">Lista de clase</a></li>
-<li class="subitem1"><a target="principal" href="<?echo $enlaceListaClase?>">Envío de correos</a></li>
-<li class="subitem1"><a target="principal" href="<?echo $enlaceNotasDocentesPregrado?>">Captura notas Pregrado</a></li>
-<li class="subitem1"><a target="principal" href="<?echo $enlaceNotasDocentesPosgrado?>">Captura notas Posgrado</a></li>
+<li class="subitem1"><a target="principal" href="doc_fre_carga.php">Carga Acad&eacute;mica </a></li>
+<li class="subitem1"><a target="principal" href="<?echo $enlaceListaClase?>">Env&iacute;o de correos</a></li>
+<li class="subitem1"><a target="principal" href="<?echo $enlaceNotasDocentesPregrado?>">Registro de Notas</a></li>
 <li class="subitem1"><a target="principal" href="doc_carga_curvac.php">Vacacionales</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceNotasDocentesAnterior?>">Notas per. Anterior</a></li>
 </ul>

@@ -541,6 +541,7 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.=") act ";
 				$cadena_sql.="WHERE (carga+actividades) <> 0 ";
 				$cadena_sql.="ORDER BY tvi_cod ASC";
+				break;
                                 
 			case "cuentaActividadAnterior":
                                 $cadena_sql=" SELECT tvi_nombre, actividades, carga,";

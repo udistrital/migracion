@@ -60,15 +60,16 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$nivel=$_REQUEST['nivel'];
 		$valor[4]=$_REQUEST['nivel'];
 		
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "carreras",$valor);
+/*		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "carreras",$valor);
 		$resultCarreras=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");    
 		$cuenta=count($resultCarreras);
-
+                var_dump($resultCarreras);*/
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "acasperieventos",$valor);
 		$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");   
-		$cuentaR=count($resultado);  
+		$cuentaR=count($resultado);
+                $fin=0;
    
-		if(is_array($resultCarreras))
+/*		if(is_array($resultCarreras))
 		{
 			 for($k=0; $k<=$cuenta-1; $k++)
 			 {
@@ -76,7 +77,9 @@ class funciones_registroNotasDocentes extends funcionGeneral
 				{
 					if($resultCarreras[$k][0] == $resultado[$m][0])
 					{
-						$valor[10]=$resultado[$m][1];    
+                                            $valor[10]=$resultado[$m][1];    */
+                                            $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "listaClase",$valor);
+                                            $resultLista=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");/*
 					}
 				}
 			 }  
@@ -89,10 +92,8 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"anioper",$valor);
 		$resultAnioPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		$ano=$resultAnioPer[0][0];
-		$per=$resultAnioPer[0][1];    
-
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "listaClase",$valor);
-		$resultLista=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+		$per=$resultAnioPer[0][1]; */   
+                //var_dump($resultLista);
 		if(!is_array($resultLista))
 		{
 			include_once($configuracion["raiz_documento"].$configuracion["clases"]."/alerta.class.php");
@@ -114,46 +115,49 @@ class funciones_registroNotasDocentes extends funcionGeneral
 								<td class="cuadro_brown" >
 								<br>
 									<ul>
-										<li> Para digitar notas, haga clic en el nombre de la asignatura.</li>
+										<li> Para digitar notas, haga clic en el nombre del Espacio académico.</li>
+										<li> Para generar un documento Excel, haga clic en el nombre del archivo.</li>
 									</ul>
 								</td>
 							</tr>
 						</table>
 						<br>
 						<table class="formulario" align="center">
-							<tr  class="bloquecentralencabezado">
-								<td colspan="5" align="center">
-									<p><span class="texto_negrita">CAPTURA DE NOTAS <? echo $nivel.' PERIODO '.$ano.'-'.$per; ?></span></p>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="5">
-									Per&iacute;odo Acad&eacute;mico:  <? echo $ano.'-'.$per; ?>
-								</td>
-							</tr>
-							
-							
-							<tr align='center'>
-								<td align="center" height="10">C&oacute;digo</td>
-								<td align="center" height="10">Asignatura</td>
-								<td align="center" height="10">Grupo</td>
-								<td align="center" height="10">Inscritos</td>
-								<td align="center" height="10">Carrera</td>
-							</tr>
-							<tr class="bloquecentralcuerpo">
 								<?php
 								$i=0;
 								while(isset($resultLista[$i][0]))
 								{
-								include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
-								include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
-//								$total=count($resultado);
-									
-								setlocale(LC_MONETARY, 'en_US');
-								$indice=$configuracion["host"].$configuracion["site"]."/index.php?";
-								$cripto=new encriptar();
-								
-								$menu=new navegacion();
+                                                                    if((isset($resultLista[$i][12])?$resultLista[$i][12]:'')!=(isset($resultLista[$i-1][12])?$resultLista[$i-1][12]:''))
+                                                                    {?>
+                                                                        <tr  class="bloquecentralencabezado">
+                                                                                    <td colspan="6" align="center">
+                                                                                            <p><span class="texto_negrita">CAPTURA DE NOTAS <? echo $resultLista[$i][12].' PERIODO '.$resultLista[$i][15].'-'.$resultLista[$i][16]; ?></span></p>
+                                                                                    </td>
+                                                                            </tr>
+                                                                            <tr align='center'>
+                                                                                    <td align="center" height="10">C&oacute;digo</td>
+                                                                                    <td align="center" height="10">Espacio Acad&eacute;mico</td>
+                                                                                    <td align="center" height="10">Grupo</td>
+                                                                                    <td align="center" height="10">Inscritos</td>
+                                                                                    <td align="center" height="10">Proyecto</td>
+                                                                                    <td align="center" height="10">Generar archivo Excel</td>
+                                                                            </tr>
+                                                                            <tr class="bloquecentralcuerpo">
+                                                                       <?
+                                                                       $fin=1;
+                                                                    }else{$fin=0;}?>
+                                                                    <?
+                                                                    include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
+                                                                    include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
+
+                                                                    setlocale(LC_MONETARY, 'en_US');
+                                                                    $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
+                                                                    $cripto=new encriptar();
+
+                                                                    $nombreEspacio=str_replace(" ", "_", $resultLista[$i][9]);
+                                                                    $nom_archivo=$nombreEspacio.'-'.$resultLista[$i][13].'.xls';
+
+                                                                    $menu=new navegacion();
 									if($resultLista[$i][12]=='PREGRADO' || $resultLista[$i][12]=='EXTENSION')
 									{
                                                                             if($resultLista[$i][8] !=(isset($resultLista[$i-1][8])?$resultLista[$i-1][8]:'') || $resultLista[$i][10] !=(isset($resultLista[$i-1][10])?$resultLista[$i-1][10]:'') || $resultLista[$i][4]!=(isset($resultLista[$i-1][4])?$resultLista[$i-1][4]:'')){
@@ -171,7 +175,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
                                                                                                     $variable.="&id_grupo=".$resultLista[$i][10]."";
                                                                                                     $variable.="&grupo=".$resultLista[$i][13]."";
                                                                                                     $variable.="&carrera=".$resultLista[$i][4]."";
-                                                                                                    $variable.="&periodo=".$valor[10]."";
+                                                                                                    $variable.="&periodo=".$resultLista[$i][14]."";
                                                                                                     $variable.="&otro=";
                                                                                                     $variable=$cripto->codificar_url($variable,$configuracion);
                                                                                                     echo $indice.$variable."'";
@@ -184,7 +188,9 @@ class funciones_registroNotasDocentes extends funcionGeneral
                                                                                     }
                                                                                     echo '<td align="center">'.$resultLista[$i][13].'</td>
                                                                                     <td align="center">'.$resultLista[$i][11].'</td>
-                                                                                    <td align="left"><span class="Estilo3">'.$resultLista[$i][5].'</span></td></tr>';
+                                                                                    <td align="left"><span class="Estilo3">'.$resultLista[$i][5].'</span></td>
+                                                                                    <td align="center"><span class="Estilo3">';
+                                                                                    if($resultLista[$i][14]=='A'&&$resultLista[$i][11]>0){echo '<a href="'.$configuracion["host"].'/appserv/docentes/prog_crea_archivo_lisclase.php?as='.$resultLista[$i][8].'&cur='.$resultLista[$i][10].'" title="Crear archivo para Excel">'.$nom_archivo.'</a>';}else{echo 'Archivo no disponible';}echo'</span></td></tr>';
                                                                             }
 									}
 									else
@@ -203,7 +209,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 											$variable.="&id_grupo=".$resultLista[$i][10]."";
 											$variable.="&grupo=".$resultLista[$i][13]."";
 											$variable.="&carrera=".$resultLista[$i][4]."";
-											$variable.="&periodo=".$valor[10]."";  
+											$variable.="&periodo=".$resultLista[$i][14]."";  
 											$variable.="&otro=";
 											$variable=$cripto->codificar_url($variable,$configuracion);
 											echo $indice.$variable."'";
@@ -216,12 +222,18 @@ class funciones_registroNotasDocentes extends funcionGeneral
                                                                                     }
 										echo '<td align="center">'.$resultLista[$i][13].'</td>
 										<td align="center">'.$resultLista[$i][11].'</td>
-										<td align="left"><span class="Estilo3">'.$resultLista[$i][5].'</span></td></tr>';
+										<td align="left"><span class="Estilo3">'.$resultLista[$i][5].'</span></td>
+                                                                                <td align="center"><span class="Estilo3">';
+                                                                                if($resultLista[$i][14]=='A'&&$resultLista[$i][11]>0){echo '<a href="'.$configuracion["host"].'/appserv/docentes/prog_crea_archivo_lisclase.php?as='.$resultLista[$i][8].'&cur='.$resultLista[$i][10].'" title="Crear archivo para Excel">'.$nom_archivo.'</a>';}else{echo 'Archivo no disponible';}echo'</span></td></tr>';
 									}
-								$i++;
+                                                                    $i++;
+                                                                    if($fin==1)
+                                                                    {?>
+                                                                        </tr>
+                                                                       <? 
+                                                                    }
 								}
 								?>
-							</tr>
 						</table>
 					</td>
 				</tr>
@@ -233,7 +245,6 @@ class funciones_registroNotasDocentes extends funcionGeneral
 	//Rescata la lista de estudiantes,  y dependiendo si las fechas de captura de notas estan habilitadas, muestra el formulario para capturar de los porcentajes y las notas, si no, solamente muestra la lista con los porcentajes y las notas digitadas .
 	function digitarNotasPregrado($configuracion)
 	{
-		
 		if($this->usuario)
 		{
 			$usuario=$this->usuario;
@@ -248,17 +259,16 @@ class funciones_registroNotasDocentes extends funcionGeneral
 			EXIT;
 		}				
 		$calendario=$this->validaCalendario("",$configuracion);
-		//$observaciones=$this->notasobservaciones();guardarNotas
 		$valor[0]=$usuario;
 		$valor[1]=$_REQUEST['asig'];
 		$valor[2]=$_REQUEST['id_grupo'];
 		$valor[3]=$_REQUEST['carrera'];
 		$valor[4]=$_REQUEST['nivel'];
-
+/*
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "carreras",$valor);
 		$resultCarreras=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");    
 		$cuenta=count($resultCarreras);
-
+*/
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "acasperieventos",$valor);
 		$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");   
 		$cuentaR=count($resultado);  
@@ -300,9 +310,14 @@ class funciones_registroNotasDocentes extends funcionGeneral
                         <input type='hidden' name='id_grupo' value='<? echo $valor[2] ?>'>
                         <input type='hidden' name='periodo' value='<? echo $valor[10] ?>'>
                         <input type='hidden' name='cra' value='<? echo $resultverifica[0][33] ?>'>
-                        <input type='hidden' name='periodo' value='<? echo $valor[10] ?>'>
                         <input type='hidden' name='cuenta' value='<? echo $valor[7] ?>'>
+                        <?if($_REQUEST['nivel']=='PREGRADO')
+                        {?>
                         <input type='hidden' name='opcion' value='grabar'>
+                        <?}else{?>
+                            <input type='hidden' name='opcionpos' value='grabar'>
+                            <?
+                        }?>
 
 			<table width="100%" align="center" border="0" cellpadding="10" cellspacing="0">
 				<tr>
@@ -349,7 +364,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 									$variable="pagina=registro_notasDocente";
 									$variable.="&opcion=verfechas";
 									$variable.="&asig=".$valor[1];
-									$variable.="&grupo=".$valor[2];
+									$variable.="&id_grupo=".$valor[2];
 									$variable.="&carrera=".$valor[3];
 									$variable.="&nivel=".$valor[4];
 									$variable.="&periodo=".$valor[10];
@@ -395,6 +410,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 									<p><span class="texto_negrita">Captura de porcentajes</span></p>
 								</td>
 							</tr>
+                                                        <?if($_REQUEST['nivel']=='PREGRADO'){?>
 							<tr class="cuadro_color">
 								<td colspan="2" class="cuadro_plano centrar"></td>
 								<td colspan="7" class="cuadro_plano centrar">Porcentajes 1 - 6 + LAB</td>
@@ -427,6 +443,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 								<td align="center">&nbsp;&nbsp;&nbsp;</td>
 								<td align="center"></td>
 							</tr>
+                                                        <?}?>
 							<tr class="cuadro_color">
 								<td colspan="2" class="cuadro_plano centrar">Porcentaje de Notas</td>
 								<td class="cuadro_plano centrar">%1</td>
@@ -750,528 +767,9 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		</form>		
 						
 		<?
-		
+                                                                                                $print = "javascript:popUpWindow('".$configuracion["host"]."/appserv/docentes/print_lis_clase.php?as=$valor[1]&gr=$valor[2]', 'yes', 0, 0, 790, 650)";
+                                                                                                echo'<center><br><input type="submit" value="Imprimir Listado" onClick="'.$print.'" style="cursor:pointer"></center>';
 	}
-	
-	function digitarNotasPosgrado($configuracion)
-	{
-		$sbgc='';
-                if($this->usuario)
-		{
-			$usuario=$this->usuario;
-		}
-		else
-		{
-			$usuario=$this->identificacion;
-		}
-		if($usuario=="")
-		{
-			echo "¡SU SESION HA EXPIRADO, INGRESE NUEVAMENTE!",
-			EXIT;
-		}
-		if($usuario=="")
-		{
-			echo "¡SU SESION HA EXPIRADO, INGRESE NUEVAMENTE!",
-			EXIT;
-		}	
-						
-		$calendario=$this->validaCalendario("",$configuracion);
-		//$observaciones=$this->notasobservaciones();guardarNotas
-		
-		$valor[10]=$_REQUEST['periodo'];    
-
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"anioper",$valor);
-		$resultAnioPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		$ano=$resultAnioPer[0][0];
-		$per=$resultAnioPer[0][1];
-		
-		$valor[0]=$usuario;
-		$valor[1]=$_REQUEST['asig'];
-		$valor[2]=$_REQUEST['id_grupo'];
-		$valor[3]=$_REQUEST['carrera'];
-		$valor[4]=$_REQUEST['nivel'];
-		$valor[5]=$ano;
-		$valor[6]=$per;
-				
-		$verifica=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "notasparciales",$valor);
-		$resultverifica=$this->ejecutarSQL($configuracion, $this->accesoOracle, $verifica, "busqueda");
-		$valor[7]=count($resultverifica);
-		
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechaactual",'');
-		$rowfechoy=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		$fechahoy = $rowfechoy[0][0];
-		
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechasDigNotas",$valor);
-		$rowfecnot=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		$cuenta=count($rowfecnot);
-		
-		$confechas=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"validaFechas",$valor);
-		$rowfechas=$this->ejecutarSQL($configuracion, $this->accesoOracle, $confechas, "busqueda");
-		$fecini = $rowfechas[0][0];
-		$fecfin = $rowfechas[0][1];
-		$fecha = $rowfechas[0][2];
-		
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"notasobs",$valor);
-		$rowobs=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-		$tab=1;	
-		?><form enctype='multipart/form-data' method='POST' action='index.php' name='<? echo $this->formulario?>'>
-                    <input type='hidden' name='nivel' value='<? echo $valor[4]?>'>
-                    <input type='hidden' name='action' value='<? echo $this->formulario ?>'>
-                    <input type='hidden' name='asig' value='<? echo $valor[1] ?>'>
-                    <input type='hidden' name='id_grupo' value='<? echo $valor[2] ?>'>
-                    <input type='hidden' name='cra' value='<? echo $resultverifica[0][33] ?>'>
-                    <input type='hidden' name='cuenta' value='<? echo $valor[7] ?>'>
-                    <input type='hidden' name='periodo' value='<? echo $valor[10] ?>'>
-                    <input type='hidden' name='opcionpos' value='grabar'>
-			<table width="100%" align="center" border="0" cellpadding="10" cellspacing="0" >
-				<tr>
-					<td>	
-						<table class="formulario" align="center">
-							<tr>
-									<td class="cuadro_brown" colspan="5">
-										<br>
-										<ul>
-											<li> Para calcular el acumulado, las definitivas o imprimir el listado, por favor grabe las notas digitadas.</li>
-											<li> El 100% de los porcentajes se calcula con la suma de los porcentajes, mas el porcentaje del ex&aacute;men que corresponde al 30%.</li>
- 											<li> En caso de modificación de notas o porcentajes de las mismas, no olvide grabar y recalcular el acumulado.</li>
-											<li> Se informa a los docentes que para poder realizar la autoevaluación docentes, deben registrar la totalidad de las notas en el sistema, incluyendo la nota del exámen, la cual es obligatoria. Para los estudiantes que no tengan calificaciones, se les debe registrar la nota con valor 0, excepto en la casilla de la habilitación.</li>
-											<li> El n&uacute;mero de fallas no se tiene en cuenta para el c&aacute;lculo del acumulado ni de la nota definitiva.</li>
-											<li> En las notas digite siempre un n&uacute;mero entero. Ejemplo: Para 0.5 digite 5  -  Para 5,0 digite 50.  Para 3,7 digite 37.</li>
-											<li> La columna correspondiente a OBS (observaciones), es &uacute;nicamente para notas cualitativas, por lo tanto no debe digitar notas cuantitativas, ya que no se calcular&aacute; la nota definitiva.</li>
-										</ul>
-									</td>
-								</tr>
-							<tr class="cuadro_color">
-								<?
-								$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechasDigNotas",$valor);
-								$reg2=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
-								
-								$fechas_capturaNotas='Fechas l&iacute;mites  para captura de notas <br><br> Porcentaje 1: '.$reg2[0][2].'<br> Porcentaje 2: '.$reg2[0][4].'<br> Porcentaje 3: '.$reg2[0][6].'<br> Porcentaje 4: '.$reg2[0][8]
-								.'<br> Porcentaje 5: '.$reg2[0][10].'<br> Porcentaje 6: '.$reg2[0][12].'<br> Ex&aacute;men: '.$reg2[0][16].'<br> Habilitaci&oacute;n: '.$reg2[0][18].'<br><br>Haga Click para ver m&aacute;s <br>';
-								?>
-								<td align="center" valign="middle" colspan="5" onmouseover="toolTip('<BR><?echo $fechas_capturaNotas;?>&nbsp;&nbsp;&nbsp;',this)" >
-									<div class="centrar">
-										<span id="toolTipBox" width="300" ></span>
-									</div>
-									<?
-								
-									include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
-									include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
-//									$total=count($resultado);
-										
-									setlocale(LC_MONETARY, 'en_US');
-									$indice=$configuracion["host"].$configuracion["site"]."/index.php?";
-									$cripto=new encriptar();
-									
-									echo "<a href='";
-									$variable="pagina=registro_notasDocente";
-									$variable.="&opcion=verfechas";
-									$variable.="&asig=".$valor[1];
-									$variable.="&id_grupo=".$valor[2];
-									$variable.="&carrera=".$valor[3];
-									$variable.="&nivel=".$valor[4];
-									$variable.="&periodo=".$valor[10];
-									//$variable.="&no_pagina=true";
-									$variable=$cripto->codificar_url($variable,$configuracion);
-									echo $indice.$variable."'";
-									?>
-									<center>
-									Ver fechas de captura de notas
-									</center>
-									</a>
-								</td>
-							</tr>
-							<tr class="texto_subtitulo">
-								<td class="" colspan="5" align="center">
-									<p><span class="texto_negrita">CAPTURA DE NOTAS PARCIALES <? echo $valor[4].' PERIODO '.$ano.'-'.$per; ?></span></p>
-								</td>
-							</tr>
-							<tr class="cuadro_color">
-								<?
-								echo '<td class="" align="left">'.$resultverifica[0][4].'</td>
-								<td class="" >'.$resultverifica[0][5].'</td>
-								<td class="" align="center"><b>Grupo</b></td>
-								<td class="" align="center"><b>Inscritos</b></td>
-								<td class="" align="center"><b>Periodo</b></td>
-							</tr>
-							<tr class="cuadro_color">
-								<td class="" align="left">'.$resultverifica[0][0].'</td>
-								<td class="" align="left">'.$resultverifica[0][1].'</td>
-								<td class="" align="center">'.$resultverifica[0][36].'</td>
-								<td class="" align="center">'.$resultverifica[0][32].'</td>
-								<td class="" align="center">'.$resultverifica[0][2].'-'.$resultverifica[0][3].'</td>';
-								?>
-							</tr>
-							<tr class="bloquecentralcuerpo">
-							</tr>
-						</table>
-						
-						<table class="formulario" align="center">
-							<tr  class="texto_subtitulo">
-								<td colspan="15" align="center">
-									<p><span class="texto_negrita">Captura de porcentajes</span></p>
-								</td>
-							</tr>
-							<!--tr class="cuadro_color">
-								<td colspan="2" class="cuadro_plano centrar"></td>
-								<td colspan="7" class="cuadro_plano centrar">Porcentajes 1 - 6 + LAB</td>
-								<td class="cuadro_plano centrar">EXA</td>
-								<td class="cuadro_plano centrar">HAB</td>
-								<td class="cuadro_plano centrar">&nbsp;&nbsp;&nbsp;</td>
-								<td class="cuadro_plano centrar">&nbsp;&nbsp;&nbsp;</td>
-								<td class="cuadro_plano centrar">&nbsp;&nbsp;&nbsp;</td>
-								<td class="cuadro_plano centrar">SUM</td>
-							</tr>
-							<tr class="formulario">
-								<td colspan="2"> </td>
-								<td class="cuadro_plano centrar" align="center" colspan="7">70%</td>
-								<td align="center">30%</td>
-								<td align="center">70%</td>
-								<td align="center">&nbsp;&nbsp;&nbsp;</td>
-								<td align="center">&nbsp;&nbsp;&nbsp;</td>
-								<td align="center">&nbsp;&nbsp;&nbsp;</td>
-								<td align="center">100%</td>
-							</tr>
-							</tr>
-							<tr class="cuadro_color">
-								<td colspan="2"> </td>
-								<td class="cuadro_plano centrar" align="center" colspan="3">Corte 1</td>
-								<td class="cuadro_plano centrar" align="center" colspan="4">Corte 2</td>
-								<td align="center"></td>
-								<td align="center"></td>
-								<td align="center">&nbsp;&nbsp;&nbsp;</td>
-								<td align="center">&nbsp;&nbsp;&nbsp;</td>
-								<td align="center">&nbsp;&nbsp;&nbsp;</td>
-								<td align="center"></td>
-							</tr-->
-							<tr class="cuadro_color">
-								<td colspan="2" class="cuadro_plano centrar">Porcentaje de Notas</td>
-								<td class="cuadro_plano centrar">%1</td>
-								<td class="cuadro_plano centrar">%2</td>
-								<td class="cuadro_plano centrar">%3</td>
-								<td class="cuadro_plano centrar">%4</td>
-								<td class="cuadro_plano centrar">%5</td>
-								<td class="cuadro_plano centrar">%6</td>
-								<td class="cuadro_plano centrar">LAB</td>
-								<td class="cuadro_plano centrar">EXA</td>
-								<td class="cuadro_plano centrar">HAB</td>
-								<td class="cuadro_plano centrar">&nbsp;&nbsp;&nbsp;</td>
-								<td class="cuadro_plano centrar">&nbsp;&nbsp;&nbsp;</td>
-								<td class="cuadro_plano centrar">&nbsp;&nbsp;&nbsp;</td>
-								<td class="cuadro_plano centrar">SUM</td>
-							</tr>
-							<tr class="formulario">
-								<td colspan="2" align="center"> </td>
-								<?
-								if(($fechahoy < $rowfecnot[0][1]) || ($fechahoy > $rowfecnot[0][2]) || ($rowfecnot[0][1] == " ") || ($rowfecnot[0][2] == " ") || ($fechahoy > $rowfecnot[0][19])){
-									echo '<td align="center">'.$resultverifica[0][11].'</td>
-									<input type="hidden" name="par1" id="par1" value="'.$resultverifica[0][11].'">';
-								}
-								else
-								{
-									echo '<td width="25" align="center"><input type="text" name="p1" id="p1" value="'.$resultverifica[0][11].'" maxlength="2" size="1" style="text-align:right"></td>';	
-								}
-								if(($fechahoy < $rowfecnot[0][3]) || ($fechahoy > $rowfecnot[0][4]) || ($rowfecnot[0][3] == " ") || ($rowfecnot[0][4] == " ") || ($fechahoy > $rowfecnot[0][19]))
-								{
-									echo '<td align="center">'.$resultverifica[0][13].'</td>
-									<input type="hidden" name="par2" id="par2" value="'.$resultverifica[0][13].'">';
-								}
-								else
-								{
-									echo '<td width="25" align="center"><input type="text" name="p2" id="p2" value="'.$resultverifica[0][13].'" maxlength="2" size="1" style="text-align:right"></td>';
-								}
-								if(($fechahoy < $rowfecnot[0][5]) || ($fechahoy > $rowfecnot[0][6]) || ($rowfecnot[0][5] == " ") || ($rowfecnot[0][6] == " ") || ($fechahoy > $rowfecnot[0][19]))
-								{
-									echo '<td align="center">'.$resultverifica[0][15].'</td>
-									<input type="hidden" name="par3" id="par3" value="'.$resultverifica[0][15].'">';
-								}
-								else
-								{
-									echo '<td width="25" align="center"><input type="text" name="p3" id="p3" value="'.$resultverifica[0][15].'" maxlength="2" size="1" style="text-align:right"></td>';
-								}
-								if(($fechahoy < $rowfecnot[0][7]) || ($fechahoy > $rowfecnot[0][8]) || ($rowfecnot[0][7] == " ") || ($rowfecnot[0][8] == " ") || ($fechahoy > $rowfecnot[0][19]))
-								{
-									echo '<td align="center">'.$resultverifica[0][17].'</td>
-									<input type="hidden" name="par4" id="par4" value="'.$resultverifica[0][17].'">';
-								}
-								else
-								{
-									echo '<td width="25" align="center"><input type="text" name="p4" id="p4" value="'.$resultverifica[0][17].'" maxlength="2" size="1" style="text-align:right"></td>';
-								}
-								if(($fechahoy < $rowfecnot[0][9]) || ($fechahoy > $rowfecnot[0][10]) || ($rowfecnot[0][9] == " ") || ($rowfecnot[0][10] == " ") || ($fechahoy > $rowfecnot[0][19]))
-								{
-									echo '<td align="center">'.$resultverifica[0][19].'</td>
-									<input type="hidden" name="par5" id="par5" value="'.$resultverifica[0][19].'">';
-								}
-								else
-								{
-									echo '<td width="25" align="center"><input type="text" name="p5" value="'.$resultverifica[0][19].'" maxlength="2" size="1" style="text-align:right"></td>';	
-								}
-								if(($fechahoy < $rowfecnot[0][11]) || ($fechahoy > $rowfecnot[0][12]) || ($rowfecnot[0][11] == " ") || ($rowfecnot[0][12] == " ") || ($fechahoy > $rowfecnot[0][19]))
-								{
-									echo '<td align="center">'.$resultverifica[0][21].'</td>
-									<input type="hidden" name="par6" id="par6" value="'.$resultverifica[0][21].'">';
-								}
-								else
-								{
-									echo '<td width="25" align="center"><input type="text" name="p6" id="p6" value="'.$resultverifica[0][21].'" maxlength="2" size="1" style="text-align:right"></td>';	
-								}
-								if(($fechahoy < $rowfecnot[0][13]) || ($fechahoy > $rowfecnot[0][14]) || ($rowfecnot[0][13] == " ") || ($rowfecnot[0][14] == " ") || ($fechahoy > $rowfecnot[0][19]))
-								{
-									echo '<td align="center">'.$resultverifica[0][27].'</td>
-									<input type="hidden" name="plab" id="plab" value="'.$resultverifica[0][27].'">';
-								}
-								else
-								{
-									echo '<td width="25" align="center"><input type="text" name="pl" id="pl" value="'.$resultverifica[0][27].'" maxlength="2" size="1" style="text-align:right"></td>';
-								}
-								if(($fechahoy < $rowfecnot[0][15]) || ($fechahoy > $rowfecnot[0][16]) || ($rowfecnot[0][15] == " ") || ($rowfecnot[0][16] == " ") || ($fechahoy > $rowfecnot[0][19]))
-								{
-									echo '<td align="center">'.$resultverifica[0][23].'</td>
-									<input type="hidden" name="pexa" id="pexa" value="'.$resultverifica[0][23].'">';
-								}
-								else
-								{
-									echo '<td align="center"><input type="text" name="pe" id="pe" value="'.$resultverifica[0][23].'" maxlength="2" size="1" style="text-align:right"></td>';
-									
-								}
-								
-								if(($fechahoy < $rowfecnot[0][17]) || ($fechahoy > $rowfecnot[0][18]) || ($rowfecnot[0][17] == " ") || ($rowfecnot[0][18] == " ") || ($fechahoy > $rowfecnot[0][19]))
-								{
-									echo '<td align="center">70</td>';
-								}
-								else
-								{
-								echo '<td width="26" align="center"><input type="text" name="ph" id="ph" value="70" readonly size="1" style="text-align:right" '.$sbgc.'></td>';
-							
-								}
-								
-								if ($resultverifica[0][34]<=100)
-								{
-									echo '<td></td>
-									<td></td>
-									<td></td>
-									<td align="center">'.$resultverifica[0][34].'%</td>
-									</tr>
-									<tr  class="texto_subtitulo">
-										<td colspan="15" align="center">
-											<p><span class="texto_negrita">Captura de notas</span></p>
-										</td>
-									</tr>
-									<tr class="cuadro_color">
-										<td align="center">CODIGO</td>
-										<td align="center">NOMBRE</td>
-										<td align="center">P1</td>
-										<td align="center">P2</td>
-										<td align="center">P3</td>
-										<td align="center">P4</td>
-										<td align="center">P5</td>
-										<td align="center">P6</td>
-										<td align="center">LAB</td>
-										<td align="center">EXA</td>
-										<td align="center">HAB</td>
-										<td align="center">No. Fallas</td>
-										<td align="center">ACU</td>
-										<td align="center">OBS</td>
-										<td align="center">DEF</td>
-									</tr>';
-									if($fechahoy < $fecini || $fechahoy > $fecfin)
-									{
-										$i=0;
-										while(isset($resultverifica[$i][0]))
-										{
-											echo'<tr onMouseOver="this.className=\'raton_arr\'" onMouseOut="this.className=\'raton_aba\'">
-											<td align="right">'.$resultverifica[$i][7].'</td>
-												<td>'.$resultverifica[$i][8].'</td>
-												<td align="center">'.$resultverifica[$i][10].'</td>
-												<td align="center">'.$resultverifica[$i][12].'</td>
-												<td align="center">'.$resultverifica[$i][14].'</td>
-												<td align="center">'.$resultverifica[$i][16].'</td>
-												<td align="center">'.$resultverifica[$i][18].'</td>
-												<td align="center">'.$resultverifica[$i][20].'</td>
-												<td align="center">'.$resultverifica[$i][22].'</td>
-												<td align="center">'.$resultverifica[$i][24].'</td>
-												<td align="center">'.$resultverifica[$i][26].'</td>
-												<td align="center">'.$resultverifica[$i][31].'</td>
-												<td align="center">'.$resultverifica[$i][29].'</td>
-												<td align="center">'.$resultverifica[$i][28].'</td>
-											</tr>';
-										$i++;
-										}
-									}
-									else
-									{
-										$i=0;
-										while(isset($resultverifica[$i][0]))
-										{
-											echo'<tr>
-											<td align="left">'.$resultverifica[$i][7].'</td>
-											<td>'.$resultverifica[$i][8].'</td>';
-											if(($fechahoy < $rowfecnot[0][1]) || ($fechahoy > $rowfecnot[0][2]) || ($rowfecnot[0][1] == " ") || ($rowfecnot[0][2] == " ") || ($fechahoy > $rowfecnot[0][19])){
-												echo '<td align="center">'.$resultverifica[$i][10].'</td>';
-											}
-											else
-											{
-												echo '<td align="center"><input type="text" id="nota_1'.$i.'" name="nota_1'.$i.'" onBlur="val_nota(\'nota_1'.$i.'\')" value="'.$resultverifica[$i][10].'" size="1" style="text-align:right" onKeypress="return SoloNumero(event)"></td>';
-												
-											}
-											if(($fechahoy < $rowfecnot[0][3]) || ($fechahoy > $rowfecnot[0][4]) || ($rowfecnot[0][3] == " ") || ($rowfecnot[0][4] == " ") || ($fechahoy > $rowfecnot[0][19]))
-											{
-												echo '<td align="center">'.$resultverifica[$i][12].'</td>';
-											}
-											else
-											{
-												echo '<td align="center"><input type="text" id="nota_2'.$i.'" name="nota_2'.$i.'" onBlur="val_nota(\'nota_2'.$i.'\')" value="'.$resultverifica[$i][12].'" size="1" style="text-align:right" onKeypress="return SoloNumero(event)"></td>';
-											}
-											if(($fechahoy < $rowfecnot[0][5]) || ($fechahoy > $rowfecnot[0][6]) || ($rowfecnot[0][5] == " ") || ($rowfecnot[0][6] == " ") || ($fechahoy > $rowfecnot[0][19]))
-											{
-												echo '<td align="center">'.$resultverifica[$i][14].'</td>';
-											}
-											else
-											{
-												echo '<td align="center"><input type="text" id="nota_3'.$i.'" name="nota_3'.$i.'" onBlur="val_nota(\'nota_3'.$i.'\')" value="'.$resultverifica[$i][14].'" size="1" style="text-align:right" onKeypress="return SoloNumero(event)"></td>';
-											}
-											if(($fechahoy < $rowfecnot[0][7]) || ($fechahoy > $rowfecnot[0][8]) || ($rowfecnot[0][7] == " ") || ($rowfecnot[0][8] == " ") || ($fechahoy > $rowfecnot[0][19]))
-											{
-												echo '<td align="center">'.$resultverifica[$i][16].'</td>';
-											}
-											else
-											{
-												echo '<td align="center"><input type="text" id="nota_4'.$i.'" name="nota_4'.$i.'" onBlur="val_nota(\'nota_4'.$i.'\')" value="'.$resultverifica[$i][16].'" size="1" style="text-align:right" onKeypress="return SoloNumero(event)"></td>';
-											}
-											if(($fechahoy < $rowfecnot[0][9]) || ($fechahoy > $rowfecnot[0][10]) || ($rowfecnot[0][9] == " ") || ($rowfecnot[0][10] == " ") || ($fechahoy > $rowfecnot[0][19]))
-											{
-												echo '<td align="center">'.$resultverifica[$i][18].'</td>';
-											}
-											else
-											{
-												echo '<td align="center"><input type="text" id="nota_5'.$i.'" name="nota_5'.$i.'" onBlur="val_nota(\'nota_5'.$i.'\')" value="'.$resultverifica[$i][18].'" size="1" style="text-align:right" onKeypress="return SoloNumero(event)"></td>';
-											}
-											if(($fechahoy < $rowfecnot[0][11]) || ($fechahoy > $rowfecnot[0][12]) || ($rowfecnot[0][11] == " ") || ($rowfecnot[0][12] == " ") || ($fechahoy > $rowfecnot[0][19]))
-											{
-												echo '<td align="center">'.$resultverifica[$i][20].'</td>';
-											}
-											else
-											{
-												echo '<td align="center"><input type="text" id="nota_6'.$i.'" name="nota_6'.$i.'" onBlur="val_nota(\'nota_6'.$i.'\')" value="'.$resultverifica[$i][20].'" size="1" style="text-align:right" onKeypress="return SoloNumero(event)"></td>';
-											}
-											if(($fechahoy < $rowfecnot[0][13]) || ($fechahoy > $rowfecnot[0][14]) || ($rowfecnot[0][13] == " ") || ($rowfecnot[0][14] == " ") || ($fechahoy > $rowfecnot[0][19]))
-											{
-												echo '<td align="center">'.$resultverifica[$i][24].'</td>';
-											}
-											else
-											{
-												echo '<td align="center"><input type="text" id="lab_1'.$i.'" name="lab_1'.$i.'" onBlur="val_nota(\'lab_1'.$i.'\')" value="'.$resultverifica[$i][24].'" size="1" style="text-align:right" onKeypress="return SoloNumero(event)"></td>';
-											}
-											if(($fechahoy < $rowfecnot[0][15]) || ($fechahoy > $rowfecnot[0][16]) || ($rowfecnot[0][15] == " ") || ($rowfecnot[0][16] == " ") || ($fechahoy > $rowfecnot[0][19]))
-											{
-												echo '<td align="center">'.$resultverifica[$i][22].'</td>';
-											}
-											else
-											{
-												echo '<td align="center"><input type="text" id="exa_1'.$i.'" name="exa_1'.$i.'" onBlur="val_nota(\'exa_1'.$i.'\')" value="'.$resultverifica[$i][22].'" size="1" style="text-align:right" onKeypress="return SoloNumero(event)" ></td>';
-												
-											}
-											if(($fechahoy < $rowfecnot[0][17]) || ($fechahoy > $rowfecnot[0][18]) || ($rowfecnot[0][17] == " ") || ($rowfecnot[0][18] == " ") || ($fechahoy > $rowfecnot[0][19]))
-											{
-												echo '<td align="center">'.$resultverifica[$i][26].'</td>';
-											}
-											else
-											{
-												echo '<td align="center"><input type="text" id="hab_1'.$i.'" name="hab_1'.$i.'" onBlur="val_nota(\'hab_1'.$i.'\')" value="'.$resultverifica[$i][26].'" size="1" style="text-align:right" onKeypress="return SoloNumero(event)"></td>';
-											}
-											echo '<td align="center"><input type="text" id="nf_1'.$i.'" name="nf_1'.$i.'" onBlur="val_nota(\'nf_1'.$i.'\')" value="'.$resultverifica[$i][35].'" size="1" style="text-align:right" onKeypress="return SoloNumero(event)"></td>
-											<td align="center">'.$resultverifica[$i][31].'</td>
-											<td>
-												<select style="width:48px" id="obs_1'.$i.'" name="obs_1'.$i.'" value="'.$resultverifica[$i][29].'">
-												<option>'.$resultverifica[$i][29].'</option>';
-												$j=0;
-												while(isset($rowobs[$j][0]))
-												{
-													echo '<option value='.$rowobs[$j][0].'>'.$rowobs[$j][0].' ' .$rowobs[$j][1].'</option>';
-												$j++;
-												}
-												echo '</select>
-											</td>
-											<td align="center">'.$resultverifica[$i][28].'</td>
-											<input type="hidden" name="cod_'.$i.'" size="10%" id="codigo" value="'.$resultverifica[$i][7].'" readonly style="text-align:right">
-											<input type="hidden" name="nivel" size="10%" id="nivel" value="'.$valor[4].'" readonly style="text-align:right">
-											</tr>';
-										$i++;
-										}
-									}
-								}
-								else
-								{
-									echo "<p>La suma de los porcentajes no debe superar el 100%</p>";
-								}
-								
-								
-								?>
-								
-							<tr align='center'>
-								<td colspan="16">
-									<table class="tablaBase">
-										<tr>
-											
-											<td align="center">
-												
-												<input value="Grabar" name="aceptar" tabindex='<? echo $tab++ ?>' type="submit" onclick="if(<? echo $this->verificar; ?>){document.forms['<? echo $this->formulario?>'].submit()}else{false}"/><br>
-											</td>
-											<!--td align="center">
-												<input type='hidden' name='nivel' value='<? echo $valor[4]?>'>
-												<input type="submit" name="notdef" value="Calcular Acumulado">
-											</td-->
-											<td align="center">
-												<input type='hidden' name='nivel' value='<? echo $valor[4]?>'>
-												<input name='cancelar' value='Cancelar' type="submit" tabindex='<? echo $tab++ ?>'  /><br>
-											</td>
-										</tr>
-										<tr>
-											<td align="center" colspan="3">
-												<?
-												include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
-												include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
-//												$total=count($resultado);
-													
-												setlocale(LC_MONETARY, 'en_US');
-												$indice=$configuracion["host"].$configuracion["site"]."/index.php?";
-												$cripto=new encriptar();
-												
-												echo "<a href='";
-												$variable="pagina=registro_notasDocente";
-												$variable.="&opcion=reportes";
-												$variable.="&asig=".$valor[1];
-												$variable.="&id_grupo=".$valor[2];
-												$variable.="&carrera=".$valor[3];
-												$variable.="&nivel=".$valor[4];
-												$variable.="&periodo=".$valor[10];
-												$variable.="&docente=".$valor[0];
-												//$variable.="&no_pagina=true";
-												$variable=$cripto->codificar_url($variable,$configuracion);
-												echo $indice.$variable."'";
-												echo "title='Haga Click aqu&iacute; para ir a reporte de notas'>";
-												?>
-												<center><img src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]?>/reporte.png" border="0"></center>
-												Ir a reporte de notas
-												</a>
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-							<tr>
-								
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-		</form>		
-						
-		<?
-	}
-	
 	
 	//Contiene las validaciones y las sentencias SQL que guarda las notas en el sistema.
 	function guardarNotasPregrado($configuracion)
@@ -2473,9 +1971,9 @@ class funciones_registroNotasDocentes extends funcionGeneral
 			$valor[0]=$usuario;
 			$valor[4]=$_REQUEST['nivel'];
 		}
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "carreras",$valor);
+		/*$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "carreras",$valor);
 		$resultCarreras=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");    
-		$cuenta=count($resultCarreras);
+		$cuenta=count($resultCarreras);*/
 
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "acasperieventos",$valor);
 		$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");   
@@ -2488,7 +1986,7 @@ class funciones_registroNotasDocentes extends funcionGeneral
 		$ano=$resultAnioPer[0][0];
 		$per=$resultAnioPer[0][1];    
 
-		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "listaClase",$valor);
+		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "listaClaseAnterior",$valor);
 		$resultLista=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		
 		if(!is_array($resultLista))
@@ -2787,6 +2285,20 @@ class funciones_registroNotasDocentes extends funcionGeneral
 	
 	function fechasNotas($configuracion)
 	{
+		if($this->usuario)
+		{
+			$usuario=$this->usuario;
+		}
+		else
+		{
+			$usuario=$this->identificacion;
+		}
+		if($usuario=="")
+		{
+			echo "¡SU SESION HA EXPIRADO, INGRESE NUEVAMENTE!",
+			EXIT;
+		}				
+            
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechaactual",'');
 		$rowfechoy=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
 		$fechoy = $rowfechoy[0][0];

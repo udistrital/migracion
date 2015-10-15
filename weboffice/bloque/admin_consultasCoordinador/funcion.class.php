@@ -479,7 +479,7 @@ class funciones_admin_consultasCoordinador extends funcionGeneral
 												<input type='hidden' name='carrera' value='<? echo $carrera ?>'>
 												<input type='hidden' name='action' value='<? echo $this->formulario ?>'>
 												<input type='hidden' name='opcion' value='seleccionarPeriodo'>
-												<input value="Seleccionar periodo" name="aceptar" tabindex='<? echo $tab1++ ?>' type="submit" onclick="if(<? echo $this->verificar; ?>){document.forms['<? echo $this->formulario?>'].submit()}else{false}"/><br>
+												<input value="Consultar periodo" name="aceptar" tabindex='<? echo $tab1++ ?>' type="submit"><br>
 											</td>
 										</tr>
 									</table>
@@ -559,7 +559,7 @@ class funciones_admin_consultasCoordinador extends funcionGeneral
 							</tr-->
 							<tr class="texto_subtitulo">
 								<td class="" colspan="5" align="center">
-									<p><span class="texto_negrita">HIST&Oacute;RICO DE NOTAS DE <?echo $valor[4];?><br> PERIODO ACAD&Eacute;MICO <?echo $valor[1].' - '.$valor[2];?></span></p>
+									<p><span class="texto_negrita">HIST&Oacute;RICO DE NOTAS DE <?echo $valor[3];?><br> PERIODO ACAD&Eacute;MICO <?echo $valor[1].' - '.$valor[2];?></span></p>
 								</td>
 							</tr>
 						</table>

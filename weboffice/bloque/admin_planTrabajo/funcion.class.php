@@ -165,17 +165,21 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 		{
 			$usuario=$this->identificacion;
 		}
+                if($_REQUEST['tipoUser']==4&&!isset($_REQUEST['periodo']))
+                    {
+                    $this->seleccionarPeriodo($configuracion);
+                    exit;
+                    }
 						
 		if($usuario=="")
 		{
 			echo "¡SU SESION HA EXPIRADO, INGRESE NUEVAMENTE!",
 			EXIT;
 		}
-//		$estado=$_REQUEST['nivel'];
-//		$valor[10]=$estado;
+                $periodo=  explode('-', $_REQUEST['periodo']);
 		
-		$ano=$_REQUEST['ano'];
-		$per=$_REQUEST['per'];
+		$ano=$periodo[0];
+		$per=$periodo[1];
 		
 		$valor[0]=$usuario;
 		$valor[1]=$ano;
@@ -213,7 +217,6 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 				$cuentaProyectos=count($registroProyectos);
 			}
 		}
-		//echo $configuracion['host']; exit;
 		?>
 		<table width="100%" align="center" border="1" cellpadding="10" cellspacing="0" >
 			<tr>

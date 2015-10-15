@@ -1,6 +1,7 @@
 <?PHP
 require_once('dir_relativo.cfg');
 require_once(dir_conect.'valida_pag.php');
+require_once(dir_script.'Fecha_Hora.php');
 require_once(dir_script.'fu_print_cabezote.php');
 require_once(dir_conect.'fu_tipo_user.php');
 include_once("../clase/multiConexion.class.php");
@@ -27,8 +28,8 @@ $consulta = $conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"bus
 echo'<br><div align="center">
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 	<tr>
-		<td width="8%" align="right">'.$hor.'</td>
-		<td width="40%" align="center">'.$fec.'</td>
+		<td width="8%" align="right"><font face="Tahoma" size="2">'.$hor.'</font></td>
+		<td width="40%" align="center"><font face="Tahoma" size="2">'.$fec.'</font></td>
 		<td width="5%" align="right">&nbsp;</td>
 		<td width="7%" align="right">&nbsp;</td>
 		<td width="10%" align="right"><font face="Tahoma" size="2"><b>Per&iacute;odo:</b></font></td>

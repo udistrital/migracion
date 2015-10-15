@@ -533,8 +533,7 @@ require_once("../clase/encriptar.class.php");
 </li>
 <li class="subitem1"><a href="#" class="postmenu">Plan de Trabajo</a>
 <ul class="submenus">
-<li class="subitem1"><a target="principal" href="<?PHP echo $enlacePlanTrabajo1 ?>">Ver Periodo Actual</a></li>
-<li class="subitem1"><a target="principal" href="<?PHP echo $enlacePlanTrabajo2 ?>">Ver Periodo Pr&oacute;ximo</a></li>
+<li class="subitem1"><a target="principal" href="<?PHP echo $enlacePlanTrabajo1 ?>">Consultar plan de trabajo</a></li>
 <li class="subitem1"><a target="principal" href="../docentes/estdfocen.pdf">Estatuto Del Profesor</a></li>
 <li class="subitem1"><a target="principal" href="../docentes/doc_circular003_pt.php">Circular 003</a></li>
 <li class="subitem1"><a target="principal" href="../docentes/doc_circular008_pt.php">Circular 008</a></li>

@@ -29,7 +29,7 @@ require_once(dir_script.'msql_notaspar_doc.php');
 $consulta=$conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consulta,"busqueda");
 
 $_REQUEST['asicod'] = $_REQUEST['as'];
-$_REQUEST['asigr'] = $_REQUEST['gr'];
+$_REQUEST['asigr'] = $_REQUEST["gr"];
 
 require_once(dir_script.'msql_doc_asi_hor.php');
 $Qryasihor = $conexion->ejecutarSQL($configuracion,$accesoOracle,$cod_consul,"busqueda");
@@ -46,7 +46,7 @@ echo'<table align="center" border="1" width="90%" cellspacing="2" cellpadding="0
   <td align="right">'.$consulta[0][0].'</td>
   <td align="left"><b>'.$consulta[0][1].'</b></td>
   <td align="center">'.$consulta[0][6].'</td>
-  <td align="center">'.$consulta[0][30].'</td>
+  <td align="center">'.$consulta[0][32].'</td>
   <td align="center">'.$consulta[0][2].'-'.$consulta[0][3].'</td>
   </tr></table> 
   <table align="center" border="1" width="90%" cellspacing="2" cellpadding="0">
@@ -77,13 +77,15 @@ print'</table>
       <td align="center">%3</td>
       <td align="center">%4</td>
       <td align="center">%5</td>
-      <td align="center">LAB</td>
-      <td align="center">EXA</td>
-      <td align="center">&nbsp;</td>
+      <td align="center">%6</td>
+      <td align="center">%LAB</td>
+      <td align="center">%EXA</td>
+      <td align="center">%HAB</td>
       <td align="center">&nbsp;</td>
     </tr>
 	<tr>
 	  <td>&nbsp;</td>
+      <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
@@ -101,7 +103,7 @@ print'</table>
 	  <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
-      <td colspan="8" align="center">NOTAS PARCIALES</td>
+      <td colspan="9" align="center">NOTAS PARCIALES</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
@@ -113,6 +115,7 @@ print'</table>
       <td align="center"><b>3</b></td>
       <td align="center"><b>4</b></td>
       <td align="center"><b>5</b></td>
+      <td align="center"><b>6</b></td>
       <td align="center"><b>LAB</b></td>
       <td align="center"><b>EXA</b></td>
       <td align="center"><b>HAB</b></td>
@@ -135,12 +138,12 @@ while(isset($consulta[$i][0]))
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
+	<td>&nbsp;</td>
 	<td>&nbsp;</td></tr>';
 $cont++;
 $i++;
 }
 ?>
-<tr><td colspan="12" align="right" style="font-size:9px">Dise&ntilde;&oacute;: Oficina Asesora de Sistemas</td></tr>
 </table>
 </BODY>
 </HTML>

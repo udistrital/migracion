@@ -43,7 +43,7 @@ $gr = $consulta[0][6];
 echo'<p>&nbsp;</p>
 
 <div align="center">
-[<a href="prog_crea_archivo_lisclase.php?as='.$consulta[0][4].'&gr='.$consulta[0][6].'&C='.$consulta[0][31].'&cur='.$consulta[0][33].'" title="Crear archivo para Excel">Generar Archivo de Excel</a>]
+[<a href="prog_crea_archivo_lisclase.php?as='.$consulta[0][4].'&gr='.$consulta[0][6].'&C='.$consulta[0][33].'&cur='.$consulta[0][35].'" title="Crear archivo para Excel">Generar Archivo de Excel</a>]
 </div>
 
 <p></p>

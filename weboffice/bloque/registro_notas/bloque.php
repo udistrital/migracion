@@ -50,7 +50,7 @@ class bloque_registroNotasDocentes extends bloque
 						$this->funcion->digitarNotasPregrado($configuracion);
 						break;
 					case "dignotasPosgrado":
-						$this->funcion->digitarNotasPosgrado($configuracion);
+						$this->funcion->digitarNotasPregrado($configuracion);
 						break;
 					case "mensajes":
 						$this->funcion->mensajesErrores($configuracion);

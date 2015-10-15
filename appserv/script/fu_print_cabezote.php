@@ -36,7 +36,7 @@ echo <<< HTML
     </font></b></td></tr></table>
 
 	<table border="0" width="90%" cellpadding="2" height="3"><tr><td width="16%" align="center"><div align="right">
-    <input name="button" type="button" onClick="javascript:window.print();" value="Impreso: " style="cursor:pointer" title="Clic par imprimir el reporte">
+    <input name="button" type="button" onClick="javascript:window.print();" value="Imprimir: " style="cursor:pointer" title="Clic para imprimir el reporte">
     </div></td>
 
     <td width="14%" align="center"><div align="left"><font face="Tahoma" size="2">$fec</font></div></td>

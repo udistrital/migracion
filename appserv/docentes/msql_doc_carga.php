@@ -1,7 +1,7 @@
 <?php
 $QryCarga = "SELECT hor_cod codigo,
 	hor_rango rango,
-	coalesce((SELECT (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
+	coalesce((SELECT distinct (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
 	FROM gehora,acasperi,gesede,accursos,achorarios,accargas,gesalones,geedificio
 	WHERE ape_estado = 'A'
 	AND x.hor_cod = hor_cod
@@ -19,7 +19,7 @@ $QryCarga = "SELECT hor_cod codigo,
 	AND car_estado = 'A'
 	AND car_doc_nro = ".$_SESSION['usuario_login']."),' ') LUNES,
 
-	coalesce((SELECT (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
+	coalesce((SELECT distinct (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
 	FROM gehora,acasperi,gesede,accursos,achorarios,accargas,gesalones,geedificio
 	WHERE ape_estado = 'A'
 	AND x.hor_cod = hor_cod
@@ -36,7 +36,7 @@ $QryCarga = "SELECT hor_cod codigo,
 	AND hor_id = car_hor_id
 	AND car_estado = 'A'
 	AND car_doc_nro = ".$_SESSION['usuario_login']."),' ') MARTES,
-	coalesce((SELECT (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
+	coalesce((SELECT distinct (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
 	FROM gehora,acasperi,gesede,accursos,achorarios,accargas,gesalones,geedificio
 	WHERE ape_estado = 'A'
 	AND x.hor_cod = hor_cod
@@ -53,7 +53,7 @@ $QryCarga = "SELECT hor_cod codigo,
 	AND hor_id = car_hor_id
 	AND car_estado = 'A'
 	AND car_doc_nro = ".$_SESSION['usuario_login']."),' ') MIERCOLES,
-	coalesce((SELECT (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
+	coalesce((SELECT distinct (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
 	FROM gehora,acasperi,gesede,accursos,achorarios,accargas,gesalones,geedificio
 	WHERE ape_estado = 'A'
 	AND x.hor_cod = hor_cod
@@ -70,7 +70,7 @@ $QryCarga = "SELECT hor_cod codigo,
 	AND hor_id = car_hor_id
 	AND car_estado = 'A'
 	AND car_doc_nro = ".$_SESSION['usuario_login']."),' ') JUEVES,
-	coalesce((SELECT (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
+	coalesce((SELECT distinct (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
 	FROM gehora,acasperi,gesede,accursos,achorarios,accargas,gesalones,geedificio
 	WHERE ape_estado = 'A'
 	AND x.hor_cod = hor_cod
@@ -87,7 +87,7 @@ $QryCarga = "SELECT hor_cod codigo,
 	AND hor_id = car_hor_id
 	AND car_estado = 'A'
 	AND car_doc_nro = ".$_SESSION['usuario_login']."),' ') VIERNES,
-	coalesce((SELECT (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
+	coalesce((SELECT distinct (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
 	FROM gehora,acasperi,gesede,accursos,achorarios,accargas,gesalones,geedificio
 	WHERE ape_estado = 'A'
 	AND x.hor_cod = hor_cod
@@ -104,7 +104,7 @@ $QryCarga = "SELECT hor_cod codigo,
 	AND hor_id = car_hor_id
 	AND car_estado = 'A'
 	AND car_doc_nro = ".$_SESSION['usuario_login']."),' ') SABADO,
-	coalesce((SELECT (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
+	coalesce((SELECT distinct (cur_asi_cod||' - '||(lpad(cur_cra_cod::text,3,'0')||'-'||cur_grupo)||' / '||coalesce(sal_nombre,hor_sal_id_espacio)||' <br/> '||sed_id||' / '||edi_nombre)
 	FROM gehora,acasperi,gesede,accursos,achorarios,accargas,gesalones,geedificio
 	WHERE ape_estado = 'A'
 	AND x.hor_cod = hor_cod

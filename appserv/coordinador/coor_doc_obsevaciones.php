@@ -80,7 +80,7 @@ $registro = $conexion->ejecutarSQL($configuracion,$accesoOracle,$consulta,"busqu
   <table width="95%"  border="1" align="center" cellpadding="2" cellspacing="0">
   <caption class="Estilo5">Observaciones hechas por los estudiantes en el proceso de evaluaci&oacute;n docente</caption>
   <tr>
-    <td colspan="3" align="center"><b><span class="Estilo10">Per&iacute;odo Acad&eacute;mico Consultado:&nbsp;</span><? print $registro[0][3].'-'.$registro[0][4];?></b></td>
+    <td colspan="3" align="center"><b><span class="Estilo10">Per&iacute;odo Acad&eacute;mico Consultado:&nbsp;</span><? print $anio.'-'.$peri;?></b></td>
     </tr>
   <tr class="tr">
     <td align="center">Asignatura</td>
@@ -89,10 +89,11 @@ $registro = $conexion->ejecutarSQL($configuracion,$accesoOracle,$consulta,"busqu
   </tr>
 <?php
 $i=0;
+$j=1;
 while(isset($registro[$i][0]))
 {
 	$asiNom = $registro[$i][1];
-	if($asiCod != $registro[$i][0])
+	if(!isset($asiCod)||$asiCod != $registro[$i][0])
 	{
 		$asiNom = $registro[$i][1].' - Grupo '.$registro[$i][5];
 	}
@@ -103,10 +104,11 @@ while(isset($registro[$i][0]))
 	
 	print'<tr onMouseOver="this.className=\'raton_arr\'" onMouseOut="this.className=\'raton_aba\'">
 	<td valign="top" align="left">'.$asiNom.'</td>
-	<td valign="top" align="center">'.$i.'</td>
+	<td valign="top" align="center">'.$j.'</td>
 	<td><p align="justify">'.ucfirst(strtolower($registro[$i][2])).'</p></td></tr>';
 	$asiCod = $registro[$i][0];
 $i++;
+$j++;
 }
 ?>
 </table>

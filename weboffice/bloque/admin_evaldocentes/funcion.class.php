@@ -41,7 +41,7 @@ class funciones_admin_evaldocentes extends funcionGeneral
 		 //echo  "mmm".$_REQUEST['usuario'];  
   
 		$this->formulario="admin_evaldocentes";
-		//$this->verificar="control_vacio(".$this->formulario.",'codigo')";
+		$this->verificar="control_vacio(".$this->formulario.",'docente')";
 		//$this->verificar.="&& control_vacio(".$this->formulario.",'fecha')";
 		//$this->verificar.="&& control_vacio(".$this->formulario.",'radicado')";
 	}
@@ -427,7 +427,7 @@ class funciones_admin_evaldocentes extends funcionGeneral
 						</tr>
 					<tr  class='bloquecentralencabezado'>
 							<td colspan='7' align='center'>
-								<p><span class='texto_negrita'>OBSERVACIONDE DE ESTUDIANTES EVALUACI&Oacute;N DOCENTE<br> PERIODO ACAD&Eacute;MICO ".$ano." - ".$per."</span></p>
+								<p><span class='texto_negrita'>OBSERVACIONES DE ESTUDIANTES EVALUACI&Oacute;N DOCENTE<br> PERIODO ACAD&Eacute;MICO ".$ano." - ".$per."</span></p>
 							</td>
 						</tr>
 					<tr class='cuadro_color'>
@@ -498,7 +498,7 @@ class funciones_admin_evaldocentes extends funcionGeneral
 			</tr>
 			<tr class="texto_subtitulo">
 				<td class="" align="center">
-					<p><span class="texto_negrita">CONSULTA DE OBSERVACIONDE DE ESTUDIANTES</span></p>
+					<p><span class="texto_negrita">CONSULTA DE OBSERVACIONES DE DE ESTUDIANTES</span></p>
 				</td>
 			</tr>
 		</table>
@@ -513,7 +513,7 @@ class funciones_admin_evaldocentes extends funcionGeneral
 							<td align="center">
 								<fieldset>
 									<legend>
-										Consulta de observacionde de Docentes
+										Consulta de observaciones de Docentes
 									</legend>
 									<table class="formulario">
 										<tr class="cuadro_plano">
@@ -576,7 +576,7 @@ class funciones_admin_evaldocentes extends funcionGeneral
 						</tr>
 					<tr  class='bloquecentralencabezado'>
 							<td colspan='9' align='center'>
-								<p><span class='texto_negrita'>OBSERVACIONDE DE ESTUDIANTES REALIZADAS AL (LA) DOCENTE: <br>  ".$resultado[0][7].", CON DOCUMENTO DE IDENTIDAD No. ".$resultado[0][6]."</span></p>
+								<p><span class='texto_negrita'>OBSERVACIONES DE ESTUDIANTES REALIZADAS AL (LA) DOCENTE: <br>  ".$resultado[0][7].", CON DOCUMENTO DE IDENTIDAD No. ".$resultado[0][6]."</span></p>
 							</td>
 						</tr>
 					<tr class='cuadro_color'>

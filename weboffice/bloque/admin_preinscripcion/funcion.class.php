@@ -273,7 +273,7 @@ class funcion_admin_preinscripcion extends funcionGeneral {
                                         </tr>
                                         <tr>
                                             <?
-                                            $mensajeMasAsignaturas="Seleccione SI, para permitir que los estudiantes que tengan perdidas tres o mas asignaturas,<br>";
+                                            $mensajeMasAsignaturas="Seleccione SI, para permitir que los estudiantes que tengan perdidas tres o m&aacute;s asignaturas,<br>";
                                             $mensajeMasAsignaturas.="puedan inscribir otras asignaturas. De lo contrario seleccione NO";
                                             ?>
                                             <td onmouseover="Tip('<?echo $mensajeMasAsignaturas?>', SHADOW, true, TITLE, 'Mas Asignaturas', PADDING, 9)">
@@ -294,7 +294,7 @@ class funcion_admin_preinscripcion extends funcionGeneral {
                                         <!--</tr>
                                             <?
                                             $mensajeMaximoAsignaturas="Digite el n&uacute;mero m&aacute;ximo de asignaturas que <br>";
-                                            $mensajeMaximoAsignaturas.="pueden cursar los estudiantes";
+                                            $mensajeMaximoAsignaturas.="puede cursar los estudiantes";
                                             ?>
                                         <tr>-->
                                             <td onmouseover="Tip('<?echo $mensajeMaximoAsignaturas?>', SHADOW, true, TITLE, 'N&uacute;mero M&aacute;ximo Asignaturas', PADDING, 9)">
@@ -338,28 +338,6 @@ class funcion_admin_preinscripcion extends funcionGeneral {
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <?
-                                            $mensajePrioridad="Seleccione Jornada, si quiere que los estudiantes queden inscritos en la misma jornada en que estaba en el semestre anterior.<br>";
-                                            $mensajePrioridad.="Seleccione Grupo, si quiere que los estudiantes queden inscritos en el mismo grupo en que estaba en el semestre anterior.";
-                                            ?>
-                                            <td onmouseover="Tip('<?echo $mensajePrioridad?>', SHADOW, true, TITLE, 'Prioridad', PADDING, 9)">
-                                                <table class="contenidotabla centrar">
-                                                    <tr>
-                                                        <td width="55%" class="centrar"><font color="red" size="2"> * </font>Prioridad: </td>
-                                                        <td class="izquierda">
-                                                            <table class="contenidotabla centrar">
-                                                                <tr>
-                                                                    <td>J<input type="radio" name="prioridadCondor" value="J" <? if ($parametrosCondor[0][7] == 'J') {echo "checked";} ?>></td>
-                                                                    <td>G<input type="radio" name="prioridadCondor" value="G" <? if ($parametrosCondor[0][7] == 'G') {echo "checked";} ?>></td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-
                                     </table>
                                     </fieldset>
                                 </td>
@@ -369,10 +347,10 @@ class funcion_admin_preinscripcion extends funcionGeneral {
 										<td colspan="3" class="centrar">
 											<input type="hidden" name="annio" value="<?echo $resultado_periodo[0][0]?>">
 											<input type="hidden" name="periodo" value="<?echo $resultado_periodo[0][1]?>">
-											<input type="hidden" name="nroPensum" value="<?echo $_REQUEST['nroPensum']?>">
 											<input type="hidden" name="nombreProyecto" value="<?echo $_REQUEST['nombreProyecto']?>">
 											<input type="hidden" name="codProyecto" value="<?echo $_REQUEST['codProyecto']?>">
 											<input type="hidden" name="prioridadPerdidas" value="S">
+											<input type="hidden" name="prioridadCondor" value="J">
 											<input type="hidden" name="parametros" value="C">
 											<input type="hidden" name="opcion" value="parametros_condor">
 											<input type="hidden" name="action" value="<?echo $this->formulario?>">
@@ -485,7 +463,7 @@ class funcion_admin_preinscripcion extends funcionGeneral {
 
                                 if($resultado_parametrosActualizacion==true){
 								
-                                        echo "<script>alert('Los parametros para le preinscripción se han actualizado con exito')</script>";
+                                        echo "<script>alert('Los parámetros para la preinscripción se han actualizado con éxito')</script>";
                                         $pagina=$configuracion["host"].$configuracion["site"]."/index.php?";
                                         $variable="pagina=admin_preinscripcion";
                                         $variable.="&opcion=pintarFormulario";
@@ -499,7 +477,7 @@ class funcion_admin_preinscripcion extends funcionGeneral {
                                         exit;
                                     }else
                                         {
-                                            echo "<script>alert('La base de datos se encuentra ocupada, por favor intente mas tarde')</script>";
+                                            echo "<script>alert('La base de datos se encuentra ocupada, por favor intente más tarde')</script>";
                                             $pagina=$configuracion["host"].$configuracion["site"]."/index.php?";
                                             $variable="pagina=admin_preinscripcion";
                                             $variable.="&opcion=pintarFormulario";
@@ -520,7 +498,7 @@ class funcion_admin_preinscripcion extends funcionGeneral {
 
                                     if($resultado_parametrosInsertar==true)
                                     {
-                                        echo "<script>alert('Los parametros para le preinscripción se han guardado con exito')</script>";
+                                        echo "<script>alert('Los parametros para la preinscripción se han guardado con éxito')</script>";
                                         $pagina=$configuracion["host"].$configuracion["site"]."/index.php?";
                                         $variable="pagina=admin_preinscripcion";
                                         $variable.="&opcion=pintarFormulario";
@@ -536,7 +514,7 @@ class funcion_admin_preinscripcion extends funcionGeneral {
                                         exit;
                                     }else
                                         {
-                                            echo "<script>alert('La base de datos se encuentra ocupada, por favor intente mas tarde')</script>";
+                                            echo "<script>alert('La base de datos se encuentra ocupada, por favor intente más tarde')</script>";
                                             $pagina=$configuracion["host"].$configuracion["site"]."/index.php?";
                                             $variable="pagina=admin_preinscripcion";
                                             $variable.="&opcion=pintarFormulario";
