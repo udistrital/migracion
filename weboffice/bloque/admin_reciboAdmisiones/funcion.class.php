@@ -39,14 +39,14 @@ class funciones_adminAdmisiones extends funcionGeneral
 		//echo "mmm".$this->usuario;
 		
 		$this->formulario="admin_reciboAdmisiones";
-		//$this->verificar="control_vacio(".$this->formulario.",'descripcion')";
+		$this->verificar="control_vacio(".$this->formulario.",'credencial')";
 		//$this->verificar.="&& control_vacio(".$this->formulario.",'aplicacion')";
 		//$this->verificar.="&& longitud_cadena(".$this->formulario.",'fecha',3)";
 		//$this->verificar.="&& verificar_correo(".$this->formulario.",'descripcion')";
 		
 	}
 	
-	function nuevoRegistro($configuracion,$conexion)
+	function nuevoRegistro($configuracion)
 	{
 		if($this->usuario=="")
 		{
@@ -173,8 +173,9 @@ class funciones_adminAdmisiones extends funcionGeneral
 	}
 	
 	//Consulta los recibos por Credencial
-	function reciboCredencial($configuracion,$conexion)
+	function reciboCredencial($configuracion)
 	{
+            $tab=0;
 		$valor[3]=$_REQUEST['nivel'];
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "periodoacad",$valor);
 		$resultadoPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -235,7 +236,10 @@ class funciones_adminAdmisiones extends funcionGeneral
 															<input type="submit" name="notdef" value="Calcular Acumulado">
 														</td-->
 														<td align="center">
-															<input type='hidden' name='usuario' value='<? echo $valor[0]?>'>
+                                                                                                                        <input type='hidden' name='usuario' value='<? echo $this->usuario?>'>
+															<input type='hidden' name='nivel' value='<? echo $valor[3] ?>'>
+															<input type='hidden' name='anio' value='<? echo $valor[1] ?>'>
+															<input type='hidden' name='periodo' value='<? echo $valor[2] ?>'>
 															<input name='cancelar' value='Cancelar' type="submit" tabindex='<? echo $tab++ ?>'  /><br>
 														</td>
 													</tr>
@@ -259,8 +263,9 @@ class funciones_adminAdmisiones extends funcionGeneral
 		<?
 	}
 	
-	function reciboFecha($configuracion,$conexion)
+	function reciboFecha($configuracion)
 	{  
+            $tab=0;
 		$valor[3]=$_REQUEST['nivel'];
 		$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "periodoacad",$valor);
 		$resultadoPer=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -321,14 +326,17 @@ class funciones_adminAdmisiones extends funcionGeneral
 															<input type='hidden' name='periodo' value='<? echo $valor[2] ?>'>
 															<input type='hidden' name='action' value='<? echo $this->formulario ?>'>
 															<input type='hidden' name='consultar' value='grabar'>
-															<input value="Consultar" name="aceptar" tabindex='<? echo $tab++ ?>' type="submit" onclick="if(<? echo $this->verificar; ?>){document.forms['<? echo $this->formulario?>'].submit()}else{false}"/><br>
+															<input value="Consultar" name="aceptar" tabindex='<? echo $tab++ ?>' type="submit"><br>
 														</td>
 														<!--td align="center">
 															<input type='hidden' name='nivel' value='<? //echo $valor[4]?>'>
 															<input type="submit" name="notdef" value="Calcular Acumulado">
 														</td-->
 														<td align="center">
-															<input type='hidden' name='usuario' value='<? echo $valor[0]?>'>
+                                                                                                                        <input type='hidden' name='usuario' value='<? echo $this->usuario;?>'>
+															<input type='hidden' name='nivel' value='<? echo $valor[3] ?>'>
+															<input type='hidden' name='anio' value='<? echo $valor[1] ?>'>
+															<input type='hidden' name='periodo' value='<? echo $valor[2] ?>'>
 															<input name='cancelar' value='Cancelar' type="submit" tabindex='<? echo $tab++ ?>'  /><br>
 														</td>
 													</tr>
@@ -358,9 +366,9 @@ class funciones_adminAdmisiones extends funcionGeneral
 		{
 			$valor[1]=$_REQUEST['anio'];
 			$valor[2]=$_REQUEST['periodo'];
-			$valor[4]=$_REQUEST['credencial'];
-			$valor[5]=$_REQUEST['fecha'];
-			$valor[3]=$_REQUEST['nivel'];
+			$valor[4]=(isset($_REQUEST['credencial'])?$_REQUEST['credencial']:'');
+			$valor[5]=(isset($_REQUEST['fecha'])?$_REQUEST['fecha']:'');
+			$valor[3]=(isset($_REQUEST['nivel'])?$_REQUEST['nivel']:'');
 			
 			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "recibosActualFecha",$valor);
 			$resultadoFecha=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -369,10 +377,10 @@ class funciones_adminAdmisiones extends funcionGeneral
 			{
 				$valor[1]=$_REQUEST['anio'];
 				$valor[2]=$_REQUEST['periodo'];
-				$valor[4]=$_REQUEST['credencial'];
-				$valor[5]=$_REQUEST['fecha'];
+				$valor[4]=(isset($_REQUEST['credencial'])?$_REQUEST['credencial']:'');
+				$valor[5]=(isset($_REQUEST['fecha'])?$_REQUEST['fecha']:'');
 				$valor[6]=$resultadoFecha[0][0];
-				$valor[3]=$_REQUEST['nivel'];
+				$valor[3]=(isset($_REQUEST['nivel'])?$_REQUEST['nivel']:'');
 				$this->redireccionarInscripcion($configuracion,"consultarPDFporFecha",$valor);
 			} 
 		}
@@ -380,9 +388,9 @@ class funciones_adminAdmisiones extends funcionGeneral
 		{
 			$valor[1]=$_REQUEST['anio'];
 			$valor[2]=$_REQUEST['periodo'];
-			$valor[4]=$_REQUEST['credencial'];
-			$valor[5]=$_REQUEST['fecha'];
-			$valor[3]=$_REQUEST['nivel'];
+			$valor[4]=(isset($_REQUEST['credencial'])?$_REQUEST['credencial']:'');
+			$valor[5]=(isset($_REQUEST['fecha'])?$_REQUEST['fecha']:'');
+			$valor[3]=(isset($_REQUEST['nivel'])?$_REQUEST['nivel']:'');
 			
 			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle, "recibosActualCredencial",$valor);
 			$resultadoCred=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
@@ -391,10 +399,10 @@ class funciones_adminAdmisiones extends funcionGeneral
 			{
 				$valor[1]=$_REQUEST['anio'];
 				$valor[2]=$_REQUEST['periodo'];
-				$valor[4]=$_REQUEST['credencial'];
-				$valor[5]=$_REQUEST['fecha'];
+				$valor[4]=(isset($_REQUEST['credencial'])?$_REQUEST['credencial']:'');
+				$valor[5]=(isset($_REQUEST['fecha'])?$_REQUEST['fecha']:'');
 				$valor[6]=$resultadoCred[0][0];
-				$valor[3]=$_REQUEST['nivel'];
+				$valor[3]=(isset($_REQUEST['nivel'])?$_REQUEST['nivel']:'');
 				$this->redireccionarInscripcion($configuracion,"consultarPDFporCredencial",$valor);
 			}
 			else
@@ -411,7 +419,7 @@ class funciones_adminAdmisiones extends funcionGeneral
 		}
 	}
 	
-	function consultarPDFporFecha($configuracion,$conexion)
+	function consultarPDFporFecha($configuracion)
 	{
 		if($this->usuario=="")
 		{
@@ -422,10 +430,10 @@ class funciones_adminAdmisiones extends funcionGeneral
 		
 		$valor[1]=$_REQUEST['anio'];
 		$valor[2]=$_REQUEST['periodo'];
-		$valor[4]=$_REQUEST['credencial'];
-		$valor[5]=$_REQUEST['fecha'];
+		$valor[4]=(isset($_REQUEST['credencial'])?$_REQUEST['credencial']:'');
+		$valor[5]=(isset($_REQUEST['fecha'])?$_REQUEST['fecha']:'');
 		$valor[6]=$_REQUEST['totalRegistros'];
-		$valor[3]=$_REQUEST['nivel'];
+		$valor[3]=(isset($_REQUEST['nivel'])?$_REQUEST['nivel']:'');
 		
 			?><table width="100%" align="center" border="0" cellpadding="10" cellspacing="0" >
 				<tr>
@@ -795,7 +803,7 @@ ________________________________________________________________________________
 				break;
 			case "formgrado":
 				$variable="pagina=admin_impresionAdm";
-				$variable.="&opcion=adminFechasRecibos";
+				$variable.="&opcion=nuevo";
 				$variable.="&anio=".$valor[1];
 				$variable.="&periodo=".$valor[2];
 				$variable.="&nivel=".$valor[3];

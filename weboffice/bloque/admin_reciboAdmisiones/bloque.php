@@ -53,19 +53,19 @@ class bloque_adminAdmisiones extends bloque
 						$this->funcion->mostrarRegistro($configuracion,$tema,$accion,$formulario,$verificar,$fila,$tab,$this->funcion->acceso_db);
 						break;
 					case "nuevo":
-						$this->funcion->nuevoRegistro($configuracion,$conexion);
+						$this->funcion->nuevoRegistro($configuracion);
 						break;
 					case "credencial":
-						$this->funcion->reciboCredencial($configuracion,$conexion);
+						$this->funcion->reciboCredencial($configuracion);
 						break;
 					case "fecha":
-						$this->funcion->reciboFecha($configuracion,$conexion);
+						$this->funcion->reciboFecha($configuracion);
 						break;
 					case "adminFechasRecibos":
 						$this->funcion->administracionFechasRecibos($configuracion);
 						break;
 					case "verPDFporFecha":
-						$this->funcion->consultarPDFporFecha($configuracion,$conexion);
+						$this->funcion->consultarPDFporFecha($configuracion);
 						break;  
 					case "exitoEditarAplic":
 						$this->funcion->registroEditado($configuracion,$tema,$accion,$formulario,$verificar,$fila,$tab,$this->funcion->acceso_db);
@@ -74,14 +74,16 @@ class bloque_adminAdmisiones extends bloque
 			}
 			else
 			{	
-				$conexion=isset($conexion)?$conexion:'';
 				$accion="nuevo";
-				$this->funcion->nuevoRegistro($configuracion,$conexion);
+				$this->funcion->nuevoRegistro($configuracion);
 			}
 		}
 		else
 		{
-			$this->funcion->redireccionarInscripcion($configuracion, "formgrado");	
+                    $valor[1]=(isset($_REQUEST['anio'])?$_REQUEST['anio']:'');
+                    $valor[2]=(isset($_REQUEST['periodo'])?$_REQUEST['periodo']:'');
+                    $valor[3]=(isset($_REQUEST['nivel'])?$_REQUEST['nivel']:'');
+			$this->funcion->redireccionarInscripcion($configuracion, "formgrado",$valor);	
 		}
 	}
 	
@@ -110,7 +112,10 @@ class bloque_adminAdmisiones extends bloque
 		}
 		else
 		{
-			$this->funcion->redireccionarInscripcion($configuracion, "formgrado");	
+                    $valor[1]=(isset($_REQUEST['anio'])?$_REQUEST['anio']:'');
+                    $valor[2]=(isset($_REQUEST['periodo'])?$_REQUEST['periodo']:'');
+                    $valor[3]=(isset($_REQUEST['nivel'])?$_REQUEST['nivel']:'');
+			$this->funcion->redireccionarInscripcion($configuracion, "formgrado",$valor);	
 		}
 		
 	}
