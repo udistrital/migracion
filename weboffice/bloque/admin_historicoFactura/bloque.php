@@ -1027,8 +1027,8 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 		case "exencion":
 			$cadena_sql="SELECT ";
 			$cadena_sql.="emb_est_cod, ";
-			$cadena_sql.="Pck_Pr_Detalle_Matricula.Fua_Ver_Motivo_Exento(emb_est_cod) mot_exe, ";
-			$cadena_sql.="Pck_Pr_Detalle_Matricula.Fua_Ver_Valor_Exepcion(emb_est_cod) val_exe ";
+			$cadena_sql.="Fua_Ver_Motivo_Exento(emb_est_cod) mot_exe, ";
+			$cadena_sql.="Fua_Ver_Valor_Exepcion(emb_est_cod) val_exe ";
 			$cadena_sql.="FROM ";
 			$cadena_sql.="V_ACESTMATBRUTO ";
 			$cadena_sql.="WHERE ";
