@@ -641,7 +641,7 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
                                                                                                        <?
                                                                                                        
                                                                                                                     if(((isset($aceptacion[0][5])?$aceptacion[0][5]:'')==1 && $anno==$datosRegistro['anio_pago'] && $periodo==$datosRegistro['periodo_pago'] ) || $recibo_matricula<>'ok' || $registro[$contador][13]=='S' || ($anno.$periodo<>$datosRegistro['anio_pago'].$datosRegistro['periodo_pago'] ))
-                                                                                                                        {   
+                                                                                                                        {
                                                                                                                             //nuevo-verificar recibos en tablas de bancos
                                                                                                                             $variable= array('SECUENCIA'=>$registro[$contador][0],'ANIO'=>$registro[$contador][14]);        
                                                                                                                             $cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $variable,"validarRecibo");

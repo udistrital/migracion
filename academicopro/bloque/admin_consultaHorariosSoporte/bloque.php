@@ -83,7 +83,7 @@ class bloqueAdminConsultaHorario extends bloque
 				
 			  default:
 					//Rescatar Carreras
-					echo "<span class='texto_subtitulo'><br/>CARRERAS QUE YA PUBLICARON PREINSCRIPCION<span/><br/><hr/>";
+					echo "<span class='texto_subtitulo'><br/>CARRERAS CON HORARIOS QUE YA PUBLICARON PREINSCRIPCION<span/><br/><hr/>";
 					$cadena_sql=$this->sql->cadena_sql($configuracion,$this->funcion->accesoOracle,"carrerasPublicaron","");
 					$registro=$this->funcion->ejecutarSQL($configuracion, $this->funcion->accesoOracle, $cadena_sql, "busqueda");
 					$totalRegistros=$this->funcion->totalRegistros($configuracion, $this->funcion->accesoOracle);
@@ -101,7 +101,7 @@ class bloqueAdminConsultaHorario extends bloque
 					}
 					
 					
-					echo "<span class='texto_subtitulo'><br/>CARRERAS QUE NO HAN PUBLICADO PREINSCRIPCION<span/><br/><hr/>";
+					echo "<span class='texto_subtitulo'><br/>CARRERAS CON HORARIOS QUE NO HAN PUBLICADO PREINSCRIPCION<span/><br/><hr/>";
 					$cadena_sql=$this->sql->cadena_sql($configuracion,$this->funcion->accesoOracle,"carrerasNoPublicaron","");
 					$registro=$this->funcion->ejecutarSQL($configuracion, $this->funcion->accesoOracle, $cadena_sql, "busqueda");
 					$totalRegistros=$this->funcion->totalRegistros($configuracion, $this->funcion->accesoOracle);

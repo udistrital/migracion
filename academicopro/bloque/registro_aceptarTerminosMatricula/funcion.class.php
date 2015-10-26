@@ -122,6 +122,7 @@ class funcion_registroAceptarTerminosMatricula extends funcionGeneral {
                 $variable="pagina=adminPago";
                 $variable.="&opcion=reciboActual";
                 $variable.="&usuario=".$this->usuario;
+                $variable.="&tipoUser=51";
 
                 $variable=$this->cripto->codificar_url($variable,$this->configuracion);
                 $this->retornar($pagina,$variable,$variablesRegistro,$mensaje);

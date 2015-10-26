@@ -23,7 +23,7 @@ if(!isset($_REQUEST['periodo'])){
 	//consultar periodo actual
 	$cadena_sqlD = $this->sql->cadena_sql("periodoActual",'');
 	$regPeriodo = $esteRecursoDB->ejecutarAcceso($cadena_sqlD,"busqueda");
-	$_REQUEST["periodo"] = $regPeriodo[0]['PERIODO'];
+	$_REQUEST["periodo"] = $regPeriodo[0]['periodo'];
 }
 
 //Asigna Variables

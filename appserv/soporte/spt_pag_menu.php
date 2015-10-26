@@ -320,9 +320,9 @@ include_once("crypto/Encriptador.class.php");
 $miCodificador=Encriptador::singleton();
 $usuario = $_SESSION['usuario_login'];
 $identificacion = $_SESSION['usuario_login'];
-$indiceSaraLaverna = $configuracion["host_adm_pwd"]."/laverna/index.php?";
+$indiceSaraLaverna = $configuracion["host_adm_pwd"]."/index.php?";
 $tokenCondor = "condorSara2013!";
-$tipo=20;
+$tipo=80;
 $tokenCondor = $miCodificador->codificar($tokenCondor);
 $opcion="temasys=";
 $variable.="gestionPassword&pagina=soporte";                                                        
@@ -480,8 +480,6 @@ $enlaceCargarArchivoGrados=$indiceAcademico.$variable;
 <li class="item1">
 <a href="#">Admon. Usuarios</a>
 <ul class="submenus">
-<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceCambioPassword ?>">Cambiar clave</a></li>
-<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceWeboffice ?>">Bit&aacute;cora</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceSolicitudesUsuarios;?>">Solicitud Usuarios</a></li>
 </ul>
 </li>
@@ -574,18 +572,16 @@ $enlaceCargarArchivoGrados=$indiceAcademico.$variable;
 </ul>
 </li>
 
-<li class="item1">
-<a href="#">Modelo Riesgo</a>
-<ul class="submenus">
-<li class="subitem1"><a target="principal" href="<?echo $enlaceModelosBienestar?>">Ejecutar Proceso</a></li>
-</ul>
-</li>
-
 <li class="item5">
 <a href="#">Cert. Ingresos y Ret.</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<?echo $enlaceCertificadosIngRet?>">Certificados</a></li>
 </ul>
+<li class="item2"><a href="#">Clave</a>
+<ul class="submenus">
+<li class="subitem1"><a target="principal" href="<?echo $enlaceCambioPassword?>">Cambiar mi clave</a></li>
+</ul>
+</li>
 </li>
 <li class=""><a target="_top" href="../conexion/salir.php"><font color="red">Cerrar Sesi&oacute;n </font></a>
 </ul>

@@ -28,7 +28,7 @@ $tokenCondor = "condorSara2013!";
 $tipo=122;
 $tokenCondor = $miCodificador->codificar($tokenCondor);
 $opcion="temasys=";
-$variable.="gestionPassword&pagina=soporte";                                                        
+$variable="gestionPassword&pagina=soporte";                                                        
 $variable.="&usuario=".$usuario;
 $variable.="&tipo=".$tipo;
 $variable.="&token=".$tokenCondor;

@@ -65,6 +65,7 @@ function multiplesCarreras($configuracion,$registro, $total, $variable)
                                             <table class='contenidotabla'>
 						<tr class='cuadro_color'>
                                                     <td class='cuadro_plano centrar ancho10' >C&oacute;digo</td>
+                                                    <td class='cuadro_plano centrar'>Facultad </td>
                                                     <td class='cuadro_plano centrar'>Nombre </td>
 						</tr><?
                         for($contador=0;$contador<$total;$contador++)
@@ -78,6 +79,7 @@ function multiplesCarreras($configuracion,$registro, $total, $variable)
                                 $parametro=  $this->cripto->codificar_url($parametro,$configuracion);
 								echo "<tr> 
 										 <td class='cuadro_plano centrar'>".$registro[$contador]['CODIGO']."</td>
+										 <td class='cuadro_plano'><a href='".$indice.$parametro."'>".$registro[$contador]['NOMBRE_FACULTAD']."</a></td>
 										 <td class='cuadro_plano'><a href='".$indice.$parametro."'>".$registro[$contador]['NOMBRE']."</a></td>
 									</tr>";
                         }?>

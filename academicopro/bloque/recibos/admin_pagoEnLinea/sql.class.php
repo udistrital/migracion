@@ -79,8 +79,12 @@ class sql_adminPagoEnLinea extends sql {
 
                 $cadena_sql="SELECT";
                 $cadena_sql.=" est_cod          CODIGO,";
-                $cadena_sql.=" decode(est_tipo_iden,'C','CC','T','TI','E','CE',
-                    'P','PP','NIT','NIT','CC')  TIPO_IDENTIFICACION,";
+                $cadena_sql.=" case when est_tipo_iden='C' then 'CC'";
+                $cadena_sql.=" when est_tipo_iden='T' then 'TI'";
+                $cadena_sql.=" when est_tipo_iden='E' then 'CE'";
+                $cadena_sql.=" when est_tipo_iden='P' then 'PP'";
+                $cadena_sql.=" when est_tipo_iden='NIT' then 'NIT'";
+                $cadena_sql.=" else 'CC' end  TIPO_IDENTIFICACION,";
                 $cadena_sql.=" est_nro_iden     IDENTIFICACION,";
                 $cadena_sql.=" est_nombre       NOMBRE,";
                 $cadena_sql.=" est_cra_cod      COD_PROYECTO,";

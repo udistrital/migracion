@@ -39,8 +39,6 @@ require_once('../usuarios/usuarios.php');
 	$variable=$cripto->codificar_url($variable,$configuracion);
 	$enlaceHistoricoRecibosPago=$indiceAcademico.$variable; 
 	
-	
-	
 	//Enlace ICETEX
 	include_once("crypto/Encriptador.class.php");
 	$miCodificadorServiciosAcademicos=Encriptador::singleton();
@@ -61,6 +59,26 @@ require_once('../usuarios/usuarios.php');
 	$variable.="&token=".$tokenCondor;
 	$variable=$miCodificadorServiciosAcademicos->codificar($variable);
 	$enlaceIcetex = $indiceSara.$opcion.$variable;
+
+	//Enlace para el cambio de contraseña
+	include_once("crypto/Encriptador.class.php");
+	$miCodificador=Encriptador::singleton();
+	$usuario = $_SESSION['usuario_login'];
+	$identificacion = $_SESSION['usuario_login'];
+	$indiceSaraPassword = $configuracion["host_adm_pwd"]."/index.php?";
+	$tokenCondor = "condorSara2013!";
+	$tipo=68;
+	$tokenCondor = $miCodificador->codificar($tokenCondor);
+	$opcion="temasys=";
+	$variable.="gestionPassword&pagina=otrosCambioPassword";
+	$variable.="&usuario=".$usuario;
+	$variable.="&tipo=".$tipo;
+	$variable.="&token=".$tokenCondor;
+	$variable.="&opcionPagina=cambioPassword";
+	//$variable=$cripto->codificar_url($variable,$configuracion);
+	$variable=$miCodificador->codificar($variable);
+	$enlaceCambioPassword=$indiceSaraPassword.$opcion.$variable;
+
 
 ?>
 <html>
@@ -98,7 +116,7 @@ $enlaceReporteBienestar; ?>">Ver Reportes</a></li>
 </li>
 <li class="item2"><a href="#">Clave</a>
 <ul class="submenus">
-<li class="subitem1"><a target="principal" href="../generales/cambiar_mi_clave.php">Cambiar mi clave</a></li>
+<li class="subitem1"><a target="principal" href="<?echo $enlaceCambioPassword?>">Cambiar mi clave</a></li>
 </ul>
 </li>
 <li class=""><a target="_top" href="../conexion/salir.php"><font color="red">Cerrar Sesi&oacute;n </font></a>
