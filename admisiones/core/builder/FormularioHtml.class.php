@@ -162,7 +162,7 @@ class FormularioHtml extends WidgetHtml {
 		
 		if (! isset ( $atributos ["sinDivision"] )) {
 			if (isset ( $atributos ["estilo"] ) && $atributos ["estilo"] != "" && $atributos ["estilo"] != "jqueryui") {
-				$this->cadenaHTML .= "<div class='" . $atributos ["estilo"] . "'>\n";
+				$this->cadenaHTML .= "<div style='width: 99%;' class='" . $atributos ["estilo"] . "'>\n";
 			} else {
 				if (isset ( $atributos ["columnas"] ) && $atributos ["columnas"] != "" && is_numeric ( $atributos ["columnas"] )) {
 					

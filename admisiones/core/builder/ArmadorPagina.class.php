@@ -74,7 +74,7 @@ class ArmadorPagina{
 
 		//Funciones javascript globales del aplicativo
 		include_once("plugin/scripts/Script.php");
-		
+
 		// Insertar las funciones js definidas en cada bloque
 		foreach($this->bloques as $unBloque){
 			$this->incluirFuncionesBloque($unBloque);
@@ -92,7 +92,7 @@ class ArmadorPagina{
 
 
 	private function cuerpoPagina() {
-	
+
 		$this->seccionesDeclaradas=array(0,0,0,0,0);
 
 		foreach($this->bloques as $unBloque){

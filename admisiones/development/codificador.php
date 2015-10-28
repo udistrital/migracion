@@ -1,30 +1,26 @@
-<?PHP
+<?
 include_once("../core/crypto/Encriptador.class.php");
 
 $miCodificador=Encriptador::singleton();
-echo $miCodificador->codificar("sjneira")."<br>";
-echo $miCodificador->codificar("74333611")."<br>";
-echo "pass<br>";
-echo $miCodificador->codificar("aAO4GuSh6lJ5KXC1w4yW3ZQZ0K2go-g")."<br>";
-echo $miCodificador->decodificar("aAO4GuSh6lJ5KXC1w4yW3ZQZ0K2go-g")."<br>";
-echo $miCodificador->decodificar("OgHG-AJMaVIyuYXZjDpFUlyWl9R320x8AGs")."<br>";
+echo $miCodificador->codificar("10.20.0.22")."<br>";
+echo $miCodificador->codificar("Marquez-9138ogpjblt")."<br>";
+//echo $miCodificador->decodificar("0928a675ad0d647683703c613e85e5576820af2d")."<br>";
+//echo $miCodificador->decodificar("OgHG-AJMaVIyuYXZjDpFUlyWl9R320x8AGs")."<br>";
 
 
-
-/*
-
-$parametro=array("AwLSWHOR61DhZcTqkA==",
-"CwKk33OR61C9BaWCkKKdcbc=",
-"DwLlY3OR61B/gbFc",
-"EwLQVHOR61DfS8OI/96/gEL0l9XuWw==",
-"FwJ14HOR61DhdetkyM8whQ==",
-"GwKxk3OR61C90avH6Fq2nbol5g==",
-"HwI+DXOR61DMHj+OOwOsk7YAZg==");
+$parametro=array(
+"TgOsyOSh6lJnj2eplA==",
+"cgPQAU4QJ1X1tV_ekkQBqG0C",
+"VQO1NOSh6lKYp08Q",
+"WQP37uSh6lImtdalFInoJYQtsdFH6g==",
+"XQMMzeSh6lJtm5YkmOXYS2Op",
+"pAKGH3EMJ1XTOlVG8R_m8aYSEfPReoo2QiGF",
+"ZAM5HOSh6lIZzSquBw==");
 
 foreach ($parametro as $valor){
 	echo $miCodificador->decodificar($valor)."<br>";
 }
-*/
+
 
 
 ?>
