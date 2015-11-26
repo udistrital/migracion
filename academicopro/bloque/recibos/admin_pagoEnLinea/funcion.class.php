@@ -107,6 +107,7 @@ class funcion_adminPagoEnLinea extends funcionGeneral {
             }else{
                 $tipo_pago = $this->obtenerTipoPago($recibo);
                 $datosPago = $this->obtenerDatosPago($cod_estudiante,$recibo, $tipo_pago);
+                
                 if(is_array($datosPago) && $datosPago['VALOR_RECIBO']>0){
                     $this->mostrarDatosPago($datosPago);
                 }else{
@@ -164,15 +165,16 @@ class funcion_adminPagoEnLinea extends funcionGeneral {
      */
     function obtenerDatosPago($cod_estudiante,$recibo,$tipo_pago) {
         $datos='';
-        $valorPago=  $this->obtenerValorPago($recibo,$tipo_pago);
-        $datos['VALOR_RECIBO']=(isset($valorPago)?$valorPago:0);
+        $descPago=  $this->obtenerValorPago($recibo,$tipo_pago);
+        
+        $datos['VALOR_RECIBO']=(isset($descPago['VALOR_RECIBO'])?$descPago['VALOR_RECIBO']:0);
         if($datos['VALOR_RECIBO']>0){
             $datos_estudiante = $this->consultaDatosEstudiante($cod_estudiante);
             $datos['REFERENCIA']=$recibo[0]['SECUENCIA'];
             $datos['TIPO_DOC_IDEN']=$datos_estudiante[0]['TIPO_IDENTIFICACION'];
             $datos['NUM_DOC_IDEN']=$datos_estudiante[0]['IDENTIFICACION'];
             $datos['NOMBRE_ESTUDIANTE']=$datos_estudiante[0]['NOMBRE'];
-            $datos['CONCEPTO']="1 - MATRICULA ";
+            $datos['CONCEPTO']=$descPago['CONCEPTO'];
             $datos['VALOR_IVA']=0;
             
         }
@@ -275,79 +277,28 @@ class funcion_adminPagoEnLinea extends funcionGeneral {
      * @param String $tipo_pago
      * @return int
      */
-    function obtenerValorPago($recibo,$tipo_pago){
-        //Si la secuencia esta registrada en ACREFEST entonces calculamos el pago basados en dicha informacion
-	$valorMatricula=$recibo[0]['VALOR_ORD'];	
-	$valorMatriculaExtra=$recibo[0]['VALOR_EXTRA'];
+    function obtenerValorPago($factura,$tipo_pago){
 	
-	$registroConceptos = $this->consultarConceptosRecibo($recibo[0]["SECUENCIA"],$recibo[0]["ANIO"]);
+        $recibo=array();
+        $recibo['VALOR_RECIBO']=0;
+	$registroConceptos = $this->consultarConceptosRecibo($factura[0]["SECUENCIA"],$factura[0]["ANIO"]);
         if(is_array($registroConceptos))
 	{	
-			
-		$otrosConceptos=0;
-		$conceptos=0;
-		
-		//Matricula
-		$j=0;
-		while(isset($registroConceptos[$j][0]))
-		{
-			
-			if($registroConceptos[$j][3]==2)
-			{
-				$valorSeguro=$registroConceptos[$j][4];
-				$otrosConceptos+=$registroConceptos[$j][4];
+                 foreach ($registroConceptos as $key => $value)
+                    { $recibo['VALOR_RECIBO']= $recibo['VALOR_RECIBO']+$registroConceptos[$key]['VALOR'];
+                      //identifica el concepto del recibo y lo actializa  
+                      if($registroConceptos[$key]['CONCEPTO']!=2)
+                            { $recibo['CONCEPTO']=$registroConceptos[$key]['CONCEPTO'].'-'.$registroConceptos[$key]['DESCRIPCION'];
 			}
-			elseif($registroConceptos[$j][3]>2)
-			{
-				$otrosConceptos+=$registroConceptos[$j][4];
 			}
-			
-			$j++;
 		}
-		$valorPagar=$valorMatricula+$otrosConceptos;
-		$valorPagarExtra=$valorMatriculaExtra+$otrosConceptos;
-		
-	}
 	else
-	{
-		//Si es la primera cuota
-		if($recibo[0]['CUOTA']==1)
-		{
-			$registroSeguro =$this->consultarValorSeguro($recibo[0]['ANIO'],$recibo[0]['PERIODO']);
-                        $valorSeguro=$registroSeguro[0][0];
-			
-			$valorPagar=$valorMatricula+$valorSeguro;
+                {$recibo['VALOR_RECIBO']=0;
+                 $recibo['CONCEPTO']='N/A';
 		}
-		else
-		{
-			$valorSeguro=0;
-			$valorPagar=$valorMatricula;
-		
+                return $recibo;
 		}
 		
-		//Calcular matricula extraordinario
-		
-		if($recibo[0]['CUOTA']==1)
-		{
-			$valorPagarExtra=$valorMatriculaExtra+$valorSeguro;
-		}
-		else
-		{
-			$valorPagarExtra=$valorMatriculaExtra;
-		}
-	}
-        if($tipo_pago=='ORDINARIO'){
-            return $valorPagar;
-        }elseif($tipo_pago=='EXTRAORDINARIO'){
-            return $valorPagarExtra;
-        }else{
-            return 0;
-        }
-        
-	
-    }
-    
-    
     /**
      * Función para consultar los conceptos relacionados a un recibo de acuerdo a la secuencia y año del recibo
      * @param int $secuencia

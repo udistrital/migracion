@@ -22,7 +22,7 @@ $cripto=new encriptar();
 	
 	//$indice="http://oasdes.udistrital.edu.co/weboffice/webofficepro/index.php?";
 	$indice=$configuracion["host"]."/weboffice/index.php?";
-    $indiceAcademico1=$configuracion["raiz_sga"]."/index.php?";
+    $indiceAcademico=$configuracion["raiz_sga"]."/index.php?";
 
 	$variable="pagina=login";
 	$variable.="&usuario=".$_SESSION['usuario_login'];
@@ -53,6 +53,18 @@ $cripto=new encriptar();
 	$variable=$cripto->codificar_url($variable,$configuracion);
 	$enlaceActualizaDatos=$indice.$variable;
 
+	//Normatividad
+        $variable="pagina=adminNormatividadEstudiantes";
+	$variable.="&usuario=".$_SESSION['usuario_login'];
+	$variable.="&opcion=principal";
+	$variable.="&tipoUser=52";
+	$variable.="&modulo=Estudiante";
+	$variable.="&aplicacion=Condor";
+
+
+	$variable=$cripto->codificar_url($variable,$configuracion);
+        $enlaceNormatividad=$indiceAcademico.$variable;
+
         //Consejerias
 	$variable="pagina=admin_mensajeEstudiante";
 	$variable.="&usuario=".$_SESSION['usuario_login'];
@@ -62,7 +74,7 @@ $cripto=new encriptar();
 	$variable.="&aplicacion=Condor";
 
 	$variable=$cripto->codificar_url($variable,$configuracion);
-	$enlaceAcademicoConsejerias=$indiceAcademico1.$variable;
+	$enlaceAcademicoConsejerias=$indiceAcademico.$variable;
 
 	//Biblioteca
 	$variable="pagina=admin_biblioteca";
@@ -73,7 +85,7 @@ $cripto=new encriptar();
 	$variable.="&aplicacion=Condor";
     
         $variable=$cripto->codificar_url($variable,$configuracion);
-	$enlaceAdminBiblioteca=$indiceAcademico1.$variable;
+	$enlaceAdminBiblioteca=$indiceAcademico.$variable;
 	
 	$variable="pagina=admin_inicioPreinscripcionDemandaEstudiante";
 	$variable.="&usuario=".$_SESSION['usuario_login'];
@@ -83,7 +95,7 @@ $cripto=new encriptar();
 	$variable.="&aplicacion=Condor";
 	$variable=$cripto->codificar_url($variable,$configuracion);
 	//$enlaceAcademicoPreinscripcionDemanda=$indicePruebas.$variable;
-	$enlaceAcademicoPreinscripcionDemanda=$indiceAcademico1.$variable;// este indice es el
+	$enlaceAcademicoPreinscripcionDemanda=$indiceAcademico.$variable;// este indice es el
  
 	//adiciones y cancelaciones
 	$variable="pagina=admin_inicioInscripcionEstudiante";
@@ -93,7 +105,7 @@ $cripto=new encriptar();
 	$variable.="&modulo=Estudiante";
 	$variable.="&aplicacion=Condor";
 	$variable=$cripto->codificar_url($variable,$configuracion);
-	$enlaceAcademicoInscripcion=$indiceAcademico1.$variable;// este indice es el
+	$enlaceAcademicoInscripcion=$indiceAcademico.$variable;// este indice es el
 
 	/*enlace*/ //Generación Horario Nuevo
 	$variable="pagina=adminHorarioEstudiantesHoras";
@@ -103,7 +115,7 @@ $cripto=new encriptar();
 	$variable.="&modulo=Estudiante";
 	$variable.="&aplicacion=Condor";
 	$variable=$cripto->codificar_url($variable,$configuracion);
-	$enlaceAcademicoHorarioInscripcion=$indiceAcademico1.$variable;
+	$enlaceAcademicoHorarioInscripcion=$indiceAcademico.$variable;
 
 
 	//Enlace para evaluación Docente
@@ -162,7 +174,17 @@ $enlaceManEvalDoc=$configuracion['host_soporte']."/soporte/archivos/manual_evalu
 	$variable.="&modulo=Estudiante";
 	$variable.="&aplicacion=Condor";
         $variable=$cripto->codificar_url($variable,$configuracion);
-	$enlaceConsejeriaEstudiante=$indiceAcademico1.$variable;
+	$enlaceConsejeriaEstudiante=$indiceAcademico.$variable;
+
+        //Generar recibos derechos pecuniarios
+        $variable="pagina=admin_reciboDerechosPecuniarios";
+        $variable.="&usuario=".$_SESSION['usuario_login'];
+        $variable.="&tipoUser=52";
+        $variable.="&opcion=nuevo";
+        $variable.="&aplicacion=Condor";
+        $variable.="&modulo=Estudiante";
+        $variable=$cripto->codificar_url($variable,$configuracion);
+        $enlaceReciboDerechosPecuniarios=$indiceAcademico.$variable;
 
 ?>
 <html>
@@ -228,7 +250,14 @@ $enlaceManEvalDoc=$configuracion['host_soporte']."/soporte/archivos/manual_evalu
 <li class="subitem1"><a target="principal" href="<?PHP echo $enlaceWeboffice ?>">Inscripci&oacute;n a Grado</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $CalAcad?>">Calendario Acad&eacute;mico</a></li>
 <li class="subitem1"><a target="principal" href="../generales/estaturo_est.pdf">Estatuto Estudiantil</a></li>
-<li class="subitem1"><a target="principal" href="<?  echo $configuracion['host_derechos_pecuniarios'];?>">Derechos Pecuniarios</a></li>
+<li class="subitem1"><a target="principal" href="<?echo $enlaceNormatividad?>">Normatividad</a></li>
+<li class="subitem1">
+<a href="#" class="postmenu">Derechos Pecuniarios</a>
+<ul class="submenus">
+<li class="subitem1"><a target="principal" href="<? echo $configuracion['host_derechos_pecuniarios'];?>">Informaci&oacute;n</a></li>
+<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceReciboDerechosPecuniarios ?>">Generar recibo</a></li>
+</ul>
+</li>
 <li class="subitem1"><a target="principal" href="<? print $plan; ?>">Plan de Estudio</a></li>
 <li class="subitem1"><a target="principal" href="../generales/gen_fac_trabgrado.php">Trabajos de Grado</a></li>
 <li class="subitem1"><a target="principal" href="<?PHP echo $enlaceConsejeriaEstudiante ?>">Historia Acad&eacute;mica</a></li>

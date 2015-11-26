@@ -114,26 +114,24 @@ class sql_adminPagoEnLinea extends sql {
 		break;     
                
             case "conceptosRecibo":
-			$cadena_sql="SELECT ";
-			$cadena_sql.="aer_secuencia, ";
-			$cadena_sql.="aer_ano, ";
-			$cadena_sql.="aer_bancod, ";
-			$cadena_sql.="aer_refcod, ";
-			$cadena_sql.="aer_valor, ";
-			$cadena_sql.="reb_refnom ";
-			$cadena_sql.="FROM ";
-			$cadena_sql.="acrefban, ";
-			$cadena_sql.="acrefest ";
+			$cadena_sql="SELECT DISTINCT ";
+                        $cadena_sql.="IDENTIFICACION ,";
+			$cadena_sql.="CODIGO, ";
+			$cadena_sql.="SECUENCIA, ";
+			$cadena_sql.="CUOTA, ";
+			$cadena_sql.="ANO_PAGO, ";
+			$cadena_sql.="PERIODO_PAGO, ";
+			$cadena_sql.="CONCEPTO, ";
+			$cadena_sql.="DESCRIPCION, ";
+			$cadena_sql.="VALOR, ";
+			$cadena_sql.="OBSERVACION ";
+			$cadena_sql.="FROM v_recibos_pse ";
 			$cadena_sql.="WHERE ";
-			$cadena_sql.="aer_secuencia=".$variable['SECUENCIA']." ";
+			$cadena_sql.="SECUENCIA=".$variable['SECUENCIA']." ";
 			$cadena_sql.="AND ";
-			$cadena_sql.="aer_ano=".$variable['ANIO']." ";	
-// 			$cadena_sql.="AND ";
-// 			$cadena_sql.="aer_refcod > 1 ";
-			$cadena_sql.="AND ";
-			$cadena_sql.="aer_bancod=23 ";				
-			$cadena_sql.="AND ";
-			$cadena_sql.="aer_refcod=reb_refcod ";
+			$cadena_sql.="ANO_PAGO=".$variable['ANIO']." ";	
+                        $cadena_sql.="ORDER BY CONCEPTO ASC ";	
+                        
 			break;
 			
         }

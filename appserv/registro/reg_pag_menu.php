@@ -127,7 +127,19 @@ $indiceAcademico=$configuracion["host"]."/academicopro/index.php?";
         $variable.="&modulo=admisiones";
         $variable=$cripto->codificar_url($variable,$configuracion);
         $enlaceReciboDerechosPecuniarios=$indiceAcademico.$variable;
-?>
+
+    //Reporte interno de notas del estudiante
+        $variable="pagina=reporte_interno";
+    	$variable.="&usuario=".$_SESSION['usuario_login'];
+	$variable.="&opcion=ingresar";
+        $variable.="&tipoUser=33";
+        $variable.="&modulo=soporte";
+    	$variable.="&aplicacion=Condor";
+
+        $variable=$cripto->codificar_url($variable,$configuracion);
+    	$enlaceAcademicoInterno=$indiceAcademico.$variable;
+
+        ?>
 <html>
 <head>
 <script language="JavaScript" src="../script/clicder.js"></script>
@@ -207,6 +219,7 @@ $indiceAcademico=$configuracion["host"]."/academicopro/index.php?";
 <li class="subitem1"><a target="principal" href="../estadistica/index_poblacion_activa_estrato.php">Activos por Estrato</a></li>
 <li class="subitem1"><a target="principal" href="../estadistica/index_poblacion_activa_sexo.php">Activos por Sexo</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceConsejeriaEstudiante;?>">Historia Acad&eacute;mica</a></li>
+<li class="subitem1"><a target="principal" href="<?echo $enlaceAcademicoInterno ?>">Certificados Internos</a></li>
 </ul>
 </li>
 

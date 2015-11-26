@@ -222,6 +222,17 @@ $enlaceManEvalDoc=$configuracion['host_soporte']."/soporte/archivos/manual_evalu
 	$variable.="&aplicacion=Condor";
         $variable=$cripto->codificar_url($variable,$configuracion);
 	$enlaceConsejeriaEstudiante=$indiceAcademico.$variable;
+        
+        //Generar recibos derechos pecuniarios
+        $variable="pagina=admin_reciboDerechosPecuniarios";
+        $variable.="&usuario=".$_SESSION['usuario_login'];
+        $variable.="&tipoUser=52";
+        $variable.="&opcion=nuevo";
+        $variable.="&aplicacion=Condor";
+        $variable.="&modulo=Estudiante";
+        $variable=$cripto->codificar_url($variable,$configuracion);
+        $enlaceReciboDerechosPecuniarios=$indiceAcademico.$variable;
+        
 ?>
 <html>
 <head>
@@ -312,7 +323,13 @@ $enlaceManEvalDoc=$configuracion['host_soporte']."/soporte/archivos/manual_evalu
 <li class="subitem1"><a target="principal" href="<?echo $CalAcad?>">Calendario Acad&eacute;mico</a></li>
 <li class="subitem1"><a target="principal" href="../generales/estaturo_est.pdf">Estatuto Estudiantil</a></li>
 <li class="subitem1"><a target="principal" href="<?echo $enlaceNormatividad?>">Normatividad</a></li>
-<li class="subitem1"><a target="principal" href="<? echo $configuracion['host_derechos_pecuniarios'];?>">Derechos Pecuniarios</a></li>
+<li class="subitem1">
+<a href="#" class="postmenu">Derechos Pecuniarios</a>
+<ul class="submenus">
+<li class="subitem1"><a target="principal" href="<? echo $configuracion['host_derechos_pecuniarios'];?>">Informaci&oacute;n</a></li>
+<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceReciboDerechosPecuniarios ?>">Generar recibo</a></li>
+</ul>
+</li>
 <li class="subitem1"><a target="principal" href="<?PHP echo $enlaceAcademicoConsultaPlanEstudio ?>">Plan de Estudio</a></li>
 <li class="subitem1"><a target="principal" href="<?PHP echo $enlaceConsejeriaEstudiante ?>">Historia Acad&eacute;mica</a></li>
 </ul>

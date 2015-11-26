@@ -612,7 +612,7 @@ ________________________________________________________________________________
 			//Ej: en la plantilla Pregrados General la columna 8 equivale a la exencion 4 de la tabla exencion
 			case 1:
 				//Pregrados General
-				$idExencion = array(6 => 1, 7 => 2, 8 => 3, 9 => 4, 10 => 5 , 11 => 6, 12 => 7, 13 => 8, 14 => 9);
+				$idExencion = array(5 => 1, 6 => 2, 7 => 3, 8 => 4, 9 => 5 , 10 => 6, 11 => 7, 12 => 8, 13 => 9);
 				break;
 				
 			case 2: //Postgrados Creditos
@@ -725,9 +725,6 @@ ________________________________________________________________________________
 					case 2:
 						$this->solicitud["id_concepto"]=4;
 						break;
-					case 3:
-						$this->solicitud['id_concepto']=13;
-						break;	
 				
 					default:
 						break;
@@ -735,7 +732,6 @@ ________________________________________________________________________________
 			
 				$cadena_sql=$this->sql->cadena_sql($configuracion, $this->acceso_db,"insertarConcepto", $this->solicitud);	
 				$resultado.=$this->ejecutarSQL($configuracion, $this->acceso_db, $cadena_sql ,"");
-				
 			}
 		
 			if($resultado==true)
@@ -766,15 +762,15 @@ ________________________________________________________________________________
 			break;
 			
 			case 2:
-			case 4:
-			$columnaInicial=5;
+			case 3:
+			$columnaInicial=4;
 			break;
 		
 		}
 		
 
-		//Plantillas para solo tres (cuatro) conceptos
-		for($j=$columnaInicial;$j<=($columnaInicial+3);$j++)
+		//Plantillas para solo tres conceptos
+		for($j=$columnaInicial;$j<=($columnaInicial+2);$j++)
 		{
 			if(isset($registro[$j]))
 			{

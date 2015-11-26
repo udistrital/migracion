@@ -75,7 +75,9 @@ class funciones_admin_reciboAceptaAcuerdo extends funcionGeneral
 											echo "<form action='index.php'>";
 											echo "<input type='submit' value='ACEPTO'>";
 											$variable="opcion=acepto";
-											$variable="&action=admin_reciboAceptaAcuerdo";
+											$variable.="&action=admin_reciboAceptaAcuerdo";
+											$variable.="&tipoUser=51";
+											$variable.="&usuario=".$this->usuario;
 											$variable=$this->cripto->codificar_url($variable,$this->configuracion);
 											echo "<input type='hidden' name='formulario' value='{$variable}'>";	
 											echo "</form>";
@@ -85,6 +87,8 @@ class funciones_admin_reciboAceptaAcuerdo extends funcionGeneral
 											echo "<input type='submit' value='NO ACEPTO'>";
 											$variable="pagina=adminPago";
 											$variable.="&opcion=reciboActual";
+											$variable.="&tipoUser=51";
+											$variable.="&usuario=".$this->usuario;
 											$variable=$this->cripto->codificar_url($variable,$this->configuracion);
 											echo "<input type='hidden' name='formulario' value='{$variable}'>";
 											echo "</form>";
@@ -127,7 +131,9 @@ class funciones_admin_reciboAceptaAcuerdo extends funcionGeneral
 		}
 		
 		$variable="pagina=adminPago";
-		$variable.="&opcion=reciboActual";
+		$variable.="&opcion=reciboActualEstudiante";
+                $variable.="&tipoUser=".$_REQUEST['tipoUser'];
+                $variable.="&usuario=".  $this->usuario;
 		$variable=$this->cripto->codificar_url($variable,$this->configuracion);
 		echo "<script>location.replace('".$this->indice.$variable."')</script>";
 	}	

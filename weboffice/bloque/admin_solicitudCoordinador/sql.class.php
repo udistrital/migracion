@@ -301,7 +301,17 @@ class sql_adminSolicitudCoordinador extends sql
 				$cadena_sql.="ema_imp_recibo<>2 ";
 				$cadena_sql.="AND ";
 				$cadena_sql.="ema_pago<>'S' ";
-				break;
+                                $cadena_sql.="and ema_secuencia in (";
+                                $cadena_sql.="select distinct aer_secuencia from acrefest ";
+                                $cadena_sql.="where aer_ano=".$variable[1]." ";
+                                $cadena_sql.="and aer_secuencia in ";
+                                $cadena_sql.="(select ema_secuencia ";
+                                $cadena_sql.="from acestmat ";
+                                $cadena_sql.="where ema_ano=".$variable[1]." ";
+                                $cadena_sql.="and ema_per=".$variable[2]." ";
+                                $cadena_sql.="and ema_est_cod=".$variable[0].") ";
+                                $cadena_sql.="and aer_refcod=1)";
+                                break;
 			
 			case "insertarCuota":
 				$cadena_sql="INSERT INTO ";

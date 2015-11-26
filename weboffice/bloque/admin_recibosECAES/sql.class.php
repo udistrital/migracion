@@ -84,43 +84,7 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="(select ape_ano||ape_per from acasperi where ape_estado='A' ) ";
 				$cadena_sql.="ORDER BY ape_ano||ape_per DESC ";
 			break;			
-			case "recibosGeneradosEstudiante":
 
-				$cadena_sql.="SELECT ";
-				$cadena_sql.="ema_secuencia, ";
-				$cadena_sql.="ema_est_cod, ";
-				$cadena_sql.="ema_cra_cod, ";
-				$cadena_sql.="ema_valor, ";
-				$cadena_sql.="ema_ext, ";
-				$cadena_sql.="ema_ano, ";
-				$cadena_sql.="ema_per, ";
-				$cadena_sql.="ema_cuota, ";
-				$cadena_sql.="ema_fecha, ";
-				$cadena_sql.="DECODE(EMA_ESTADO,'A','Activo','Inactivo'), ";
-				$cadena_sql.="DECODE(EMA_IMP_RECIBO,1,'Bloqueado','Desbloq.'), ";	
-				$cadena_sql.="DECODE(EMA_PAGO,'S','Pagado','Sin Pagar'), ";							
-				$cadena_sql.="TO_CHAR(EMA_FECHA_ORD, 'YYYY-MM-DD'), ";
-				$cadena_sql.="TO_CHAR(EMA_FECHA_EXT, 'YYYY-MM-DD'), ";
-				$cadena_sql.="est_nro_iden, ";
-				$cadena_sql.="est_nombre, ";
-				$cadena_sql.="cra_abrev, ";
-				$cadena_sql.="est_estado_est ";
-				$cadena_sql.="FROM ";
-				$cadena_sql.="ACESTMAT, ";
-				$cadena_sql.="ACEST, ";
-				$cadena_sql.="ACCRA ";
-				$cadena_sql.="WHERE ";
-				$cadena_sql.="ema_est_cod=".$variable[0]." ";
-				$cadena_sql.="AND ";				
-				$cadena_sql.="EMA_ANO= ".$variable[1]." ";	
-				$cadena_sql.="AND ";
-				$cadena_sql.="EMA_PER=".$variable[2]." ";	
-				$cadena_sql.="AND ";
-				$cadena_sql.="ema_cra_cod = cra_cod ";
-				$cadena_sql.="AND ";
-				$cadena_sql.="ema_est_cod = est_cod ";
-				$cadena_sql.="ORDER BY ema_fecha desc";				
-			break;
 			
 			case "secuencia":
 				$cadena_sql="SELECT ";
@@ -151,23 +115,23 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="ema_obs ";
 				$cadena_sql.=") ";
 				$cadena_sql.="VALUES (";
-				$cadena_sql.=$variable[0].", ";
-				$cadena_sql.=$variable[1].", ";
-				$cadena_sql.="0, ";
-				$cadena_sql.=$variable[12].", ";
-				$cadena_sql.=$variable[2].", ";
-				$cadena_sql.=$variable[3].", ";
-				$cadena_sql.="1, ";
-				$cadena_sql.="TO_DATE('".$variable[5]."','dd/mm/yy'), ";
-				$cadena_sql.="TO_DATE('".$variable[11]."','dd/mm/yy'), ";
-				$cadena_sql.="CURRENT_TIMESTAMP, ";
-				$cadena_sql.="'A', ";
-				$cadena_sql.=$variable[6].", ";
-				$cadena_sql.=$variable[7].", ";
-				$cadena_sql.=$variable[8].", ";				
-				$cadena_sql.="'N', ";
-				$cadena_sql.="2, ";
-				$cadena_sql.="'RECIBO SABER PRO'";
+				$cadena_sql.=$variable[0].", ";//cod estudiante
+				$cadena_sql.=$variable[1].", ";//carrera estudiante
+				$cadena_sql.="0, ";//valor
+				$cadena_sql.=$variable[12].", ";//valor extra
+				$cadena_sql.=$variable[2].", ";//ano
+				$cadena_sql.=$variable[3].", ";//per
+				$cadena_sql.="1, ";//cuota
+				$cadena_sql.="TO_DATE('".$variable[5]."','yyyy/mm/dd'), ";//fecha ord
+				$cadena_sql.="TO_DATE('".$variable[11]."','yyyy/mm/dd'), ";//fecha extra
+				$cadena_sql.="CURRENT_TIMESTAMP, ";//fecha
+				$cadena_sql.="'A', ";//estado
+				$cadena_sql.=$variable[6].", ";//secuencia
+				$cadena_sql.=$variable[7].", ";//ano pago
+				$cadena_sql.=$variable[8].", ";//per pago
+				$cadena_sql.="'N', ";//pago
+				$cadena_sql.="2, ";//imp recibo
+				$cadena_sql.="'RECIBO SABER PRO'";//obs
 				$cadena_sql.=")";
 				//echo $cadena_sql;
 				break;
@@ -247,7 +211,34 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.=")";
 				break;
 
-				
+			case "inactivarRecibosAnterioesEcaes":
+				$cadena_sql="UPDATE ";
+				$cadena_sql.="ACESTMAT "; 
+				$cadena_sql.="SET "; 
+				$cadena_sql.="ema_estado='I' ";
+				$cadena_sql.="WHERE ";
+				$cadena_sql.="ema_est_cod=".$variable[0]." ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="ema_ano=".$variable[2]." ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="ema_per=".$variable[3]." ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="ema_cuota=1 ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="ema_pago<>'S' ";
+                                $cadena_sql.="and ema_secuencia in (";
+                                $cadena_sql.="select distinct aer_secuencia from acrefest ";
+                                $cadena_sql.="where aer_ano=".$variable[2]." ";
+                                $cadena_sql.="and aer_secuencia in ";
+                                $cadena_sql.="(select ema_secuencia ";
+                                $cadena_sql.="from acestmat ";
+                                $cadena_sql.="where ema_ano=".$variable[2]." ";
+                                $cadena_sql.="and ema_per=".$variable[3]." ";
+                                $cadena_sql.="and ema_est_cod=".$variable[0].") ";
+                                $cadena_sql.="and aer_refcod=14)";
+                                break;
+                            
+                            
 			case "fechaPago":
 				//ORACLE
 				$cadena_sql="SELECT ";
@@ -304,7 +295,7 @@ class sql_adminSolicitud extends sql
 				$cadena_sql.="CRA_EMP_NRO_IDEN=".$variable;
 				break;
 	
-			case "actualizarEstadoPago":
+			case "actualizarEstadoGeneraRecibo":
 				$cadena_sql="UPDATE ";
 				$cadena_sql.="mntac.acestecaes ";
 				$cadena_sql.="SET eca_genero_recibo='S' ";

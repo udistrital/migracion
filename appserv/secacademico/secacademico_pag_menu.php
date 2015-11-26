@@ -201,6 +201,28 @@ $enlaceCargarArchivoGrados=$indiceAcademico.$variable;
 	$variable.="informes=posgrado";
 	$enlaceReportePosgrado=$configuracion["host"].$variable;
 
+        
+        //Consultar recibos derechos pecuniarios
+        $variable="pagina=admin_consultarRecibosPecuniariosFuncionario";
+        $variable.="&usuario=".$_SESSION['usuario_login'];
+        $variable.="&tipoUser=83";
+        $variable.="&aplicacion=Condor";
+        $variable.="&modulo=secacademico";
+        $variable=$cripto->codificar_url($variable,$configuracion);
+        $enlaceReciboDerechosPecuniarios=$indiceAcademico.$variable;
+        
+        //enlace historico de recibos de pagos
+	$variable="pagina=admin_consultarHistoricoRecibos";
+	$variable.="&usuario=".$_SESSION['usuario_login'];
+	$variable.="&action=loginCondor";
+	$variable.="&opcion=";
+	$variable.="&tipoUser=83";
+	$variable.="&nivel=A";
+	$variable.="&modulo=AsistenteContabilidad";
+	$variable.="&aplicacion=Condor";
+	$variable=$cripto->codificar_url($variable,$configuracion);
+	$enlaceHistoricoRecibosPago=$indiceAcademico.$variable; 
+
 
 ?>
 <html>
@@ -222,6 +244,7 @@ $enlaceCargarArchivoGrados=$indiceAcademico.$variable;
 <a href="#">Recibos de pago</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<?echo $aprobacionext;?>">Aprobar Extemporaneo</a></li>
+<li class="subitem1"><a target="principal" href="<?echo $enlaceHistoricoRecibosPago?>">Hist&oacute;rico Recibos de Pago</a></li>
 </ul>
 </li>
 
@@ -237,9 +260,17 @@ $enlaceCargarArchivoGrados=$indiceAcademico.$variable;
 <li class="subitem1"><a target="principal" href="<?echo $enlaceConsejeriaEstudiante;?>">Historia Acad&eacute;mica</a></li>
 <li class="subitem1"><a target="principal" href="../generales/gen_est_abhl.php">Estudiantes Activos</a></li>
 <li class="subitem1"><a target="principal" href="<? echo $enlaceAcademicoInterno ?>">Certificados Internos</a></li>
-
 </ul>
 </li>
+
+
+<li class="item5">
+<a href="#">Servicios</a>
+<ul class="submenus">
+<li class="subitem1"><a target="principal" href="<?echo $enlaceReciboDerechosPecuniarios;?>">Recibos derechos pecuniarios</a></li>
+</ul>
+</li>
+
 <li class="item5">
 <a href="#">Grados</a>
 <ul class="submenus">

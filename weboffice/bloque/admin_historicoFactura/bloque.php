@@ -440,10 +440,10 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 							{
 								?>		<table class="contenidotabla">
 												<tr>
-													<td class="cuadro_color cuadro_plano centrar" colspan="2">
+													<td class="cuadro_color cuadro_plano centrar" colspan="2" width="40%">
 													<span class="texto_negrita">Comprobante de Pago</span>
 													</td>
-													<td class="cuadro_plano centrar"><?
+													<td class="cuadro_plano centrar" width="60%"><?
 													//echo "<br>->imp".$registro[$contador][12];
 																										
 													if($registro[$contador][12]==1)//Recibo bloqueado
@@ -541,6 +541,8 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 																<a href="<?		
 																  $variable="pagina=adminReciboAceptaAcuerdo";
 																  $variable.="&opcion=diferirMatricula";
+																  $variable.="&tipoUser=51";
+																  $variable.="&usuario=".$usuario;
 																  $variable=$cripto->codificar_url($variable,$configuracion);
 																  echo $indice.$variable;		
 																  ?>">
@@ -561,22 +563,22 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 													?></td>
 												</tr>
 												<tr>
-													<td  class="cuadro_plano centrar" colspan="2">
+													<td  class="cuadro_plano centrar" colspan="2" width="40%">
 													<span class="texto_negrita">Cuota No  <? echo $registro[$contador][7] ?></span>
 													</td>
-													<td class="cuadro_plano centrar">
+													<td class="cuadro_plano centrar" width="60%">
 													Periodo generado: <?echo $registro[$contador][5] ?> - <?echo $registro[$contador][6] ?><br>
 													Periodo al que corresponde el recibo: <?echo $registro[$contador][14] ?> - <?echo $registro[$contador][15] ?>
 													</td>
 												</tr>	
 												<tr class="cuadro_color">
-													<td class="cuadro_plano centrar">
+													<td class="cuadro_plano centrar" width="20%">
 													Tipo de pago
 													</td>
-													<td class="cuadro_plano centrar">
+													<td class="cuadro_plano centrar" width="20%">
 													Fecha Pago
 													</td>
-													<td class="cuadro_plano centrar">
+													<td class="cuadro_plano centrar" width="60%">
 													Total a Pagar
 													</td>
 												</tr>	
@@ -595,16 +597,17 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 												
 												for($i=0;$i<$totreg;$i++)
 												{
-													if ($registroRef[$i][0]==14)
+                                                                                                    //Si el recibo no es de matrícula presenta el concepto de pago
+													if ($registroRef[$i][0]!=1)
 													{
 														echo '<tr> ';
-														echo '	<td class="cuadro_plano centrar"> ';
-														echo '	<span class="texto_negrita">ECAES</span> ';
+														echo '	<td class="cuadro_plano centrar" width="20%"> ';
+														echo '	<span class="texto_negrita">'.$registroRef[$i][2].'</span> ';
 														echo '	</td> ';
-														echo '	<td class="cuadro_plano centrar"> ';
-														echo		$registro[$i][10];
+														echo '	<td class="cuadro_plano centrar"  width="20%"> ';
+														echo		$registro[$contador][10];
 														echo '	</td> ';
-														echo '	<td class="cuadro_plano centrar"> ';
+														echo '	<td class="cuadro_plano centrar"  width="60%"> ';
 														echo		money_format('$ %!.0i',$registroRef[$i][1]);
 														echo '	</td> ';
 														echo '</tr> ';
@@ -612,25 +615,25 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 													else
 													{
 														echo '<tr>';
-														echo '	<td class="cuadro_plano centrar">';
+														echo '	<td class="cuadro_plano centrar" width="20%">';
 														echo '	<span class="texto_negrita">Ordinario</span>';
 														echo '	</td>';
-														echo '	<td class="cuadro_plano centrar">';
+														echo '	<td class="cuadro_plano centrar" width="20%">';
 														echo	 $registro[$contador][10];
 														echo '	</td>';
-														echo '	<td class="cuadro_plano centrar">';
-														echo 	money_format('$ %!.0i',$registro[$contador][3]); echo ' + seguro';
+														echo '	<td class="cuadro_plano centrar" width="60%">';
+                                                                                                                echo 	money_format('$ %!.0i',$registro[$contador][3]); if ($registro[$contador][7]==1){echo ' + seguro';};
 														echo '	</td>';
 														echo '</tr>';
 														echo '<tr>';
-														echo '	<td class="cuadro_plano centrar">';
+														echo '	<td class="cuadro_plano centrar" width="20%">';
 														echo '	<span class="texto_negrita">Extraordinario</span>';
 														echo '	</td>';
-														echo '	<td class="cuadro_plano centrar">';
+														echo '	<td class="cuadro_plano centrar" width="20%">';
 														echo 	$registro[$contador][11];
 														echo '	</td>';
-														echo '	<td class="cuadro_plano centrar">';
-														echo 	money_format('$ %!.0i',$registro[$contador][4]); echo ' + Seguro';
+														echo '	<td class="cuadro_plano centrar" width="60%">';
+														echo 	money_format('$ %!.0i',$registro[$contador][4]); if ($registro[$contador][7]==1){echo ' + seguro';};
 														echo '	</td>';
 														echo '</tr>';
 													}
@@ -648,7 +651,7 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
                                                                                                                             $registroRecibo=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");
                                                                                                                             if (isset($registroRecibo) && is_array($registroRecibo))
                                                                                                                                 { enlacePagoEnLinea($configuracion,$registro,$contador);
-                                                                                                                                }
+                                                                                                                                }else{echo "No se puede realizar pago en línea.";}
                                                                                                                         }
                                                                                                                     else{
                                                                                                                                     ?>
@@ -1098,7 +1101,7 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql.="EMA_ESTADO='A' ";
 			$cadena_sql.="AND ";
 			$cadena_sql.="EMA_PAGO='N' ";
-			$cadena_sql.="ORDER BY ema_ano,ema_per,ema_cuota asc";
+			$cadena_sql.="ORDER BY ema_ano,ema_per,ema_secuencia,ema_cuota asc";
 // 			$cadena_sql.="AND ";
 // 			$cadena_sql.="EMA_SECUENCIA<25246 ";
 				
@@ -1107,9 +1110,10 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 		case "recibosActualEcaes":
 			$cadena_sql="SELECT ";
 			$cadena_sql.="AER_REFCOD, ";
-			$cadena_sql.="AER_VALOR ";	
+			$cadena_sql.="AER_VALOR, ";	
+			$cadena_sql.="REB_REFNOM ";	
 			$cadena_sql.="FROM ";
-			$cadena_sql.="ACESTMAT, ACREFEST ";
+			$cadena_sql.="ACESTMAT, ACREFEST, ACREFBAN ";
 			$cadena_sql.="WHERE ";
 			$cadena_sql.="EMA_EST_COD = ".$valor[0]." ";
 			$cadena_sql.="AND ";
@@ -1118,6 +1122,9 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql.="EMA_PER = ".$valor[2]." ";
 			$cadena_sql.="AND ";
 			$cadena_sql.="EMA_SECUENCIA = AER_SECUENCIA ";
+			$cadena_sql.="AND ";
+			$cadena_sql.="aer_bancod=reb_bancod ";
+			$cadena_sql.="and aer_refcod=reb_refcod ";
 			$cadena_sql.="AND ";
 			$cadena_sql.="AER_ANO = ".$valor[1]." ";
 			$cadena_sql.="AND ";

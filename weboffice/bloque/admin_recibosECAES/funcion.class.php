@@ -125,10 +125,15 @@ ________________________________________________________________________________
 
 		$i=0;
 		
-			///////////////////////////////////FECHAS/////////////////////////////			
-			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->acceso_db,"fechaPago");
-			$resultado=$this->ejecutarSQL($configuracion,$this->acceso_db, $cadena_sql,"busqueda");	
-			
+			///////////////////////////////////VERIFICA SI HAY FECHAS REGISTRADAS/////////////////////////////			
+			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechaPago");
+			$resultado=$this->ejecutarSQL($configuracion,$this->accesoOracle, $cadena_sql,"busqueda");
+                        
+                        if(!is_array($resultado)||empty($resultado))
+                        {
+                            echo "No hay fechas de pago registradas para generar el recibo de Saber Pro.";
+                            exit;
+                        }
 			$fechaPago=$resultado[0][0];	
 
 
@@ -176,30 +181,28 @@ ________________________________________________________________________________
 			
 	function generarRecibosECAES($configuracion,$estudiantes)
 	{
-
-
 			$parametro[2]=$this->datosGenerales($configuracion,$this->accesoOracle, "anno") ;
 			$parametro[3]=$this->datosGenerales($configuracion,$this->accesoOracle, "per") ;
 
-			
 		foreach($estudiantes as $valor) 
 		{			
 			///////////////////////////////////CODIGO/////////////////////////////
 			$parametro[0]=$valor;
 	
-
-
 			///////////////////////////////////CARRERA/////////////////////////////
 			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"carreraEstudiante",$parametro[0]);
 			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda");	
 			
 			$parametro[1]=$resultado[0][0];	
 			
-			//echo "<br><br>".$cadena_sql;	
-			
 			///////////////////////////////////VALOR SEGURO/////////////////////////////
 			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"valorECAES");
-			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda");	
+			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda");
+                        if(!is_array($resultado)||empty($resultado[0][0]))
+                        {
+                            echo "No hay valor de pago registrado para generar el recibo de Saber Pro.";
+                            exit;
+                        }
 			$parametro[4]=$resultado[0][0];	
 			$parametro[12]=$resultado[0][1];	
 			//echo"<br><br>SSS". $cadena_sql;				
@@ -207,18 +210,19 @@ ________________________________________________________________________________
 			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechaPago");
 			$resultado=$this->ejecutarSQL($configuracion,$this->accesoOracle, $cadena_sql,"busqueda");	
 			
-			//var_dump($resultado);
-			$parametro[5]=$resultado[0][0];	
-			$parametro[11]=$resultado[0][1];	
-			//echo "<br><br>".$cadena_sql;		
+                        if(!is_array($resultado)||empty($resultado[0][0]))
+                        {
+                            echo "No hay fechas de pago registradas para generar el recibo de Saber Pro.";
+                            exit;
+                        }
+			$parametro[5]=$resultado[0][0];
+			$parametro[11]=$resultado[0][1];
 	
 			///////////////////////////////////SECUENCIA/////////////////////////////				
 			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"secuencia");
 			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql,"busqueda");	
 		
 			$parametro[6]=$resultado[0][0];	
-				
-			
 			
 			//////año pago/////////////
 			$parametro[7]=$parametro[2];
@@ -227,32 +231,28 @@ ________________________________________________________________________________
 			$parametro[8]=$parametro[3];
 			
 			$parametro[9]=$this->usuario;	
-			
-			$parametro[10]="PAGO ECAES";					
+			//referencia que se registra en MySQL
+			$parametro[10]="PAGO SABER PRO";					
 			
 			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->acceso_db,"insertarSolicitud",$parametro);
-			$resultado=$this->ejecutarSQL($configuracion,$this->acceso_db, $cadena_sql, "");	
+			$resultado=$this->ejecutarSQL($configuracion,$this->acceso_db, $cadena_sql, "");
 			
-			//echo "<br><br>".$cadena_sql;	
-						
-			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"insertarCuotaECAES",$parametro);
+                        //inactiva las secuencias de recibos ecaes generadas enteriormente en el periodo.
+			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"inactivarRecibosAnterioesEcaes",$parametro);
 			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "");		
-			
-			//echo "<br><br>".$cadena_sql;	
-			
+                        //inserta cuota de recibo saber pro
+                        $cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"insertarCuotaECAES",$parametro);
+			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "");		
+			//inserta concepto en tabla de referencias
 			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"insertarConceptoECAES",$parametro);
 			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "");	
 			
-			//echo "<br><br>".$cadena_sql;
-			
-			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"insertarConceptoMatricula",$parametro);
-			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "");		
-
-			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"actualizarEstadoPago",$parametro);
+			/*$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"insertarConceptoMatricula",$parametro);
+			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "");*/
+                        //actualiza estado de generacion de recibo
+			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"actualizarEstadoGeneraRecibo",$parametro);
 			$resultado=$this->ejecutarSQL($configuracion, $this->accesoOracle, $cadena_sql, "");
 													
-			//echo "<br><br>".$cadena_sql;
-			
 		}							
                 if($this->nivel==4){
 		$this->redireccionarInscripcion($configuracion,'exitoGenerados');		

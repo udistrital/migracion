@@ -204,7 +204,7 @@ require_once("../clase/encriptar.class.php");
         //Enlace para el cambio de contraseña
         $usuario = $_SESSION['usuario_login'];
         $identificacion = $_SESSION['usuario_login'];
-        $indiceSaraLaverna = $configuracion["host_adm_pwd"]."/lamasu/index.php?";
+        $indiceSaraLaverna = $configuracion["host_adm_pwd"]."/index.php?";
         $tokenCondor = "condorSara2013!";
         $tipo=30;
         $tokenCondor = $miCodificador->codificar($tokenCondor);

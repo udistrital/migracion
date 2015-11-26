@@ -65,8 +65,8 @@ class bloqueRegistroLoteRecibo extends bloque
 				$columnas=$datos->sheets[0]['numCols']; 
 				//Se revisa que las columnas leidas correspondan a las que tiene cada una de la plantillas.
 				//Para el caso de postgrado 26
-				//Para el caso de pregrado 13, se insertó una columna mas, para vacacionales.
-				if($columnas==28||$columnas==14)
+				//Para el caso de pregrado 13
+				if($columnas==28||$columnas==13)
 				{
 					$resultado=$this->funcion->verificarLote($valor, $datos, $datos->sheets[0]['cells'][1][1], $this->configuracion,$this->funcion->acceso_db);
 					if($resultado==false)
