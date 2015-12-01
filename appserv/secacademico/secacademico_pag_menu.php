@@ -310,6 +310,7 @@ $enlaceCargarArchivoGrados=$indiceAcademico.$variable;
 <a href="#">Manuales</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<?php echo $enlaceManInscGrado ?>">Manual Inscripción a grado</a></li>
+<li class="subitem1"><a target="principal" href="<?php echo $configuracion['host_soporte'].'/soporte/archivos/manual_vinculacion_docente_secretaria_academica.pdf';?>">Manual Vinculaci&oacute;n Docente</a></li>
 </ul>
 </li>
 

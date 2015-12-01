@@ -205,7 +205,6 @@ ________________________________________________________________________________
                         }
 			$parametro[4]=$resultado[0][0];	
 			$parametro[12]=$resultado[0][1];	
-			//echo"<br><br>SSS". $cadena_sql;				
 			///////////////////////////////////FECHAS/////////////////////////////			
 			$cadena_sql=$this->sql->cadena_sql($configuracion,$this->accesoOracle,"fechaPago");
 			$resultado=$this->ejecutarSQL($configuracion,$this->accesoOracle, $cadena_sql,"busqueda");	

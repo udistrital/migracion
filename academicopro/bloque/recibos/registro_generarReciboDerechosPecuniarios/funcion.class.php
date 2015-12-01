@@ -383,18 +383,27 @@ class funcion_registroGenerarReciboDerechosPecuniarios extends funcionGeneral {
      * @return string
      */
     function validarFechasRecibo($fecha){
+        
+        include_once($this->configuracion["raiz_documento"].$this->configuracion["bloques"]."/recibos/registro_generarReciboDerechosPecuniarios".$this->configuracion["clases"]."/festivos.class.php");
+
+        $this->dias_festivos = new festivos();
         $valida='';
         $hoy = date('Y-m-d');
         $fecha_hoy = str_replace('-', '', $hoy);
         $fecha_uno = str_replace('-', '', $fecha);
+        //verifica que sea un dato valido de fecha
         $valida_cadena1=  $this->validarDatoFecha($fecha);
+        //separa dia mes ano
         $valores = explode('-',$fecha);
         $ano=$valores[0];
         $mes=$valores[1];
         $dia=$valores[2];
+        //informa que dia de la semana es 
         $diaFecha = $this->diaSemana($ano,$mes,$dia);
+        //verifica si es festivo
         $festivo = $this->consultarFestivo($fecha);
-        if($fecha_uno<=$fecha_hoy || $valida_cadena1==false || $diaFecha==0 || $diaFecha==6 || $festivo=='S'){
+        $festivo=$this->dias_festivos->esFestivo($dia,$mes);
+        if($fecha_uno<=$fecha_hoy || $valida_cadena1==false || $diaFecha==0 || $diaFecha==6 || $festivo===true){
             $valida="Fechas no validas";
 
         }else{
@@ -545,15 +554,21 @@ class funcion_registroGenerarReciboDerechosPecuniarios extends funcionGeneral {
     
     function obtenerFechaPago(){
         $fecha = date('Y-m-d');
-        $nuevafecha = strtotime ( '+90 day' , strtotime ( $fecha ) ) ;
+        //agrega tres meses a la fecha actual
+        $nuevafecha = strtotime ( '+89 day' , strtotime ( $fecha ) ) ;
+        //establece 20 de diciembre como la fecha maxima
+        $ultimo_dia= mktime(0, 0, 0, 12, 14, date('Y'));
+        //reemplaza la fecha de pago si es mayor al 20 de diciembre
+        if($nuevafecha>$ultimo_dia)
+        {$nuevafecha=$ultimo_dia;}
         $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+        //valida si la fecha es habil para pago
         $valida='-';
         while ($valida!='ok') {
             $nuevafecha = strtotime ( '+1 day' , strtotime ( $nuevafecha ) ) ;
             $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
             $valida = $this->validarFechasRecibo($nuevafecha);
         }
-        
         return $nuevafecha;
     }
 

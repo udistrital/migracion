@@ -326,8 +326,8 @@ $enlaceManEvalDoc=$configuracion['host_soporte']."/soporte/archivos/manual_evalu
 <li class="subitem1">
 <a href="#" class="postmenu">Derechos Pecuniarios</a>
 <ul class="submenus">
-<li class="subitem1"><a target="principal" href="<? echo $configuracion['host_derechos_pecuniarios'];?>">Informaci&oacute;n</a></li>
-<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceReciboDerechosPecuniarios ?>">Generar recibo</a></li>
+<li class="subitem1"><a target="principal" href="<? echo $configuracion['host_derechos_pecuniarios'];?>"> >> Informaci&oacute;n</a></li>
+<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceReciboDerechosPecuniarios ?>"> >> Generar recibo</a></li>
 </ul>
 </li>
 <li class="subitem1"><a target="principal" href="<?PHP echo $enlaceAcademicoConsultaPlanEstudio ?>">Plan de Estudio</a></li>

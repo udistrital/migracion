@@ -53,11 +53,11 @@ class bloque_adminRegistrarEntregaDerechosPecuniarios extends bloque {
             $pagina = $this->configuracion["host"] . $this->configuracion["site"] . "/index.php?";
             $variable = "pagina=registro_registrarEntregaDerechosPecuniarios";
             $variable.="&opcion=adicionar";
-            $variable.="&fechaEntregado=".$_REQUEST['fechaEntregado'];
-            $variable.="&codEstudiante=".$_REQUEST['codEstudiante'];
-            $variable.="&anioRecibo=".$_REQUEST['anioRecibo'];
-            $variable.="&periodoRecibo=".$_REQUEST['periodoRecibo'];
-            $variable.="&secuencia=".$_REQUEST['secuencia'];
+            foreach ($_REQUEST as $key => $value) {
+                if($key!='opcion' && $key!='action'){
+                    $variable.="&".$key."=".$value;
+                }
+            }
             include_once($this->configuracion["raiz_documento"] . $this->configuracion["clases"] . "/encriptar.class.php");
             $this->cripto = new encriptar();
             $variable = $this->cripto->codificar_url($variable, $this->configuracion);

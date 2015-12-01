@@ -521,7 +521,6 @@ class sql_adminSolicitudCoordinador extends sql
 				$cadena_sql="";
 				break;
 		}
-                //echo $cadena_sql."<br><br>";
 		return $cadena_sql;
 	}
 	

@@ -394,16 +394,21 @@ class funcion_adminGenerarReciboDerechosPecuniarios extends funcionGeneral {
                             <td colspan='2' align='center'>
                                 <input type='hidden' name='tipoRecibo' value="<? echo (isset($_REQUEST['tipoRecibo'])?$_REQUEST['tipoRecibo']:''); ?>">
                                 <input type='hidden' name='codEstudiante' value="<? echo $codEstudiante; ?>">
-                                <? 
-                                if($valor){
-                                    $this->enlaceRegistrar(); 
-                                }
+                                <?
+                                //establece como fecha maxima paara generar recibos el 15 de diciembre
+                                $ultimo_dia= date('Ymd',mktime(0, 0, 0, 12, 15, date('Y')));
+                                if ((date('Ymd')<=$ultimo_dia))
+                                    {
+                                    if($valor){
+                                        $this->enlaceRegistrar(); 
+                                    }
+                                }else{?>No se pueden generar más recibos para el año actual<?}
                                 ?></td>
                         </tr>
 
                     </table>
                     <div id="div_mensaje1" align="center" class="ab_name">
-                        El recibo se generará con fecha de pago de 90 días calendario posteriores a esta solicitud.
+                        El recibo se generará con fecha de pago de 90 días calendario posteriores a esta solicitud (o hasta el 15 de Diciembre).
 
                     </div>
 
@@ -574,7 +579,7 @@ class funcion_adminGenerarReciboDerechosPecuniarios extends funcionGeneral {
     function inactivarReciboVencidoPecuniario($datos) {
         /*$datos=array('tipoRecibo'=>$tipo,
                         'codEstudiante'=>  $this->usuario);*/
-        $cadena_sql = $this->sql->cadena_sql("inactivarReciboVencidoPecuniario", $datos);echo $cadena_sql;
+        $cadena_sql = $this->sql->cadena_sql("inactivarReciboVencidoPecuniario", $datos);
         //$resultado = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "");
         return $resultado;
     }
