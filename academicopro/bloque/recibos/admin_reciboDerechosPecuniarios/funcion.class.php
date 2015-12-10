@@ -539,7 +539,7 @@ class funcion_adminGenerarReciboDerechosPecuniarios extends funcionGeneral {
         unset($registros);
         $registros = $this->consultarCantidadRecibosPorTipo($tipo);
         $total =count($registros);
-        if($total>=1){
+        if(is_array($registros)&&$total>=1){
             $mensaje='La cantidad máxima permitida es de 1 recibo por período y tipo de recibo.';
         }else{
             $mensaje='ok';

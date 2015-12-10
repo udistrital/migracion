@@ -248,7 +248,7 @@ class funcion_registroGenerarReciboDerechosPecuniarios extends funcionGeneral {
                                                         <table class="contenidotabla centrar">
                                                           <tr>
                                                             <td class="cuadro_brownOscuro centrar">
-                                                                <?echo "El perfil no tiene permisos para este modulo";?>
+                                                                <?echo "El perfil no tiene permisos para este módulo";?>
                                                             </td>
                                                           </tr>
                                                         </table>
@@ -575,8 +575,8 @@ class funcion_registroGenerarReciboDerechosPecuniarios extends funcionGeneral {
     function validarCantidadRecibos($tipo,$codEstudiante){
         $registros = $this->consultarCantidadRecibosPorTipo($tipo,$codEstudiante);
         $total =count($registros);
-        if($total>=1){
-            $mensaje='La cantidad máxima permitida es de 1 recibos por período y tipo de recibo.';
+        if(is_array($registros)&&$total>=1){
+            $mensaje='La cantidad máxima permitida es de 1 recibo por período y tipo de recibo.';
         }else{
             $mensaje='ok';
         }

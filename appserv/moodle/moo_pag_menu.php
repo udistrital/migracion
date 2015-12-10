@@ -69,7 +69,31 @@ ob_start();
         $variable=$miCodificador->codificar($variable);
         $enlaceCambioPassword=$indiceSaraPassword.$opcion.$variable;
 
+	/*enlace sistema de administracion de reportes*/
+	$variable="/reportes_udistrital/run.php?";
+	$variable.="informes=proyecto";
+	$enlaceReporteProyecto=$configuracion["host"].$variable;
 
+	/*enlace sistema de administracion de reportes*/
+	$variable="/reportes_udistrital/run.php?";
+	$variable.="informes=facultad";
+	$enlaceReporteFacultad=$configuracion["host"].$variable;
+
+	/*enlace sistema de administracion de reportes*/
+	$variable="/reportes_udistrital/run.php?";
+	$variable.="informes=bienestar";
+	$enlaceReporteBienestar=$configuracion["host"].$variable;
+
+	/*enlace sistema de administracion de reportes*/
+	$variable="/reportes_udistrital/run.php?";
+	$variable.="informes=viceacademica";
+	$enlaceReporteViceAcademica=$configuracion["host"].$variable;
+
+	/*enlace sistema de administracion de reportes*/
+	$variable="/reportes_udistrital/run.php?";
+	$variable.="informes=secacademica";
+	$enlaceReporteSecAcademica=$configuracion["host"].$variable;
+        
 ?>
 
 <html>
@@ -89,13 +113,26 @@ ob_start();
 <link href="../estilo/menu.css" rel="stylesheet" type="text/css">
 
 <ul class="menu">
-<li class=""><a href="#">Consulta</a>
+<li class="">
+<a href="#">Consulta</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<? echo $enlaceConsultaProveedores ?>">Inscritos por Carrera</a></li>
 <li class="subitem1"><a target="principal" href="<? echo $enlaceConsultaAsignatura ?>">Inscritos por Asig.</a></li>
 <li class="subitem1"><a target="principal" href="<? echo $enlaceManuales ?>">Inscritos C&aacute;tedras.</a></li>
-
 </ul>
+</li>
+
+<li class="item5">
+<a href="#">Gesti&oacute;n Reportes</a>
+<ul class="submenus">
+<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceReporteProyecto ?>">Proyecto Curricular</a></li>
+<li class="subitem1"><a target="principal"  href="<?PHP echo $enlaceReporteFacultad ?>">Facultad</a></li>
+<li class="subitem1"><a target="principal"  href="<?PHP echo $enlaceReporteBienestar ?>">Bienestar</a></li>
+<li class="subitem1"><a target="principal"  href="<?PHP echo $enlaceReporteSecAcademica; ?>">Secretaria Acad&eacute;mica</a></li>
+<li class="subitem1"><a target="principal"  href="<?PHP echo $enlaceReporteViceAcademica; ?>">Vicerrector&iacute;a Acad&eacute;mica</a></li>
+</ul>
+</li>
+
 <li class="item5"><a href="#">Clave</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<?echo $enlaceCambioPassword?>">Cambiar mi clave</a></li>
