@@ -268,7 +268,8 @@ class sql_admin_consejeriasConsultaEstudiante extends sql {	//@ Método que crea
                 $cadena_sql.="ins_nota_lab NOTA_LABORATORIO, ";
                 $cadena_sql.="ins_nota_exa NOTA_EXAMEN, ";
                 $cadena_sql.="ins_nota_acu ACUMULADO, ";
-                $cadena_sql.="ins_tot_fallas FALLAS";
+                $cadena_sql.="ins_tot_fallas FALLAS, ";
+                $cadena_sql.="ins_nota_hab NOTA_HAB";
                 $cadena_sql.=" FROM acins ";
                 $cadena_sql.=" WHERE ins_asi_cod='".$variable[0]."'";
                 $cadena_sql.=" AND ins_gr='".$variable[1]."'";

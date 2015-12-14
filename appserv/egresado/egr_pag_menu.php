@@ -26,6 +26,16 @@ require_once("../clase/encriptar.class.php");
         $variable=$cripto->codificar_url($variable,$configuracion);
 	$enlaceConsejeriaEstudiante=$indiceAcademico.$variable;    
 
+        $variable="pagina=admin_reciboDerechosPecuniarios";
+        $variable.="&usuario=".$_SESSION['usuario_login'];
+        $variable.="&tipoUser=121";
+        $variable.="&opcion=nuevo";
+        $variable.="&aplicacion=Condor";
+        $variable.="&modulo=egresado";
+        $variable.="&tipoBusqueda=identificacion";
+        $variable=$cripto->codificar_url($variable,$configuracion);
+        $enlaceReciboDerechosPecuniarios=$indiceAcademico.$variable;
+        
         //Enlace para el cambio de contraseña
 include_once("crypto/Encriptador.class.php");
 $miCodificador=Encriptador::singleton();
@@ -68,6 +78,18 @@ $enlaceCambioPassword=$indiceSaraPassword.$opcion.$variable;
 <li class=""><a href="#">Egresado</a>
 <ul class="submenus">
 <li class="subitem1"><a target="principal" href="<? echo $enlaceConsejeriaEstudiante ?>">Historia Acad&eacute;mica</a></li>
+</ul>
+</li>
+<li class="item5">
+<a href="#">Servicios</a>
+<ul class="submenus">
+<li class="subitem1">
+<a href="#" class="postmenu">Derechos Pecuniarios</a>
+<ul class="submenus">
+<li class="subitem1"><a target="principal" href="<? echo $configuracion['host_derechos_pecuniarios'];?>">  >> Informaci&oacute;n</a></li>
+<li class="subitem1"><a target="principal" href="<?PHP echo $enlaceReciboDerechosPecuniarios ?>">  >> Generar recibo</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="item5"><a href="#">Clave</a>

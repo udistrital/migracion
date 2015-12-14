@@ -120,7 +120,7 @@ class funcion_adminConsultarRecibosPecuniariosEstudiante extends funcionGeneral 
                     if($tipoBusqueda=='identificacion'){//esta opcion es para egresado que ingresa por identificación
                         $codEstudiante = $this->consultarCodigoEgresadoPorIdentificacion($datoBusqueda);
                         if(is_array($codEstudiante )){
-                                exit;
+                            $this->mostrarListadoProyectos($codEstudiante);
                         }else{
                             $datoBusqueda=$codEstudiante;
                             $tipoBusqueda='codigo';
