@@ -392,7 +392,8 @@ class funciones_admin_consultaRecibos extends funcionGeneral
                                 $cadena_clave=$cripto->decodificar_variable($configuracion["clave_envios"], $semilla);
 
 				//configuracion de cuenta de envio
-				$mail->Host     = "200.69.103.49";
+				//$mail->Host     = "mail.udistrital.edu.co";
+                                $mail->Host     = $configuracion["servidor_correo"];
 				$mail->Mailer   = "smtp";
 				$mail->SMTPAuth = true;
 				$mail->Username = $configuracion["correo_envios"];
@@ -410,7 +411,12 @@ class funciones_admin_consultaRecibos extends funcionGeneral
 				//$contenido.="\nNOTA IMPORTANTE, los datos usados para esta prueba corresponden al cierre del semeste 2011-3 e inicio del semestre 2012-1.";  
 				$contenido.= "Señor estudiante, adjunto encontrará su recibo de pago de matrícula, correspondiente al periodo académico ".$valor[1]." ".$valor[2].", si tiene alguna inquietud con respecto a su recibo, por favor dirijase a la Coordinación su Proyecto Curricular. \n";
 				
-				$contenido.= "\nIMPORTANTE: Recomendamos imprimir el recibo en una impresora laser.\n";
+				$contenido.= "\nIMPORTANTE: Se recomienda imprimir el recibo en una impresora laser.\n";
+				$contenido.= "\nRECUERDE LAS MODALIDADES DE RECAUDO POR CONCEPTO DE MATRÍCULAS\n";
+				$contenido.= "\n- Efectivo.";
+				$contenido.= "\n- Cheques de gerencia a nombre de la Universidad Distrital F. J. C.";
+				$contenido.= "\n- Tarjeta de Crédito Visa y MasterCard a través de los datáfonos ubicados en las Oficinas del Banco de Occidente.";
+				$contenido.= "\n- Recaudo a través del Botón de Pagos - PSE.\n";
 				$contenido.="\nDatos del estudiante:\n";
 				$contenido.='Código: '.$registro[$i][1]. "\n";
 				$contenido.='Nombre: '.$registro[$i][13]. "\n";

@@ -13,15 +13,17 @@ index.php
 Oficina Asesora de Sistemas
 Copyright (C) 2008
 
-Última revisión 15 de julio de 2008
+Última revisión 22 de diciembre de 2015
 
 *****************************************************************************
 * @subpackage   
 * @package	bloques
 * @copyright    
-* @version      0.2
+* @version      0.3
 * @author      	
 * @link		N/D
+* @Actualización      	22/12/2015
+* @author 		Milton Parra
 * @description  Formulario para el registro de un archivo de bloques
 * @usage        
 *******************************************************************************/ 
@@ -102,7 +104,7 @@ if (is_resource($enlace))
 					}
 					else
 					{
-						$laObservacion="PAGO EN EFECTIVO ";
+						$laObservacion=" ";
 					}
 					
 					//Obtener las cuotas

@@ -7,15 +7,17 @@
 */
 /****************************************************************************
 * @name          bloque.php 
-* @revision      ultima revision 2 de junio de 2007
+* @revision      ultima revision 22 de diciembre de 2015
 *****************************************************************************
 * @subpackage   admin_recibo
 * @package	bloques
 * @copyright    
-* @version      0.3
+* @version      0.4
 * @link		N/D
-* @description  Bloque principal para la administracion de medicamentoes
-*
+* @description  Bloque principal para la administracion de generación de recibos de pago
+* @Actualización      	22/12/2015
+* @author 		Milton Parra
+ * 
 ******************************************************************************/
 if(!isset($GLOBALS["autorizado"]))
 {
@@ -824,7 +826,7 @@ function prepararPDF($configuracion,$pdf, $valor,$pago="",$tipo="",$conceptos=""
 		$pdf->Cell(48,4,"TOTAL A PAGAR",0);
 		$pdf->SetFont('Arial','',8);
 		//Encabezado Observacion
-		$pdf->Cell(60,4,"OBSERVACIONES: Unicamente Efectivo",0);
+		$pdf->Cell(60,4,"OBSERVACIONES: ",0);
 		
 		//Valores
 		$pdf->Ln(5);
@@ -1064,7 +1066,7 @@ function prepararPDF($configuracion,$pdf, $valor,$pago="",$tipo="",$conceptos=""
 					}
 					else
 					{
-						$pdf->Cell(30,4,"UNICAMENTE EFECTIVO",0);
+						$pdf->Cell(30,4," ",0);
 					}
 				}
 				else

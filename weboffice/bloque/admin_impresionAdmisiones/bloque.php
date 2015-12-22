@@ -7,13 +7,15 @@
 */
 /****************************************************************************
 * @name          bloque.php 
-* @revision      ultima revision 17 de septiembre de 2015
+* @revision      ultima revision 22 de diciembre de 2015
 *****************************************************************************
 * @subpackage   admin_recibo
 * @package	bloques
 * @copyright    
-* @version      0.5
+* @version      0.6
 * @Actualización      	17/09/2015
+* @author 		Milton Parra
+* @Actualización      	22/12/2015
 * @author 		Milton Parra
 * @link		N/D
 * @description  Bloque principal para la administracion de recibos de estudiantes de primer semestre
@@ -972,7 +974,7 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		$pdf->Cell(48,4,"TOTAL A PAGAR",0);
 		$pdf->SetFont('Arial','',8);
 		//Encabezado Observacion
-		$pdf->Cell(60,4,"Pago unicamente en efectivo",0);
+		$pdf->Cell(60,4," ",0);
 				
 		//Valores
 		$pdf->Ln(5);
@@ -1020,18 +1022,25 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		$pdf->Cell(15,4,"",0);
 		//Universidad
 		$pdf->Cell(50,4,"UNIVERSIDAD DISTRITAL ",0);
-		$pdf->Ln(3);
+		$pdf->SetFont('Arial','B',8);
+                $pdf->Cell(75,4,"",0);
+		$pdf->Cell(70,4,"PAGUE UNICAMENTE EN",0);		
+		$pdf->Ln(2);
 		$pdf->Cell(15,4,"",0);
 		//Francsico Jose de Caldas
-		$pdf->Cell(40,4,"Francisco Jose de Caldas",0);		
+		$pdf->SetFont('Arial','B',10);		
+		$pdf->Cell(40,6,"Francisco Jose de Caldas",0);		
 		$pdf->Ln(1);
 		$pdf->Cell(70,4,"",0);
 		//Comprobante de Pago
 		$pdf->Cell(70,4,"COMPROBANTE DE PAGO No ".$valor[2],0);
 				
 		//Banco		
-		$pdf->SetFont('Arial','',8);
-		$pdf->Cell(70,4,"PAGUE EN BANCO DE OCCIDENTE ",0);		
+		$pdf->SetFont('Arial','B',8);
+		$pdf->Ln(1);
+		$pdf->Cell(140,4,"",0);
+		$pdf->Cell(70,4," BANCO DE OCCIDENTE ",0);	
+                $pdf->Image($configuracion["raiz_documento"].$configuracion["grafico"].'/logo_occidente.jpg' , 188 ,3, 11 , 13,'JPG', '');
 				
 		$pdf->Ln(3);
 		$pdf->Cell(15,4,"",0);
@@ -1204,7 +1213,7 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 					}
 					else
 					{
-						$pdf->Cell(30,4,"PAGO UNICAMENTE EFECTIVO",0);
+						$pdf->Cell(30,4," ",0);
 						
 					}
 				}
@@ -1253,7 +1262,7 @@ function generarCodigoBarras($codigoBarras, $codigo, $configuracion,$valor)
 		//Pago Extraordinario
 		$pdf->Cell(48,4,money_format('$ %!.0i',$valor[11]),0);
 				
-		$pdf->Cell(60,4,"  - PAGO UNICAMENTE EFECTIVO",0);
+		$pdf->Cell(60,4," ",0);
 				
 		//Pie del Recibo
 		$pdf->SetFont('Arial','',8);	

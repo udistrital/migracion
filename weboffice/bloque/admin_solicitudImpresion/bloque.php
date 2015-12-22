@@ -13,15 +13,17 @@ index.php
 Oficina Asesora de Sistemas
 Copyright (C) 2008
 
-Última revisión 15 de julio de 2008
+Última revisión 22 de diciembre de 2015
 
 *****************************************************************************
 * @subpackage   
 * @package	bloques
 * @copyright    
-* @version      0.2
+* @version      0.3
 * @author      	
 * @link		N/D
+* @Actualización      	22/12/2015
+* @author 		Milton Parra
 * @description  Formulario para el registro de un archivo de bloques
 * @usage        
 *******************************************************************************/ 
@@ -119,7 +121,7 @@ if (is_resource($enlace))
 				//Rescatar Exenciones
 				$cadena_sql=cadenaSQL_impresion($configuracion, "exencionSolicitud", $registroSolicitud[$i][0]);		
 				$registroExencion=acceso_db_impresion($cadena_sql,$acceso_db,"busqueda");
-				$observacion="Efectivo ";
+				$observacion=" ";
 				if(is_array($registroExencion))
 				{
 					//Se deben seguir ciertas reglas para las exenciones
