@@ -650,7 +650,7 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
                                                                                                                             $cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $variable,"validarRecibo");
                                                                                                                             $registroRecibo=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");
                                                                                                                             if (isset($registroRecibo) && is_array($registroRecibo))
-                                                                                                                                { enlacePagoEnLinea($configuracion,$registro,$contador);
+                                                                                                                                { enlacePagoEnLinea($configuracion,$registro,$contador,$registroRef);
                                                                                                                                 }else{echo "No se puede realizar pago en línea.";}
                                                                                                                         }
                                                                                                                     else{
@@ -1089,10 +1089,14 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql.="EMA_IMP_RECIBO, ";
 			$cadena_sql.="ema_pago, "; //13
 			$cadena_sql.="ema_ano_pago, ";
-			$cadena_sql.="ema_per_pago ";
+			$cadena_sql.="ema_per_pago, ";
+			$cadena_sql.="est_nro_iden, ";
+			$cadena_sql.="est_tipo_iden, ";
+			$cadena_sql.="est_nombre ";
 			$cadena_sql.="FROM ";
 			$cadena_sql.="ACESTMAT ";
 			$cadena_sql.="INNER JOIN ACASPERI ON EMA_ANO=APE_ANO AND EMA_PER=APE_PER ";
+			$cadena_sql.="INNER JOIN ACEST ON EST_COD=EMA_EST_COD ";
 			$cadena_sql.="WHERE ";
 			$cadena_sql.="EMA_EST_COD = ".$valor[0]." ";
 			$cadena_sql.="AND ";
@@ -1359,9 +1363,9 @@ function desbloquearRecibo($configuracion,$conexion,$variable)
  * @param array $configuracion
  * @param array $registro
  */
-function enlacePagoEnLinea($configuracion,$registro,$contador){
-        include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
-	$cripto=new encriptar();
+function enlacePagoEnLinea($configuracion,$registro,$contador,$registroRef){
+        //include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
+	//$cripto=new encriptar();
 	$variable='';
         $nueva_sesion=new sesiones($configuracion);
         $registro_sesion=$nueva_sesion->rescatar_valor_sesion($configuracion,"identificacion");
@@ -1374,15 +1378,44 @@ function enlacePagoEnLinea($configuracion,$registro,$contador){
         {
                 $usuarioIdentificacion="0";		
         }
+        var_dump($registro[$contador]);
+        var_dump($contador);
+        var_dump($registroRef);
+        include_once 'crypto/Encriptador.class.php';
+        $criptor = new Encriptadors();
+
+        $host="https://portalws.udistrital.edu.co/botonPago/index.php?";
+        //$host="http://10.20.0.184/botonPago/index.php?";
+        $enlace="recibo";
+        $cadena="REFERENCIA=".$registro[$contador][0];
+        //$cadena="REFERENCIA=048238";
+        $cadena.="&TIPO_DOC_IDEN=".$registro[$contador][17];
+        $cadena.="&NUM_DOC_IDEN=".$registro[$contador][16];
+        //$cadena.="&NUM_DOC_IDEN=1012339769";
+        $cadena.="&NOMBRE=".$registro[$contador][18];
+        $cadena.="&VALOR_RECIBO=".$registroRef[0][1];
+        $cadena.="&CONCEPTO=".$registroRef[0][0]."-".$registroRef[0][2];
+        $cadena.="&VALOR_IVA=0";
+
+        $cadena=$criptor->codificar_url($cadena,$enlace);
+        $url=$host.$cadena;
+
+/*        echo "<script type='text/javascript'>
+                    function redireccionar(){
+                      window.location='".$url."';
+                            } 
+                    setTimeout ('redireccionar()', 1);
+              </script>";
+*/
         
-        $indiceAcademico=$configuracion["host"]."/academicopro/index.php?";
-        $variable="pagina=admin_pagoEnLinea";
-        $variable.="&usuario=".$usuarioIdentificacion;
-        $variable.="&factura=".$registro[$contador][0];
-        $variable.="&tipoUser=52";
-        $variable.="&modulo=Estudiante";
-        $variable.="&aplicacion=Condor";
-        $variable=$cripto->codificar_url($variable,$configuracion);
+//        $indiceAcademico=$configuracion["host"]."/academicopro/index.php?";
+//        $variable="pagina=admin_pagoEnLinea";
+//        $variable.="&usuario=".$usuarioIdentificacion;
+//        $variable.="&factura=".$registro[$contador][0];
+//        $variable.="&tipoUser=52";
+//        $variable.="&modulo=Estudiante";
+//        $variable.="&aplicacion=Condor";
+//        $variable=$cripto->codificar_url($variable,$configuracion);
         if($registro[$contador][12]<>1)//Recibo desbloqueado
         {
             if($registro[$contador][13]=='N'){
@@ -1403,7 +1436,7 @@ function enlacePagoEnLinea($configuracion,$registro,$contador){
                         $fecha_extra = strtotime ( '+1 day' ,strtotime($fecha_extra));
                         
                         if($fecha_hoy <= $fecha_ord || $fecha_hoy <= $fecha_extra){
-                        ?><a href="<?	echo $indiceAcademico.$variable;?>">
+                        ?><a href="<?	echo $url/*$indiceAcademico.$variable*/;?>">
                           <img border="0" alt="PAGO EN LÍNEA" src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]."/BotonPSE.jpg"?>" />
                           </a><?
                         }else{
