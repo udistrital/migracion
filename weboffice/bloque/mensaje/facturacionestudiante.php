@@ -15,9 +15,9 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.cl
 						</tr>						
 						<tr class="bloquecentralcuerpo">
 							<td valign="top">
-								<h3>Bienvenido al nuevo m&oacute;dulo de administraci&oacute;n de matr&iacute;cula. </h3>
+								<h3>Bienvenido al m&oacute;dulo de administraci&oacute;n de pagos. </h3>
 								<p>Desde el men&uacute; lateral derecho puede seleccionar las opciones que le permiten consultar el historico de pagos de matr&iacute;cula
-								o la impresi&oacute;n directa del recibo de pago el cual debe ser cancelado en cualquier sucursal del Banco de Occidente.</p>
+                                                                    o la impresi&oacute;n directa de recibos de pago que pueden ser cancelados en cualquier sucursal del <b>Banco de Occidente</b> o a través de la Opción de Pago en l&iacute;nea.</p>
 								<p><br></p>
 								<p class="texto_negrita">
 								Importante!!!<hr class="hr_subtitulo">
@@ -25,15 +25,19 @@ include_once($configuracion["raiz_documento"].$configuracion["clases"]."/html.cl
 								<p>Apreciado estudiante por favor tenga en cuenta las siguientes directrices:</p>
 								<p>
 								<ul>
-									<li>
-									Para imprimir el recibo de pago de matr&iacute;cula, se recomienda hacerlo por por el navegador MOZILLA FIREFOX.    
+                                                                        <li>Recuerde las <b>MODALIDADES DE RECAUDO</b> por concepto de matr&iacute;culas:
+                                                                            <ul>- Efectivo.</ul>
+                                                                            <ul>- Cheques de gerencia a nombre de la Universidad Distrital F. J. C.</ul>
+                                                                            <ul>- Tarjeta de Cr&eacute;dito Visa y MasterCard a trav&eacute;s de los dat&aacute;fonos ubicados en las Oficinas del Banco de Occidente.</ul>
+                                                                            <ul>- Recaudo a trav&eacute;s del Bot&oacute;n de Pagos - <b>PSE</b>.</ul>
+                                                                            <br></li>
+                                                                        <li>
+									Para imprimir el recibo de pago de matr&iacute;cula, se recomienda hacerlo por por el navegador MOZILLA FIREFOX.<br><br>
 									</li>
-
 									<li>
 									El recibo debe ser impreso en IMPRESORA LASER de alta definici&oacute;n. Impresoras de matriz de punto degradan el
 									c&oacute;digo de barras e impiden que el pago pueda ser captura en el banco.<br><br>
 									</li>
-									
 									<li>
 									La Universidad recibe de forma automática el reporte de pago del banco. Dicho reporte incluye el n&uacute;mero del
 									recibo de matr&iacute;cula, el c&oacute;digo del estudiante y el monto pagado. El estudiante solo queda activo si dichos

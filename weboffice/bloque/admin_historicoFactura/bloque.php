@@ -106,22 +106,18 @@ if ($enlace)
 					$valor[0]=$usuario;
 					$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"validaFechaDiferido");
 					break;
-							
 			}
 
 			$registro=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");		
-
 		
 			if($_REQUEST["opcion"]<>"diferirMatricula"){
 
 				if(!is_array($registro))
 				{	
-					
 					$cadena="En la actualidad no tiene ningún recibo registrado para imprimir.";
 					$cadena=htmlentities($cadena, ENT_COMPAT, "UTF-8");
 					alerta::sin_registro($configuracion,$cadena);	
                                         con_registro_beneficiario($configuracion,$registro,$acceso_db,$accesoOracle,$accesoGestion,$usuario);
-							
 				}
 				else
 				{
@@ -146,10 +142,7 @@ if ($enlace)
 							con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$accesoOracle,$accesoGestion,$usuario,$anno,$periodo);
                                                         con_registro_beneficiario($configuracion,$registro,$acceso_db,$accesoOracle,$accesoGestion,$usuario);
 							break;
-						
 					}
-					
-					
 				}
 			}
 			else{
@@ -170,7 +163,6 @@ if ($enlace)
 					}
 					else
 					{
-
 						$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"nivelCarrera");
 						$registro=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");	
 	
@@ -188,9 +180,7 @@ if ($enlace)
 					guardar_diferido($configuracion,$valor,$accesoOracle);
 				}
 			}
-		
 	}
-	
 }
 
 
@@ -209,10 +199,8 @@ function diferir_matricula($configuracion,$valor,$accesoOracle){
         $html='';
 	//el registr[0][0]  si el estudiante tiene o no su matricula diferida
 	//el registr[0][1]  si el estudiante tiene o no derecho a diferir su matricula
-
 		if($registro[0][1]=='N')
 		{	
-			
 			$cadena="No puede diferir matrícula porque es menor a medio salario mínimo legal vigente.";
 			$cadena=htmlentities($cadena, ENT_COMPAT, "UTF-8");
 			alerta::sin_registro($configuracion,$cadena);	
@@ -260,8 +248,6 @@ function diferir_matricula($configuracion,$valor,$accesoOracle){
 
 	echo $html;
 
-
-
 }
 
 
@@ -269,7 +255,6 @@ function guardar_diferido($configuracion,$valor,$accesoOracle){
 
 	$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"actualizaDiferido");
 	$registro=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"");
-
 	
 	redireccionarInscripcion($configuracion,"adminPago",$valor);
 		/*$cadena=$cadena_sql;
@@ -292,7 +277,6 @@ function redireccionarInscripcion($configuracion, $opcion, $valor="")
 			$variable.="&opcion=diferirMatricula";
 		break;	
 	}
-	
 	$variable=$cripto->codificar_url($variable,$configuracion);
 	echo "<script>location.replace('".$indice.$variable."')</script>"; 
 	exit();		
@@ -306,33 +290,33 @@ switch($_REQUEST["opcion"])
 			{
 				case "historico":
 				?>.:: Hist&oacute;rico de Pago de Matr&iacute;cula
-<hr class="hr_subtitulo">
-	<table align="center" class="tablaMarcoGeneral">
-	<tbody>
-		<tr>
-			<td >
-				<table class="tablaMarco">
-					<tbody>
-						<tr class="bloquecentralcuerpo">
-							<td valign="top" colspan=2>
-							<p>La siguiente tabla muestra su historial de pagos. Est&aacute; construida a partir de los registros de pago que diariamente el 
-							banco envia a la Universidad. Con estos datos la instituci&oacute;n comprueba que las entidades
-							financieras efectivamente recaudan el valor que usted como estudiante debe pagar.</p>
-							<p>Cualquier diferencia entre el valor aqui reportado y el valor que usted a consignado por favor
-							rep&oacute;rtelo para tomar las medidas correspondientes.
-							</p>								
-							
-						</tr>
-					</tbody>
-				</table>
+                                <hr class="hr_subtitulo">
+                                        <table align="center" class="tablaMarcoGeneral">
+                                        <tbody>
+                                                <tr>
+                                                        <td >
+                                                                <table class="tablaMarco">
+                                                                        <tbody>
+                                                                                <tr class="bloquecentralcuerpo">
+                                                                                        <td valign="top" colspan=2>
+                                                                                        <p>La siguiente tabla muestra su historial de pagos. Est&aacute; construida a partir de los registros de pago que diariamente el 
+                                                                                        banco envia a la Universidad. Con estos datos la instituci&oacute;n comprueba que las entidades
+                                                                                        financieras efectivamente recaudan el valor que usted como estudiante debe pagar.</p>
+                                                                                        <p>Cualquier diferencia entre el valor aqui reportado y el valor que usted a consignado por favor
+                                                                                        rep&oacute;rtelo para tomar las medidas correspondientes.
+                                                                                        </p>								
 
-			</td>
-		</tr>
-	</tbody>
-</table><?
-					break;
-			}
+                                                                                </tr>
+                                                                        </tbody>
+                                                                </table>
 
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                </table><?
+
+                                break;
+                        }
 }
 
 function con_registro_historico($configuracion,$registro,$campos,$tema,$acceso_db)
@@ -342,78 +326,78 @@ function con_registro_historico($configuracion,$registro,$campos,$tema,$acceso_d
 	$indice=$configuracion["host"].$configuracion["site"]."/index.php?";	
 	setlocale(LC_MONETARY, 'en_US');
 	
-?><table width="100%" align="center" border="0" cellpadding="10" cellspacing="0" >
-	<tbody>
-		<tr>
-			<td >
-				<table width="100%" border="0" align="center" cellpadding="5 px" cellspacing="1px" >
-					<tr class="texto_subtitulo">
-						<td>
-						<? mensaje(); ?>
-						</td>
-					</tr>
-					<tr>
-						<td>		
-							<table class="contenidotabla">
-								<tr class="cuadro_color">
-									<td class="cuadro_plano centrar">
-									Recibo de Pago
-									</td>
-									<td class="cuadro_plano centrar">
-									Banco
-									</td>
-									<td class="cuadro_plano centrar">
-									Sucursal
-									</td>
-									<td class="cuadro_plano centrar">
-									Fecha de pago
-									</td>
-									<td colspan="2" class="cuadro_plano centrar">
-									Valor Pagado
-									</td>
-								</tr>	
-					<?
-	$totalPago=0;
-	for($contador=0;$contador<$campos;$contador++)
-	{
-			$totalPago+=$registro[$contador][4];
-				?>	
-								<tr>
-									<td class="cuadro_plano centrar">
-									<span class="texto_negrita"><? echo $registro[$contador][5]?></span>
-									</td>
-									<td class="cuadro_plano centrar">
-									<?echo $registro[$contador][1] ?>
-									</td>
-									<td class="cuadro_plano centrar">
-									<?echo $registro[$contador][2] ?>
-									</td>
-									<td class="cuadro_plano centrar">
-									<?echo $registro[$contador][3] ?>	
-									</td>
-									<td class="cuadro_plano derecha">
-									<?echo money_format('$ %!.0i',$registro[$contador][4]) ?>
-									</td>
-								</tr>
-	<?
-	}
-								
-	?>							<tr class="cuadro_color">
-									<td colspan=4  class="cuadro_plano derecha">
-										<span class="texto_negrita">Valor Total Registrado</span>
-									</td>
-									<td  class="cuadro_plano derecha">
-										<?echo money_format('$ %!.0i',$totalPago) ?>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	</tbody>
-</table><?
+        ?><table width="100%" align="center" border="0" cellpadding="10" cellspacing="0" >
+                <tbody>
+                        <tr>
+                                <td >
+                                        <table width="100%" border="0" align="center" cellpadding="5 px" cellspacing="1px" >
+                                                <tr class="texto_subtitulo">
+                                                        <td>
+                                                        <? mensaje(); ?>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>		
+                                                                <table class="contenidotabla">
+                                                                        <tr class="cuadro_color">
+                                                                                <td class="cuadro_plano centrar">
+                                                                                Recibo de Pago
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                Banco
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                Sucursal
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                Fecha de pago
+                                                                                </td>
+                                                                                <td colspan="2" class="cuadro_plano centrar">
+                                                                                Valor Pagado
+                                                                                </td>
+                                                                        </tr>	
+                                                <?
+                $totalPago=0;
+                for($contador=0;$contador<$campos;$contador++)
+                {
+                                $totalPago+=$registro[$contador][4];
+                                        ?>	
+                                                                        <tr>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                <span class="texto_negrita"><? echo $registro[$contador][5]?></span>
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                <?echo $registro[$contador][1] ?>
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                <?echo $registro[$contador][2] ?>
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                <?echo $registro[$contador][3] ?>	
+                                                                                </td>
+                                                                                <td class="cuadro_plano derecha">
+                                                                                <?echo money_format('$ %!.0i',$registro[$contador][4]) ?>
+                                                                                </td>
+                                                                        </tr>
+                <?
+                }
+
+                ?>							<tr class="cuadro_color">
+                                                                                <td colspan=4  class="cuadro_plano derecha">
+                                                                                        <span class="texto_negrita">Valor Total Registrado</span>
+                                                                                </td>
+                                                                                <td  class="cuadro_plano derecha">
+                                                                                        <?echo money_format('$ %!.0i',$totalPago) ?>
+                                                                                </td>
+                                                                        </tr>
+                                                                </table>
+                                                        </td>
+                                                </tr>
+                                        </table>
+                                </td>
+                        </tr>
+                </tbody>
+        </table><?
 }
 
 function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$accesoOracle,$accesoGestion,$usuario,$anno,$periodo)
@@ -535,7 +519,6 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 														
 														if(!is_array($rescatarDeuda)){
 													?>
-																				
 																<b>RECIBO BLOQUEADO</b><br>POR ESTADO PRUEBA ACADEMICA
 																<br>
 																<a href="<?		
@@ -554,7 +537,6 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 																<b>RECIBO BLOQUEADO</b><br>POR REGISTRAR DEUDAS VIGENTES
 																<br>
 																Consulte a la Biblioteca o Laboratorios seg&uacute;n sea el caso.<br>
-																
 																
 																<?
 														}
@@ -590,10 +572,9 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 												$valor[2]=$registro[$contador][6];
 												$valor[3]=$registro[$contador][0];
 												$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"recibosActualEcaes");
-												//echo $cadena_sql;
-												$registroRef=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");
+
+                                                                                                $registroRef=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");
 												$totreg=count($registroRef);
-												//echo "nnnn".$registroRef[0][0]."<br>";
 												
 												for($i=0;$i<$totreg;$i++)
 												{
@@ -680,26 +661,18 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 											<hr class="hr_subtitulo">
 							<?
 							}
-								
 	?>						
 						</td>
 					</tr>
 				</table><?
-	
 	if(1)
 	{
 	
 		//Buscar estado
 		$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $registro[0][1],"infoEstudiante");
-		//echo $cadena_sql;
 		$registroEstudiante=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");	
 		if(is_array($registroEstudiante))
 		{
-
-		
-		
-		
-		
 		
 			echo '<br>';
 			echo '<table width="100%" border="0" align="center" cellpadding="5 px" cellspacing="1px" >';
@@ -723,13 +696,10 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 			}			
 			
 			echo '</table>';
-			
-			
 		}		
 			
 		//Buscar deudas
 		$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $registro[0][1],"deudaEstudiante");
-		//echo $cadena_sql;
 		$registroDeuda=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");	
 		if(is_array($registroDeuda))
 		{?>	<br>
@@ -762,8 +732,6 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 			<?
 				$contador++;
 			}
-										
-			
 		}
 	
 	}	?></td>
@@ -781,7 +749,6 @@ function con_registro_actual($configuracion,$registro,$campos,$tema,$acceso_db,$
 				</tr>
 			</table>
                         <?
-                        
 }
 
 function con_registro_detalle($configuracion,$registro,$campos,$tema,$acceso_db,$accesoOracle)
@@ -798,153 +765,151 @@ function con_registro_detalle($configuracion,$registro,$campos,$tema,$acceso_db,
 	//Buscar Exenciones
 	$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $registro[0][0],"exencion");
 	$registroExencion=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");	
-					
-					
 	
-?><table width="100%" align="center" border="0" cellpadding="10" cellspacing="0" >
-	<tbody>
-		<tr>
-			<td >
-				<table width="100%" border="0" align="center" cellpadding="5 px" cellspacing="1px" >
-					<tr>
-						<td>
-						<span  class="texto_subtitulo">.:: Detalles del Valor de Matr&iacute;cula</span>
-						<hr class="hr_subtitulo">
-						</td>
-					</tr>
-					<tr>
-						<td>		
-							<table align="center" class="contenidotabla2">
-								<tr class="cuadro_color">
-									<td class="cuadro_plano centrar">
-									Detalle
-									</td>
-									<td class="cuadro_plano centrar">
-									Valor
-									</td>
-								</tr>	
-								<tr>
-									<td class="cuadro_plano derecha">
-									<span class="texto_negrita">Matr&iacute;cula</span>
-									</td>
-									<td class="cuadro_plano centrar">
-									<? echo money_format('$ %!.0i',$registro[0][4]) ?>
-									</td>
-								</tr><?
-								
-								if($registro[0][4] != $registro[0][1])
-								{
-								?><tr>
-									<td class="cuadro_plano derecha">
-									<span class="texto_negrita">Matr&iacute;cula Reliquidada</span>
-									</td>
-									<td class="cuadro_plano centrar">
-									<? echo money_format('$ %!.0i',$registro[0][1]) ?>
-									</td>
-								</tr><?
-								}
-							?>
-								<tr>
-									<td class="cuadro_plano derecha">
-									<span class="texto_negrita">Seguro Estudiantil*</span>
-									</td>
-									<td class="cuadro_plano centrar">
-									<? echo money_format('$ %!.0i',$registro[0][2]) ?>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td>
-						<span  class="texto_subtitulo">.:: Descuentos</span>
-						<hr class="hr_subtitulo">
-						<p class="bloquecentralcuerpo">Con las Leyes 403 de 1997 y 815 de 2003: "se otorga el descuento del diez por ciento (10%) en el valor de la 
-						matr&iacute;cula a que tiene derecho el estudiante de Instituci&oacute;n Oficial de Educaci&oacute;n Superior, 
-						como beneficio por el ejercicio del sufragio..".</p>
-						</td>
-					</tr>
-					<tr>
-						<td class="centrar"><?
-					if(is_array($registroCertificado))
-					{	
-						
-					?>		<table align="center" class="contenidotabla2">
-								<tr class="cuadro_color">
-									<td class="cuadro_plano centrar">
-									Detalle
-									</td>
-									<td class="cuadro_plano centrar">
-									Valor
-									</td>
-								</tr>	
-								<tr>
-									<td class="cuadro_plano derecha">
-									<span class="texto_negrita">Descuento por Certificado Electoral</span>
-									</td>
-									<td class="cuadro_plano centrar">
-									10%
-									</td>
-								</tr>
-							</table><?
-					}
-					else
-					{?><table align="center" class="contenidotabla2">
-							<tr class="cuadro_color">
-								<td  class="cuadro_plano centrar">
-								Actualmente no tiene registrado el Certificado Electoral. <br>El descuento no aplica a su matr&iacute;cula
-								</td>
-							</tr>
-						</table>
-					<?}	?></td>
-					</tr>
-										<tr>
-						<td>
-						<span  class="texto_subtitulo">.:: Exenciones</span>
-						<hr class="hr_subtitulo">
-						<p class="bloquecentralcuerpo">Teniendo como base el acuerdo 004 del 25 de enero del 2006 la Universidad reconoce a sus estudiantes
-						algunas exenciones en la matr&iacute;cula.</p>
-						</td>
-					</tr>
-					<tr>
-						<td class="centrar"><?
-					if(is_array($registroExencion) && $registroExencion[0][2]>0 )
-					{	
-						
-					?>		<table align="center" class="contenidotabla2">
-								<tr class="cuadro_color">
-									<td class="cuadro_plano centrar">
-									Motivo Exenci&oacute;n
-									</td>
-									<td class="cuadro_plano centrar">
-									Porcentaje
-									</td>
-								</tr>	
-								<tr>
-									<td class="cuadro_plano derecha">
-									<span class="texto_negrita"><? echo $registroExencion[0][1] ?></span>
-									</td>
-									<td class="cuadro_plano centrar">
-									<? echo $registroExencion[0][2] ?>
-									</td>
-								</tr>
-							</table><?
-					}
-					else
-					{?><table align="center" class="contenidotabla2">
-							<tr class="cuadro_color">
-								<td  class="cuadro_plano centrar">
-								Actualmente no tiene registrada ninguna exenci&oacute;n.
-								</td>
-							</tr>
-						</table>
-					<?}	?></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	</tbody>
-</table><?
+        ?><table width="100%" align="center" border="0" cellpadding="10" cellspacing="0" >
+                <tbody>
+                        <tr>
+                                <td >
+                                        <table width="100%" border="0" align="center" cellpadding="5 px" cellspacing="1px" >
+                                                <tr>
+                                                        <td>
+                                                        <span  class="texto_subtitulo">.:: Detalles del Valor de Matr&iacute;cula</span>
+                                                        <hr class="hr_subtitulo">
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>		
+                                                                <table align="center" class="contenidotabla2">
+                                                                        <tr class="cuadro_color">
+                                                                                <td class="cuadro_plano centrar">
+                                                                                Detalle
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                Valor
+                                                                                </td>
+                                                                        </tr>	
+                                                                        <tr>
+                                                                                <td class="cuadro_plano derecha">
+                                                                                <span class="texto_negrita">Matr&iacute;cula</span>
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                <? echo money_format('$ %!.0i',$registro[0][4]) ?>
+                                                                                </td>
+                                                                        </tr><?
+
+                                                                        if($registro[0][4] != $registro[0][1])
+                                                                        {
+                                                                        ?><tr>
+                                                                                <td class="cuadro_plano derecha">
+                                                                                <span class="texto_negrita">Matr&iacute;cula Reliquidada</span>
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                <? echo money_format('$ %!.0i',$registro[0][1]) ?>
+                                                                                </td>
+                                                                        </tr><?
+                                                                        }
+                                                                ?>
+                                                                        <tr>
+                                                                                <td class="cuadro_plano derecha">
+                                                                                <span class="texto_negrita">Seguro Estudiantil*</span>
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                <? echo money_format('$ %!.0i',$registro[0][2]) ?>
+                                                                                </td>
+                                                                        </tr>
+                                                                </table>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                        <span  class="texto_subtitulo">.:: Descuentos</span>
+                                                        <hr class="hr_subtitulo">
+                                                        <p class="bloquecentralcuerpo">Con las Leyes 403 de 1997 y 815 de 2003: "se otorga el descuento del diez por ciento (10%) en el valor de la 
+                                                        matr&iacute;cula a que tiene derecho el estudiante de Instituci&oacute;n Oficial de Educaci&oacute;n Superior, 
+                                                        como beneficio por el ejercicio del sufragio..".</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td class="centrar"><?
+                                                if(is_array($registroCertificado))
+                                                {	
+
+                                                ?>		<table align="center" class="contenidotabla2">
+                                                                        <tr class="cuadro_color">
+                                                                                <td class="cuadro_plano centrar">
+                                                                                Detalle
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                Valor
+                                                                                </td>
+                                                                        </tr>	
+                                                                        <tr>
+                                                                                <td class="cuadro_plano derecha">
+                                                                                <span class="texto_negrita">Descuento por Certificado Electoral</span>
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                10%
+                                                                                </td>
+                                                                        </tr>
+                                                                </table><?
+                                                }
+                                                else
+                                                {?><table align="center" class="contenidotabla2">
+                                                                <tr class="cuadro_color">
+                                                                        <td  class="cuadro_plano centrar">
+                                                                        Actualmente no tiene registrado el Certificado Electoral. <br>El descuento no aplica a su matr&iacute;cula
+                                                                        </td>
+                                                                </tr>
+                                                        </table>
+                                                <?}	?></td>
+                                                </tr>
+                                                                                        <tr>
+                                                        <td>
+                                                        <span  class="texto_subtitulo">.:: Exenciones</span>
+                                                        <hr class="hr_subtitulo">
+                                                        <p class="bloquecentralcuerpo">Teniendo como base el acuerdo 004 del 25 de enero del 2006 la Universidad reconoce a sus estudiantes
+                                                        algunas exenciones en la matr&iacute;cula.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td class="centrar"><?
+                                                if(is_array($registroExencion) && $registroExencion[0][2]>0 )
+                                                {	
+
+                                                ?>		<table align="center" class="contenidotabla2">
+                                                                        <tr class="cuadro_color">
+                                                                                <td class="cuadro_plano centrar">
+                                                                                Motivo Exenci&oacute;n
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                Porcentaje
+                                                                                </td>
+                                                                        </tr>	
+                                                                        <tr>
+                                                                                <td class="cuadro_plano derecha">
+                                                                                <span class="texto_negrita"><? echo $registroExencion[0][1] ?></span>
+                                                                                </td>
+                                                                                <td class="cuadro_plano centrar">
+                                                                                <? echo $registroExencion[0][2] ?>
+                                                                                </td>
+                                                                        </tr>
+                                                                </table><?
+                                                }
+                                                else
+                                                {?><table align="center" class="contenidotabla2">
+                                                                <tr class="cuadro_color">
+                                                                        <td  class="cuadro_plano centrar">
+                                                                        Actualmente no tiene registrada ninguna exenci&oacute;n.
+                                                                        </td>
+                                                                </tr>
+                                                        </table>
+                                                <?}	?></td>
+                                                </tr>
+                                        </table>
+                                </td>
+                        </tr>
+                </tbody>
+        </table><?
 }
 
 function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
@@ -953,7 +918,6 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 	
 	switch($opcion)
 	{
-
 		case "nivelCarrera":
 			$cadena_sql="select tra_nivel ";
 			$cadena_sql.="from actipcra,accra,acest ";
@@ -973,11 +937,13 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql.="FROM acest ";
 			$cadena_sql.="WHERE est_cod=".$valor[0];
 			break;
+                    
 		case "detalleDiferido":
 			$cadena_sql="SELECT est_diferido,fua_verifica_diferido(est_cod) ";
 			$cadena_sql.="FROM acest ";
 			$cadena_sql.="WHERE est_cod=".$valor[0];
 			break;
+                    
 		case "historico":
 			$cadena_sql="SELECT ";
 			$cadena_sql.="RBA_BAN_COD, ";
@@ -1038,7 +1004,6 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql.="emb_est_cod = $valor";
 			break;	
 			
-			
 		case "recibosActual":
 			$cadena_sql="SELECT ";
 			$cadena_sql.="ema_secuencia, ";
@@ -1068,10 +1033,8 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql.="AND ";
 			$cadena_sql.="EMA_ESTADO='A'";
 			$cadena_sql.="ORDER BY ema_cuota asc";
-// 			$cadena_sql.="AND ";
-// 			$cadena_sql.="EMA_SECUENCIA<25246 ";
-				
 			break;
+                    
 		case "recibosActualEstudiante":
 			$cadena_sql="SELECT ";
 			$cadena_sql.="ema_secuencia, ";
@@ -1106,9 +1069,6 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql.="AND ";
 			$cadena_sql.="EMA_PAGO='N' ";
 			$cadena_sql.="ORDER BY ema_ano,ema_per,ema_secuencia,ema_cuota asc";
-// 			$cadena_sql.="AND ";
-// 			$cadena_sql.="EMA_SECUENCIA<25246 ";
-				
 			break;
 			
 		case "recibosActualEcaes":
@@ -1156,8 +1116,6 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql.="est_cod =".$valor." ";
 			$cadena_sql.="AND  ";
 			$cadena_sql.="estado_cod = est_estado_est ";
-			
-			
 			break;
 			
 		case "deudaEstudiante":
@@ -1179,7 +1137,6 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql.="AND ";
 			$cadena_sql.="cpto_cod = deu_cpto_cod";
 			$cadena_sql.=" AND deu_estado in ('A','1','4')";/*Se adiciona250714, para deudas de laboratorios*/
-			
 			break;
 			
 		case "desbloquear":
@@ -1191,7 +1148,6 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql.="ema_secuencia = ".$valor[0]." ";
 			$cadena_sql.="AND ";				
 			$cadena_sql.="ema_est_cod = ".$valor[1]." ";
-				
 			break;
 		
 		case "fechasDiferido":
@@ -1228,7 +1184,6 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
                         $cadena_sql.=" AND con_usutipo_cod='".$valor['tipo_usuario']."'";
                         $cadena_sql.=" AND con_tpc_id='".$valor['tipo_terminos']."'";
                         $cadena_sql.=" AND con_estado='1'";
-
                         break;
                     
                 case 'conceptosRecibo':
@@ -1250,7 +1205,6 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
                         $cadena_sql.=" FROM acasperi";
                         $cadena_sql.=" WHERE ape_estado='P'";
                         break;
-            
          
                 case 'identificacionEstudiante':
                         $cadena_sql="SELECT ";
@@ -1258,7 +1212,6 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
                         $cadena_sql.=" FROM  acest";
                         $cadena_sql.=" WHERE est_cod='".$valor."'";
                         break;
-            
          
                 case 'beneficiarioMatriculaMonitoria':
                         $cadena_sql="SELECT ";
@@ -1295,32 +1248,26 @@ function cadena_busqueda_recibo($configuracion, $acceso_db, $valor,$opcion="")
 			$cadena_sql.="AND ";
 			$cadena_sql.="ANO_PAGO=".$valor['ANIO']." ";	
                         $cadena_sql.="ORDER BY CONCEPTO ASC ";	
-         
 			break;      
          
 		default:
 			$cadena_sql="";
 			break;
 	}
-	//echo $cadena_sql."<br>";
 	return $cadena_sql;
 }
 
 function ejecutar_admin_recibo($cadena_sql,$conexion,$tipo)
 {
-	//echo $cadena_sql;
 	$resultado= $conexion->ejecutarAcceso($cadena_sql,$tipo);
 	return $resultado;
 }
 
 
-
 function verificarEstado($configuracion,$accesoOracle,$valor)
 {
-	
 	//Buscar estado
 	$cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $valor,"infoEstudiante");
-	//echo $cadena_sql;
 	$registroEstudiante=ejecutar_admin_recibo($cadena_sql,$accesoOracle,"busqueda");	
 	if(is_array($registroEstudiante))
 	{
@@ -1332,7 +1279,6 @@ function verificarEstado($configuracion,$accesoOracle,$valor)
 	else
 	{
 		return TRUE;
-	
 	}		
 			
 	//Buscar deudasselect * from acestmat where ema_est_cod=20032025075
@@ -1346,13 +1292,11 @@ function verificarEstado($configuracion,$accesoOracle,$valor)
 	}
 		//echo $cadena_sql;
 	return TRUE;
-									
 }
 
 function desbloquearRecibo($configuracion,$conexion,$variable)
 {
 	$cadena_sql=cadena_busqueda_recibo($configuracion,$conexion,$variable,"desbloquear");
-	
 	
 	$resultado=ejecutar_admin_recibo($cadena_sql,$conexion, "");
 	return $resultado;
@@ -1364,34 +1308,27 @@ function desbloquearRecibo($configuracion,$conexion,$variable)
  * @param array $registro
  */
 function enlacePagoEnLinea($configuracion,$registro,$contador,$registroRef){
-        //include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
-	//$cripto=new encriptar();
 	$variable='';
         $nueva_sesion=new sesiones($configuracion);
         $registro_sesion=$nueva_sesion->rescatar_valor_sesion($configuracion,"identificacion");
         if($registro_sesion)
         {
-
                 $usuarioIdentificacion=$registro_sesion[0][0];
         }
         else
         {
                 $usuarioIdentificacion="0";		
         }
-        var_dump($registro[$contador]);
-        var_dump($contador);
-        var_dump($registroRef);
         include_once 'crypto/Encriptador.class.php';
         $criptor = new Encriptadors();
 
-        $host="https://portalws.udistrital.edu.co/botonPago/index.php?";
+        $host=$configuracion['host_pagos'];
+        //$host="https://portalws.udistrital.edu.co/botonPago/index.php?";
         //$host="http://10.20.0.184/botonPago/index.php?";
         $enlace="recibo";
         $cadena="REFERENCIA=".$registro[$contador][0];
-        //$cadena="REFERENCIA=048238";
         $cadena.="&TIPO_DOC_IDEN=".$registro[$contador][17];
         $cadena.="&NUM_DOC_IDEN=".$registro[$contador][16];
-        //$cadena.="&NUM_DOC_IDEN=1012339769";
         $cadena.="&NOMBRE=".$registro[$contador][18];
         $cadena.="&VALOR_RECIBO=".$registroRef[0][1];
         $cadena.="&CONCEPTO=".$registroRef[0][0]."-".$registroRef[0][2];
@@ -1400,22 +1337,6 @@ function enlacePagoEnLinea($configuracion,$registro,$contador,$registroRef){
         $cadena=$criptor->codificar_url($cadena,$enlace);
         $url=$host.$cadena;
 
-/*        echo "<script type='text/javascript'>
-                    function redireccionar(){
-                      window.location='".$url."';
-                            } 
-                    setTimeout ('redireccionar()', 1);
-              </script>";
-*/
-        
-//        $indiceAcademico=$configuracion["host"]."/academicopro/index.php?";
-//        $variable="pagina=admin_pagoEnLinea";
-//        $variable.="&usuario=".$usuarioIdentificacion;
-//        $variable.="&factura=".$registro[$contador][0];
-//        $variable.="&tipoUser=52";
-//        $variable.="&modulo=Estudiante";
-//        $variable.="&aplicacion=Condor";
-//        $variable=$cripto->codificar_url($variable,$configuracion);
         if($registro[$contador][12]<>1)//Recibo desbloqueado
         {
             if($registro[$contador][13]=='N'){
@@ -1426,7 +1347,6 @@ function enlacePagoEnLinea($configuracion,$registro,$contador,$registroRef){
                         echo "<font color='red'>Para PAGAR EN LINEA este recibo, primero debe pagar el recibo correspondiente a la <b>cuota No. ".$reciboanterior."</b><br></font>";
                 }
                 else{
-                    
                         $fecha_hoy = strtotime('now');
 
                         $fecha_ord = str_replace('/', '-', $registro[$contador][10]);
@@ -1435,23 +1355,22 @@ function enlacePagoEnLinea($configuracion,$registro,$contador,$registroRef){
                         $fecha_extra = str_replace('/', '-', $registro[$contador][11]);
                         $fecha_extra = strtotime ( '+1 day' ,strtotime($fecha_extra));
                         
-                        if($fecha_hoy <= $fecha_ord || $fecha_hoy <= $fecha_extra){
-                        ?><a href="<?	echo $url/*$indiceAcademico.$variable*/;?>">
-                          <img border="0" alt="PAGO EN LÍNEA" src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]."/BotonPSE.jpg"?>" />
-                          </a><?
-                        }else{
-                            echo "<font color='red'>RECIBO VENCIDO</font>";
-                        }
-
+                        if($fecha_hoy <= $fecha_ord || $fecha_hoy <= $fecha_extra)
+                            {
+                            ?><a href="<?	echo $url;?>">
+                              <img border="0" alt="PAGO EN LÍNEA" src="<? echo $configuracion["host"].$configuracion["site"].$configuracion["grafico"]."/BotonPSE.jpg"?>" />
+                              </a><?
+                            }else
+                                {
+                                    echo "<font color='red'>RECIBO VENCIDO</font>";
+                                }
+                    }
+            }elseif($registro[$contador][13]=='S')
+                {
+                    echo "RECIBO YA CANCELADO";
                 }
-            }elseif($registro[$contador][13]=='S'){
-                echo "RECIBO YA CANCELADO";
-            }
         }
-
-                  
-        
-        }
+    }
 
         /**
          * Función para buscar el indice del arreglo del recibo anterior
@@ -1499,7 +1418,6 @@ function enlacePagoEnLinea($configuracion,$registro,$contador,$registroRef){
                     if($concepto[3]==1){
                         $band='ok';
                     }
-
                 }
             }
             return $band;
@@ -1533,7 +1451,6 @@ function enlacePagoEnLinea($configuracion,$registro,$contador,$registroRef){
         $cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, '',"periodoAnterior");
         $resultado= $accesoOracle->ejecutarAcceso($cadena_sql,"busqueda");
 	return $resultado;
-        
     }
     
     /**
@@ -1548,7 +1465,6 @@ function enlacePagoEnLinea($configuracion,$registro,$contador,$registroRef){
         $cadena_sql=cadena_busqueda_recibo($configuracion, $accesoOracle, $codigo,"identificacionEstudiante");
         $resultado= $accesoOracle->ejecutarAcceso($cadena_sql,"busqueda");
 	return $resultado;
-        
     }
     
     /**
@@ -1562,7 +1478,6 @@ function enlacePagoEnLinea($configuracion,$registro,$contador,$registroRef){
         $cadena_sql=cadena_busqueda_recibo($configuracion, $accesoGestion, $datosRegistro,"beneficiarioMatriculaMonitoria");
         $resultado= $accesoGestion->ejecutarAcceso($cadena_sql,"busqueda");
 	return $resultado;
-        
     }
     
     /**
