@@ -720,6 +720,27 @@ class sql_registro_PlanTrabajo extends sql
 				break;
 			
                             
+			case "actualizaActividad":
+				$cadena_sql="UPDATE ";
+				$cadena_sql.="acdocplantrabajo ";
+				$cadena_sql.="SET ";
+				$cadena_sql.="dpt_dac_cod=".$variable[6].", ";
+				$cadena_sql.="dpt_sal_cod=".$variable[7].", ";
+				$cadena_sql.="dpt_tvi_cod=".$variable[5].", ";
+				$cadena_sql.="dpt_sed_cod=".$variable[8].", ";
+				$cadena_sql.="WHERE ";
+				$cadena_sql.="dpt_doc_nro_iden = ".$variable[0]." ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="dpt_ape_ano = ".$variable[1]." ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="dpt_ape_per = ".$variable[2]." ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="dpt_dia_nro = ".$variable[3]." ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="dpt_hora = ".$variable[4]."";
+				break;
+			
+                            
 			case "validaFechas":
 				$cadena_sql="SELECT ";
 				$cadena_sql.="cast(TO_CHAR(ACE_FEC_INI,'YYYYMMDD') as numeric), ";
@@ -856,6 +877,62 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.=" ORDER BY P.ano desc, P.per desc";
 				break;
                             
+                        case "sede":
+                                $cadena_sql="SELECT sed_cod COD_SEDE ";
+                                $cadena_sql.=",sed_id NOMC_SEDE ";
+                                $cadena_sql.=",sed_nombre NOML_SEDE ";
+                                $cadena_sql.=",sed_id ID_SEDE ";
+                                $cadena_sql.=" FROM gesede  ";
+                                $cadena_sql.=" WHERE sed_estado = 'A' ";
+                                $cadena_sql.=" AND sed_id IS NOT null ";
+                                if($variable['sede']>=0){
+                                    $cadena_sql.=" AND sed_id='".$variable['sede']."'";
+                                }
+                                $cadena_sql.=" ORDER BY sed_nombre ";                       
+                                break;
+
+                         case "salones":
+                                 $cadena_sql=" select 
+                                            sal_id_espacio COD_SALON,
+                                            sal_nombre NOM_SALON,
+                                            sal_ocupantes CUPOS,
+                                            sal_tipo TIPO_SALON,
+                                            sal_edificio ID_EDIFICIO,
+                                            edi_nombre NOM_EDIFICIO,
+                                            ges_asigna_clase ASIGNA_CLASE
+                                            from gesalones, geedificio, gesubtipo_espacio
+                                            where SAL_ESTADO='A' AND sal_edificio=edi_cod
+                                            AND sal_sed_id='".$variable['sede']."'
+                                            AND (sal_ocupantes >=0
+                                            OR sal_id_espacio ='PAS0000000')
+                                            AND sal_cod_sub=ges_cod_sub
+                                            AND (ges_asigna_clase=1 or ges_cod_sub=0)
+                                            ORDER BY NOM_EDIFICIO,NOM_SALON";
+                                            //el siguiente filtro se elimina para que presente todos los salones 2013/12/23
+                                            //AND (sal_ocupantes >=".$variable['capacidad']." AND sal_ocupantes <".($variable['capacidad']*1.5)."
+                                            //este filtro solo se deberia activar para rescatar solo salones disponibles
+
+                                            /* if($valor!='PAS'){
+                                                //salones diferentes a PAS (Por ASignar)
+                                                //filtro para salones con capacidad > 0, excepto el sin asignar  
+                                                //restriccion para busqueda salon segun capacidad
+                                                //$busqueda.=" AND sal_ocupantes >=".$capacidad." AND sal_ocupantes <".($capacidad*1.5);
+
+                                                $cadena_sql.=" AND sal_ocupantes>1  ";
+                                                $cadena_sql.=" AND sal_id_espacio not in
+                                                            (SELECT hor_sal_id_espacio
+                                                                FROM achorario_2012,gesede
+                                                                    WHERE
+                                                                    hor_sed_cod=sed_cod AND
+                                                                    sed_id='".$valor."' AND
+                                                                    hor_dia_nro=".$dia." AND
+                                                                    hor_hora=".$hora." AND
+                                                                    hor_ape_ano=".$año." AND
+                                                                    hor_ape_per=".$periodo." )
+                                                                ORDER BY sal_cod"; 
+                                             }   */      
+
+                break;               
 			default:
 				$cadena_sql="";
 				break;

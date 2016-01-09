@@ -6,7 +6,7 @@ function rescatarSalon($valor){
 	setlocale(LC_MONETARY, 'en_US');
 	
 	$variable=explode('#',$valor);
-		
+//	echo "salon";var_dump($variable);
 	$esta_configuracion=new config();
 	$configuracion=$esta_configuracion->variable(); 
 	
@@ -76,7 +76,7 @@ function rescatarEdificio($valor){
 	setlocale(LC_MONETARY, 'en_US');
 	
 	$variable=explode('#',$valor);
-		
+//        echo "edificio";var_dump($variable);
 	$esta_configuracion=new config();
 	$configuracion=$esta_configuracion->variable(); 
 	
@@ -128,6 +128,10 @@ function rescatarEdificio($valor){
 
 
 }
+
+        function borrarHorario($cod_salon,$cod_hora,$cod_curso,$anio,$periodo){
+            echo "a borrar Horario";
+        }
 
 
 ?>

@@ -39,9 +39,32 @@ class bloque_registro_PlanTrabajo extends bloque
  		
 	}
 	
+	public function jxajax(){
+
+		switch($_REQUEST['jxajax']){
+			case "consultarOcupacion":
+				$this->funcion->consultarOcupacion($_REQUEST['cod_salon'],$_REQUEST['anio'],$_REQUEST['periodo']);
+			break;
+			case "actualizarHorario":
+                            //var_dump($_REQUEST);
+				$this->funcion->actualizarHorario($_REQUEST['cod_salon'],$_REQUEST['cod_hora'],$_REQUEST['ano'],$_REQUEST['per'],$_REQUEST['cod_vinculacion'],$_REQUEST['cod_actividad'],$_REQUEST['cod_sede']);
+			break;
+			case "borrarHorario":
+				$this->funcion->borrarHorario($_REQUEST['cod_hora'],$_REQUEST['ano'],$_REQUEST['per']);
+			break;
+			case "rescatarSalonesCompletos":
+				$this->funcion->rescatarSalonesCompletos($_REQUEST['anio'],$_REQUEST['periodo'],$_REQUEST['capacidad'],$_REQUEST['cod_sede'],$_REQUEST['anio'],$_REQUEST['periodo']);
+			break;
+			
+		}
+	}
+	
+		
 	
 	function html()
 	{
+//            echo "html";
+//            var_dump($_REQUEST);
 		if(!isset($_REQUEST['cancelar']))
 		{
 			if(isset($_REQUEST['opcion']))
@@ -74,6 +97,8 @@ class bloque_registro_PlanTrabajo extends bloque
                                             //Esta opcion se utiliza para enviar datos de borrado de una actividad
 						$this->funcion->borrarActividades($this->configuracion);
 						break;
+                                            default :
+                                                echo "default";exit;
 				}
 			}
 			else
@@ -91,6 +116,8 @@ class bloque_registro_PlanTrabajo extends bloque
 	
 	function action()
 	{
+//            echo "action";
+//            var_dump($_REQUEST);
                 $this->funcion->revisarFormulario();
 		
 		$tipo="busqueda";
@@ -124,7 +151,9 @@ class bloque_registro_PlanTrabajo extends bloque
                             //a traves de esta opcion se modifica el regsitro de observacion
                             $valor[10]=$_REQUEST['nivel'];
                             $this->funcion->ModificarObservacion($this->configuracion);
-			}
+			}  else {
+        			$this->funcion->redireccionarInscripcion($this->configuracion, "registroPlanTrabajo");	
+                        }
 		}
 		else
 		{
@@ -137,19 +166,26 @@ class bloque_registro_PlanTrabajo extends bloque
 
 
 // @ Crear un objeto bloque especifico
-
 $esteBloque=new bloque_registro_PlanTrabajo($configuracion);
-if(!isset($_REQUEST['action']))
-{
-	$esteBloque->html();
-}
-else
-{
+if(!isset($_REQUEST['jxajax'])){
+
+    include_once("funcion.js.php");
+    include_once("css.php");
+
+    if(!isset($_REQUEST['action']))
+    {
+	    $esteBloque->html();
+    }
+    else
+    {
 	if(!isset($_REQUEST['confirmar']))
 	{
-		$esteBloque->action();
+            $esteBloque->action();
 	}
+    }
+    
+}else{
+    $esteBloque->jxajax();
 }
-
 
 ?>

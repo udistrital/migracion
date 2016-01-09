@@ -57,7 +57,6 @@ class pagina
 			//Si en el formulario llega una variable llamada redireccion entonces lo que sucede es que se llama
 			//a la pagina especificada pasandole las variable codificadas en redireccion y las variables que se 
 			//llenaron en el formulario.	
-                    
 			if(isset($_REQUEST["redireccion"]))
 			{
 				$variable="";		
@@ -74,7 +73,6 @@ class pagina
                                 if(substr($_REQUEST["redireccion"],0,5)=='index')
                                             { $_REQUEST["redireccion"]=substr($_REQUEST["redireccion"],5,strlen($_REQUEST["redireccion"])); }
 
-                                
 				$cripto->decodificar_url($_REQUEST["redireccion"],$configuracion);
 				
 				while (list ($clave, $val) = each ($_REQUEST)) 
@@ -111,6 +109,7 @@ class pagina
                                                     { $_REQUEST["formulario"]=substr($_REQUEST["formulario"],5,strlen($_REQUEST["formulario"])); }
                                         
 					$cripto->decodificar_url($_REQUEST["formulario"],$configuracion);
+					
 					
 					foreach($formulario as $clave => $valor) 
 					{
@@ -176,7 +175,7 @@ class pagina
 	function mostrar_pagina($configuracion)
 	{       
             
-           	$this->html_pagina='';
+           	
 		$this->cadena_sql="SELECT  ";
 		$this->cadena_sql.=$configuracion["prefijo"]."bloque_pagina.*,";
 		$this->cadena_sql.=$configuracion["prefijo"]."bloque.nombre ,";
@@ -279,13 +278,10 @@ class pagina
 				
 				if(!isset($_REQUEST["no_pagina"]))
 				{
-					$this->html_pagina.='<html>';
+					$this->html_pagina ='<html>';
 					$this->html_pagina.="<head>\n";
 					$this->html_pagina.="<title>".$configuracion['titulo']."</title>\n";
 					$this->html_pagina.="<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />\n";
-                                        
-                                        
-                                        
 					$this->html_pagina.="<link rel='shortcut icon' href='".$configuracion["host"].$configuracion["site"]."/"."favicon.ico' />\n";
 					$this->html_pagina.="<link rel='stylesheet' type='text/css' href='".$configuracion["host"].$configuracion["site"].$configuracion["estilo"]."/".$this->estilo."/estilo.php' />\n";
 					$this->html_pagina.="<script src='".$configuracion["host"].$configuracion["site"].$configuracion["javascript"]."/funciones.js' type='text/javascript' language='javascript'></script>\n";
@@ -371,7 +367,6 @@ class pagina
 						$GLOBALS["xajax"]->printJavascript($configuracion["host"].$configuracion["site"].$configuracion["clases"]."/xajax/");
 					}
 					
-                                        
                                        //desabilitar el uso de la tecla f5
                                        $this->html_pagina.=" <script language='javascript'> 
                                                                document.onkeydown = function(e)
@@ -398,10 +393,9 @@ class pagina
                                        //$this->html_pagina.=" <script language='javascript'> document.oncontextmenu=new Function('return false'); </script> ";
                                        
                                         
+                                        
 					$this->html_pagina.="</head>\n";
 					$this->html_pagina.="<body leftMargin='0' topMargin='0' class='fondoprincipal'";
-                                        
-                                        
 					if(isset($_REQUEST["googlemaps"]))
 					{
 						$this->html_pagina.="onload='load()' onunload='GUnload()'";
@@ -530,7 +524,7 @@ class pagina
 				}
 				else
 				{
-					echo "<td valign='top'  class='seccion_".$seccion."'>\n";	
+					echo "<td valign='top' class='seccion_".$seccion."'>\n";	
 				}
 				
 			}
