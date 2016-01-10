@@ -46,14 +46,13 @@ class bloque_registro_PlanTrabajo extends bloque
 				$this->funcion->consultarOcupacion($_REQUEST['cod_salon'],$_REQUEST['anio'],$_REQUEST['periodo']);
 			break;
 			case "actualizarHorario":
-                            //var_dump($_REQUEST);
 				$this->funcion->actualizarHorario($_REQUEST['cod_salon'],$_REQUEST['cod_hora'],$_REQUEST['ano'],$_REQUEST['per'],$_REQUEST['cod_vinculacion'],$_REQUEST['cod_actividad'],$_REQUEST['cod_sede']);
 			break;
 			case "borrarHorario":
 				$this->funcion->borrarHorario($_REQUEST['cod_hora'],$_REQUEST['ano'],$_REQUEST['per']);
 			break;
-			case "rescatarSalonesCompletos":
-				$this->funcion->rescatarSalonesCompletos($_REQUEST['anio'],$_REQUEST['periodo'],$_REQUEST['capacidad'],$_REQUEST['cod_sede'],$_REQUEST['anio'],$_REQUEST['periodo']);
+			case "registrarHorario":
+				$this->funcion->registrarHorario($_REQUEST['cod_salon'],$_REQUEST['cod_hora'],$_REQUEST['ano'],$_REQUEST['per'],$_REQUEST['cod_vinculacion'],$_REQUEST['cod_actividad'],$_REQUEST['cod_sede']);
 			break;
 			
 		}

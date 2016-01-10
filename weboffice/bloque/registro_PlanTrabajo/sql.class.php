@@ -70,6 +70,18 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.="ORDER BY hor_cod ASC";
 				break;
 				
+			case "dia_hora":
+				$cadena_sql="SELECT ";
+				$cadena_sql.="dia_nombre, ";
+				$cadena_sql.="hor_larga ";
+				$cadena_sql.="FROM ";
+				$cadena_sql.="gehora ";
+				$cadena_sql.="JOIN gedia ON 1=1 ";
+				$cadena_sql.="WHERE ";
+				$cadena_sql.="dia_cod=".$variable[3]." ";
+				$cadena_sql.="AND hor_cod=".$variable[4];
+				break;
+				
 			case "cargalectiva":
 				$cadena_sql="SELECT distinct ";
 				$cadena_sql.="cur_ape_ano, ";
@@ -690,15 +702,15 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.=") ";
 				$cadena_sql.="VALUES ";
 				$cadena_sql.="( ";
-				$cadena_sql.="$variable[1], ";
-				$cadena_sql.="$variable[2], ";
-				$cadena_sql.="$variable[0], ";
-				$cadena_sql.="$variable[5], ";
-				$cadena_sql.="$variable[3], ";
-				$cadena_sql.="$variable[4], ";
+				$cadena_sql.="$variable[1], ";//ano
+				$cadena_sql.="$variable[2], ";//per
+				$cadena_sql.="$variable[0], ";//doc
+				$cadena_sql.="$variable[5], ";//actv
+				$cadena_sql.="$variable[3], ";//dia
+				$cadena_sql.="$variable[4], ";//hora
 				$cadena_sql.="$variable[6], ";  //sede
 				$cadena_sql.="'".$variable[7]."', "; //salon
-				$cadena_sql.="'".$variable[9]."', "; //fecha
+				$cadena_sql.="CURRENT_DATE, "; //fecha
 				$cadena_sql.="'A', ";
 				$cadena_sql.="$variable[8] ";
 				$cadena_sql.=")";
@@ -725,9 +737,9 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.="acdocplantrabajo ";
 				$cadena_sql.="SET ";
 				$cadena_sql.="dpt_dac_cod=".$variable[6].", ";
-				$cadena_sql.="dpt_sal_cod=".$variable[7].", ";
+				$cadena_sql.="dpt_sal_cod='".$variable[7]."', ";
 				$cadena_sql.="dpt_tvi_cod=".$variable[5].", ";
-				$cadena_sql.="dpt_sed_cod=".$variable[8].", ";
+				$cadena_sql.="dpt_sed_cod='".$variable[8]."' ";
 				$cadena_sql.="WHERE ";
 				$cadena_sql.="dpt_doc_nro_iden = ".$variable[0]." ";
 				$cadena_sql.="AND ";

@@ -51,9 +51,9 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 	    cod_actividad=$("#actividad").val();
 	    cod_vinculacion=$("#vinculacion").val();
 	    cod_sede=$("#sede").val();
-            alert("actualizaCelda"+idCelda + ano + per + "sal"+cod_salon+"vinc="+cod_vinculacion+"activ"+cod_actividad+"sede"+cod_sede);
+//            alert("actualizaCelda"+idCelda + ano + per + "sal"+cod_salon+"vinc="+cod_vinculacion+"activ"+cod_actividad+"sede"+cod_sede);
 	    
-	    if(cod_salon==""||cod_actividad==""||cod_vinculacion==""){
+	    if(cod_salon==="" || typeof(cod_salon)==="undefined" || cod_actividad==="" || typeof(cod_actividad)==="undefined" || cod_vinculacion==="" || typeof(cod_vinculacion)==="undefined"){
 	   	$('html, body').animate({ scrollTop: ($(".encabezado_curso_salon").offset().top)-50 }, 500);
 		
 		$(".encabezado_curso_salon").fadeOut(100).css("background-color", 'white').fadeIn(100).css("background-color", '#FA5858').fadeOut(100).css("background-color", 'white').fadeIn(100).css("background-color", '#FA5858');
@@ -67,10 +67,46 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 			data: "formulario=<?=$cripto->codificar_url("no_pagina=registro_plan_trabajo&jxajax=actualizarHorario",$configuracion)?>&cod_salon="+cod_salon+"&cod_hora="+idCelda+"&ano="+ano+"&per="+per+"&cod_vinculacion="+cod_vinculacion+"&cod_actividad="+cod_actividad+"&cod_sede="+cod_sede,
 			success: function(respuesta) {
 				myJson=$.parseJSON(respuesta);
-                                alert("Mensaje:"+ myJson.mensaje);
 
 				if(myJson.mensaje!=""){
 				    alert(myJson.mensaje);
+				}
+                                $("#"+(myJson.cod_hora)).removeClass("celda_tit_hor_disp");
+				$("#"+(myJson.cod_hora_nueva)).addClass("celda_tit_hor_no_disp");
+				$("#"+(myJson.cod_hora_nueva)).html(myJson.data);
+			}
+		});
+            }
+	    
+	}
+	
+	function registrarCeldaHora(idCelda,ano,per){
+
+	    <? $cripto=new encriptar();?>
+            
+	    cod_salon=$("#salon").val();
+	    cod_actividad=$("#actividad").val();
+	    cod_vinculacion=$("#vinculacion").val();
+	    cod_sede=$("#sede").val();
+	    
+	    if(cod_salon==="" || typeof(cod_salon)==="undefined" || cod_actividad==="" || typeof(cod_actividad)==="undefined" || cod_vinculacion==="" || typeof(cod_vinculacion)==="undefined"){
+                alert("Por favor seleccione el Tipo de vinculación, Actividad, Sede, Edificio y Salón para registrar la actividad.");
+	   	$('html, body').animate({ scrollTop: ($(".encabezado_curso_salon").offset().top)-50 }, 500);
+		
+		$(".encabezado_curso_salon").fadeOut(100).css("background-color", 'white').fadeIn(100).css("background-color", '#FA5858').fadeOut(100).css("background-color", 'white').fadeIn(100).css("background-color", '#FA5858');
+	
+          
+	    }else{
+		$(".encabezado_curso_salon").css("background-color", 'white');
+		$.ajax({
+			type: 'GET',
+			url: '<?=$indice?>',
+			data: "formulario=<?=$cripto->codificar_url("no_pagina=registro_plan_trabajo&jxajax=registrarHorario",$configuracion)?>&cod_salon="+cod_salon+"&cod_hora="+idCelda+"&ano="+ano+"&per="+per+"&cod_vinculacion="+cod_vinculacion+"&cod_actividad="+cod_actividad+"&cod_sede="+cod_sede,
+			success: function(respuesta) {
+                                myJson=$.parseJSON(respuesta);
+
+				if(myJson.registro!=""){
+				    alert(myJson.registro);
 				}
                                 $("#"+(myJson.cod_hora)).removeClass("celda_tit_hor_disp");
 				$("#"+(myJson.cod_hora_nueva)).addClass("celda_tit_hor_no_disp");
@@ -97,7 +133,6 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 	}
 	
 	function borrarHorario(idCelda,ano,per){
-            alert("borrar"+idCelda + ano + per);
 	    <? $cripto=new encriptar();?>
 	    
 	    $.ajax({

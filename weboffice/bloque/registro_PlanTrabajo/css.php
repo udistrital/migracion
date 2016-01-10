@@ -30,11 +30,19 @@
       }
  
       .celda_tit_hor_disp{
-	  background: #C1D5A5; /* Old browsers */
+	  background: ""; /* Old browsers */
+      }
+      
+      .celda_tit_carga{
+	  background: #FFFFCC; /* Old browsers */
+      }
+      
+      .celda_dia_hora{
+	  background: #D0D0D0; /* Old browsers */
       }
       
       .celda_tit_hor_no_disp{
-	  background: #FE9A2E; /* Old browsers */
+	  background: #E0F5FF; /* Old browsers */
       }
       
       #info_salon{

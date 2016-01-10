@@ -392,7 +392,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 										for ($i=0; $i<=$cuentahoras-1; $i++)
 										{
                                                                                     echo '<tr>
-                                                                                            <td class="cuadro_plano centrar">'
+                                                                                            <td class="cuadro_plano centrar cuadro_color">'
                                                                                                     .$registrohora[$i][1].
                                                                                             '</td>';
 												$j=0;
@@ -409,7 +409,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
                                                                                                     {
                                                                                                         $title_cargaLectiva= 'Lectiva: '. $carga[5].'<br>Sede: '.$carga[8].'<br> Sal&oacute;n: '.$carga[10].'<br> Vinculaci&oacute;n: '.$carga[11];
                                                                                                         ?>
-                                                                                                        <td class="cuadro_planito centrar" onmouseover="toolTip('<BR><?echo $title_cargaLectiva;?>&nbsp;&nbsp;&nbsp;',this)" id="<?=$registrodia[$j][0]?>-<?=$registrohora[$i][0]?>">
+                                                                                                        <td class="cuadro_planito centrar celda_tit_carga" onmouseover="toolTip('<BR><?echo $title_cargaLectiva;?>&nbsp;&nbsp;&nbsp;',this)" id="<?=$registrodia[$j][0]?>-<?=$registrohora[$i][0]?>">
                                                                                                         <div class="centrar">
                                                                                                                 <span id="toolTipBox" width="300" ></span>
                                                                                                         </div>
@@ -442,7 +442,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
                                                                                                                 $actualizarCelda="onclick='actualizarCeldaHora(\"{$registrodia[$j][0]}-{$registrohora[$i][0]}\",\"$ano\",\"$per\")'";
 
                                                                                                                 ?>
-                                                                                                                <td class="cuadro_planito centrar" onmouseover="toolTip('<BR><?echo $title_actividad;?>&nbsp;&nbsp;&nbsp;',this)" id="<?=$registrodia[$j][0]?>-<?=$registrohora[$i][0]?>">
+                                                                                                                <td class="cuadro_planito centrar celda_tit_hor_no_disp" onmouseover="toolTip('<BR><?echo $title_actividad;?>&nbsp;&nbsp;&nbsp;',this)" id="<?=$registrodia[$j][0]?>-<?=$registrohora[$i][0]?>">
                                                                                                                 <div class='borrar_horario'<?echo $borrarHorario;?></div>
                                                                                                                 <div class='contenido_horario' <?echo $actualizarHorario;?> >
                                                                                                                     <?echo $actividad[4]."<br><strong>".$actividad[7]."</strong><br>".$actividad[9]."<br>".$actividad[18]."";?>
@@ -481,7 +481,7 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
                                                                                                      //si no hay carga ni actividad para este dia y hora, permite registrar
                                                                                                         }if($celdaCarga==0&&$celdaActividad==0)
                                                                                                         {
-                                                                                                            $title_celdaVacia= 'D&iacute;a: '. $registrodia[$j][1].'<br>Hora: '.$registrohora[$i][1];
+                                                                                                            $title_celdaVacia= '<br>D&iacute;a: '. $registrodia[$j][1].'<br>Hora: '.$registrohora[$i][1].'<br>** Seleccione para registrar una actividad **<br><br>';
                                                                                                                 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/encriptar.class.php");
                                                                                                                 include_once($configuracion["raiz_documento"].$configuracion["clases"]."/navegacion.class.php");
 
@@ -489,16 +489,18 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
                                                                                                                 $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
                                                                                                                 $cripto=new encriptar();
                                                                                                                 
-                                                                                                                $borrarHorario="onclick='borrarHorario(\"{$registrodia[$j][0]}-{$registrohora[$i][0]}\",\"$ano\",\"$per\")'>[X]";
-                                                                                                                $actualizarHorario="onclick='actualizarCeldaHora(\"{$registrodia[$j][0]}-{$registrohora[$i][0]}\",\"$ano\",\"$per\")'";
-                                                                                                                $actualizarCelda="onclick='actualizarCeldaHora(\"{$registrodia[$j][0]}-{$registrohora[$i][0]}\",\"$ano\",\"$per\")'";
+                                                                                                                //$borrarHorario="onclick='borrarHorario(\"{$registrodia[$j][0]}-{$registrohora[$i][0]}\",\"$ano\",\"$per\")'>[X]";
+                                                                                                                $borrarHorario=">";
+                                                                                                                $registrarHorario="onclick='registrarCeldaHora(\"{$registrodia[$j][0]}-{$registrohora[$i][0]}\",\"$ano\",\"$per\")'";
+                                                                                                                //$actualizarCelda="onclick='actualizarCeldaHora(\"{$registrodia[$j][0]}-{$registrohora[$i][0]}\",\"$ano\",\"$per\")'";
 
                                                                                                                 ?>
-                                                                                                                <td class="cuadro_planito centrar" onmouseover="toolTip('<BR><?echo $title_celdaVacia;?>&nbsp;&nbsp;&nbsp;',this)" id="<?=$registrodia[$j][0]?>-<?=$registrohora[$i][0]?>">
+                                                                                                                <td class="cuadro_planito centrar " onmouseover="toolTip('<BR><?echo $title_celdaVacia;?>&nbsp;&nbsp;&nbsp;',this)" id="<?=$registrodia[$j][0]?>-<?=$registrohora[$i][0]?>">
                                                                                                                 <div class='borrar_horario'<?echo $borrarHorario;?></div>
-                                                                                                                <!--<div class='contenido_horario' <?//echo $actualizarHorario;?> >-->
-                                                                                                                    <!--<div class="centrar">-->
-                                                                                                                        <span id="toolTipBox" width="300" ></span>
+                                                                                                                <div class='contenido_horario' <?echo $registrarHorario;?> >
+                                                                                                                    <?echo $title_celdaVacia;?>
+                                                                                                                    <div class="centrar">
+                                                                                                                        <span id="toolTipBox" width="300" ></span></div>
                                                                                                                 </div>
                                                                                                                 <?
 //                                                                                                                        echo "<a href='";
@@ -543,10 +545,11 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
                                                                                                                 $actualizarCelda="onclick='actualizarCeldaHora(\"{$registrodia[$j][0]}-{$registrohora[$i][0]}\",\"$ano\",\"$per\")'";
 
                                                                                                                 ?>
-                                                                                                                <td class="cuadro_planito centrar" onmouseover="toolTip('<BR><?echo $title_actividad;?>&nbsp;&nbsp;&nbsp;',this)" id="<?=$registrodia[$j][0]?>-<?=$registrohora[$i][0]?>">
+                                                                                                                <td class="cuadro_planito centrar celda_tit_hor_no_disp" onmouseover="toolTip('<BR><?echo $title_actividad;?>&nbsp;&nbsp;&nbsp;',this)" id="<?=$registrodia[$j][0]?>-<?=$registrohora[$i][0]?>">
                                                                                                                 <div class='borrar_horario'<?echo $borrarHorario;?></div>
-                                                                                                                <!--<div class='contenido_horario' <?//echo $actualizarHorario;?> >-->
-                                                                                                                    <!--<div class="centrar">-->
+                                                                                                                <div class='contenido_horario' <?echo $actualizarHorario;?> >
+                                                                                                                    <?echo $actividad[4]."<br><strong>".$actividad[7]."</strong><br>".$actividad[9]."<br>".$actividad[18]."";?>
+                                                                                                                    <div class="centrar">
                                                                                                                         <span id="toolTipBox" width="300" ></span>
                                                                                                                 </div>
                                                                                                                 <?
@@ -795,17 +798,23 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 		//si no tiene estudiantes elimina el horario
                 $cadena_sql=$this->sql->cadena_sql($this->configuracion,$this->accesoOracle, "borraActividad", $variable);
                 $curso=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"");
+
+                $cadena_sql=$this->sql->cadena_sql($this->configuracion,$this->accesoOracle, "dia_hora", $variable);
+                $hora=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda");
                 /*$datosRegistro=array('usuario'=>$this->usuario,
                                                   'evento'=>'63',
                                                   'descripcion'=>'Borra Horario de curso',
                                                   'registro'=>$anio."-".$periodo.", SAL=".$cod_salon.", D=".$cod_hora[0].", HR=".$cod_hora[2].", CUR=".$cod_curso,
                                                   'afectado'=>$cod_curso);
                         $this->procedimientos->registrarEvento($datosRegistro);*/
-			$json["cod_hora"]=$cod_hora;
-			$json["data"]="<div class='contenido_horario' onclick='actualizarCeldaHora(\"{$cod_hora}\",\"$anio\",\"$periodo\")'>";
-			$json["data"].="<br/>";
+			$title_celdaVacia= '<br>D&iacute;a: '. $hora[0][0].'<br>Hora: '.$hora[0][1].'<br>** Seleccione para registrar una actividad **<br><br>';
+                        $json["cod_hora"]=$cod_hora;
+			$json["data"]="<div class='borrar_horario'></div>";
+			$json["data"].="<div class='contenido_horario' onclick='registrarCeldaHora(\"{$horario[0]}-{$horario[1]}\",\"$anio\",\"$periodo\")' >";
+			$json["data"].=$title_celdaVacia;
 			$json["data"].="</div>";
-		//$json["error"]="No puede modificar el horario porque tiene cargass registradass.";
+                        $json["cod_hora_nueva"]=$horario[0]."-".$horario[1];
+                        
             echo json_encode($json);
         }
 
@@ -820,10 +829,10 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
                 $sede=$QrySede[0][0];
                 
                 $cadena_sql = $this->sql->cadena_sql($this->configuracion, $this->accesoOracle, "actualizaActividad", array($this->usuario,$anio,$periodo,$horario[0],$horario[1],$cod_vinculacion,$cod_actividad,$cod_salon,$sede));
-		//$resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda");
+		$resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"");
 
 					//$json["mensaje"]=" No puede modificar el horario, este curso tiene {$inscritos[0][0]} estudiantes inscritos.";
-					$json["mensaje"]=$cadena_sql;
+//					$json["mensaje"]=$cadena_sql;
 		/*
 		//si no esta asignado
 		if(!is_array($resultado)){
@@ -883,14 +892,107 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
                                 $this->procedimientos->registrarEvento($datosRegistro);
 						
 				$this->cadena_sql = $this->sql->cadena_sql($this->configuracion, "verHorarioTemp", $parametro);
-				$resultadoHor = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $this->cadena_sql, "busqueda");
+				$resultadoHor = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $this->cadena_sql, "busqueda");*/
 				
-				$json["mensaje"]="El salon se actualizo correctamente ";
-				$json["data"]="<div class='borrar_horario' onclick='borrarHorario(\"{$cod_hora[0]}-{$cod_hora[1]}\",\"$anio\",\"$periodo\")'>[X]</div>";
-				$json["data"].="<div class='contenido_horario' onclick='actualizarCeldaHora(\"{$cod_hora[0]}-{$cod_hora[1]}\",\"$anio\",\"$periodo\")'>";
-				$json["data"].="	Sede: ".$resultadoHor[0]['NOM_SEDE']."<br>Edificio: ".$resultadoHor[0]['NOM_EDIFICIO']."<br>Salon: ".$resultadoHor[0]['SALON_NVO']."<BR> ".$resultadoHor[0]['NOM_SALON']."";
-				$json["data"].="</div>";
-				$json["cod_hora_nueva"]=$cod_hora[0]."-".$cod_hora[1];
+				$json["mensaje"]="El salon se actualizo correctamente.";
+				$json["data"]="<div class='borrar_horario' onclick='borrarHorario(\"{$horario[0]}-{$horario[1]}\",\"$anio\",\"$periodo\")'>[X]</div>";
+				$json["data"].="<div class='contenido_horario' onclick='actualizarCeldaHora(\"{$horario[0]}-{$horario[1]}\",\"$anio\",\"$periodo\")'>";
+				$json["data"].= 'Actividad: '. $cod_actividad.'<br>Sede: '.$sede[0].'<br> Sal&oacute;n: '.$cod_salon.'<br> Vinculaci&oacute;n: '.$cod_vinculacion;
+                                $json["data"].="</div>";
+				$json["cod_hora_nueva"]=$horario[0]."-".$horario[1];/*
+			}
+		}else{
+			$json["mensaje"]="El salón ya está asignado en esta hora ";
+			$json["cod_hora"]=$resultado[0]["COD_HORA"];
+		
+		}*/
+		   
+		echo json_encode($json);
+	} 
+        
+        
+        
+        function registrarHorario($cod_salon,$cod_hora,$anio,$periodo,$cod_vinculacion,$cod_actividad,$cod_sede){
+		//verifica q ese salon este disponible para esa hora
+		$json=array();
+                $horario=explode("-", $cod_hora);
+                $sede=explode("#",$cod_sede);
+                $cadena_sql=$this->sql->cadena_sql($this->configuracion,$this->accesoOracle, "codigoSede",$sede[0]);
+                $QrySede=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                $sede=$QrySede[0][0];
+                $variable=array($this->usuario,$anio,$periodo,$horario[0],$horario[1],$cod_actividad,$sede,$cod_salon,$cod_vinculacion);
+                $cadena_sql = $this->sql->cadena_sql($this->configuracion, $this->accesoOracle, "insertarRegistro", $variable);
+		$resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"");
+
+					//$json["mensaje"]=" No puede modificar el horario, este curso tiene {$inscritos[0][0]} estudiantes inscritos.";
+//					$json["mensaje"]=$cadena_sql;
+		/*
+		//si no esta asignado
+		if(!is_array($resultado)){
+		
+			//verifica que el curso tenga un horario asignado para esa hora
+			$cadena_sql = $this->sql->cadena_sql($this->configuracion, "curso_con_horario", array("curso"=>$cod_curso,"cod_hora"=>$cod_hora));
+			$curso=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda");
+	
+					
+			//si el curso no tiene asignada esa hora la registra
+			if(!is_array($curso)){
+				
+				$inscritos=$this->consultarEstudiantesInscritos($cod_salon,$cod_hora,$cod_curso);
+				if(($inscritos*1)>0){
+					$json["mensaje"]=" No puede modificar el horario, este curso tiene {$inscritos[0][0]} estudiantes inscritos.";
+				}else{
+					$cadena_sql = $this->sql->cadena_sql($this->configuracion, "siguienteHorario", "");
+					$resultadoHor = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+                                        
+                                        //verfica la maximo numero de horas
+					$cod_hora=explode("-",$cod_hora);
+					$parametro=array('curso'=>$cod_curso, 'dia'=>$cod_hora[0],'hora'=>$cod_hora[1],'anio'=>$cod_curso[0],"periodo"=>$cod_curso[1],"salon"=>$cod_salon,"estado"=>'A','id_horario'=>$resultadoHor[0][0]);    
+						   
+					$cadena_sql = $this->sql->cadena_sql($this->configuracion, 'registrar_horario', $parametro);
+					$resultadoHor = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "");
+                                        $datosRegistro=array('usuario'=>$this->usuario,
+                                                                  'evento'=>'59',
+                                                                  'descripcion'=>'Crea Horario de curso',
+                                                                  'registro'=>$anio."-".$periodo.", SAL=".$cod_salon.", D=".$cod_hora[0].", HR=".$cod_hora[1].", ID=".$parametro['id_horario'].", CUR=".$cod_curso,
+                                                                  'afectado'=>$cod_curso);
+                                        $this->procedimientos->registrarEvento($datosRegistro);
+                                        
+					
+					$cadena_sql = $this->sql->cadena_sql($this->configuracion, "verHorarioTemp", $parametro);
+					$resultadoHor = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql, "busqueda");
+					
+					$json["mensaje"]="";
+					$json["data"]="<div class='borrar_horario' onclick='borrarHorario(\"{$cod_hora[0]}-{$cod_hora[1]}\",\"$anio\",\"$periodo\")'>[X]</div>";
+					$json["data"].="<div class='contenido_horario' onclick='actualizarCeldaHora(\"{$cod_hora[0]}-{$cod_hora[1]}\",\"$anio\",\"$periodo\")'>";
+					$json["data"].="	Sede: ".$resultadoHor[0]['NOM_SEDE']."<br>Edificio: ".$resultadoHor[0]['NOM_EDIFICIO']."<br>Salon: ".$resultadoHor[0]['SALON_NVO']."<BR> ".$resultadoHor[0]['NOM_SALON']."";
+					$json["data"].="</div>";
+					$json["cod_hora_nueva"]=$cod_hora[0]."-".$cod_hora[1];
+				}
+
+			}else{
+				//si ya esta asignado actualiza el salon actual con el nuevo
+				$this->cadena_sql = $this->sql->cadena_sql($this->configuracion, 'actualizar_horario',array("curso"=>$cod_curso,"cod_hora"=>$cod_hora,"salon"=>$cod_salon));
+				$resultadoHor = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $this->cadena_sql, ""); 
+								
+				$cod_hora=explode("-",$cod_hora);
+				$parametro=array('curso'=>$cod_curso, 'dia'=>$cod_hora[0],'hora'=>$cod_hora[1],'anio'=>$cod_curso[0],"periodo"=>$cod_curso[1],"salon"=>$cod_salon,"estado"=>'A');    
+                                $datosRegistro=array('usuario'=>$this->usuario,
+                                                          'evento'=>'62',
+                                                          'descripcion'=>'Actualiza Horario de curso',
+                                                          'registro'=>$anio."-".$periodo.", SAL=".$cod_salon.", D=".$cod_hora[0].", HR=".$cod_hora[1].", CUR=".$cod_curso,
+                                                          'afectado'=>$cod_curso);
+                                $this->procedimientos->registrarEvento($datosRegistro);
+						
+				$this->cadena_sql = $this->sql->cadena_sql($this->configuracion, "verHorarioTemp", $parametro);
+				$resultadoHor = $this->ejecutarSQL($this->configuracion, $this->accesoOracle, $this->cadena_sql, "busqueda");*/
+				
+				$json["registro"]="La actividad se ha registrado.";
+				$json["data"]="<div class='borrar_horario' onclick='borrarHorario(\"{$horario[0]}-{$horario[1]}\",\"$anio\",\"$periodo\")'>[X]</div>";
+				$json["data"].="<div class='contenido_horario' onclick='actualizarCeldaHora(\"{$horario[0]}-{$horario[1]}\",\"$anio\",\"$periodo\")'>";
+				$json["data"].= 'Actividad: '. $cod_actividad.'<br>Sede: '.$sede[0].'<br> Sal&oacute;n: '.$cod_salon.'<br> Vinculaci&oacute;n: '.$cod_vinculacion;
+                                $json["data"].="</div>";
+				$json["cod_hora_nueva"]=$horario[0]."-".$horario[1];/*
 			}
 		}else{
 			$json["mensaje"]="El salón ya está asignado en esta hora ";
