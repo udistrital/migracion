@@ -295,6 +295,36 @@ class sql_registro_PlanTrabajo extends sql
   				$cadena_sql.="hor_cod= dpt_hora ";
 				$cadena_sql.="ORDER BY 11,12 ";
 				break;
+
+                            case "consultarDatosActividad":
+				$cadena_sql="SELECT distinct ";
+				$cadena_sql.="DAC_NOMBRE, ";
+				$cadena_sql.="substr(DAC_NOMBRE,1,30), ";
+				$cadena_sql.="SED_ID||' - '||edi_nombre, ";
+				$cadena_sql.="sed_nombre||' - '||edi_nombre, ";
+				$cadena_sql.="sal_id_espacio||' - '||sal_nombre, ";
+				$cadena_sql.="tvi_nombre, ";
+                                $cadena_sql.="(CASE WHEN tvi_cod=1 THEN 'PL' ";
+				$cadena_sql.=" WHEN tvi_cod=6 THEN 'PL' ";
+				$cadena_sql.=" WHEN tvi_cod=0 THEN 'SD' ";
+				$cadena_sql.=" ELSE 'VE' END) ";
+                                $cadena_sql.="FROM acdocplantrabajo, acdocactividad,gesede,gesalones,actipvin,geedificio ";
+				$cadena_sql.="WHERE ";
+				$cadena_sql.="DPT_APE_ANO = ".$variable[1]." ";
+				$cadena_sql.="AND DPT_APE_PER = ".$variable[2]." ";
+				$cadena_sql.="AND DPT_DOC_NRO_IDEN = ".$variable[0]." ";
+				$cadena_sql.="AND DAC_COD = DPT_DAC_COD ";
+				$cadena_sql.="AND DAC_ESTADO = 'A' ";
+				$cadena_sql.="AND SED_COD = DPT_SED_COD ";
+				$cadena_sql.="AND SED_ESTADO = 'A' ";
+				$cadena_sql.="AND DPT_ESTADO = 'A' ";
+				$cadena_sql.="AND SAL_ID_ESPACIO = DPT_SAL_COD ";
+                                $cadena_sql.="AND sal_edificio= edi_cod ";
+				$cadena_sql.="AND SAL_ESTADO = 'A' ";
+				$cadena_sql.="AND tvi_cod=dpt_tvi_cod ";
+				$cadena_sql.="AND dpt_dia_nro =".$variable[3]." ";
+  				$cadena_sql.="AND dpt_hora =".$variable[4]." ";
+				break;
                             
 			case "cargaactividadesAnterior":
                                 $cadena_sql=" SELECT ANO,PER,DOC,ACTIVIDAD,ACTTIVIDAD_ABREV,DIA,HORA,SEDE,EDIFICIO,SALON,COD_SALON,FECHA,ESTADO,DIA_COD,HORA_COD,COD_ACTIVIDAD,INTENSIDAD,VINC,TIP_VIN";
@@ -752,6 +782,15 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.="dpt_hora = ".$variable[4]."";
 				break;
 			
+                        case "registroEvento":
+                                $cadena_sql= " INSERT INTO sga_log_eventos";
+                                $cadena_sql.= " VALUES(0,'".$variable[0]."',"; 
+                                $cadena_sql.= " '".date('YmdHis')."',"; 
+                                $cadena_sql.= " '92',"; 
+                                $cadena_sql.= "  'Borra actividad docente registrada',";
+                                $cadena_sql.= " '".$variable[0].", ".$variable[1]."-".$variable[2].", Dia ".$variable[3].", Hora ".$variable[4]."',";
+                                $cadena_sql.= " '".$variable[0]."')";
+                                break;
                             
 			case "validaFechas":
 				$cadena_sql="SELECT ";

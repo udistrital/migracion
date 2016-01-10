@@ -9,23 +9,6 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 
 	
 
-	function actualizarOcupacion(salon,anio,periodo){
-	      <? $cripto=new encriptar();?>
-	      $.ajax({
-		      type: 'GET',
-		      url: '<?=$indice?>',
-		      data: "formulario=<?=$cripto->codificar_url("no_pagina=registro_plan_trabajo&jxajax=consultarOcupacion",$configuracion)?>&cod_salon="+salon+"&anio="+anio+"&periodo="+periodo,
-		      success: function(respuesta) {
-			      myJson=$.parseJSON(respuesta);
-			      pintarBlanco(myJson);
-			      pintarVerde(myJson);
-			      pintarRojo(myJson);
-			      
-		      }
-	      });
-		
-	}
-	
 	function pintarBlanco(obj) {
 	    $(".celda_hora").removeClass("celda_tit_hor_disp");
 	    $(".celda_hora").removeClass("celda_tit_hor_no_disp");
@@ -51,9 +34,9 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 	    cod_actividad=$("#actividad").val();
 	    cod_vinculacion=$("#vinculacion").val();
 	    cod_sede=$("#sede").val();
-//            alert("actualizaCelda"+idCelda + ano + per + "sal"+cod_salon+"vinc="+cod_vinculacion+"activ"+cod_actividad+"sede"+cod_sede);
 	    
 	    if(cod_salon==="" || typeof(cod_salon)==="undefined" || cod_actividad==="" || typeof(cod_actividad)==="undefined" || cod_vinculacion==="" || typeof(cod_vinculacion)==="undefined"){
+                alert("Por favor seleccione el Tipo de vinculación, Actividad, Sede, Edificio y Salón para registrar la actividad.");
 	   	$('html, body').animate({ scrollTop: ($(".encabezado_curso_salon").offset().top)-50 }, 500);
 		
 		$(".encabezado_curso_salon").fadeOut(100).css("background-color", 'white').fadeIn(100).css("background-color", '#FA5858').fadeOut(100).css("background-color", 'white').fadeIn(100).css("background-color", '#FA5858');
@@ -124,13 +107,6 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 	  mouseY = e.pageY;
 	});
 	
-	function salonActual(){
-	  // $('#info_salon').offset({left:mouseX, top:mouseY});
-	   /* $("#info_salon").animate({
-		top:mouseY ,
-		left:mouseX
-	    }, 800);*/
-	}
 	
 	function borrarHorario(idCelda,ano,per){
 	    <? $cripto=new encriptar();?>
@@ -148,19 +124,6 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 				$("#"+(myJson.cod_hora)).addClass("celda_tit_hor_disp");				
 				$("#"+(myJson.cod_hora)).html(myJson.data);
 			    }
-		    }
-	    });
-	}
-	
-	function rescatarSalonesCompletos(anio,periodo,capacidad,idsede){
-	    <? $cripto=new encriptar();?>
-
-	    $.ajax({
-		    type: 'GET',
-		    url: '<?=$indice?>',
-		    data: "formulario=<?=$cripto->codificar_url("no_pagina=registro_plan_trabajo&jxajax=rescatarSalonesCompletos",$configuracion)?>&anio="+anio+"&periodo="+periodo+"&capacidad="+capacidad+"&cod_sede="+idsede,    
-		    success: function(respuesta) {
-			$("#buscador_salones").html(respuesta);
 		    }
 	    });
 	}
