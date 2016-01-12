@@ -125,7 +125,7 @@ class sql_registro_PlanTrabajo extends sql
 			case "cargalectivaAnterior":
 				$cadena_sql="SELECT distinct ANO,PER,DOC,ACTIVIDAD,ASI_NOMBRE_ABREV,ASI_NOMBRE,DIA,HORA,SEDE,EDIFICIO,SALON,VINC,TIP_VIN,DIA_COD,HORA_COD";
 				$cadena_sql.=" FROM ( ";
-                                //2008-1 a 2011-3 y 2012-1";
+                                //ANTES DE 2011-3 y 2012-1";
                                 $cadena_sql.=" SELECT distinct";
                                 $cadena_sql.=" car_ape_ano ANO,";
                                 $cadena_sql.=" car_ape_per PER,";
@@ -156,7 +156,7 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.=" left outer join gesalon on sal_cod=hor_sal_cod and sal_sed_cod=hor_sed_cod";
                                 $cadena_sql.=" left outer join gesede on sed_cod=hor_sed_cod";
                                 $cadena_sql.=" where car_estado = 'A'";
-                                $cadena_sql.=" and (hor_ape_ano between 2008 and 2011";
+                                $cadena_sql.=" and (hor_ape_ano <= 2011";
                                 $cadena_sql.=" OR concat(HOR_APE_ANO,HOR_APE_PER) =cast (20121 as text))";
                                 $cadena_sql.=" union";
                                 //2012-3 y 2013-1";
@@ -529,7 +529,7 @@ class sql_registro_PlanTrabajo extends sql
 				break;
 			
 			case "tipoVinculacion";
-				$cadena_sql="SELEC ";
+				$cadena_sql="SELECT ";
 				$cadena_sql.="distinct dtv_tvi_cod, ";
 				$cadena_sql.="tvi_nombre ";
 				$cadena_sql.="FROM ";
@@ -569,7 +569,7 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.="AND cur_ape_per = '".$variable[2]."' ";
 				$cadena_sql.="AND car_doc_nro = ".$variable[0]." ";
                                 $cadena_sql.="AND hor_estado='A' ";
-                                $cadena_sql.="AND cur_estado='A'";
+                                $cadena_sql.="AND cur_estado='A' ";
 				$cadena_sql.="AND car_tip_vin=tvi_cod ";
 				$cadena_sql.="AND car_estado = 'A') carga, ";
 				$cadena_sql.="(SELECT COUNT(DPT_HORA) numactividades ";
@@ -742,12 +742,27 @@ class sql_registro_PlanTrabajo extends sql
 				$cadena_sql.="'".$variable[7]."', "; //salon
 				$cadena_sql.="CURRENT_DATE, "; //fecha
 				$cadena_sql.="'A', ";
-				$cadena_sql.="$variable[8] ";
+				$cadena_sql.="$variable[8] ";//vinc
 				$cadena_sql.=")";
 				break;
 				
 			case "borraActividad":
 				$cadena_sql="DELETE FROM ";
+				$cadena_sql.="acdocplantrabajo ";
+				$cadena_sql.="WHERE ";
+				$cadena_sql.="dpt_doc_nro_iden = ".$variable[0]." ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="dpt_ape_ano = ".$variable[1]." ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="dpt_ape_per = ".$variable[2]." ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="dpt_dia_nro = ".$variable[3]." ";
+				$cadena_sql.="AND ";
+				$cadena_sql.="dpt_hora = ".$variable[4]."";
+				break;
+			
+			case "consultarVinculacionActividad":
+				$cadena_sql="SELECT DPT_TVI_COD FROM ";
 				$cadena_sql.="acdocplantrabajo ";
 				$cadena_sql.="WHERE ";
 				$cadena_sql.="dpt_doc_nro_iden = ".$variable[0]." ";
@@ -786,8 +801,8 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql= " INSERT INTO sga_log_eventos";
                                 $cadena_sql.= " VALUES(0,'".$variable[0]."',"; 
                                 $cadena_sql.= " '".date('YmdHis')."',"; 
-                                $cadena_sql.= " '92',"; 
-                                $cadena_sql.= "  'Borra actividad docente registrada',";
+                                $cadena_sql.= " '".$variable[10]."',"; 
+                                $cadena_sql.= " '".$variable[11]."',";
                                 $cadena_sql.= " '".$variable[0].", ".$variable[1]."-".$variable[2].", Dia ".$variable[3].", Hora ".$variable[4]."',";
                                 $cadena_sql.= " '".$variable[0]."')";
                                 break;

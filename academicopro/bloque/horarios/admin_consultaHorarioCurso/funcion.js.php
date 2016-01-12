@@ -48,6 +48,7 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 	    <? $cripto=new encriptar();?>
 	    cod_salon=$("#salon").val();
 	    cod_curso=$("#id_curso").val();
+            alert("actualizaCelda"+idCelda + anio + periodo + "sal"+cod_salon + "cur"+cod_curso);
 	    
 	    if(cod_salon==""){
 	   	$('html, body').animate({ scrollTop: ($(".encabezado_curso_salon").offset().top)-50 }, 500);

@@ -1,4 +1,4 @@
-<script src="<?=$configuracion["host"].$configuracion["site"].$configuracion["javascript"]?>/jquery.js" type="text/javascript"></script>
+<script src="<?=$configuracion["host"].$configuracion["site"].$configuracion["javascript"]?>/jquery_1.js" type="text/javascript"></script>
 
 <?PHP
 $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
@@ -57,6 +57,16 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
                                 $("#"+(myJson.cod_hora)).removeClass("celda_tit_hor_disp");
 				$("#"+(myJson.cod_hora_nueva)).addClass("celda_tit_hor_no_disp");
 				$("#"+(myJson.cod_hora_nueva)).html(myJson.data);
+//                                $.each(myJson.actividad,function(key, value)
+//                                {
+//                                    valor_actividad="actividad"+key;
+//                                    valor_carga_actividad="carga_actividad"+key;
+//                                    $("#"+(myJson.valor_actividad)).html(myJson.data_actividad.key);
+//                                    $("#"+(myJson.valor_carga_actividad)).html(myJson.data_carga_actividad.key);
+//                                });
+
+				$("#"+(myJson.actividad)).html(myJson.data_actividad);
+				$("#"+(myJson.carga_actividad)).html(myJson.data_carga_actividad);
 			}
 		});
             }
@@ -94,6 +104,9 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
                                 $("#"+(myJson.cod_hora)).removeClass("celda_tit_hor_disp");
 				$("#"+(myJson.cod_hora_nueva)).addClass("celda_tit_hor_no_disp");
 				$("#"+(myJson.cod_hora_nueva)).html(myJson.data);
+				$("#"+(myJson.actividad)).html(myJson.data_actividad);
+				$("#"+(myJson.carga_actividad)).html(myJson.data_carga_actividad);
+                                
 			}
 		});
             }
@@ -123,6 +136,8 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 				$("#"+(myJson.cod_hora)).removeClass("celda_tit_hor_no_disp");
 				$("#"+(myJson.cod_hora)).addClass("celda_tit_hor_disp");				
 				$("#"+(myJson.cod_hora)).html(myJson.data);
+				$("#"+(myJson.actividad)).html(myJson.data_actividad);
+				$("#"+(myJson.carga_actividad)).html(myJson.data_carga_actividad);
 			    }
 		    }
 	    });
