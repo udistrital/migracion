@@ -327,7 +327,7 @@ class sql_registro_PlanTrabajo extends sql
 				break;
                             
 			case "cargaactividadesAnterior":
-                                $cadena_sql=" SELECT ANO,PER,DOC,ACTIVIDAD,ACTTIVIDAD_ABREV,DIA,HORA,SEDE,EDIFICIO,SALON,COD_SALON,FECHA,ESTADO,DIA_COD,HORA_COD,COD_ACTIVIDAD,INTENSIDAD,VINC,TIP_VIN";
+                                $cadena_sql=" SELECT ANO,PER,DOC,ACTIVIDAD,ACTTIVIDAD_ABREV,DIA,HORA,SEDE,EDIFICIO,SALON,COD_SALON,FECHA,ESTADO,DIA_COD,HORA_COD,COD_ACTIVIDAD,INTENSIDAD,VINC,TIP_VIN,COD_TIP_VIN";
                                 $cadena_sql.=" FROM (";
                                 $cadena_sql.=" SELECT ";
                                 $cadena_sql.=" DPT_APE_ANO ANO, ";
@@ -351,7 +351,8 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.=" (CASE WHEN tvi_cod=1 THEN 'PL'";
                                 $cadena_sql.=" WHEN tvi_cod=6 THEN 'PL'";
                                 $cadena_sql.=" WHEN tvi_cod=0 THEN 'SD'";
-                                $cadena_sql.=" ELSE 'VE' END) TIP_VIN";
+                                $cadena_sql.=" ELSE 'VE' END) TIP_VIN,";
+                                $cadena_sql.=" tvi_cod COD_TIP_VIN";
                                 $cadena_sql.=" FROM acdocplantrabajo, acdocactividad,gedia,gehora,gesede,gesalon,actipvin ";
                                 $cadena_sql.=" WHERE DAC_COD = DPT_DAC_COD ";
                                 $cadena_sql.=" AND DAC_ESTADO = 'A' ";
@@ -389,7 +390,8 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.=" (CASE WHEN tvi_cod=1 THEN 'PL'";
                                 $cadena_sql.=" WHEN tvi_cod=6 THEN 'PL'";
                                 $cadena_sql.=" WHEN tvi_cod=0 THEN 'SD'";
-                                $cadena_sql.=" ELSE 'VE' END) TIP_VIN";
+                                $cadena_sql.=" ELSE 'VE' END) TIP_VIN,";
+                                $cadena_sql.=" tvi_cod COD_TIP_VIN";
                                 $cadena_sql.=" FROM acdocplantrabajo, acdocactividad,gedia,gehora,gesede,gesalon_2012,actipvin,geedificio";
                                 $cadena_sql.=" WHERE DAC_COD = DPT_DAC_COD ";
                                 $cadena_sql.=" AND DAC_ESTADO = 'A' ";
@@ -427,7 +429,8 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.=" (CASE WHEN tvi_cod=1 THEN 'PL'";
                                 $cadena_sql.=" WHEN tvi_cod=6 THEN 'PL'";
                                 $cadena_sql.=" WHEN tvi_cod=0 THEN 'SD'";
-                                $cadena_sql.=" ELSE 'VE' END) TIP_VIN";
+                                $cadena_sql.=" ELSE 'VE' END) TIP_VIN,";
+                                $cadena_sql.=" tvi_cod COD_TIP_VIN";
                                 $cadena_sql.=" FROM acdocplantrabajo, acdocactividad,gedia,gehora,gesede,gesalones,actipvin,geedificio";
                                 $cadena_sql.=" WHERE DAC_COD = DPT_DAC_COD ";
                                 $cadena_sql.=" AND DAC_ESTADO = 'A' ";
@@ -957,6 +960,31 @@ class sql_registro_PlanTrabajo extends sql
                                 $cadena_sql.=" ORDER BY sed_nombre ";                       
                                 break;
 
+                        case "consultarSalonCopia":
+                               $cadena_sql="SELECT ";
+                               $cadena_sql.="sal_id_espacio, ";
+                               $cadena_sql.="sal_id_espacio||' '||sal_nombre ";
+                               $cadena_sql.="FROM ";
+                               $cadena_sql.="gesalones x, geedificio ";
+                               $cadena_sql.="WHERE ";
+                               $cadena_sql.=" sal_id_espacio ='".$variable[0]."'";
+                               $cadena_sql.=" AND sal_estado ='A'";
+                               $cadena_sql.=" AND sal_edificio=edi_cod ";
+                               if($variable[0]<>'PAS0000000')            
+                               {
+                               $cadena_sql.=" AND sal_id_espacio NOT IN (SELECT hor_sal_id_espacio ";
+                               $cadena_sql.=" FROM achorarios ";
+                               $cadena_sql.=" INNER JOIN accursos ON cur_id=hor_id_curso ";
+                               $cadena_sql.=" INNER JOIN gesalones ON hor_sal_id_espacio=sal_id_espacio ";
+                               $cadena_sql.=" WHERE sal_sed_id = x.sal_sed_id ";
+                               $cadena_sql.=" AND cur_ape_ano = ".$variable[1]." ";
+                               $cadena_sql.=" AND cur_ape_per = ".$variable[2]." ";
+                               $cadena_sql.=" AND hor_dia_nro = ".$variable[3]." ";
+                               $cadena_sql.=" AND hor_hora = ".$variable[4].") ";
+                               }   
+                               $cadena_sql.=" ORDER BY sal_id_espacio";
+                             break;
+                             
                          case "salones":
                                  $cadena_sql=" select 
                                             sal_id_espacio COD_SALON,

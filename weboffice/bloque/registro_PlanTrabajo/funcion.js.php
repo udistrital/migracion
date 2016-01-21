@@ -34,8 +34,8 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 	    cod_actividad=$("#actividad").val();
 	    cod_vinculacion=$("#vinculacion").val();
 	    cod_sede=$("#sede").val();
-	    
-	    if(cod_salon==="" || typeof(cod_salon)==="undefined" || cod_actividad==="" || typeof(cod_actividad)==="undefined" || cod_vinculacion==="" || typeof(cod_vinculacion)==="undefined"){
+
+    if(cod_salon==="" || cod_salon==="-1" || typeof(cod_salon)==="undefined" || cod_actividad==="-1" || cod_actividad==="" || typeof(cod_actividad)==="undefined" || cod_vinculacion==="" || cod_vinculacion==="-1" || typeof(cod_vinculacion)==="undefined"){
                 alert("Por favor seleccione el Tipo de vinculación, Actividad, Sede, Edificio y Salón para registrar la actividad.");
 	   	$('html, body').animate({ scrollTop: ($(".encabezado_curso_salon").offset().top)-50 }, 500);
 		
@@ -52,7 +52,7 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 				myJson=$.parseJSON(respuesta);
 
 				if(myJson.mensaje!=""){
-				    alert(myJson.mensaje);
+				    //alert(myJson.mensaje);
 				}
                                 $("#"+(myJson.cod_hora)).removeClass("celda_tit_hor_disp");
 				$("#"+(myJson.cod_hora_nueva)).addClass("celda_tit_hor_no_disp");
@@ -81,8 +81,8 @@ $indice=$configuracion["host"].$configuracion["site"]."/index.php?";
 	    cod_actividad=$("#actividad").val();
 	    cod_vinculacion=$("#vinculacion").val();
 	    cod_sede=$("#sede").val();
-	    
-	    if(cod_salon==="" || typeof(cod_salon)==="undefined" || cod_actividad==="" || typeof(cod_actividad)==="undefined" || cod_vinculacion==="" || typeof(cod_vinculacion)==="undefined"){
+
+            if(cod_salon==="" || cod_salon==="-1" || typeof(cod_salon)==="undefined" || cod_actividad==="-1" || cod_actividad==="" || typeof(cod_actividad)==="undefined" || cod_vinculacion==="" || cod_vinculacion==="-1" || typeof(cod_vinculacion)==="undefined"){
                 alert("Por favor seleccione el Tipo de vinculación, Actividad, Sede, Edificio y Salón para registrar la actividad.");
 	   	$('html, body').animate({ scrollTop: ($(".encabezado_curso_salon").offset().top)-50 }, 500);
 		

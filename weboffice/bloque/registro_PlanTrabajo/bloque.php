@@ -63,7 +63,7 @@ class bloque_registro_PlanTrabajo extends bloque
 	function html()
 	{
 //            echo "html";
-//            var_dump($_REQUEST);
+//            var_dump($_REQUEST);exit;
 		if(!isset($_REQUEST['cancelar']))
 		{
 			if(isset($_REQUEST['opcion']))
@@ -96,6 +96,10 @@ class bloque_registro_PlanTrabajo extends bloque
                                             //Esta opcion se utiliza para enviar datos de borrado de una actividad
 						$this->funcion->borrarActividades($this->configuracion);
 						break;
+					case "copiarPlan":
+                                            //Esta opcion se utiliza para enviar datos de borrado de una actividad
+                                                $this->funcion->copiarPlanTrabajo($this->configuracion);
+						break;
                                             default :
                                                 echo "default";exit;
 				}
@@ -116,7 +120,7 @@ class bloque_registro_PlanTrabajo extends bloque
 	function action()
 	{
 //            echo "action";
-//            var_dump($_REQUEST);
+//            var_dump($_REQUEST);exit;
                 $this->funcion->revisarFormulario();
 		
 		$tipo="busqueda";
@@ -127,6 +131,18 @@ class bloque_registro_PlanTrabajo extends bloque
 		$_REQUEST["registro"]=$this->funcion->rescatarValorSesion($this->configuracion, $this->funcion->acceso_db, "identificacion");
 		if(!isset($_REQUEST['cancelar']))
 		{
+			if(isset($_REQUEST["opcion"]) && $_REQUEST["opcion"]=='copiarPlan')
+			{
+                            //a traves de esta opcion se puede copiar el plan de trabajo de un periodo
+                            $valor[10]=$_REQUEST['nivel'];
+                            $this->funcion->redireccionarInscripcion($this->configuracion, "copiarPlanTrabajo");
+			}
+			if(isset($_REQUEST["opcion"]) && $_REQUEST["opcion"]=='copiarPlanDocente')
+			{
+                            //a traves de esta opcion se puede copiar el plan de trabajo de un periodo
+                            $valor[10]=$_REQUEST['nivel'];
+                            $this->funcion->copiarPlanDocente($this->configuracion);
+			}
 			if(isset($_REQUEST["opcion"]) && !isset($_REQUEST["borrar"]) && !isset($_REQUEST["grabobs"]) && !isset($_REQUEST["modbobs"]))
 			{
                             //a traves de esta opcion se guarda el registro nuevo
@@ -157,7 +173,7 @@ class bloque_registro_PlanTrabajo extends bloque
 		else
 		{
 			$valor[10]=$_REQUEST['nivel'];
-			$this->funcion->redireccionarInscripcion($this->configuracion, "formgrado",$valor);	
+			$this->funcion->redireccionarInscripcion($this->configuracion, "registroPlanTrabajo",$valor);	
 		}
 		
 	}

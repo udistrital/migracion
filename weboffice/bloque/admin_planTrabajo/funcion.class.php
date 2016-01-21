@@ -165,10 +165,16 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 		{
 			$usuario=$this->identificacion;
 		}
-                if($_REQUEST['tipoUser']==4&&!isset($_REQUEST['periodo']))
+                
+                
+                if(isset($_REQUEST['tipoUser'])&&$_REQUEST['tipoUser']==4&&!isset($_REQUEST['periodo']))
                     {
                     $this->seleccionarPeriodo($configuracion);
                     exit;
+                    }elseif(isset($_REQUEST['tipoUser'])&&$_REQUEST['tipoUser']!=4&&!isset($_REQUEST['per']))
+                    {
+                        $this->seleccionarPeriodo($configuracion);
+                        exit;
                     }
 						
 		if($usuario=="")
@@ -176,11 +182,19 @@ class funciones_registro_PlanTrabajo extends funcionGeneral
 			echo "¡SU SESION HA EXPIRADO, INGRESE NUEVAMENTE!",
 			EXIT;
 		}
-                $periodo=  explode('-', $_REQUEST['periodo']);
-		
-		$ano=$periodo[0];
-		$per=$periodo[1];
-		
+                if (isset($_REQUEST['periodo']))
+                {
+                    $periodo=  explode('-', $_REQUEST['periodo']);
+
+                    $ano=$periodo[0];
+                    $per=$periodo[1];
+                }elseif (isset ($_REQUEST['per']))
+                    {
+                        $ano=$_REQUEST['ano'];
+                        $per=$_REQUEST['per'];
+                    }
+                
+                
 		$valor[0]=$usuario;
 		$valor[1]=$ano;
 		$valor[2]=$per;

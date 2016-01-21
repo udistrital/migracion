@@ -28,6 +28,23 @@
 	  height: 40px;
 
       }
+      
+      .legend{
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f0f9ff+0,cbebff+47,a1dbff+100;Blue+3D+%2313 */
+            background: #f0f9ff; /* Old browsers */
+            background: -moz-linear-gradient(top,  #f0f9ff 0%, #cbebff 47%, #a1dbff 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top,  #f0f9ff 0%,#cbebff 47%,#a1dbff 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,  #f0f9ff 0%,#cbebff 47%,#a1dbff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f9ff', endColorstr='#a1dbff',GradientType=0 ); /* IE6-9 */
+            padding-left: 10px;
+            padding-right: 10px;
+            border: 2px solid #DDDDDD;
+            
+      }
+      .fieldset{
+	  background: #EFF5FB;
+              /*d6dbe1;*/
+      }
  
       .celda_tit_hor_disp{
 	  background: ""; /* Old browsers */
@@ -122,6 +139,29 @@
 	  height: 100%;
 	  width: 90%;
        }
+
+        table.contentabla{
+         
+         font-size: 12;
+         font-family: "Arial", Verdana, Trebuchet MS, Helvetica, sans-serif;
+         text-align: justify;
+         border-collapse: collapse;
+         border-spacing: 0px;	
+        }
+
+        table.contentablaCopia{
+         
+         font-size: 14;
+         font-family: "Arial", Verdana, Trebuchet MS, Helvetica, sans-serif;
+         text-align: justify;
+         border-collapse: collapse;
+         border-spacing: 0px;	
+        }
+
+    .centrar {
+        text-align: center;
+        }
+
        
        h2 {
 	  background-position: center center;
