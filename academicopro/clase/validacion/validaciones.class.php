@@ -285,9 +285,6 @@ class validarInscripcion {
             {
                 $cadena_sql_proyectos=$this->cadena_sql("facultad_sec_academico",$codSecAcademico);
                 $resultado_proyectos=$this->funcionGeneral->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql_proyectos,"busqueda" );
-                
-                //var_dump($resultado_proyectos);exit;
-                
                 $tipo=0;
                 $total=count($resultado_proyectos);
                 for($i=0;$i<$total;$i++)
@@ -1629,7 +1626,66 @@ class validarInscripcion {
         return $primiparo;
     }//fin funcion validarEstudiantePrimerSemestre
 
+/**
+   * Esta funcion permite verificar si el estudiante pertenece a la facultad del decano
+   * @param <int> $codEstudiante
+   * @param <int> $codDecano
+   * @return string
+   */  
+  public function validarFacultadDecano($codEstudiante, $codDecano)
+    {
+        if(is_numeric($codEstudiante))
+        {
+          $cadena_sql=$this->cadena_sql("buscarInfoEstudiante",$codEstudiante);
+          $resultado_estudiante=$this->funcionGeneral->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"busqueda" );
 
+          if(is_array($resultado_estudiante))
+            {
+                $cadena_sql_proyectos=$this->cadena_sql("facultad_decano",$codDecano);
+                $resultado_proyectos=$this->funcionGeneral->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql_proyectos,"busqueda" );
+                $tipo=0;
+                $total=count($resultado_proyectos);
+                for($i=0;$i<$total;$i++)
+                {
+                    if($resultado_estudiante[0]['FACULTAD']==$resultado_proyectos[$i]['DEPENDENCIA'] && $resultado_proyectos[$i]['TIPO']!=9)
+                    {
+                        $tipo=1;
+                        $valor=$i;
+                    }elseif($resultado_estudiante[0]['FACULTAD']==$resultado_proyectos[$i]['DEPENDENCIA'] && $resultado_proyectos[$i]['TIPO']==9)
+                        {
+                            $fecha=date('YmdHis');
+                            if($fecha>=$resultado_proyectos[$i]['FECHA_INICIO']&&$fecha<=$resultado_proyectos[$i]['FECHA_FIN'])
+                            {
+                                $tipo=1;
+                                $valor=$i;
+                            }else
+                                {
+                                    $tipo=2;
+                                }
+                        }
+                }
+                if($tipo==1)
+                {
+                    $mensaje='ok';
+                }elseif($tipo==2)
+                    {
+                        $mensaje='La fecha de contrato no es válida';
+                    }else
+                        {
+                            $mensaje="El estudiante con código ".$codEstudiante." no pertenece a la Facultad.";
+                        }
+            }else
+                {
+                    $mensaje="El dato ingresado no corresponde a un código válido de estudiante. Digite de nuevo el código";
+                }
+        }else
+            {
+                $mensaje="El código del estudiante debe ser numerico, digite de nuevo el código";
+            }
+            return $mensaje;
+    }  
+  
+    
   /**
    * Esta funcion construye las cadenas SQL para ejecutar
    * @param <string> $tipo
@@ -1719,7 +1775,7 @@ class validarInscripcion {
         $cadena_sql.=" WHERE usuweb_codigo=".$variable['codAsistente'];
         $cadena_sql.=" AND usuweb_estado='A'";
         $cadena_sql.=" AND usuweb_tipo='".$variable['tipoUsuario']."'";
-        $cadena_sql.=" ORDER BY DEPENDENCIA,FECHA_FIN";
+        $cadena_sql.=" ORDER BY DEPENDENCIA,FECHA_FIN DESC";
     break;
     
     case 'facultad_asistente':
@@ -1747,6 +1803,20 @@ class validarInscripcion {
         $cadena_sql.=" ORDER BY DEPENDENCIA";
 	    break;
     
+    case 'facultad_decano':
+
+        $cadena_sql=" SELECT";
+        $cadena_sql.=" dec_dep_cod DEPENDENCIA,";
+        $cadena_sql.=" coalesce(TO_CHAR(dec_fecha_desde,'yyyymmddhh24miss'),'0') FECHA_INICIO,";
+        $cadena_sql.=" coalesce(TO_CHAR(dec_fecha_hasta,'yyyymmddhh24miss'),'0') FECHA_HASTA,";
+        $cadena_sql.=" 10 TIPO";
+        $cadena_sql.=" FROM acdecanos";
+        $cadena_sql.=" INNER JOIN peemp ON dec_cod=emp_cod";
+        $cadena_sql.=" WHERE dec_Estado='A'";
+        $cadena_sql.=" AND emp_nro_iden=".$variable;
+    break;
+    
+
       case 'horario_grupo':
 
         $cadena_sql=" SELECT DISTINCT hor_dia_nro DIA,";

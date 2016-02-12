@@ -90,7 +90,6 @@ class crearDocumento  extends funcionGeneral{
         */
        function consultarSeccionesDocumento($tipo){
             $cadena_sql=$this->cadena_sql("secciones_documento",$tipo);
-            echo $cadena_sql;//exit;
             return $resultado=$this->ejecutarSQL($this->configuracion, $this->accesoGestion, $cadena_sql, "busqueda");
 		    
        }
