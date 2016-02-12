@@ -42,8 +42,8 @@ class sql_registroAdicionarSolicitudUsuario extends sql {
                     $cadena_sql.="'".$variable['nombre']."',";
                     $cadena_sql.="'".$variable['apellido']."',";
                     $cadena_sql.="'".$variable['correo']."',";
-                    $cadena_sql.="'".$variable['telefono']."',";
-                    $cadena_sql.="'".$variable['celular']."',";
+                    $cadena_sql.="".$variable['telefono'].",";
+                    $cadena_sql.="".$variable['celular'].",";
                     $cadena_sql.="'".$variable['direccion']."')"; 
                 
                 break;
@@ -162,8 +162,8 @@ class sql_registroAdicionarSolicitudUsuario extends sql {
                     $cadena_sql.=" uwd_apellidos= '".$variable['apellido']."',";
                     $cadena_sql.=" uwd_tipo_iden= '".$variable['tipo_documento']."',";
                     $cadena_sql.=" uwd_correo_electronico= '".$variable['correo']."',";
-                    $cadena_sql.=" uwd_telefono= '".$variable['telefono']."',";
-                    $cadena_sql.=" uwd_celular= '".$variable['celular']."',";
+                    $cadena_sql.=" uwd_telefono= ".$variable['telefono'].",";
+                    $cadena_sql.=" uwd_celular= ".$variable['celular'].",";
                     $cadena_sql.=" uwd_direccion= '".$variable['direccion']."' ";
                     $cadena_sql.=" WHERE uwd_codigo= ".$variable['identificacion'];
                     break;

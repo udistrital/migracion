@@ -229,7 +229,12 @@ class funcion_registroAdicionarSolicitudUsuario extends funcionGeneral {
      * @return type
      */
     function adicionarDatosUsuario($datos) {
-        
+            foreach ($datos as $key => $value) {
+                if($value=='')
+                {
+                    $datos[$key]='null';
+                }
+            }        
         $cadena_sql_adicionar=$this->sql->cadena_sql("adicionar_tabla_datos_usuario",$datos);
         $resultado_adicionar=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql_adicionar,"");
         return $this->totalAfectados($this->configuracion, $this->accesoOracle);
@@ -779,7 +784,12 @@ class funcion_registroAdicionarSolicitudUsuario extends funcionGeneral {
    * @return type
    */
     function actualizarDatosBasicosUsuario($registro) {
-        
+            foreach ($registro as $key => $value) {
+                if($value=='')
+                {
+                    $registro[$key]='null';
+                }
+            }
         $cadena_sql=$this->sql->cadena_sql("actualizarDatosBasicosUsuario",$registro);
         $resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"");
         return $this->totalAfectados($this->configuracion, $this->accesoOracle);

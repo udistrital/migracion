@@ -101,8 +101,8 @@ class sql_adminConsultarSolicitudesUsuario extends sql { //@ Método que crea la
                 $cadena_sql.=" usutipo_tipo||' ('||usutipo_cod||')' usutipo_tipo";
                 $cadena_sql.=" FROM ".$this->configuracion['esquema_general']."geusutipo";
                 $cadena_sql.=" WHERE usutipo_cod!=0";
-                $cadena_sql.=" AND (usutipo_cod>=110";
-                $cadena_sql.=" AND usutipo_cod<=120";
+                $cadena_sql.=" AND (usutipo_cod>=109";
+                $cadena_sql.=" AND usutipo_cod!=121";
                 $cadena_sql.=" AND usutipo_cod!=113)";
                 $cadena_sql.=" OR usutipo_cod=68";
                 $cadena_sql.=" UNION SELECT 0, '----' FROM ".$this->configuracion['esquema_general']."geusutipo ";

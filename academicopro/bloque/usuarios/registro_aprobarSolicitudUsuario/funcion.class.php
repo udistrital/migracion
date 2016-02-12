@@ -139,7 +139,8 @@ class funcion_registroaprobarSolicitudUsuario extends funcionGeneral {
                         }
                     }
                 }
-                
+                var_dump($adicionado);
+                var_dump($adicionadoMysql);
                 if($adicionado && $adicionadoMysql){
                     $modificado=$this->actualizarEstadoSolicitud($idSolicitud,3);
                     
@@ -309,7 +310,7 @@ class funcion_registroaprobarSolicitudUsuario extends funcionGeneral {
    */ 
   function adicionarCuentaUsuario($datos) {
 
-        $cadena_sql_adicionar=$this->sql->cadena_sql("adicionar_cuenta_usuario",$datos);
+        $cadena_sql_adicionar=$this->sql->cadena_sql("adicionar_cuenta_usuario",$datos);echo "adicionar ".$cadena_sql_adicionar."<br>";
         $resultado_adicionar=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql_adicionar,"");
         return $this->totalAfectados($this->configuracion, $this->accesoOracle);
 
@@ -322,7 +323,7 @@ class funcion_registroaprobarSolicitudUsuario extends funcionGeneral {
      */
     function adicionarCuentaUsuarioMysql($datos) {
 
-        $cadena_sql=$this->sql->cadena_sql("adicionar_cuenta_usuario_mysql",$datos);
+        $cadena_sql=$this->sql->cadena_sql("adicionar_cuenta_usuario_mysql",$datos);echo "adicionar cuenta MySQL ".$cadena_sql."<br>";
         $resultado=$this->ejecutarSQL($this->configuracion, $this->accesoGestionClave, $cadena_sql,"");
         return $this->totalAfectados($this->configuracion, $this->accesoGestionClave);
 
@@ -538,7 +539,7 @@ class funcion_registroaprobarSolicitudUsuario extends funcionGeneral {
      * @return <array>
      */
     function actualizarUsuario($datos){
-        $cadena_sql=$this->sql->cadena_sql("actualizar_usuario",$datos);
+        $cadena_sql=$this->sql->cadena_sql("actualizar_usuario",$datos);echo "actualizar_usuario".$cadena_sql."<br>";
         $resultado=$this->ejecutarSQL($this->configuracion, $this->accesoOracle, $cadena_sql,"");
         return $this->totalAfectados($this->configuracion, $this->accesoOracle);
 
@@ -550,7 +551,7 @@ class funcion_registroaprobarSolicitudUsuario extends funcionGeneral {
      * @return int|boolean
      */
     function actualizarCuentaUsuarioMysql($datos){
-        $cadena_sql=$this->sql->cadena_sql("actualizar_usuario_mysql",$datos);
+        $cadena_sql=$this->sql->cadena_sql("actualizar_usuario_mysql",$datos);echo "MySQL".$cadena_sql."<br>";
         $resultado=$this->ejecutarSQL($this->configuracion, $this->accesoGestionClave, $cadena_sql,"");
         if((isset($resultado))){
             if($this->totalAfectados($this->configuracion, $this->accesoGestionClave)>0){
